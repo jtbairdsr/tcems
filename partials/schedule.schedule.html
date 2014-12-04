@@ -1,0 +1,55 @@
+<div class="container-fluid">
+	<!-- 	<div class="row">
+		<pre class="pre-scrollable">{{arrays.days | json}}</pre>
+	</div> -->
+	<div class="col-md-2">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">
+					Semesters
+				</div>
+			</div>
+			<div class="panel-body">
+				<ul class="nav nav-pills nav-justified" bs-navbar>
+					<li data-match-route="/main/schedule/schedule/this-semester">
+						<a ui-sref="main.schedule.schedule.this-semester">{{properties.currentSemester.Description}}</a>
+					</li>
+					<li data-match-route="/main/schedule/schedule/next-semester">
+						<a ui-sref="main.schedule.schedule.next-semester">{{properties.nextSemester.Description}}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">
+					Days
+				</div>
+			</div>
+			<div class="panel-body">
+				<div data-ng-repeat="day in arrays.days" class="form-group">
+					<label for="{{day.day}}">
+						<input id="{{day.day}}" name="{{day.day}}" type="checkbox" ng-model="day.visible">&#8199{{day.title}}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-info ">
+			<div class="panel-heading">
+				<div class="panel-title">
+					Positions
+				</div>
+			</div>
+			<div class="panel-body">
+				<div data-ng-repeat="position in arrays.positions" class="form-group">
+					<label for="{{position.Position}}">
+						<input id="{{position.Position}}" name="{{position.Position}}" type="checkbox" ng-model="position.visible">&#8199{{position.Position}}
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-10">
+		<div ui-view></div>
+	</div>
+</div>

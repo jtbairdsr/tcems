@@ -1,0 +1,24 @@
+<div class="modal" tabindex="-1" role="dialog" ng-controller="ShiftEditCtrl as shiftCtrl">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="$hide()">&times;</button>
+				<h4 class="modal-title">{{shift.Day}} from {{shift.StartTime | date:'hh:mm a'}} to {{shift.EndTime | date:'hh:mm a'}}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						Position: {{shift.Position.Position}}
+						<br>Shift Category: {{shift.ShiftGroup.Description}}
+						<br>Slots: {{shift.Slots}}
+					</div>
+					<div class="warning col-md-6">Are you sure you want to delete this shift?</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" ng-click="$hide()">No</button>
+				<button type="button" class="btn btn-danger" ng-click="shiftCtrl.deleteShift(shift.Id); $hide()">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>

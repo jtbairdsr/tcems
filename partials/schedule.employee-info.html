@@ -1,0 +1,10 @@
+<div class="popover">
+	<div class="arrow"></div>
+	<h4 class="popover-title">Employee Information:
+		<small>{{employee.FirstName}} {{employee.LastName}}</small>
+	</h4>
+	<div class="popover-content">
+		Phone:<br>{{employee.PhoneNumber | tel}}
+		<br>Email:<br>{{employee.EmailAddress}}
+	</div>
+</div>

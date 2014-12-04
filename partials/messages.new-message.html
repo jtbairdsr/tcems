@@ -1,0 +1,71 @@
+<div class="aside right am-fade-and-slide-right" tabindex="-1" role="dialog" style="display: block; width: 450px;" data-ng-controller="MessageCtrl as ctrl">
+	<div class="aside-dialog">
+		<div class="aside-content">
+			<div class="aside-header">
+				<button type="button" class="close" ng-click="$hide()">×</button>
+				<h4 class="aside-title">New Message</h4>
+			</div>
+			<div class="aside-body">
+				<form novalidate accept-charset="utf-8" name="newShiftForm" role="form">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="Day">To:</label>
+								<select ui-select2="{ placeholder: 'Select employee/s' }" name="Day" multiple ng-model="ctrl.toList" ng-required="true">
+									<option value="all">All</option>
+									<option data-ng-repeat="employee in arrays.employees" value="{{employee.Id}}">{{employee.PreferredName}} {{employee.LastName}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row" data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE' || properties.currentUser.employeeInfo.Admin">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="Day">From:</label>
+								<select ui-select2="{ placeholder: 'Select employee' }" name="Day" ng-model="ctrl.newMessage.FromId" ng-required="true">
+									<option data-ng-repeat="employee in arrays.employees | filter:{Position:'FTE'}" value="{{employee.Id}}">{{employee.PreferredName}} {{employee.LastName}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="Day">Subject:</label>
+								<input type="text" data-ng-model="ctrl.newMessage.Subject" class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="Day">Message:</label>
+								<textarea data-ng-model="ctrl.newMessage.Message" class="form-control" rows="10"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="input-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+								<div class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>Expires:
+								</div>
+								<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="ctrl.newMessage.ExpDate">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label class="pull-left" for="manditory">
+								Mandatory:&#8199
+							</label>
+							<input id="manditory" class="pull-left" type="checkbox" data-ng-model="ctrl.newMessage.Manditory" class="form-control">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="aside-footer">
+				<button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+				<button type="button" class="btn btn-success" ng-click="ctrl.sendNewMessage();$hide()">Send</button>
+			</div>
+		</div>
+	</div>
+</div>

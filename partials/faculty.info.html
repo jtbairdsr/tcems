@@ -1,0 +1,103 @@
+<div class="container-fluid">
+	<div class="row top-buffer">
+		<div class="col-lg-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="panel-title">Employee Testing Restrictions</h4>
+				</div>
+				<div class="panel-body">
+					<!-- <pre class="pre-scrollable">
+						{{properties.currentUser.FacultyTestingInfo | json}}
+					</pre> -->
+					<label>Stipulation:</label>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="btn-group btn-group-justified">
+								<label class="btn btn-default" data-ng-class="{active:properties.currentUser.FacultyTestingInfo.Stipulation === 'No stipulation.'}" data-ng-click="properties.currentUser.FacultyTestingInfo.Stipulation = 'No stipulation.'">
+									No stipulation.
+								</label>
+								<label class="btn btn-default" data-ng-class="{active:properties.currentUser.FacultyTestingInfo.Stipulation === 'Take before you work.'}" data-ng-click="properties.currentUser.FacultyTestingInfo.Stipulation = 'Take before you work.'">
+									Take before you work.
+								</label>
+								<label class="btn btn-default" data-ng-class="{active:properties.currentUser.FacultyTestingInfo.Stipulation === 'Take before it opens.'}" data-ng-click="properties.currentUser.FacultyTestingInfo.Stipulation = 'Take before it opens.'">
+									Take before it opens.
+								</label>
+								<label class="btn btn-default" data-ng-class="{active:properties.currentUser.FacultyTestingInfo.Stipulation === 'Talk to the Professor.'}" data-ng-click="properties.currentUser.FacultyTestingInfo.Stipulation = 'Talk to the Professor.'">
+									Talk to the Professor.
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="row top-buffer">
+						<div class="col-lg-12">
+							<label>Other Instructions:</label>
+							<textarea class="form-control" rows="2" data-ng-model="properties.currentUser.FacultyTestingInfo.Other"></textarea>
+						</div>
+					</div>
+					<div class="row top-buffer">
+						<div class="col-lg-12">
+							<button type="button" data-ng-hide="properties.newUser" data-ng-click="ctrl.updateFacultyTestingInfo()" class="btn btn-success pull-right">Update</button>
+							<button type="button" data-ng-show="properties.newUser" data-ng-click="ctrl.addFacultyTestingInfo()" class="btn btn-success pull-right">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="panel-title">Personal Information</h4>
+				</div>
+				<div class="panel-body">
+					<div class="row top-buffer">
+						<div class="col-lg-6">
+							<div class="input-group">
+								<span class="input-group-addon">First Name</span>
+								<input type="text" class="form-control" data-ng-model="properties.currentUser.employeeInfo.FirstName" disabled>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="input-group">
+								<span class="input-group-addon">Last Name</span>
+								<input type="text" class="form-control" data-ng-model="properties.currentUser.employeeInfo.LastName">
+							</div>
+						</div>
+					</div>
+					<div class="row top-buffer">
+						<div class="col-lg-6">
+							<div class="input-group">
+								<span class="input-group-addon">Email Address</span>
+								<input type="text" class="form-control" data-ng-model="properties.currentUser.employeeInfo.EmailAddress" disabled>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="input-group">
+								<span class="input-group-addon">Office Number</span>
+								<input type="text" class="form-control" data-ng-model="properties.currentUser.employeeInfo.OfficeAddress">
+							</div>
+						</div>
+					</div>
+					<div class="row top-buffer">
+						<div class="col-lg-6">
+							<div class="input-group">
+								<span class="input-group-addon">Office Phone</span>
+								<input type="text" class="form-control" data-ng-model="properties.currentUser.employeeInfo.OfficePhone">
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="input-group">
+								<span class="input-group-addon">Other Phone</span>
+								<input type="text" class="form-control" data-ng-model="properties.currentUser.employeeInfo.OtherPhone">
+							</div>
+						</div>
+					</div>
+					<div class="row top-buffer">
+						<div class="col-lg-12">
+							<button type="button" data-ng-click="ctrl.updateProfessor()" class="btn btn-success pull-right">Update</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

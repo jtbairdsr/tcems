@@ -1,0 +1,33 @@
+<div data-ng-app="Scheduler">
+	<div class="container-fluid">
+		<div class="row hidden-xs hidden-md hidden-sm">
+			<ul class="nav nav-pills nav-justified" bs-navbar>
+				<li data-match-route="/main/directory/gridView">
+					<a ui-sref="main.directory.gridView">Grid View</a>
+				</li>
+				<li data-match-route="/main/directory/listView">
+					<a ui-sref="main.directory.listView">List View</a>
+				</li>
+			</ul>
+		</div>
+		<div class="row">
+			<form novalidate accept-charset="utf-8" role="form" class="navbar-form">
+				<div class="input-group">
+					<div class="input-group-addon">
+						<span class="glyphicon glyphicon-search"></span>
+					</div>
+					<input id="employeeSearch" class="form-control" type="text" ng-model="employeeSearch">
+				</div>
+				<button data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE' || properties.currentUser.employeeInfo.Admin" class="btn btn-success" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/directory.employee-add.html" bs-modal="modal">
+				<span class="glyphicon glyphicon-plus"></span>
+					Add Employee
+				</button>
+				<div data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE' || properties.currentUser.employeeInfo.Admin" class="form-group">
+					<input type="checkbox" id="inactiveEmployees" data-ng-model="inactiveEmployees">
+					<label for="inactiveEmployees">Show Inactive Employees</label>
+				</div>
+			</form>
+		</div>
+		<div ui-view></div>
+	</div>
+</div>

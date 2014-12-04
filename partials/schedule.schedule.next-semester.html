@@ -1,0 +1,30 @@
+<div class="row text-center panel panel-primary" data-ng-show="day.visible" data-ng-repeat="day in arrays.nextDays">
+    <div class="panel-heading">
+        <h4 class="panel-title">{{day.title}}</h4>
+    </div>
+    <div data-ng-show="primaryPosition.visible" data-ng-repeat="primaryPosition in arrays.positions" class="panel panel-info">
+        <div class="panel-heading">
+            {{primaryPosition.Position}}
+        </div>
+        <div class="panel-body">
+            <div class='list-group' data-ng-style="{'width': (100/filtered.length + '%'), 'float': 'left'}" data-ng-repeat="shift in filtered = (day.shifts | filter:{position: primaryPosition.Position}) | orderBy:'startTime'">
+                <!--  -->
+                <a class="list-group-item list-group-item-info">
+							{{shift.startTime | date:'h:mm a'}} to {{shift.endTime | date:'h:mm a'}}
+						</a>
+                <a href="" class="list-group-item list-group-item-success" data-ng-hide="employee.Id === 0" data-ng-repeat="employee in shift.employees" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.remove-employee.html" bs-modal="modal">
+                    <div>
+                        <img data-ng-src="{{employee.Picture}}" class="list-item img-circle">
+                    </div>
+                    {{employee.FirstName}} {{employee.LastName}}
+                </a>
+                <a href="" class="list-group-item list-group-item-danger" data-ng-show="employee.Id === 0" data-ng-repeat="employee in shift.employees" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.add-employee.html" bs-modal="modal">
+                    <div>
+                        <img data-ng-src="{{employee.Picture}}" class="list-item img-circle">
+                    </div>
+                    {{employee.FirstName}} {{employee.LastName}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

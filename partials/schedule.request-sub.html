@@ -1,0 +1,27 @@
+<div class="modal" tabindex="-1" role="dialog" ng-controller="MyScheduleCtrl as ctrl">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="$hide()">&times;</button>
+				<h4 data-ng-hide="shift.subRequested" class="modal-title">Are you sure you want to request a sub for this shift?</h4>
+				<h4 class="modal-title" data-ng-show="shift.subRequested">Are you sure you want to cancel this sub request?</h4>
+			</div>
+			<div class="modal-body">
+				<div class="warning">{{day.date | date:'MMM d'}}
+					<br>{{shift.startTime | date:'hh:mm a'}} to {{shift.endTime | date:'hh:mm a'}}</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" ng-click="$hide()">No</button>
+				<div class="pull-right" data-ng-hide="shift.isSubShift">
+					<button type="button" data-ng-show="shift.subRequested" class="btn btn-success" ng-click="ctrl.cancelSubRequest(); $hide()">Yes</button>
+					<button type="button" data-ng-hide="shift.subRequested" class="btn btn-success" ng-click="ctrl.requestSub(shift.Id, day.date); $hide()">Yes</button>
+				</div>
+				<div class="pull-right" data-ng-show="shift.isSubShift">
+					<button data-ng-show="shift.subRequested" type="button" class="btn btn-success" ng-click="ctrl.cancelSubOfSubRequest(shift.subShiftId, shift.subOfSubShiftId); $hide()">Yes</button>
+					<button data-ng-hide="shift.subRequested" type="button" class="btn btn-success" data-ng-click="ctrl.requestSubOfSub(shift.Id, day.date); $hide()">Yes</button>
+				</div>
+				<!-- <button type="button" data-ng-click="ctrl.testFunction()">TEST</button> -->
+			</div>
+		</div>
+	</div>
+</div>

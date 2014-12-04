@@ -1,0 +1,26 @@
+<div data-ng-app="Utilities" class="container">
+	<div class="row" data-ng-controller="UtilitiesCtrl as ctrl">
+		<div class="col-md-6 col-sm-6">
+			<button class="btn btn-default center-block" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/utilities.migrate.html" bs-modal="modal">
+				<span class="glyphicon glyphicon-transfer"></span>Migrate Employees from CMS
+			</button>
+			<button class="btn btn-default center-block" data-ng-click="ctrl.migrateProfs()">
+				<span class="glyphicon glyphicon-transfer"></span>Migrate Faculty Info from CMS
+			</button>
+			<button type="button" class="btn btn-default center-block" data-ng-click="ctrl.moveShiftTimes()">
+				<span class="glyphicon glyphicon-time"></span>Move Shift Times to temp Columns
+			</button>
+		</div>
+		<div class="col-sm-6 col-md-6">
+			<button type="button" class="btn btn-default center-block" data-ng-click="ctrl.getPictures()">
+				<span class="glyphicon glyphicon-import"></span>Get Missing Pictures
+			</button>
+			<button type="button" class="btn btn-default center-block" data-ng-click="ctrl.fixPictureUrls()">
+				<span class="glyphicon glyphicon-import"></span>Fix Pictures
+			</button>
+			<button type="button" class="btn btn-default center-block" data-ng-click="ctrl.fixShiftTimes()">
+				<span class="glyphicon glyphicon-time"></span>Move Shift Times back
+			</button>
+		</div>
+	</div>
+</div>

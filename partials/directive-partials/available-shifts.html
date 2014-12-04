@@ -1,0 +1,64 @@
+<div ng-repeat="group in arrays.shiftGroups" class="col-md-4 table-responsive">
+	<table class="table table-hover">
+		<caption>
+			{{group.Description}}
+		</caption>
+		<tr>
+			<th>
+				<a href="" ng-click="predicate = 'Day'">Day</a>
+				<a href="" ng-show="predicate === 'Day' || predicate === '-Day'" ng-click="predicate = (predicate === 'Day') ? '-Day' : 'Day'">
+					<span class="glyphicon glyphicon-sort"></span>
+				</a>
+			</th>
+			<th>
+				<a href="" ng-click="predicate = 'StartTime.Hour'">Start Time</a>
+				<a href="" ng-show="predicate === 'StartTime.Hour' || predicate === '-StartTime.Hour'" ng-click="predicate = (predicate === 'StartTime.Hour') ? '-StartTime.Hour' : 'StartTime.Hour'">
+					<span class="glyphicon glyphicon-sort"></span>
+				</a>
+			</th>
+			<th>
+				<a href="" ng-click="predicate = 'EndTime.Hour'">End Time</a>
+				<a href="" ng-show="predicate === 'EndTime.Hour' || predicate === '-EndTime.Hour'" ng-click="predicate = (predicate === 'EndTime.Hour') ? '-EndTime.Hour' : 'EndTime.Hour'">
+					<span class="glyphicon glyphicon-sort"></span>
+				</a>
+			</th>
+			<th>
+				<a href="" ng-click="predicate = 'Slots'">Slots</a>
+				<a href="" ng-show="predicate === 'Slots' || predicate === '-Slots'" ng-click="predicate = (predicate === 'Slots') ? '-Slots' : 'Slots'">
+					<span class="glyphicon glyphicon-sort"></span>
+				</a>
+			</th>
+			<th ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'">
+				<a href="">Add</a>
+			</th>
+			<th ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE' || properties.currentUser.employeeInfo.Position.Position === 'HR' || properties.currentUser.employeeInfo.Position.Position === 'Admin'">
+				<a href="">Edit</a>
+			</th>
+		</tr>
+		<tbody>
+			<tr class="" ng-repeat="shift in arrays.shifts | orderBy:predicate" ng-show="shift.ShiftGroup.Description === group.Description && shift.Slots > 0">
+				<td>{{shift.Day}}</td>
+				<td>{{shift.StartTime | date:'hh:mm a'}}</td>
+				<td>{{shift.EndTime | date:'hh:mm a'}}</td>
+				<td>{{shift.Slots}}</td>
+				<td ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'">
+					<div class="btn-group btn-group-sm">
+						<button class="btn btn-default" ng-click="shift.updateShift(shift.ID)">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</div>
+				</td>
+				<td ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE' || properties.currentUser.employeeInfo.Position.Position === 'HR' || properties.currentUser.employeeInfo.Position.Position === 'Admin'">
+					<div class="btn-group btn-group-sm">
+						<button class="btn btn-default" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/shift-edit.html" bs-modal="modal">
+							<span class="glyphicon glyphicon-edit"></span>
+						</button>
+						<button class="btn btn-default" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/shift-delete.html" bs-modal="modal">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
