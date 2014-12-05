@@ -1,0 +1,76 @@
+<div class="aside right am-fade-and-slide-right" tabindex="-1" role="dialog" ng-controller="ShiftCreationCtrl as shiftCtrl" style="display: block;">
+	<div class="aside-dialog">
+		<div class="aside-content">
+			<div class="aside-header">
+				<button type="button" class="close" ng-click="$hide()">×</button>
+				<h4 class="aside-title">Add Shift</h4>
+			</div>
+			<div class="aside-body">
+				<form novalidate accept-charset="utf-8" name="newShiftForm" role="form">
+					<div class="form-group">
+						<label for="Day">Days</label>
+						<select ui-select2="{ placeholder: 'Select day/s' }" name="Day" multiple ng-model="newShift.temp" ng-required="true">
+							<option value="Monday">Monday</option>
+							<option value="Tuesday">Tuesday</option>
+							<option value="Wednesday">Wednesday</option>
+							<option value="Thursday">Thursday</option>
+							<option value="Friday">Friday</option>
+							<option value="Saturday">Saturday</option>
+						</select>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-4">
+
+							<div class="form-group" ng-class="{'has-error': timepickerForm.time.$invalid}">
+								<label class="control-label">
+									<span class="glyphicon glyphicon-time"></span> Start Time
+								</label>
+								<input type="text" class="form-control" size="8" ng-model="newShift.StartTime" name="time" bs-timepicker>
+							</div>
+						</div>
+						<div class="form-group col-md-4">
+
+							<div class="form-group" ng-class="{'has-error': timepickerForm.time.$invalid}">
+								<label class="control-label">
+									<span class="glyphicon glyphicon-time"></span> EndTime
+								</label>
+								<input type="text" class="form-control" size="8" ng-model="newShift.EndTime" name="time" bs-timepicker>
+							</div>
+						</div>
+						<div class="form-group col-md-4">
+							<label for="slots">Slots</label>
+							<input id="slots" name="slots" type="text" class="form-control" placeholder="Enter number" ng-model="newShift.Slots" required>
+						</div>
+					</div>
+					<!-- <label>Position and Group</label> -->
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="position">Position</label>
+							<select id="position" name="position" ui-select2="{ placeholder: 'Select position' }" ng-model="newShift.PositionId" required>
+								<option value="{{position.ID}}" ng-repeat="position in arrays.positions">{{position.Position}}</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="group">Shift Category</label>
+							<select id="group" name="day" ui-select2="{ placeholder: 'Select category' }" ng-model="newShift.ShiftGroupId" required>
+								<option value="{{group.ID}}" ng-repeat="group in arrays.shiftGroups">{{group.Description}}</option>
+							</select>
+						</div>
+					</div>
+				</form>
+<!-- 				<pre>
+					Errors: {{errors.length}}
+
+					{{errors|json}}
+
+					{{newShift | json}}
+
+				</pre> -->
+			</div>
+			<div class="aside-footer">
+				<button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+				<button type="button" class="btn btn-success" ng-click="newShiftForm.$valid && shiftCtrl.addShift(); $hide()">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>

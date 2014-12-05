@@ -1,0 +1,55 @@
+<div data-ng-app="Scheduler">
+	<div>
+		<div>
+			<ul class="nav nav-pillsCustom nav-justified" bs-navbar>
+				<li data-match-route="/main/schedule/today" data-ng-show="properties.extendedPrivledges">
+					<a ui-sref="main.schedule.today" data-ng-click="ctrlProperties.showAddShift = false">Today</a>
+				</li>
+				<li data-match-route="/main/schedule/schedule" data-ng-show="properties.extendedPrivledges">
+					<a ui-sref="main.schedule.schedule.this-semester">Schedule</a>
+				</li>
+				<li data-match-route="/main/schedule/availability" data-ng-show="properties.extendedPrivledges">
+					<a ui-sref="main.schedule.availability">Availability</a>
+				</li>
+				<li data-match-route="/main/schedule/subShifts">
+					<a ui-sref="main.schedule.subShifts">Sub Shifts
+						<button 
+							type="button" 
+							class="btn-xs pull-right hidden-sm"
+							data-ng-show="ctrlProperties.showAddSubShift" 
+							data-animation="am-fade-and-scale" 
+							data-placement="center" 
+							bs-modal="modal" 
+							data-template="partials/schedule.FTE-subshift.html"
+						>
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</a>
+				</li>
+				<li data-match-route="/main/schedule/availableShifts">
+					<a ui-sref="main.schedule.availableShifts">Available Shifts
+						<button
+							type="button"
+							class="btn-xs pull-right hidden-sm"
+							data-ng-show="ctrlProperties.showAddShift"
+							bs-aside="aside"
+							data-template="partials/schedule.shift-view.html"
+							data-placement="right"
+							data-animation="am-fade-and-slide-right"
+							data-container="body"
+						>
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</a>
+				</li>
+				<li data-match-route="/main/schedule/mySchedule" data-ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'">
+					<a ui-sref="main.schedule.mySchedule">My Schedule</a>
+				</li>
+				<li data-match-route="/main/schedule/myAvailability" data-ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'">
+					<a ui-sref="main.schedule.myAvailability">My Availability</a>
+				</li>
+			</ul>
+		</div>
+		<div ui-view></div>
+	</div>
+</div>

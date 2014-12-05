@@ -1,0 +1,36 @@
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th data-ng-repeat="day in arrays.weeks[0].days" class="text-center" data-ng-class="{ weekend: day.weekend }">
+				<div>
+					{{day.date | date:'EEEE'}}
+				</div>
+			</th>
+		</tr>
+	</thead>
+	<tbody data-ng-repeat="week in arrays.weeks">
+		<tr>
+			<td data-ng-repeat="day in week.days" class="text-center my-schedule" data-ng-class="{ weekend: day.weekend }">
+				<span class="pull-right">
+					{{day.date | date:'d'}}
+				</span>
+				<div class="btn-group-vertical my-schedule">
+					<button data-ng-hide="shift.subCovered || shift.isSubShift" data-ng-disabled="day.past"
+					data-ng-class="{ subRequested: shift.subRequested, week2: week.title === 'Next Week', week3: week.title === 'The Week After', subCovered: day.past }"
+					class="btn my-schedule" data-ng-repeat="shift in day.myShifts" data-animation="am-fade-and-scale"
+					data-placement="center" data-template="partials/schedule.request-sub.html" bs-modal="modal">
+						{{shift.startTime | date:'hh:mm a'}} - {{shift.endTime | date:'hh:mm a'}}
+					</button>
+					<button data-ng-show="shift.isSubShift" data-ng-disabled="day.past" data-ng-class="{ subRequested: shift.subRequested, week2: week.title === 'Week 2', week3: week.title === 'Week 3', subCovered: day.past }"
+					class="btn my-schedule" data-ng-repeat="shift in day.myShifts" data-animation="am-fade-and-scale"
+					data-placement="center" data-template="partials/schedule.request-sub.html" bs-modal="modal">
+						{{shift.startTime | date:'hh:mm a'}} - {{shift.endTime | date:'hh:mm a'}}
+					</button>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<!-- <pre class="pre-scrollable">{{arrays.weeks | json}}</pre> -->
+
+<!-- data-ng-class="schedule.isToday(day.date)" -->

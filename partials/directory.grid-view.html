@@ -1,0 +1,22 @@
+<div class="row">
+	<div data-ng-hide="(!inactiveEmployees && !employee.Active) || employee.Position.Position === 'FTE'" data-ng-repeat="employee in arrays.directoryEmployees | orderBy:properties.predicate | filter:employeeSearch" class="col-sm-4 col-md-2 text-center well" style="height: 300px">
+		<img data-ng-src="{{employee.Picture}}" fallback-src="/media/missing.png" class="img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+		<div>
+			<b>
+					<span data-ng-hide="employee.PreferredName === undefined">{{employee.PreferredName}}</span>
+					<span data-ng-show="employee.PreferredName === undefined">{{employee.FirstName}}</span>
+					{{employee.LastName}}
+				</b>
+			<br>Position: {{employee.Position.Position}}
+			<br>Phone: {{employee.PhoneNumber | tel}}
+			<br>Email: {{employee.EmailAddress}}
+		</div>
+		<div data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE'">
+			INumber: {{employee.INumber}}
+			<br>Track: {{employee.Track.Description}}
+		</div>
+		<button data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE'  || properties.currentUser.employeeInfo.Admin" class="btn btn-link" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/directory.employee-edit.html" bs-modal="modal">
+			<span class="glyphicon glyphicon-edit"></span>
+		</button>
+	</div>
+</div>

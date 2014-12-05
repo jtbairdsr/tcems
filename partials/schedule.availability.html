@@ -1,0 +1,74 @@
+<div class="container-fluid">
+	<div class="col-md-2">
+		<div class="panel panel-info ">
+			<div class="panel-heading">Days</div>
+			<div class="panel-body">
+				<div data-ng-repeat="day in arrays.allAvailabilityDays" class="form-group">
+					<label for="{{day.day}}">
+						<input id="{{day.day}}" name="{{day.day}}" type="checkbox" ng-model="day.visible">&#8199{{day.title}}
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-info ">
+			<div class="panel-heading">Positions</div>
+			<div class="panel-body">
+				<div data-ng-repeat="position in arrays.positions" class="form-group">
+					<label for="{{position.Position}}">
+						<input id="{{position.Position}}" name="{{position.Position}}" type="checkbox" ng-model="position.visible">&#8199{{position.Position}}
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-10 text-center">
+		<div class="panel panel-primary" ng-model="ctrl.activePanel">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					Employees that haven't submitted there availability.
+					<span class="glyphicon glyphicon-collapse-down pull-right" data-ng-click="toggle = true" data-ng-hide="toggle"></span>
+					<span class="glyphicon glyphicon-collapse-up pull-right" data-ng-click="toggle = false" data-ng-show="toggle"></span>
+				</h4>
+			</div>
+			<div class="panel-collapse" data-ng-hide="toggle">
+				<div class="panel-body">
+					<div data-ng-repeat="employee in ctrl.allActiveEmployees | filter:{ hasSubmittedAvailability: false } | orderBy:'PreferredName'" class="col-sm-4 col-md-2 text-center well" style="height: 210px">
+						<img data-ng-src="{{employee.Picture}}" fallback-src="/media/missing.png" class="img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+						<div>
+							<b>{{employee.PreferredName}} {{employee.LastName}}</b>
+							<br>Phone: {{employee.PhoneNumber | tel}}
+							<br>Email: {{employee.EmailAddress}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-primary" data-ng-repeat="day in arrays.allAvailabilityDays" data-ng-show="day.visible">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					{{day.title}}
+				</h4>
+			</div>
+			<div class="panel-body no-padding">
+				<div data-ng-show="primaryPosition.visible" data-ng-repeat="primaryPosition in arrays.positions" class="panel panel-info no-margin">
+					<div class="panel-heading">
+						{{primaryPosition.Position}}
+					</div>
+					<div class="panel-body no-padding">
+						<div class='list-group' data-ng-style="{'width': (100/filtered.length + '%'), 'float': 'left'}" data-ng-repeat="shift in filtered = (day.shifts | filter:{Position: primaryPosition.Position}) | orderBy:'StartTime'">
+							<div class="list-group-item list-group-item-info">
+								{{shift.StartTime | date:'h:mm a'}} to {{shift.EndTime | date:'h:mm a'}}
+							</div>
+							<div class="list-group-item list-group-item-success" data-ng-repeat="employee in shift.Employees">
+								<div>
+									<img data-ng-src="{{employee.Picture}}" class="list-item img-circle" data-template="partials/schedule.employee-info.html" data-animation="am-flip-x" bs-popover>
+								</div>
+								{{employee.FirstName}} {{employee.LastName}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

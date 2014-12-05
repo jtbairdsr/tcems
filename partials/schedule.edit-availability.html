@@ -1,0 +1,37 @@
+<div class="modal" tabindex="-1" role="dialog" ng-controller="MyAvailabilityCtrl as availCtrl">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="$hide()">&times;</button>
+				<h4 class="modal-title">Edit Availability</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="form-group" ng-class="{'has-error': timepickerForm.time.$invalid}">
+						<label class="control-label col-md-3">
+							<span class="glyphicon glyphicon-time"></span>Start Time
+						</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" size="8" ng-model="availCtrl.newAvailability.StartTime" name="time" bs-timepicker>
+						</div>
+						<label class="control-label col-md-3">
+							<span class="glyphicon glyphicon-time"></span>End Time
+						</label>
+						<div class="col-md-3">
+							<input type="text" class="form-control" size="8" ng-model="availCtrl.newAvailability.EndTime" name="time" bs-timepicker>
+						</div>
+					</div>
+				</div>
+				<div class="row top-buffer">
+					<div class="col-md-12">
+						<button type="button" class="btn btn-danger block-center" data-ng-click="availCtrl.removeAvailability()">Remove Availability</button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+				<button type="button" class="btn btn-success" ng-click="availCtrl.updateAvailability(); $hide()">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>

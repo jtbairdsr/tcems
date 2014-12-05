@@ -1,0 +1,123 @@
+<div class="aside right am-fade-and-slide-right" tabindex="-1" role="dialog" ng-controller="EmployeeEdit as empEditCtrl" style="display: block; width: 450px;">
+	<div class="aside-dialog">
+		<div class="aside-content">
+			<div class="aside-header">
+				<button type="button" class="close" ng-click="$hide()">×</button>
+				<img data-ng-src="{{properties.currentUser.employeeInfo.Picture}}" fallback-src="/media/missing.png" class="img-responsive img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+				<h4 class="aside-title">{{properties.currentUser.employeeInfo.PreferredName}} {{properties.currentUser.employeeInfo.LastName}}</h4>
+			</div>
+			<ul class="nav nav-pills" bs-navbar>
+				<li data-ng-class="{ active: empEditCtrl.tab === 1 }">
+					<a href="" data-ng-click="empEditCtrl.tab = 1">Profile</a>
+				</li>
+				<li data-ng-class="{ active: empEditCtrl.tab === 2 }">
+					<a href="" data-ng-click="empEditCtrl.tab = 2">Faculty Testing Info</a>
+				</li>
+			</ul>
+			<div class="aside-body" data-ng-show="empEditCtrl.tab === 1">
+				<form role="form" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-md-3 control-label">First:</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control" disabled="true" data-ng-model="properties.currentUser.employeeInfo.FirstName">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Preferred:</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control" data-ng-model="updatedEmployee.PreferredName">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Last:</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control" data-ng-model="updatedEmployee.LastName">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Phone:</label>
+						<div class="col-md-9">
+							<input type="text" class="form-control" data-ng-model="updatedEmployee.PhoneNumber">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Position:</label>
+						<div class="col-md-9">
+							<input class="form-control" type="text" disabled="true" ng-model="properties.currentUser.employeeInfo.Position.Position">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Area:</label>
+						<div class="col-md-9">
+							<input class="form-control" type="text" disabled="true" ng-model="properties.currentUser.employeeInfo.Area.Area">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">Track:</label>
+						<div class="col-md-9">
+							<select class="form-control" data-ng-options="track.Id as track.Description for track in arrays.tracks" ng-model="updatedEmployee.TrackId"></select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="activeCheckbox" class="col-md-3 control-label">Active:</label>
+						<div class="col-md-9">
+							<input id="activeCheckbox" type="checkbox" disabled="true" ng-model="updatedEmployee.Active">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="readerCheckbox">Reader:</label>
+						<div class="col-md-9">
+							<input id="readerCheckbox" type="checkbox" ng-model="updatedEmployee.Reader">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="aside-footer" data-ng-show="empEditCtrl.tab === 1">
+				<button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+				<button type="button" class="btn btn-success" ng-click="empEditCtrl.updateEmployee(); $hide()">Submit</button>
+			</div>
+			<div class="aside-body" data-ng-show="empEditCtrl.tab === 2">
+				<form role="form" class="navbar-form">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class="glyphicon glyphicon-search"></span>
+						</div>
+						<input class="form-control" type="search" ng-model="professorSearch">
+					</div>
+				</form>
+				<div class="scrollable">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Name</th>
+								<th>Stipulation</th>
+								<!-- <th>Other Instructions</th> -->
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-ng-repeat="professor in arrays.professors | filter: professorSearch | orderBy: 'Professor.LastName'">
+								<td>
+									<img data-ng-src="{{professor.Professor.Picture}}" fallback-src="/media/missing.png" class="pull-right img-circle" data-ng-style="{'max-width': '40px', 'max-height': '56.67px'}">
+								</td>
+								<td>
+									<button type="button" class="btn btn-link" data-template="partials/profile.professor-info.html" data-animation="am-flip-x" bs-popover>
+										{{professor.Professor.FirstName}} {{professor.Professor.LastName}}
+									</button>
+								</td>
+								<td>{{professor.Stipulation}}</td>
+								<!-- <td>{{professor.Other}}</td> -->
+							</tr>
+							<tr>
+								<th colspan="4">If you haven't found your Professor's Instructions than they haven't contacted us yet.</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="aside-footer" data-ng-show="empEditCtrl.tab === 2">
+				<button type="button" class="btn btn-default" ng-click="$hide()">Done</button>
+			</div>
+		</div>
+	</div>
+</div>
