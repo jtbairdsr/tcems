@@ -1,8 +1,8 @@
 /* 
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
- * @Last Modified 2014-12-04
- * @Last Modified time: 2014-12-04 16:41:18
+ * @Last Modified 2014-12-05
+ * @Last Modified time: 2014-12-05 19:07:15
  */
 /* global angular, _ */
 
@@ -811,12 +811,12 @@
 					}
 
 					function newShift(subShift, shift) {
+						console.log(JSON.stringify(dataService.arrays.employees, null, '\t'));
 						var requester = _.find($scope.arrays.employees, function(employee) {
 							return employee.Id === subShift.Requester.Id;
 						});
-						var position = _.find($scope.arrays.positions, function(position){
-							return position.Id === shift.Position.Id;
-						});
+						console.log(subShift.Requester.Id);
+						console.log(JSON.stringify(requester, null, '\t'));
 						if (requester !== undefined &&
 							(requester.Position.Position === 'FTE' ||
 								requester.Position.Position === 'HR')) {
@@ -834,7 +834,7 @@
 							Id: shift.Id,
 							startTime: shift.StartTime,
 							endTime: shift.EndTime,
-							position: position,
+							position: shift.Position,
 							// subShift Info
 							subShiftId: subShift.Id,
 							requester: subShift.Requester,
