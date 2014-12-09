@@ -1,0 +1,25 @@
+{
+  "name": "jpillora/xdomain",
+  "version": "0.6.12",
+  "main": "dist/0.6/xdomain.js",
+  "license": "MIT",
+  "ignore": [
+    "*",
+    "!bower.json",
+    "!dist/0.6/xdomain.js",
+    "!dist/0.6/xdomain.min.js"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "homepage": "https://github.com/jpillora/xdomain",
+  "_release": "0.6.12",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.6.12",
+    "commit": "0afa12985d3e9c2036ce25127c1dd62428dfb99c"
+  },
+  "_source": "git://github.com/jpillora/xdomain.git",
+  "_target": "~0.6.12",
+  "_originalSource": "xdomain",
+  "_direct": true
+}
