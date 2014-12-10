@@ -32,7 +32,7 @@
 						<span class="pull-right">{{day.date | date:'d'}}</span>
 						<br>
 						<div class="btn-group-vertical my-schedule">
-							<button class="btn my-schedule" data-ng-repeat="shift in day.subShifts | orderBy:'StartTime'" data-ng-disabled="day.past" data-ng-hide="shift.hide || !shift.position.visible" data-ng-class="{taken: shift.taken}" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.take-sub-shift.html" bs-modal="modal">
+							<button class="btn my-schedule" data-ng-repeat="shift in day.subShifts | orderBy:'startTime'" data-ng-disabled="day.past" data-ng-hide="shift.hide || !shift.position.visible" data-ng-class="{taken: shift.taken}" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.take-sub-shift.html" bs-modal="modal">
 								{{shift.startTime | date:'h:mm a'}} - {{shift.endTime | date:'h:mm a'}}
 							</button>
 						</div>
