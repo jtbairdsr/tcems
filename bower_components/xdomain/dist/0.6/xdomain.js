@@ -1,8 +1,8 @@
-// XDomain - v0.6.12 - https://github.com/jpillora/xdomain
+// XDomain - v0.6.15 - https://github.com/jpillora/xdomain
 // Jaime Pillora <dev@jpillora.com> - MIT Copyright 2014
-(function(window,undefined) {// XHook - v1.2.1 - https://github.com/jpillora/xhook
+(function(window,undefined) {// XHook - v1.2.4 - https://github.com/jpillora/xhook
 // Jaime Pillora <dev@jpillora.com> - MIT Copyright 2014
-(function(window,undefined) {var AFTER, BEFORE, COMMON_EVENTS, EventEmitter, FIRE, FormData, OFF, ON, READY_STATE, UPLOAD_EVENTS, XHookHttpRequest, XMLHTTP, convertHeaders, document, fakeEvent, mergeObjects, proxyEvents, slice, xhook, _base,
+(function(window,undefined) {var AFTER, BEFORE, COMMON_EVENTS, EventEmitter, FIRE, FormData, NativeFormData, OFF, ON, READY_STATE, UPLOAD_EVENTS, XHookHttpRequest, XMLHTTP, convertHeaders, document, fakeEvent, mergeObjects, proxyEvents, slice, xhook, _base,
   __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 document = window.document;
@@ -214,11 +214,13 @@ convertHeaders = xhook.headers = function(h, dest) {
   }
 };
 
-if (xhook[FormData] = window[FormData]) {
+NativeFormData = window[FormData];
+
+if (NativeFormData) {
+  xhook[FormData] = NativeFormData;
   window[FormData] = function(form) {
-    var entries,
-      _this = this;
-    this.fd = new xhook[FormData](form);
+    var entries;
+    this.fd = form ? new NativeFormData(form) : new NativeFormData();
     this.form = form;
     entries = [];
     Object.defineProperty(this, 'entries', {
@@ -233,12 +235,14 @@ if (xhook[FormData] = window[FormData]) {
         return fentries.concat(entries);
       }
     });
-    this.append = function() {
-      var args;
-      args = slice(arguments);
-      entries.push(args);
-      return _this.fd.append.apply(_this.fd, args);
-    };
+    this.append = (function(_this) {
+      return function() {
+        var args;
+        args = slice(arguments);
+        entries.push(args);
+        return _this.fd.append.apply(_this.fd, args);
+      };
+    })(this);
   };
 }
 
@@ -251,6 +255,7 @@ XHookHttpRequest = window[XMLHTTP] = function() {
   transiting = false;
   request = {};
   request.headers = {};
+  request.headerNames = {};
   response = {};
   response.headers = {};
   readHead = function() {
@@ -333,8 +338,10 @@ XHookHttpRequest = window[XMLHTTP] = function() {
       if (hook.length === 2) {
         hook(request, response);
         return process();
-      } else if (hook.length === 3) {
+      } else if (hook.length === 3 && request.async) {
         return hook(request, response, process);
+      } else {
+        return process();
       }
     };
     process();
@@ -374,9 +381,7 @@ XHookHttpRequest = window[XMLHTTP] = function() {
   facade.open = function(method, url, async, user, pass) {
     request.method = method;
     request.url = url;
-    if (async === false) {
-      throw "sync xhr not supported by XHook";
-    }
+    request.async = async !== false;
     request.user = user;
     request.pass = pass;
     setReadyState(1);
@@ -395,7 +400,7 @@ XHookHttpRequest = window[XMLHTTP] = function() {
     send = function() {
       var header, value, _j, _len1, _ref1, _ref2;
       transiting = true;
-      xhr.open(request.method, request.url, true, request.user, request.pass);
+      xhr.open(request.method, request.url, request.async, request.user, request.pass);
       _ref1 = ['type', 'timeout', 'withCredentials'];
       for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
         k = _ref1[_j];
@@ -442,8 +447,10 @@ XHookHttpRequest = window[XMLHTTP] = function() {
       hook = hooks.shift();
       if (hook.length === 1) {
         return done(hook(request));
-      } else if (hook.length === 2) {
+      } else if (hook.length === 2 && request.async) {
         return hook(request, done);
+      } else {
+        return done();
       }
     };
     process();
@@ -456,8 +463,12 @@ XHookHttpRequest = window[XMLHTTP] = function() {
     }
   };
   facade.setRequestHeader = function(header, value) {
-    var name;
-    name = header != null ? header.toLowerCase() : void 0;
+    var lName, name;
+    lName = header != null ? header.toLowerCase() : void 0;
+    name = request.headerNames[lName] = request.headerNames[lName] || header;
+    if (request.headers[name]) {
+      value = request.headers[name] + ', ' + value;
+    }
     request.headers[name] = value;
   };
   facade.getResponseHeader = function(header) {
@@ -805,8 +816,7 @@ startPostMessage = function() {
 };
 
 createSocket = function(id, frame) {
-  var check, checks, emit, pendingEmits, ready, sock,
-    _this = this;
+  var check, checks, emit, pendingEmits, ready, sock;
   ready = false;
   sock = sockets[id] = xhook.EventEmitter(true);
   sock.id = id;
@@ -848,17 +858,19 @@ createSocket = function(id, frame) {
     }
   });
   checks = 0;
-  check = function() {
-    frame.postMessage([id, XD_CHECK, {}], "*");
-    if (ready) {
-      return;
-    }
-    if (checks++ === xdomain.timeout / CHECK_INTERVAL) {
-      warn("Timeout waiting on iframe socket");
-    } else {
-      setTimeout(check, CHECK_INTERVAL);
-    }
-  };
+  check = (function(_this) {
+    return function() {
+      frame.postMessage([id, XD_CHECK, {}], "*");
+      if (ready) {
+        return;
+      }
+      if (checks++ === xdomain.timeout / CHECK_INTERVAL) {
+        warn("Timeout waiting on iframe socket");
+      } else {
+        setTimeout(check, CHECK_INTERVAL);
+      }
+    };
+  })(this);
   setTimeout(check);
   log("new socket: " + id);
   return sock;
