@@ -1,94 +1,97 @@
 <div class="container-fluid">
-<!-- 	<pre class="pre-scrollable">
-		{{arrays.shiftGroups | json}}
-	</pre> -->
-	<div class="col-md-2">
-		<div class="panel panel-info">
-			<div class="panel-heading">Positions</div>
-			<div class="panel-body">
-				<div data-ng-repeat="position in filtered = (arrays.positions | filter:{ access:true })" class="form-group" >
-					<label for="{{position.Position}}">
-						<input id="{{position.Position}}" name="{{position.Position}}" type="checkbox" ng-model="position.visible">&#8199{{position.Position}}
-					</label>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-10">
-		<div ng-repeat="group in filteredShiftGroups = (arrays.shiftGroups | filter: {active: true})" class="col-md-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h4 class="panel-title">{{group.Description}}</h4>
-				</div>
-				<div data-ng-repeat="primaryPosition in arrays.positions" data-ng-show="primaryPosition.visible" class="panel panel-info">
-					<div class="panel-heading">
-						{{primaryPosition.Position}}
-					</div>
-					<table class="table table-hover">
-						<caption>
-						</caption>
-						<tr>
-							<th class="text-center">
-								<a href="" ng-click="predicate = 'Day'">Day</a>
-								<a href="" ng-show="predicate === 'Day' || predicate === '-Day'" ng-click="predicate = (predicate === 'Day') ? '-Day' : 'Day'">
-									<span class="glyphicon glyphicon-sort"></span>
-								</a>
-							</th>
-							<th class="text-center">
-								<a href="" ng-click="predicate = 'StartTime.Hour'">Start Time</a>
-								<a href="" ng-show="predicate === 'StartTime.Hour' || predicate === '-StartTime.Hour'" ng-click="predicate = (predicate === 'StartTime.Hour') ? '-StartTime.Hour' : 'StartTime.Hour'">
-									<span class="glyphicon glyphicon-sort"></span>
-								</a>
-							</th>
-							<th class="text-center">
-								<a href="" ng-click="predicate = 'EndTime.Hour'">End Time</a>
-								<a href="" ng-show="predicate === 'EndTime.Hour' || predicate === '-EndTime.Hour'" ng-click="predicate = (predicate === 'EndTime.Hour') ? '-EndTime.Hour' : 'EndTime.Hour'">
-									<span class="glyphicon glyphicon-sort"></span>
-								</a>
-							</th>
-							<th colspan="2" class="text-center">
-								<a href="" ng-click="predicate = 'Slots'">Slots</a>
-								<a href="" ng-show="predicate === 'Slots' || predicate === '-Slots'" ng-click="predicate = (predicate === 'Slots') ? '-Slots' : 'Slots'">
-									<span class="glyphicon glyphicon-sort"></span>
-								</a>
-							</th>
-							<th ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'" class="text-center">
-								<a href="">Add</a>
-							</th>
-							<th ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE' || properties.currentUser.employeeInfo.Position.Position === 'HR' || properties.currentUser.employeeInfo.Admin" class="text-center">
-								<a href="">Edit</a>
-							</th>
-						</tr>
-						<tbody>
-							<tr class="" ng-repeat="shift in arrays.shifts | orderBy:predicate | filter:{Position: primaryPosition.Position, ShiftGroup: group.Description}:true">
-								<td class="text-center">{{shift.Day}}</td>
-								<td class="text-center">{{shift.StartTime | date:'hh:mm a'}}</td>
-								<td class="text-center">{{shift.EndTime | date:'hh:mm a'}}</td>
-								<td class="text-right">{{shift.aSlots}} /</td>
-								<td>{{shift.Slots}}</td>
-								<td ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'" class="text-center">
-									<div class="btn-group btn-group-sm">
-										<button class="btn btn-default" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.take-shift.html" bs-modal="modal" ng-hide="shift.aSlots === 0">
-											<span class="glyphicon glyphicon-plus"></span>
-										</button>
-									</div>
-								</td>
-								<td ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE' || properties.currentUser.employeeInfo.Position.Position === 'HR' || properties.currentUser.employeeInfo.Admin" class="text-center">
-									<div class="btn-group btn-group-sm">
-										<button class="btn btn-default" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.shift-edit.html" bs-modal="modal">
-											<span class="glyphicon glyphicon-edit"></span>
-										</button>
-										<button class="btn btn-default" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.shift-delete.html" bs-modal="modal">
-											<span class="glyphicon glyphicon-remove"></span>
-										</button>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
+   <!-- <pre class="pre-scrollable">
+			{{arrays.shifts.length | json}}
+			{{arrays.shifts | json}}
+	</pre>
+ -->
+</div>
+<div class="col-md-2">
+    <div class="panel panel-info">
+        <div class="panel-heading">Positions</div>
+        <div class="panel-body">
+            <div data-ng-repeat="position in filtered = (arrays.positions | filter:{ access:true })" class="form-group">
+                <label for="{{position.Position}}">
+                    <input id="{{position.Position}}" name="{{position.Position}}" type="checkbox" ng-model="position.visible">&#8199{{position.Position}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-10">
+    <div ng-repeat="group in filteredShiftGroups = (arrays.shiftGroups | filter: {active: true})" class="col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">{{group.Description}}</h4>
+            </div>
+            <div data-ng-repeat="primaryPosition in arrays.positions" data-ng-show="primaryPosition.visible" class="panel panel-info">
+                <div class="panel-heading">
+                    {{primaryPosition.Position}}
+                </div>
+                <table class="table table-hover">
+                    <caption>
+                    </caption>
+                    <tr>
+                        <th class="text-center">
+                            <a href="" ng-click="predicate = 'Day'">Day</a>
+                            <a href="" ng-show="predicate === 'Day' || predicate === '-Day'" ng-click="predicate = (predicate === 'Day') ? '-Day' : 'Day'">
+                                <span class="glyphicon glyphicon-sort"></span>
+                            </a>
+                        </th>
+                        <th class="text-center">
+                            <a href="" ng-click="predicate = 'StartTime.Hour'">Start Time</a>
+                            <a href="" ng-show="predicate === 'StartTime.Hour' || predicate === '-StartTime.Hour'" ng-click="predicate = (predicate === 'StartTime.Hour') ? '-StartTime.Hour' : 'StartTime.Hour'">
+                                <span class="glyphicon glyphicon-sort"></span>
+                            </a>
+                        </th>
+                        <th class="text-center">
+                            <a href="" ng-click="predicate = 'EndTime.Hour'">End Time</a>
+                            <a href="" ng-show="predicate === 'EndTime.Hour' || predicate === '-EndTime.Hour'" ng-click="predicate = (predicate === 'EndTime.Hour') ? '-EndTime.Hour' : 'EndTime.Hour'">
+                                <span class="glyphicon glyphicon-sort"></span>
+                            </a>
+                        </th>
+                        <th colspan="2" class="text-center">
+                            <a href="" ng-click="predicate = 'Slots'">Slots</a>
+                            <a href="" ng-show="predicate === 'Slots' || predicate === '-Slots'" ng-click="predicate = (predicate === 'Slots') ? '-Slots' : 'Slots'">
+                                <span class="glyphicon glyphicon-sort"></span>
+                            </a>
+                        </th>
+                        <th ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'" class="text-center">
+                            <a href="">Add</a>
+                        </th>
+                        <th ng-show="properties.extendedPrivledges" class="text-center">
+                            <a href="">Edit</a>
+                        </th>
+                    </tr>
+                    <tbody>
+                        <tr class="" ng-repeat="shift in arrays.shifts | filter:{position: primaryPosition.Id, shiftGroup: group.Id}:true">
+                            <td class="text-center">{{shift.Day}}</td>
+                            <td class="text-center">{{shift.StartTime | date:'hh:mm a'}}</td>
+                            <td class="text-center">{{shift.EndTime | date:'hh:mm a'}}</td>
+                            <td class="text-right">{{shift.aSlots}} /</td>
+                            <td>{{shift.Slots}}</td>
+                            <td ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'" class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-default" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.take-shift.html" bs-modal="modal" ng-hide="shift.aSlots === 0">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </div>
+                            </td>
+                            <td ng-show="properties.extendedPrivledges" class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-default" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.shift-edit.html" bs-modal="modal">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                    <button class="btn btn-default" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.shift-delete.html" bs-modal="modal">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 <!-- <pre>{{arrays.shifts | json}}</pre> -->

@@ -1,8 +1,8 @@
-/* 
+/*
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2014-12-08 16:55:50
+ * @Last Modified time: 2014-12-11 20:03:45
  */
 /* global angular, _ */
 
@@ -75,49 +75,52 @@
                     .success(function(data) {
                         $scope.arrays.employees = data.d.results;
                     });
-                new dataService.getItems('Shift')
-                    .top(999999999)
-                    .select(['Id', 'Day', 'Slots', 'Current', 'ShiftGroup/Description',
-                        'ShiftGroup/Id', 'Position/Position', 'Position/Id', 'StartTime',
-                        'EndTime'
-                    ])
-                    .expand(['ShiftGroup', 'Position'])
-                    .where({
-                        and: [
-                            ['Current', 'eq', '1'],
-                            ['ShiftGroup/Id', 'eq', dataService.properties.currentSemester.Id]
-                        ]
-                    })
-                    .execute(false)
-                    .success(function(data) {
-                        var rawShifts = data.d.results,
-                            finalShifts = [],
-                            shiftCounter = 0,
-                            getSchedules = function(shift) {
-                                if (shiftCounter === rawShifts.length) {
-                                    $scope.arrays.shifts = finalShifts;
-                                } else {
-                                    new dataService.getItems('Schedule')
-                                        .where({
-                                            and: [
-                                                ['Shift', 'eq', shift.Id],
-                                                ['Active', 'eq', 1]
-                                            ]
-                                        })
-                                        .execute(false)
-                                        .success(function(data) {
-                                            shift.aSlots = shift.Slots - data.d.results.length;
-                                            finalShifts.push(shift);
-                                            shiftCounter++;
-                                            getSchedules(rawShifts[shiftCounter]);
-                                        })
-                                        .error(function(data) {
-                                            $scope.arrays.errors.push(data);
-                                        });
-                                }
-                            };
-                        getSchedules(rawShifts[shiftCounter]);
-                    });
+                var availableShifts = function() {
+                    var shifts = [];
+                    var schedules = [];
+                    getShifts();
+
+                    function compileShifts() {
+                        _.each(shifts, function(shift) {
+                            var relevantSchedules = _.filter(schedules, function(schedule) {
+                                return schedule.ShiftId === shift.Id;
+                            });
+                            shift.aSlots = shift.Slots - relevantSchedules.length;
+                            shift.position = shift.Position.Id;
+                            shift.shiftGroup = shift.ShiftGroup.Id;
+                        });
+                        $scope.arrays.shifts = shifts;
+                    }
+
+                    function getShifts() {
+                        new dataService.getItems('Shift')
+                            .top(999999999)
+                            .select(['Id', 'Day', 'Slots', 'Current', 'ShiftGroup/Description',
+                                'ShiftGroup/Id', 'Position/Position', 'Position/Id', 'StartTime',
+                                'EndTime'
+                            ])
+                            .expand(['ShiftGroup', 'Position'])
+                            .where(['Current', 'eq', '1'])
+                            .execute(false)
+                            .success(function(data) {
+                                shifts = data.d.results;
+                                getSchedules();
+                            });
+                    }
+
+                    function getSchedules() {
+                        new dataService.getItems('Schedule')
+                            .top()
+                            .where(['Active', 'eq', 1])
+                            .execute(false)
+                            .success(function(data) {
+                                schedules = data.d.results;
+                                compileShifts();
+                            });
+                    }
+                };
+
+                availableShifts();
                 new dataService.getItems('Availability')
                     .top(999999999)
                     .select(['Employee/Id', 'Day', 'StartTime', 'EndTime', 'Id'])
@@ -332,7 +335,7 @@
                                 }));
                             } else if (subShift.NewRequest.Substitute.Id === undefined) {
                                 // If they have, we check to see if someone has taken the subShift.
-                                // If they haven't, we add a new shift and pass the parameters that flag it as an isSubShift shift and as a subRequested shift. 
+                                // If they haven't, we add a new shift and pass the parameters that flag it as an isSubShift shift and as a subRequested shift.
                                 // We also pass the subShift as a parameter so that we have the Id available in the newShift method. (this is used to pass the subShift Id to the requestSubOfSub method)
                                 // We also pass the NewRequest as a parameter so that we have access to the subOfSubShift in the newShift method. (this is used to pass the subOfSubShift Id to the cancelSubOfSubRequest method)
                                 day.myShifts.push(newShift({
@@ -343,7 +346,7 @@
                                     subOfSubShift: subShift.NewRequest
                                 }));
                             } else {
-                                // If they have, we add a new shift and pass the parameters that flag it as an isSubShift shift, a subRequested shift, and a subCovered shift. 
+                                // If they have, we add a new shift and pass the parameters that flag it as an isSubShift shift, a subRequested shift, and a subCovered shift.
                                 // We also pass the subShift as a parameter so that we have the Id available in the newShift method. (this is used to pass the subShift Id to the requestSubOfSub method)
                                 // We also pass the NewRequest as a parameter so that we have access to the subOfSubShift in the newShift method. (this is used to pass the subOfSubShift Id to the cancelSubOfSubRequest method)
                                 day.myShifts.push(newShift({
@@ -485,12 +488,13 @@
                                 populateWeek(weeks[weeksCounter]);
                             });
                     }
+
                     function filterSchedules() {
-                    	return _.filter(schedules, function(schedule){
-                    		return _.find(shifts, function(shift){
-                    			return shift.Id === schedule.Shift.Id;
-                    		}) !== undefined;
-                    	});
+                        return _.filter(schedules, function(schedule) {
+                            return _.find(shifts, function(shift) {
+                                return shift.Id === schedule.Shift.Id;
+                            }) !== undefined;
+                        });
                     }
 
                 };
@@ -838,7 +842,7 @@
                             .expand(['ShiftGroup', 'Position'])
                             .where({
                                 and: [
-                                    //This selects only those shifts that apply to the current semester 
+                                    //This selects only those shifts that apply to the current semester
                                     ['ShiftGroup/Id', 'eq', dataService.properties.currentSemester.Id],
                                     // This selects only those shifts that are active (sorry about the poor data naming choice)
                                     ['Current', 'eq', 1]
@@ -869,8 +873,8 @@
                                 PhoneNumber: ""
                             };
                         }
-                        var position = _.find($scope.arrays.positions, function(position){
-                        	return position.Id === shift.Position.Id;
+                        var position = _.find($scope.arrays.positions, function(position) {
+                            return position.Id === shift.Position.Id;
                         });
                         return {
                             // shift Info
@@ -1438,7 +1442,7 @@
                         substitutePhoneNumber: substitute.PhoneNumber,
                         substituteEmailAddress: substitute.EmailAddress,
                         substitutePicture: substitute.Picture,
-                        // false since there is a sub 
+                        // false since there is a sub
                         needsASub: needsASub
                     };
                 };
@@ -1893,18 +1897,18 @@
                         inactivateSchedule(schedules[schedulesCounter]);
                     });
                 // dataService.deleteItem('Shift', id)
-                // 	.success(function(data) {
-                // 		$modal({
-                // 			show: true,
-                // 			placement: 'center',
-                // 			title: 'Notice',
-                // 			content: 'The shift has been deleted!'
-                // 		});
-                // 		$scope.$emit('Refresh Content');
-                // 	})
-                // 	.error(function(data) {
-                // 		$scope.arrays.errors.push(data);
-                // 	});
+                //  .success(function(data) {
+                //      $modal({
+                //          show: true,
+                //          placement: 'center',
+                //          title: 'Notice',
+                //          content: 'The shift has been deleted!'
+                //      });
+                //      $scope.$emit('Refresh Content');
+                //  })
+                //  .error(function(data) {
+                //      $scope.arrays.errors.push(data);
+                //  });
             };
             ctrl.takeShift = function(shiftId) {
                 var newSchedule = {
@@ -1961,9 +1965,7 @@
                     type: 'SP.Data.ShiftListItem'
                 },
                 Day: '',
-                Current: true,
-                StartTime: new Date(),
-
+                Current: true
             };
             ctrl.addShift = function() {
                 for (var i = 0; i < $scope.newShift.temp.length; i++) {
