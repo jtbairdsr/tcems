@@ -2,15 +2,15 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2014-12-12 18:36:15
+ * @Last Modified time: 2014-12-12 19:58:51
  */
 /* global angular, _ */
 
 (function() {
     var schedule = angular.module('Schedule');
 
-    schedule.service('scheduleService', ['$location', '$modal', 'dataService',
-        function($location, $modal, dataService) {
+    schedule.service('scheduleService', ['$location', 'dataService',
+        function($location, dataService) {
             var service = this;
             service.showAddShift = false;
             service.showSubShift = false;
@@ -46,9 +46,9 @@
         }
     ]);
 
-    schedule.controller('ScheduleCtrl', ['$location', '$scope', '$modal',
+    schedule.controller('ScheduleCtrl', ['$location', '$scope',
         'dataService',
-        function($location, $scope, $modal, dataService) {
+        function($location, $scope, dataService) {
             var ctrl = this;
             $scope.ctrlProperties = {
                 showAddShift: false,
@@ -950,9 +950,9 @@
         }
     ]);
 
-    schedule.controller('AvailabilityCtrl', ['$scope', '$modal', 'dataService',
+    schedule.controller('AvailabilityCtrl', ['$scope', 'dataService',
         'scheduleService',
-        function($scope, $modal, dataService, scheduleService) {
+        function($scope, dataService, scheduleService) {
             scheduleService.scheduleService();
             $scope.ctrlProperties.showAddShift = scheduleService.showAddShift;
             $scope.ctrlProperties.showAddSubShift = scheduleService.showAddSubShift;
@@ -1166,8 +1166,8 @@
         }
     ]);
 
-    schedule.controller('HrScheduleCtrl', ['$scope', '$modal', 'dataService',
-        function($scope, $modal, dataService) {
+    schedule.controller('HrScheduleCtrl', ['$scope', '$alert', 'dataService',
+        function($scope, $alert, dataService) {
             var ctrl = this;
             ctrl.slots = 1;
             ctrl.disableShiftList = true;
@@ -1209,11 +1209,14 @@
                     // alert('this is request #' + (i + 1));
                     dataService.addItem('SubShift', ctrl.subRequest);
                 }
-                $modal({
+                $alert({
                     show: true,
-                    placement: 'center',
-                    title: 'Notice',
-                    content: 'The sub/s has been requested!'
+                    placement: 'top-right',
+                    content: 'The sub/s has been requested!',
+                    animation: 'am-fade-and-slide-top',
+                    duration: '3',
+                    type: 'success',
+                    template: 'partials/alerts/success-alert.html'
                 });
                 $scope.$emit('Refresh Content');
             };
@@ -1227,11 +1230,14 @@
                 dataService.updateItem('Schedule', $scope.employee.ScheduleId, item,
                         '*')
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
+                            placement: 'top-right',
                             content: 'That employee no longer works this shift!'
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
                         $scope.$emit('Refresh Content');
                     });
@@ -1246,11 +1252,14 @@
                 };
                 dataService.addItem('Schedule', newSchedule)
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
+                            placement: 'top-right',
                             content: 'The shift has been assigned!'
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
                         $scope.$emit('Refresh Content');
                     });
@@ -1258,9 +1267,9 @@
         }
     ]);
 
-    schedule.controller('TodayCtrl', ['$scope', '$modal', 'dataService',
+    schedule.controller('TodayCtrl', ['$scope', 'dataService',
         'scheduleService',
-        function($scope, $modal, dataService, scheduleService) {
+        function($scope, dataService, scheduleService) {
             var ctrl = this;
             scheduleService.scheduleService();
             $scope.time1 = new Date();
@@ -1594,8 +1603,8 @@
         }
     ]);
 
-    schedule.controller('MyScheduleCtrl', ['$scope', '$modal', 'dataService',
-        function($scope, $modal, dataService) {
+    schedule.controller('MyScheduleCtrl', ['$scope', '$alert', 'dataService',
+        function($scope, $alert, dataService) {
             var ctrl = this;
             ctrl.requestSub = function(shiftId, date) {
                 var subRequest = {
@@ -1608,11 +1617,14 @@
                 };
                 dataService.addItem('SubShift', subRequest)
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
+                            placement: 'top-right',
                             content: 'The sub has been requested!  You are responsible for this shift until a sub has taken it!'
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
                     });
                 $scope.$emit('Refresh Content');
@@ -1626,11 +1638,14 @@
                 };
                 dataService.updateItem('SubShift', $scope.shift.subShiftId, item, '*')
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
-                            content: 'You are now responsible for this shift!'
+                            placement: 'top-right',
+                            content: 'You are now responsible for this shift!',
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
                         $scope.$emit('Refresh Content');
                     });
@@ -1655,11 +1670,14 @@
                         dataService.updateItem('SubShift', $scope.shift.subShiftId, item,
                                 '*')
                             .success(function() {
-                                $modal({
+                                $alert({
                                     show: true,
-                                    placement: 'center',
-                                    title: 'Notice',
+                                    placement: 'top-right',
                                     content: 'The sub has been requested!  You are responsible for this shift until a sub has taken it!'
+                                    animation: 'am-fade-and-slide-top',
+                                    duration: '3',
+                                    type: 'success',
+                                    template: 'partials/alerts/success-alert.html'
                                 });
                                 $scope.$emit('Refresh Content');
                             });
@@ -1680,11 +1698,14 @@
                                 NewRequestId: null
                             }, '*')
                             .success(function() {
-                                $modal({
+                                $alert({
                                     show: true,
-                                    placement: 'center',
-                                    title: 'Notice',
-                                    content: 'You are now responsible for this shift!'
+                                    placement: 'top-right',
+                                    content: 'You are now responsible for this shift!',
+                                    animation: 'am-fade-and-slide-top',
+                                    duration: '3',
+                                    type: 'success',
+                                    template: 'partials/alerts/success-alert.html'
                                 });
                                 $scope.$emit('Refresh Content');
                             });
@@ -1693,10 +1714,11 @@
         }
     ]);
 
-    schedule.controller('SubShiftCtrl', ['$scope', '$modal', 'dataService',
-        function($scope, $modal, dataService) {
+    schedule.controller('SubShiftCtrl', ['$scope', '$alert', 'dataService',
+        function($scope, $alert, dataService) {
             var ctrl = this;
-            ctrl.removeSubShift = function() {
+            ctrl.removeSubShift = function(shift) {
+                console.log(shift);
                 var shift = $scope.shift,
                     item = {
                         '__metadata': {
@@ -1704,22 +1726,29 @@
                         },
                         'Active': false
                     };
-                dataService.updateItem('SubShift', shift.SubShiftId, item, '*')
+                dataService.updateItem('SubShift', shift.subShiftId, item, '*')
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
-                            content: 'You are now responsible for this shift!'
+                            placement: 'top-right',
+                            content: 'You are now responsible for this shift!',
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
                         $scope.$emit('Refresh Content');
                     })
                     .error(function(data) {
-                        $modal({
+                        console.error('There has been an error with your network request.', data);
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
-                            content: JSON.stringify(data, null, '\t')
+                            placement: 'top-right',
+                            content: 'Check the console for errors',
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'danger',
+                            template: 'partials/alerts/error-alert.html'
                         });
                     });
             };
@@ -1746,11 +1775,14 @@
                     .execute(false)
                     .success(function(data) {
                         if (data.d.results.length > 0) {
-                            $modal({
+                            $alert({
                                 show: true,
-                                placement: 'center',
-                                title: 'Notice',
+                                placement: 'top-right',
                                 content: 'You already work this shift!'
+                                animation: 'am-fade-and-slide-top',
+                                duration: '3',
+                                type: 'danger',
+                                template: 'partials/alerts/error-alert.html'
                             });
                         } else {
                             new dataService.getItems('SubShift')
@@ -1771,29 +1803,39 @@
                                 .execute(false)
                                 .success(function(data) {
                                     if (data.d.results.length > 0) {
-                                        $modal({
+                                        $alert({
                                             show: true,
-                                            placement: 'center',
-                                            title: 'Notice',
+                                            placement: 'top-right',
                                             content: 'You are already substituting for this shift!'
+                                            animation: 'am-fade-and-slide-top',
+                                            duration: '3',
+                                            type: 'danger',
+                                            template: 'partials/alerts/error-alert.html'
                                         });
                                     } else {
                                         dataService.updateItem('SubShift', subShiftId, item, '*')
                                             .success(function() {
-                                                $modal({
+                                                $alert({
                                                     show: true,
-                                                    placement: 'center',
-                                                    title: 'Notice',
-                                                    content: 'You are now responsible for this shift!'
+                                                    placement: 'top-right',
+                                                    content: 'You are now responsible for this shift!',
+                                                    animation: 'am-fade-and-slide-top',
+                                                    duration: '3',
+                                                    type: 'success',
+                                                    template: 'partials/alerts/success-alert.html'
                                                 });
                                                 $scope.$emit('Refresh Content');
                                             })
                                             .error(function(data) {
-                                                $modal({
+                                                console.error('There has been an error with your network request.', data);
+                                                $alert({
                                                     show: true,
-                                                    placement: 'center',
-                                                    title: 'Notice',
-                                                    content: JSON.stringify(data, null, '\t')
+                                                    placement: 'top-right',
+                                                    content: 'Check the console for errors',
+                                                    animation: 'am-fade-and-slide-top',
+                                                    duration: '3',
+                                                    type: 'danger',
+                                                    template: 'partials/alerts/error-alert.html'
                                                 });
                                             });
                                     }
@@ -1804,8 +1846,8 @@
         }
     ]);
 
-    schedule.controller('ShiftEditCtrl', ['$scope', '$modal', 'dataService',
-        function($scope, $modal, dataService) {
+    schedule.controller('ShiftEditCtrl', ['$scope', '$alert', 'dataService',
+        function($scope, $alert, dataService) {
             var ctrl = this,
                 shift = $scope.shift,
                 tmp = '';
@@ -1841,11 +1883,14 @@
                 dataService.updateItem('Shift', shift.Id, ctrl.newShift, shift.__metadata
                         .etag)
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
+                            placement: 'top-right',
                             content: 'The shift has been updated!'
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
                         $scope.$emit('Refresh Content');
                     });
@@ -1873,11 +1918,14 @@
                                             Current: false
                                         }, shift.__metadata.etag)
                                         .success(function() {
-                                            $modal({
+                                            $alert({
                                                 show: true,
-                                                placement: 'center',
-                                                title: 'Notice',
+                                                placement: 'top-right',
                                                 content: 'The shift has been deleted!'
+                                                animation: 'am-fade-and-slide-top',
+                                                duration: '3',
+                                                type: 'success',
+                                                template: 'partials/alerts/success-alert.html'
                                             });
                                             $scope.$emit('Refresh Content');
                                         });
@@ -1896,19 +1944,6 @@
                             };
                         inactivateSchedule(schedules[schedulesCounter]);
                     });
-                // dataService.deleteItem('Shift', id)
-                //  .success(function(data) {
-                //      $modal({
-                //          show: true,
-                //          placement: 'center',
-                //          title: 'Notice',
-                //          content: 'The shift has been deleted!'
-                //      });
-                //      $scope.$emit('Refresh Content');
-                //  })
-                //  .error(function(data) {
-                //      $scope.arrays.errors.push(data);
-                //  });
             };
             ctrl.takeShift = function(shiftId) {
                 var newSchedule = {
@@ -1933,20 +1968,26 @@
                     .execute(false)
                     .success(function(data) {
                         if (data.d.results.length > 0) {
-                            $modal({
+                            $alert({
                                 show: true,
-                                placement: 'center',
-                                title: 'Notice',
+                                placement: 'top-right',
                                 content: 'You already work this shift!'
+                                animation: 'am-fade-and-slide-top',
+                                duration: '3',
+                                type: 'danger',
+                                template: 'partials/alerts/error-alert.html'
                             });
                         } else {
                             dataService.addItem('Schedule', newSchedule)
                                 .success(function() {
-                                    $modal({
+                                    $alert({
                                         show: true,
-                                        placement: 'center',
-                                        title: 'Notice',
+                                        placement: 'top-right',
                                         content: 'You are now responsible to work this shift!'
+                                        animation: 'am-fade-and-slide-top',
+                                        duration: '3',
+                                        type: 'success',
+                                        template: 'partials/alerts/success-alert.html'
                                     });
                                     $scope.$emit('Refresh Content');
                                 });
@@ -1956,8 +1997,8 @@
         }
     ]);
 
-    schedule.controller('ShiftCreationCtrl', ['$scope', '$modal', 'dataService',
-        function($scope, $modal, dataService) {
+    schedule.controller('ShiftCreationCtrl', ['$scope', '$alert', 'dataService',
+        function($scope, $alert, dataService) {
             var ctrl = this,
                 newItem = {};
             $scope.newShift = {
@@ -1982,17 +2023,16 @@
                 newItem = $scope.newShift;
                 dataService.addItem('Shift', newItem)
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
+                            placement: 'top-right',
                             content: 'The shift has been added!'
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
-                    })
-                    .error(function(data) {
-                        $scope.arrays.errors.push(data);
                     });
-
                 $scope.newShift = {
                     '__metadata': {
                         type: 'SP.Data.ShiftListItem'
@@ -2007,8 +2047,8 @@
         }
     ]);
 
-    schedule.controller('MyAvailabilityCtrl', ['$scope', '$modal', 'dataService',
-        function($scope, $modal, dataService) {
+    schedule.controller('MyAvailabilityCtrl', ['$scope', '$alert', 'dataService',
+        function($scope, $alert, dataService) {
             var ctrl = this;
             ctrl.newAvailability = {
                 '__metadata': {
@@ -2025,39 +2065,49 @@
                 dataService.updateItem('Availability', $scope.availability.Id, ctrl.newAvailability,
                         '*')
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
+                            placement: 'top-right',
                             content: 'The shift has been updated!'
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
                         $scope.$emit('Refresh Content');
                     })
                     .error(function(data) {
-                        $modal({
+                        console.error('There has been an error with your network request.', data);
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
-                            content: JSON.stringify(data, null, '\t')
+                            placement: 'top-right',
+                            content: 'Check the console for errors.'
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'danger',
+                            template: 'partials/alerts/error-alert.html'
                         });
                     });
             };
             ctrl.removeAvailability = function() {
                 dataService.deleteItem('Availability', $scope.availability.Id)
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
+                            placement: 'top-right',
                             content: 'The availability has been removed!'
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
                         $scope.$emit('Refresh Content');
                     });
             };
         }
     ]);
-    schedule.controller('AddAvailability', ['$scope', '$modal', 'dataService',
-        function($scope, $modal, dataService) {
+    schedule.controller('AddAvailability', ['$scope', '$alert', 'dataService',
+        function($scope, $alert, dataService) {
             var ctrl = this;
             ctrl.newAvailability = {
                 '__metadata': {
@@ -2073,11 +2123,14 @@
                 ctrl.newAvailability.EndTime = ctrl.newAvailability.EndTime.toISOString();
                 dataService.addItem('Availability', ctrl.newAvailability)
                     .success(function() {
-                        $modal({
+                        $alert({
                             show: true,
-                            placement: 'center',
-                            title: 'Notice',
+                            placement: 'top-right',
                             content: 'The availability has been added!'
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
                         });
                         $scope.$emit('Refresh Content');
                     });
