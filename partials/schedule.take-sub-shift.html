@@ -60,7 +60,7 @@
 
                 <div data-ng-show="properties.extendedPrivledges">
                     <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
-                    <button type="button" class="btn btn-danger" ng-click="ctrl.removeSubShift(); $hide()">Remove Sub Shift</button>
+                    <button type="button" class="btn btn-danger" ng-click="ctrl.removeSubShift(shift); $hide()">Remove Sub Shift</button>
                     <!-- You will only see these buttons if the shift has not yet been taken -->
                     <button type="button" class="btn btn-success" data-ng-show="shift.substitute.Id === undefined" ng-click="ctrl.takeSubShift(shift.subShiftId, shift.Id, day.date); $hide()">Take Sub Shift</button>
                 </div>
