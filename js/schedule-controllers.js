@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2014-12-12 19:58:51
+ * @Last Modified time: 2014-12-12 20:11:27
  */
 /* global angular, _ */
 
@@ -1233,7 +1233,7 @@
                         $alert({
                             show: true,
                             placement: 'top-right',
-                            content: 'That employee no longer works this shift!'
+                            content: 'That employee no longer works this shift!',
                             animation: 'am-fade-and-slide-top',
                             duration: '3',
                             type: 'success',
@@ -1255,7 +1255,7 @@
                         $alert({
                             show: true,
                             placement: 'top-right',
-                            content: 'The shift has been assigned!'
+                            content: 'The shift has been assigned!',
                             animation: 'am-fade-and-slide-top',
                             duration: '3',
                             type: 'success',
@@ -1620,7 +1620,7 @@
                         $alert({
                             show: true,
                             placement: 'top-right',
-                            content: 'The sub has been requested!  You are responsible for this shift until a sub has taken it!'
+                            content: 'The sub has been requested!  You are responsible for this shift until a sub has taken it!',
                             animation: 'am-fade-and-slide-top',
                             duration: '3',
                             type: 'success',
@@ -1673,7 +1673,7 @@
                                 $alert({
                                     show: true,
                                     placement: 'top-right',
-                                    content: 'The sub has been requested!  You are responsible for this shift until a sub has taken it!'
+                                    content: 'The sub has been requested!  You are responsible for this shift until a sub has taken it!',
                                     animation: 'am-fade-and-slide-top',
                                     duration: '3',
                                     type: 'success',
@@ -1778,7 +1778,7 @@
                             $alert({
                                 show: true,
                                 placement: 'top-right',
-                                content: 'You already work this shift!'
+                                content: 'You already work this shift!',
                                 animation: 'am-fade-and-slide-top',
                                 duration: '3',
                                 type: 'danger',
@@ -1806,7 +1806,7 @@
                                         $alert({
                                             show: true,
                                             placement: 'top-right',
-                                            content: 'You are already substituting for this shift!'
+                                            content: 'You are already substituting for this shift!',
                                             animation: 'am-fade-and-slide-top',
                                             duration: '3',
                                             type: 'danger',
@@ -1886,7 +1886,7 @@
                         $alert({
                             show: true,
                             placement: 'top-right',
-                            content: 'The shift has been updated!'
+                            content: 'The shift has been updated!',
                             animation: 'am-fade-and-slide-top',
                             duration: '3',
                             type: 'success',
@@ -1921,7 +1921,7 @@
                                             $alert({
                                                 show: true,
                                                 placement: 'top-right',
-                                                content: 'The shift has been deleted!'
+                                                content: 'The shift has been deleted!',
                                                 animation: 'am-fade-and-slide-top',
                                                 duration: '3',
                                                 type: 'success',
@@ -1971,7 +1971,7 @@
                             $alert({
                                 show: true,
                                 placement: 'top-right',
-                                content: 'You already work this shift!'
+                                content: 'You already work this shift!',
                                 animation: 'am-fade-and-slide-top',
                                 duration: '3',
                                 type: 'danger',
@@ -1983,7 +1983,7 @@
                                     $alert({
                                         show: true,
                                         placement: 'top-right',
-                                        content: 'You are now responsible to work this shift!'
+                                        content: 'You are now responsible to work this shift!',
                                         animation: 'am-fade-and-slide-top',
                                         duration: '3',
                                         type: 'success',
@@ -2026,7 +2026,7 @@
                         $alert({
                             show: true,
                             placement: 'top-right',
-                            content: 'The shift has been added!'
+                            content: 'The shift has been added!',
                             animation: 'am-fade-and-slide-top',
                             duration: '3',
                             type: 'success',
@@ -2068,7 +2068,7 @@
                         $alert({
                             show: true,
                             placement: 'top-right',
-                            content: 'The shift has been updated!'
+                            content: 'The shift has been updated!',
                             animation: 'am-fade-and-slide-top',
                             duration: '3',
                             type: 'success',
@@ -2081,7 +2081,7 @@
                         $alert({
                             show: true,
                             placement: 'top-right',
-                            content: 'Check the console for errors.'
+                            content: 'Check the console for errors.',
                             animation: 'am-fade-and-slide-top',
                             duration: '3',
                             type: 'danger',
@@ -2095,7 +2095,7 @@
                         $alert({
                             show: true,
                             placement: 'top-right',
-                            content: 'The availability has been removed!'
+                            content: 'The availability has been removed!',
                             animation: 'am-fade-and-slide-top',
                             duration: '3',
                             type: 'success',
@@ -2126,7 +2126,7 @@
                         $alert({
                             show: true,
                             placement: 'top-right',
-                            content: 'The availability has been added!'
+                            content: 'The availability has been added!',
                             animation: 'am-fade-and-slide-top',
                             duration: '3',
                             type: 'success',
