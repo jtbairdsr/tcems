@@ -21,3 +21,5 @@ iis*
 npm-debug.log
 
 ChatProject
+
+node_modules/
