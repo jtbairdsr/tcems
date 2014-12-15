@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2014-12-12 19:04:32
+ * @Last Modified time: 2014-12-15 15:50:36
  */
 (function() {
     /**
@@ -210,7 +210,7 @@
                                 .execute(true)
                                 .success(function(data) {
                                     _.each(data.d.results, function(result) {
-                                        result.active = (result.Id === dataService.properties.semester.ShiftGroup.Id ||
+                                        result.active = (result.Id === dataService.properties.currentSemester.ShiftGroup.Id ||
                                             result.Id === dataService.properties.nextSemester.Id);
                                     });
                                     $scope.arrays.shiftGroups = data.d.results;
@@ -230,101 +230,121 @@
                     resolve: {
                         scopeSetter: function($location, $q, dataService) {
                             var deffered = $q.defer();
-                            dataService.getJson(dataService.properties.sharePointUrl + '_api/web/currentUser', true)
-                                .success(function(data) {
-                                    dataService.properties.currentUser.userId = data.d;
-                                    dataService.getSemester().success(function(data) {
-                                        dataService.properties.semester = data.d.results[0];
-                                        dataService.getNoTestingDays(dataService.properties.semester)
+                            getCurrentSemester();
+
+                            function getCurrentSemester() {
+                                dataService.getSemester().success(function(data) {
+                                    dataService.properties.currentSemester = data.d.results[0];
+                                    dataService.getNoTestingDays(dataService.properties.currentSemester)
+                                        .success(function(data) {
+                                            dataService.properties.currentSemester.noTestingDays = data.d.results;
+                                            getNextSemester()
+                                        });
+                                });
+                            }
+
+                            function getNextSemester() {
+                                dataService.getSemester(dataService.properties.currentSemester.NextSemester.Id).success(function(data) {
+                                    dataService.properties.nextSemester = data.d.results[0];
+                                    dataService.getNoTestingDays(dataService.properties.nextSemester)
+                                        .success(function(data) {
+                                            dataService.properties.nextSemester.noTestingDays = data.d.results;
+                                            getCurrentUser();
+                                        });
+                                });
+
+                            }
+
+                            function getCurrentUser() {
+                                dataService.getJson(dataService.properties.sharePointUrl + '_api/web/currentUser', true)
+                                    .success(function(data) {
+                                        dataService.properties.currentUser.userId = data.d;
+                                        new dataService.getItems('Employee')
+                                            .select(['PreferredName', 'FirstName', 'LastName', 'Picture', 'ID', 'EmailAddress', 'PhoneNumber', 'Position/Position', 'Position/Id', 'Area/Area', 'Area/Id', 'Track/Id', 'Track/Description', 'Admin', 'Reader', 'Active'])
+                                            .where({
+                                                and: [
+                                                    ['EmailAddress', 'eq', dataService.properties.currentUser.userId.Email],
+                                                    ['Active', 'eq', 1]
+                                                ]
+                                            })
+                                            .expand(['Position', 'Area', 'Track'])
+                                            .execute()
                                             .success(function(data) {
-                                                dataService.properties.semester.noTestingDays = data.d.results;
-                                                new dataService.getItems('Employee')
-                                                    .select(['PreferredName', 'FirstName', 'LastName', 'Picture', 'ID', 'EmailAddress', 'PhoneNumber', 'Position/Position', 'Position/Id', 'Area/Area', 'Area/Id', 'Track/Id', 'Track/Description', 'Admin', 'Reader', 'Active'])
-                                                    .where({
-                                                        and: [
-                                                            ['EmailAddress', 'eq', dataService.properties.currentUser.userId.Email],
-                                                            ['Active', 'eq', 1]
-                                                        ]
-                                                    })
-                                                    .expand(['Position', 'Area', 'Track'])
-                                                    .execute()
-                                                    .success(function(data) {
-                                                        if (data.d.results.length === 0) {
-                                                            dataService.properties.loadEmployeeInformation = false;
-                                                            if (/([a-zA-Z]){3}\d{5}/.test(dataService.properties.currentUser.userId.Email)) {
-                                                                $location.path("/inactiveEmployee");
-                                                            } else {
-                                                                new dataService.getItems('Professor')
-                                                                    .select(['FirstName', 'LastName', 'Picture', 'Id', 'EmailAddress', 'OfficePhone', 'OtherPhone', 'OfficeAddress'])
-                                                                    .where(['EmailAddress', 'eq', dataService.properties.currentUser.userId.Email])
-                                                                    .execute()
-                                                                    .success(function(data) {
-                                                                        $location.path("/main/faculty/info");
-                                                                        if (data.d.results.length === 0) {
-                                                                            dataService.addItem('Professor', {
+                                                if (data.d.results.length === 0) {
+                                                    dataService.properties.loadEmployeeInformation = false;
+                                                    if (/([a-zA-Z]){3}\d{5}/.test(dataService.properties.currentUser.userId.Email)) {
+                                                        $location.path("/inactiveEmployee");
+                                                    } else {
+                                                        new dataService.getItems('Professor')
+                                                            .select(['FirstName', 'LastName', 'Picture', 'Id', 'EmailAddress', 'OfficePhone', 'OtherPhone', 'OfficeAddress'])
+                                                            .where(['EmailAddress', 'eq', dataService.properties.currentUser.userId.Email])
+                                                            .execute()
+                                                            .success(function(data) {
+                                                                $location.path("/main/faculty/info");
+                                                                if (data.d.results.length === 0) {
+                                                                    dataService.addItem('Professor', {
+                                                                            __metadata: {
+                                                                                type: "SP.Data.ProfessorListItem"
+                                                                            },
+                                                                            FirstName: dataService.properties.currentUser.userId.Title.split(', ')[1],
+                                                                            LastName: dataService.properties.currentUser.userId.Title.split(', ')[0],
+                                                                            Picture: '/media/' + dataService.properties.currentUser.userId.Email.split('@')[0] + '.jpg',
+                                                                            EmailAddress: dataService.properties.currentUser.userId.Email,
+                                                                            OfficePhone: '',
+                                                                            OfficeAddress: '',
+                                                                            OtherPhone: ''
+                                                                        })
+                                                                        .success(function(data) {
+                                                                            dataService.properties.currentUser.employeeInfo = {
+                                                                                FirstName: data.d.FirstName,
+                                                                                LastName: data.d.LastName,
+                                                                                Picture: data.d.Picture,
+                                                                                EmailAddress: data.d.EmailAddress,
+                                                                            };
+                                                                            deffered.resolve();
+                                                                        });
+                                                                } else {
+                                                                    dataService.properties.currentUser.employeeInfo = data.d.results[0];
+                                                                    new dataService.getItems('FacultyTestingInfo')
+                                                                        .select(['Professor/Id', 'Stipulation', 'Other', 'Id'])
+                                                                        .expand(['Professor'])
+                                                                        .where(['Professor/Id', 'eq', dataService.properties.currentUser.employeeInfo.Id])
+                                                                        .execute()
+                                                                        .success(function(data) {
+                                                                            if (data.d.results.length === 0) {
+                                                                                dataService.properties.newUser = true;
+                                                                                dataService.properties.currentUser.FacultyTestingInfo = {
                                                                                     __metadata: {
-                                                                                        type: "SP.Data.ProfessorListItem"
+                                                                                        type: "SP.Data.FacultyTestingInfoListItem"
                                                                                     },
-                                                                                    FirstName: dataService.properties.currentUser.userId.Title.split(', ')[1],
-                                                                                    LastName: dataService.properties.currentUser.userId.Title.split(', ')[0],
-                                                                                    Picture: '/media/' + dataService.properties.currentUser.userId.Email.split('@')[0] + '.jpg',
-                                                                                    EmailAddress: dataService.properties.currentUser.userId.Email,
-                                                                                    OfficePhone: '',
-                                                                                    OfficeAddress: '',
-                                                                                    OtherPhone: ''
-                                                                                })
-                                                                                .success(function(data) {
-                                                                                    dataService.properties.currentUser.employeeInfo = {
-                                                                                        FirstName: data.d.FirstName,
-                                                                                        LastName: data.d.LastName,
-                                                                                        Picture: data.d.Picture,
-                                                                                        EmailAddress: data.d.EmailAddress,
-                                                                                    };
-                                                                                    deffered.resolve();
-                                                                                });
-                                                                        } else {
-                                                                            dataService.properties.currentUser.employeeInfo = data.d.results[0];
-                                                                            new dataService.getItems('FacultyTestingInfo')
-                                                                                .select(['Professor/Id', 'Stipulation', 'Other', 'Id'])
-                                                                                .expand(['Professor'])
-                                                                                .where(['Professor/Id', 'eq', dataService.properties.currentUser.employeeInfo.Id])
-                                                                                .execute()
-                                                                                .success(function(data) {
-                                                                                    if (data.d.results.length === 0) {
-                                                                                        dataService.properties.newUser = true;
-                                                                                        dataService.properties.currentUser.FacultyTestingInfo = {
-                                                                                            __metadata: {
-                                                                                                type: "SP.Data.FacultyTestingInfoListItem"
-                                                                                            },
-                                                                                            ProfessorId: dataService.properties.currentUser.employeeInfo.Id,
-                                                                                            Stipulation: '',
-                                                                                            Other: ''
-                                                                                        };
-                                                                                    } else {
-                                                                                        dataService.properties.newUser = false;
-                                                                                        data.d.results[0].ProfessorId = data.d.results[0].Professor.Id;
-                                                                                        delete data.d.results[0].Professor;
-                                                                                        dataService.properties.currentUser.FacultyTestingInfo = data.d.results[0];
-                                                                                    }
-                                                                                    deffered.resolve();
-                                                                                });
-                                                                        }
-                                                                    });
-                                                            }
-                                                        } else {
-                                                            dataService.properties.loadEmployeeInformation = true;
-                                                            dataService.properties.currentUser.employeeInfo = data.d.results[0];
-                                                            if (dataService.properties.currentUser.employeeInfo.Position.Position === 'FTE' ||
-                                                                dataService.properties.currentUser.employeeInfo.Position.Position === 'HR' ||
-                                                                dataService.properties.currentUser.employeeInfo.Admin) {
-                                                                dataService.properties.extendedPrivledges = true;
-                                                            }
-                                                            deffered.resolve();
-                                                        }
-                                                    });
+                                                                                    ProfessorId: dataService.properties.currentUser.employeeInfo.Id,
+                                                                                    Stipulation: '',
+                                                                                    Other: ''
+                                                                                };
+                                                                            } else {
+                                                                                dataService.properties.newUser = false;
+                                                                                data.d.results[0].ProfessorId = data.d.results[0].Professor.Id;
+                                                                                delete data.d.results[0].Professor;
+                                                                                dataService.properties.currentUser.FacultyTestingInfo = data.d.results[0];
+                                                                            }
+                                                                            deffered.resolve();
+                                                                        });
+                                                                }
+                                                            });
+                                                    }
+                                                } else {
+                                                    dataService.properties.loadEmployeeInformation = true;
+                                                    dataService.properties.currentUser.employeeInfo = data.d.results[0];
+                                                    if (dataService.properties.currentUser.employeeInfo.Position.Position === 'FTE' ||
+                                                        dataService.properties.currentUser.employeeInfo.Position.Position === 'HR' ||
+                                                        dataService.properties.currentUser.employeeInfo.Admin) {
+                                                        dataService.properties.extendedPrivledges = true;
+                                                    }
+                                                    deffered.resolve();
+                                                }
                                             });
                                     });
-                                });
+                            }
                             return deffered.promise;
                         }
                     }

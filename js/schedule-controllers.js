@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2014-12-12 20:11:27
+ * @Last Modified time: 2014-12-15 15:11:59
  */
 /* global angular, _ */
 
@@ -475,7 +475,7 @@
                             .where({
                                 and: [
                                     ['Current', 'eq', 1],
-                                    ['ShiftGroup/Id', 'eq', dataService.properties.semester.ShiftGroup.Id]
+                                    ['ShiftGroup/Id', 'eq', dataService.properties.currentSemester.ShiftGroup.Id]
                                 ]
                             })
                             .execute()
@@ -619,7 +619,7 @@
                                     .where({
                                         and: [
                                             ['Current', 'eq', '1'],
-                                            ['ShiftGroup/Id', 'eq', dataService.properties.semester.ShiftGroup.Id]
+                                            ['ShiftGroup/Id', 'eq', dataService.properties.currentSemester.ShiftGroup.Id]
                                         ]
                                     })
                                     .execute(false)
@@ -753,7 +753,7 @@
                                     .where({
                                         and: [
                                             ['Current', 'eq', '1'],
-                                            ['ShiftGroup/Id', 'eq', dataService.properties.semester.NextShiftGroup.Id]
+                                            ['ShiftGroup/Id', 'eq', dataService.properties.nextSemester.ShiftGroup.Id]
                                         ]
                                     })
                                     .execute(false)
@@ -843,7 +843,7 @@
                             .where({
                                 and: [
                                     //This selects only those shifts that apply to the current semester
-                                    ['ShiftGroup/Id', 'eq', dataService.properties.semester.ShiftGroup.Id],
+                                    ['ShiftGroup/Id', 'eq', dataService.properties.currentSemester.ShiftGroup.Id],
                                     // This selects only those shifts that are active (sorry about the poor data naming choice)
                                     ['Current', 'eq', 1]
                                 ]
@@ -984,7 +984,7 @@
                         .where({
                             and: [
                                 ['Current', 'eq', '1'],
-                                ['ShiftGroup/Id', 'eq', dataService.properties.semester.ShiftGroup.Id]
+                                ['ShiftGroup/Id', 'eq', dataService.properties.currentSemester.ShiftGroup.Id]
                             ]
                         })
                         .execute(false)
@@ -1197,7 +1197,7 @@
                 .where({
                     and: [
                         ['Current', 'eq', '1'],
-                        ['ShiftGroup/Id', 'eq', dataService.properties.semester.ShiftGroup.Id]
+                        ['ShiftGroup/Id', 'eq', dataService.properties.currentSemester.ShiftGroup.Id]
                     ]
                 })
                 .execute(false)
@@ -1416,7 +1416,7 @@
                                     '\', Day)'
                                 ), ['ShiftGroup/Id',
                                     'eq',
-                                    dataService.properties.semester.ShiftGroup.Id
+                                    dataService.properties.currentSemester.ShiftGroup.Id
                                 ]
                             ]
                         })

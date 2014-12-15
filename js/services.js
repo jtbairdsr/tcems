@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2014-12-12 19:08:00
+ * @Last Modified time: 2014-12-15 15:47:18
  */
 /* global angular, _ */
 
@@ -63,12 +63,20 @@
                     .where(['Semester/Id', 'eq', semester.Id])
                     .execute();
             };
-            service.getSemester = function() {
-                return new service.getItems('Semester')
-                    .select(['ShiftGroup/Id', 'ShiftGroup/Description', 'Year', 'FirstDay', 'FinalsFirstDay', 'LastDay', 'Active', 'NextShiftGroup/Id', 'NextShiftGroup/Description', 'Id'])
-                    .expand(['ShiftGroup', 'NextShiftGroup'])
-                    .where(['Active', 'eq', 1])
-                    .execute();
+            service.getSemester = function(semesterId) {
+                if (semesterId) {
+                    return new service.getItems('Semester')
+                        .select(['ShiftGroup/Id', 'ShiftGroup/Description', 'Year', 'FirstDay', 'LastDay', 'Active', 'NextSemester/Id', 'Id'])
+                        .expand(['ShiftGroup', 'NextSemester'])
+                        .where(['Id', 'eq', semesterId])
+                        .execute();
+                } else {
+                    return new service.getItems('Semester')
+                        .select(['ShiftGroup/Id', 'ShiftGroup/Description', 'Year', 'FirstDay', 'LastDay', 'Active', 'NextSemester/Id', 'Id'])
+                        .expand(['ShiftGroup', 'NextSemester'])
+                        .where(['Active', 'eq', 1])
+                        .execute();
+                }
             };
 
             // create the refreshSecurityValidation method.
@@ -244,9 +252,9 @@
                                 }
                                 if (params.and.other !== undefined) {
                                     // if (service.getClass(params.and.other) === 'Array') {
-                                    // 	_.each(params.and.other, function(otherQuery) {
-                                    // 		tempQueryHolder.push(otherQuery);
-                                    // 	});
+                                    //  _.each(params.and.other, function(otherQuery) {
+                                    //      tempQueryHolder.push(otherQuery);
+                                    //  });
                                     // } else {
                                     tempQueryHolder.push(params.and.other);
                                     // }
