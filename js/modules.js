@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2014-12-15 15:50:36
+ * @Last Modified time: 2015-01-05 10:33:16
  */
 (function() {
     /**
@@ -207,11 +207,12 @@
                                     $scope.panels = data.d.results;
                                 });
                             new dataService.getItems('ShiftGroup')
+                                .select(['Id', 'Description'])
                                 .execute(true)
                                 .success(function(data) {
                                     _.each(data.d.results, function(result) {
                                         result.active = (result.Id === dataService.properties.currentSemester.ShiftGroup.Id ||
-                                            result.Id === dataService.properties.nextSemester.Id);
+                                            result.Id === dataService.properties.nextSemester.ShiftGroup.Id);
                                     });
                                     $scope.arrays.shiftGroups = data.d.results;
                                 });
