@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-05 10:33:16
+ * @Last Modified time: 2015-01-05 11:10:53
  */
 (function() {
     /**
@@ -211,8 +211,12 @@
                                 .execute(true)
                                 .success(function(data) {
                                     _.each(data.d.results, function(result) {
-                                        result.active = (result.Id === dataService.properties.currentSemester.ShiftGroup.Id ||
-                                            result.Id === dataService.properties.nextSemester.ShiftGroup.Id);
+                                        if (dataService.properties.nextSemester.ShiftGroup !== undefined) {
+                                            result.active = (result.Id === dataService.properties.currentSemester.ShiftGroup.Id ||
+                                                result.Id === dataService.properties.nextSemester.ShiftGroup.Id);
+                                        } else {
+                                            result.active = (result.Id === dataService.properties.currentSemester.ShiftGroup.Id)
+                                        }
                                     });
                                     $scope.arrays.shiftGroups = data.d.results;
                                 });
@@ -235,6 +239,9 @@
 
                             function getCurrentSemester() {
                                 dataService.getSemester().success(function(data) {
+                                    // TODO remove debugging
+                                    console.log(data.d.results[0]);
+                                    console.log((data.d.results[0].NextSemester.Id !== undefined));
                                     dataService.properties.currentSemester = data.d.results[0];
                                     dataService.getNoTestingDays(dataService.properties.currentSemester)
                                         .success(function(data) {
@@ -245,14 +252,18 @@
                             }
 
                             function getNextSemester() {
-                                dataService.getSemester(dataService.properties.currentSemester.NextSemester.Id).success(function(data) {
-                                    dataService.properties.nextSemester = data.d.results[0];
-                                    dataService.getNoTestingDays(dataService.properties.nextSemester)
-                                        .success(function(data) {
-                                            dataService.properties.nextSemester.noTestingDays = data.d.results;
-                                            getCurrentUser();
-                                        });
-                                });
+                                if (dataService.properties.currentSemester.NextSemester.Id !== undefined) {
+                                    dataService.getSemester(dataService.properties.currentSemester.NextSemester.Id).success(function(data) {
+                                        dataService.properties.nextSemester = data.d.results[0];
+                                        dataService.getNoTestingDays(dataService.properties.nextSemester)
+                                            .success(function(data) {
+                                                dataService.properties.nextSemester.noTestingDays = data.d.results;
+                                                getCurrentUser();
+                                            });
+                                    });
+                                } else {
+                                    getCurrentUser();
+                                }
 
                             }
 

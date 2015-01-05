@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2014-12-15 15:11:59
+ * @Last Modified time: 2015-01-05 11:17:47
  */
 /* global angular, _ */
 
@@ -81,6 +81,9 @@
                     getShifts();
 
                     function compileShifts() {
+                        // TODO remove debuger
+                        console.log($scope.properties.currentSemester);
+                        console.log($scope.properties.nextSemester);
                         _.each(shifts, function(shift) {
                             var relevantSchedules = _.filter(schedules, function(schedule) {
                                 return schedule.ShiftId === shift.Id;
@@ -636,139 +639,144 @@
                         $scope.arrays.days = days;
                     });
                 // Next Semesters Schedule overview.
-                new dataService.getItems('Schedule')
-                    .top(999999999)
-                    .select(['Id', 'Shift/Id', 'Shift/Day', 'Shift/StartTime',
-                        'Shift/EndTime', 'Employee/Id', 'Employee/FirstName',
-                        'Employee/LastName', 'Employee/PreferredName', 'Employee/Picture'
-                    ])
-                    .expand(['Shift', 'Employee'])
-                    .where(['Active', 'eq', 1])
-                    .execute(false)
-                    .success(function(data) {
-                        var createDays = function() {
-                                var days = new Array(6);
-                                for (var i = 0; i < days.length; i++) {
-                                    days[i] = {
-                                        title: Date.mon()
-                                            .addDays(i)
-                                            .toString('dddd'),
-                                        day: Date.mon()
-                                            .addDays(i)
-                                            .toString('ddd'),
-                                        visible: true,
-                                        shifts: []
+                function nextSemesterSchedule() {
+                    new dataService.getItems('Schedule')
+                        .top(999999999)
+                        .select(['Id', 'Shift/Id', 'Shift/Day', 'Shift/StartTime',
+                            'Shift/EndTime', 'Employee/Id', 'Employee/FirstName',
+                            'Employee/LastName', 'Employee/PreferredName', 'Employee/Picture'
+                        ])
+                        .expand(['Shift', 'Employee'])
+                        .where(['Active', 'eq', 1])
+                        .execute(false)
+                        .success(function(data) {
+                            var createDays = function() {
+                                    var days = new Array(6);
+                                    for (var i = 0; i < days.length; i++) {
+                                        days[i] = {
+                                            title: Date.mon()
+                                                .addDays(i)
+                                                .toString('dddd'),
+                                            day: Date.mon()
+                                                .addDays(i)
+                                                .toString('ddd'),
+                                            visible: true,
+                                            shifts: []
+                                        };
+                                    }
+                                    return days;
+                                },
+                                addEmployees = function(shift) {
+                                    var employees = [],
+                                        i = 0;
+                                    for (i = 0; i < schedules.length; i++) {
+                                        if (schedules[i].Shift.Id === shift.Id) {
+                                            delete schedules[i].Employee.__metadata;
+                                            schedules[i].Employee.ShiftId = shift.Id;
+                                            schedules[i].Employee.ScheduleId = schedules[i].Id;
+                                            employees.push(schedules[i].Employee);
+                                        }
+                                    }
+                                    var remainingSlots = shift.Slots - employees.length;
+                                    if (remainingSlots !== 0) {
+                                        for (i = 0; i < remainingSlots; i++) {
+                                            employees.push({
+                                                Id: 0,
+                                                FirstName: 'No',
+                                                LastName: 'Employee',
+                                                PreferredName: '',
+                                                Picture: '/media/missing.png',
+                                                ShiftId: shift.Id,
+                                                ScheduleId: 0
+                                            });
+                                        }
+                                    }
+                                    shift.employees = employees;
+                                    return shift;
+                                },
+                                createShift = function(shift) {
+                                    return {
+                                        startTime: new Date(shift.StartTime),
+                                        endTime: new Date(shift.EndTime),
+                                        position: shift.Position.Position,
+                                        employees: shift.employees
                                     };
-                                }
-                                return days;
-                            },
-                            addEmployees = function(shift) {
-                                var employees = [],
-                                    i = 0;
-                                for (i = 0; i < schedules.length; i++) {
-                                    if (schedules[i].Shift.Id === shift.Id) {
-                                        delete schedules[i].Employee.__metadata;
-                                        schedules[i].Employee.ShiftId = shift.Id;
-                                        schedules[i].Employee.ScheduleId = schedules[i].Id;
-                                        employees.push(schedules[i].Employee);
-                                    }
-                                }
-                                var remainingSlots = shift.Slots - employees.length;
-                                if (remainingSlots !== 0) {
-                                    for (i = 0; i < remainingSlots; i++) {
-                                        employees.push({
-                                            Id: 0,
-                                            FirstName: 'No',
-                                            LastName: 'Employee',
-                                            PreferredName: '',
-                                            Picture: '/media/missing.png',
-                                            ShiftId: shift.Id,
-                                            ScheduleId: 0
-                                        });
-                                    }
-                                }
-                                shift.employees = employees;
-                                return shift;
-                            },
-                            createShift = function(shift) {
-                                return {
-                                    startTime: new Date(shift.StartTime),
-                                    endTime: new Date(shift.EndTime),
-                                    position: shift.Position.Position,
-                                    employees: shift.employees
-                                };
-                            },
-                            compileSchedules = function() {
-                                var shift = {},
-                                    tempDays = [],
-                                    day = {},
-                                    daysCounter = 0,
-                                    shiftsCounter = 0;
-                                for (var i = 0; i < shifts.length; i++) {
-                                    shift = createShift(addEmployees(shifts[i]));
-                                    tempDays = shifts[i].Day.split(' - ');
-                                    for (var j = 0; j < tempDays.length; j++) {
-                                        daysCounter = 0;
-                                        do {
-                                            day = days[daysCounter];
-                                            if (day.day === tempDays[j]) {
-                                                if (day.shifts.length > 0) {
-                                                    shiftsCounter = 0;
-                                                    do {
-                                                        var currentShift = day.shifts[shiftsCounter];
-                                                        if ((currentShift.startTime.toString('HH:mm') === shift.startTime
-                                                                .toString('HH:mm') && currentShift.endTime.toString(
-                                                                    'HH:mm') === shift.endTime.toString('HH:mm')) &&
-                                                            currentShift.position === shift.position) {
-                                                            for (var k = 0; k < shift.employees.length; k++) {
-                                                                currentShift.employees.push(shift.employees[k]);
+                                },
+                                compileSchedules = function() {
+                                    var shift = {},
+                                        tempDays = [],
+                                        day = {},
+                                        daysCounter = 0,
+                                        shiftsCounter = 0;
+                                    for (var i = 0; i < shifts.length; i++) {
+                                        shift = createShift(addEmployees(shifts[i]));
+                                        tempDays = shifts[i].Day.split(' - ');
+                                        for (var j = 0; j < tempDays.length; j++) {
+                                            daysCounter = 0;
+                                            do {
+                                                day = days[daysCounter];
+                                                if (day.day === tempDays[j]) {
+                                                    if (day.shifts.length > 0) {
+                                                        shiftsCounter = 0;
+                                                        do {
+                                                            var currentShift = day.shifts[shiftsCounter];
+                                                            if ((currentShift.startTime.toString('HH:mm') === shift.startTime
+                                                                    .toString('HH:mm') && currentShift.endTime.toString(
+                                                                        'HH:mm') === shift.endTime.toString('HH:mm')) &&
+                                                                currentShift.position === shift.position) {
+                                                                for (var k = 0; k < shift.employees.length; k++) {
+                                                                    currentShift.employees.push(shift.employees[k]);
+                                                                }
+                                                                shiftsCounter = day.shifts.length;
+                                                            } else if (shiftsCounter === day.shifts.length - 1) {
+                                                                day.shifts.push(createShift(addEmployees(shifts[i])));
+                                                                shiftsCounter = day.shifts.length;
+                                                            } else {
+                                                                shiftsCounter++;
                                                             }
-                                                            shiftsCounter = day.shifts.length;
-                                                        } else if (shiftsCounter === day.shifts.length - 1) {
-                                                            day.shifts.push(createShift(addEmployees(shifts[i])));
-                                                            shiftsCounter = day.shifts.length;
-                                                        } else {
-                                                            shiftsCounter++;
-                                                        }
-                                                    } while (shiftsCounter < day.shifts.length);
+                                                        } while (shiftsCounter < day.shifts.length);
+                                                    } else {
+                                                        day.shifts.push(createShift(addEmployees(shifts[i])));
+                                                    }
+                                                    daysCounter = days.length;
                                                 } else {
-                                                    day.shifts.push(createShift(addEmployees(shifts[i])));
+                                                    daysCounter++;
                                                 }
-                                                daysCounter = days.length;
-                                            } else {
-                                                daysCounter++;
-                                            }
-                                        } while (daysCounter < days.length);
+                                            } while (daysCounter < days.length);
+                                        }
                                     }
-                                }
-                            },
-                            getShifts = function() {
-                                new dataService.getItems('Shift')
-                                    .top(999999999)
-                                    .select(['Id', 'Day', 'Slots', 'Current',
-                                        'ShiftGroup/Description', 'ShiftGroup/Id', 'Position/Position',
-                                        'Position/Id', 'StartTime', 'EndTime'
-                                    ])
-                                    .expand(['ShiftGroup', 'Position'])
-                                    .where({
-                                        and: [
-                                            ['Current', 'eq', '1'],
-                                            ['ShiftGroup/Id', 'eq', dataService.properties.nextSemester.ShiftGroup.Id]
-                                        ]
-                                    })
-                                    .execute(false)
-                                    .success(function(data) {
-                                        shifts = data.d.results;
-                                        compileSchedules();
-                                    });
-                            },
-                            days = createDays(),
-                            shifts = [],
-                            schedules = data.d.results;
-                        getShifts();
-                        compileSchedules();
-                        $scope.arrays.nextDays = days;
-                    });
+                                },
+                                getShifts = function() {
+                                    new dataService.getItems('Shift')
+                                        .top(999999999)
+                                        .select(['Id', 'Day', 'Slots', 'Current',
+                                            'ShiftGroup/Description', 'ShiftGroup/Id', 'Position/Position',
+                                            'Position/Id', 'StartTime', 'EndTime'
+                                        ])
+                                        .expand(['ShiftGroup', 'Position'])
+                                        .where({
+                                            and: [
+                                                ['Current', 'eq', '1'],
+                                                ['ShiftGroup/Id', 'eq', dataService.properties.nextSemester.ShiftGroup.Id]
+                                            ]
+                                        })
+                                        .execute(false)
+                                        .success(function(data) {
+                                            shifts = data.d.results;
+                                            compileSchedules();
+                                        });
+                                },
+                                days = createDays(),
+                                shifts = [],
+                                schedules = data.d.results;
+                            getShifts();
+                            compileSchedules();
+                            $scope.arrays.nextDays = days;
+                        });
+                }
+                if (dataService.properties.nextSemester.ShiftGroup !== undefined) {
+                    nextSemesterSchedule()
+                }
                 // This is the function that will add the data necessary for the subShifts view.  It is called after the mySchedule function finishes.
                 function subShiftView() {
 
@@ -794,6 +802,7 @@
                                 ['Id',
                                     'Date',
                                     'Shift/Id',
+                                    'Semester/Id',
                                     // Requester Info
                                     'Requester/Id',
                                     'Requester/PreferredName',
@@ -810,8 +819,13 @@
                                     'Substitute/PhoneNumber'
                                 ]
                             )
-                            .expand(['Shift', 'Requester', 'Substitute'])
-                            .where(['Active', 'eq', 1])
+                            .expand(['Shift', 'Requester', 'Substitute', 'Semester'])
+                            .where({
+                                and: [
+                                    ['Active', 'eq', 1],
+                                    ['Semester/Id', 'eq', $scope.properties.currentSemester.Id]
+                                ]
+                            })
                             .execute()
                             .success(function(data) {
                                 // This assigns the results to a global (to the subShiftView function) variable so other functions and use them.
@@ -1718,7 +1732,6 @@
         function($scope, $alert, dataService) {
             var ctrl = this;
             ctrl.removeSubShift = function(shift) {
-                console.log(shift);
                 var shift = $scope.shift,
                     item = {
                         '__metadata': {
