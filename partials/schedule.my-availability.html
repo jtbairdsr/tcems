@@ -1,29 +1,33 @@
-<div>
-    {{showAddShift}}
+<div class="container-fluid">
+    <div class="row-fluid top-buffer">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th data-ng-repeat="day in arrays.availabilityDays" class="text-center" data-ng-class="{ weekend: (day.day === 'Sunday' || day.day === 'Saturday') }">
+                        <div>
+                            {{day.day}}
+                            <button type="button" data-ng-show="day.day === 'Sunday'" class="btn-link btn-xs pull-right" bs-modal="modal" data-template="partials/schedule.unavailable.html" data-placement="center" data-animation="am-fade-and-scale">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" data-ng-hide="day.day === 'Sunday'" class="btn-link btn-xs pull-right" bs-modal="modal" data-template="partials/schedule.add-availability.html" data-placement="center" data-animation="am-fade-and-scale">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-ng-repeat="day in arrays.availabilityDays" class="text-center my-schedule" data-ng-class="{ weekend: (day.day === 'Sunday' || day.day === 'Saturday') }">
+                        <div class="btn-group-vertical my-schedule">
+                            <button class="btn my-schedule" data-ng-repeat="availability in day.availabilities | orderBy:'startTime':false" data-ng-hide="day.day === 'Sunday'" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.edit-availability.html" bs-modal="modal">
+                                {{availability.startTime | date:'h:mm a'}} - {{availability.endTime | date:'h:mm a'}}
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th data-ng-repeat="day in arrays.availabilityDays" class="text-center" data-ng-class="{ weekend: (day.day === 'Sunday' || day.day === 'Saturday') }">
-                <div>
-                    {{day.day}}
-                    <button type="button" data-ng-hide="day.day === 'Sunday'" class="btn-link btn-xs pull-right" bs-modal="modal" data-template="partials/schedule.add-availability.html" data-placement="center" data-animation="am-fade-and-scale">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                </div>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td data-ng-repeat="day in arrays.availabilityDays" class="text-center my-schedule" data-ng-class="{ weekend: (day.day === 'Sunday' || day.day === 'Saturday') }">
-                <div class="btn-group-vertical my-schedule">
-                    <button class="btn my-schedule" data-ng-repeat="availability in day.availabilities | orderBy:'startTime':false" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/schedule.edit-availability.html" bs-modal="modal">
-                        {{availability.startTime | date:'h:mm a'}} - {{availability.endTime | date:'h:mm a'}}
-                    </button>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
 <!-- <pre>{{arrays.availabilityDays | json}}</pre> -->

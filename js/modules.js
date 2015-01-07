@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-05 11:10:53
+ * @Last Modified time: 2015-01-06 21:05:57
  */
 (function() {
     /**
@@ -239,9 +239,6 @@
 
                             function getCurrentSemester() {
                                 dataService.getSemester().success(function(data) {
-                                    // TODO remove debugging
-                                    console.log(data.d.results[0]);
-                                    console.log((data.d.results[0].NextSemester.Id !== undefined));
                                     dataService.properties.currentSemester = data.d.results[0];
                                     dataService.getNoTestingDays(dataService.properties.currentSemester)
                                         .success(function(data) {
