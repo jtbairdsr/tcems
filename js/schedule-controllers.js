@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2015-01-05 11:17:47
+ * @Last Modified time: 2015-01-06 21:28:22
  */
 /* global angular, _ */
 
@@ -81,9 +81,6 @@
                     getShifts();
 
                     function compileShifts() {
-                        // TODO remove debuger
-                        console.log($scope.properties.currentSemester);
-                        console.log($scope.properties.nextSemester);
                         _.each(shifts, function(shift) {
                             var relevantSchedules = _.filter(schedules, function(schedule) {
                                 return schedule.ShiftId === shift.Id;
@@ -509,7 +506,7 @@
                     .top(999999999)
                     .select(['Id', 'Shift/Id', 'Shift/Day', 'Shift/StartTime',
                         'Shift/EndTime', 'Employee/Id', 'Employee/FirstName',
-                        'Employee/LastName', 'Employee/PreferredName', 'Employee/Picture'
+                        'Employee/LastName', 'Employee/PreferredName', 'Employee/Picture', 'Employee/PhoneNumber', 'Employee/EmailAddress'
                     ])
                     .expand(['Shift', 'Employee'])
                     .where(['Active', 'eq', 1])
@@ -823,7 +820,7 @@
                             .where({
                                 and: [
                                     ['Active', 'eq', 1],
-                                    ['Semester/Id', 'eq', $scope.properties.currentSemester.Id]
+                                    ['Semester/Id', 'eq', dataService.properties.currentSemester.Id]
                                 ]
                             })
                             .execute()
@@ -971,212 +968,192 @@
             $scope.ctrlProperties.showAddShift = scheduleService.showAddShift;
             $scope.ctrlProperties.showAddSubShift = scheduleService.showAddSubShift;
             $scope.toggle = true;
-            var createDays = function() {
-                    var days = new Array(6);
-                    for (var i = 0; i < days.length; i++) {
-                        days[i] = {
-                            day: Date.mon()
-                                .addDays(i)
-                                .toString('ddd'),
-                            title: Date.mon()
-                                .addDays(i)
-                                .toString('dddd'),
-                            visible: true,
-                            shifts: []
-                        };
-                    }
-                    return days;
-                },
-                getShifts = function() {
-                    new dataService.getItems('Shift')
-                        .top(999999999)
-                        .select(['Id', 'Day', 'Current', 'ShiftGroup/Description',
-                            'ShiftGroup/Id', 'Position/Position', 'Position/Id', 'StartTime',
-                            'EndTime'
-                        ])
-                        .expand(['ShiftGroup', 'Position'])
-                        .where({
-                            and: [
-                                ['Current', 'eq', '1'],
-                                ['ShiftGroup/Id', 'eq', dataService.properties.currentSemester.ShiftGroup.Id]
-                            ]
-                        })
-                        .execute(false)
-                        .success(function(data) {
-                            shifts = data.d.results;
-                            getAvailabilities();
-                        });
-                },
-                getAvailabilities = function() {
-                    new dataService.getItems('Availability')
-                        .top(999999999)
-                        .select(['Employee/Id', 'Day', 'StartTime', 'EndTime', 'Id'])
-                        .expand(['Employee'])
-                        .where(['Current', 'eq', 1])
-                        .execute(false)
-                        .success(function(data) {
-                            allAvailabilities = data.d.results;
-                            getSchedules();
-                        });
-                },
-                getSchedules = function() {
-                    new dataService.getItems('Schedule')
-                        .top(999999999)
-                        .select(['Shift/StartTime', 'Shift/EndTime', 'Employee/Id'])
-                        .expand(['Shift', 'Employee'])
-                        .where(['Active', 'eq', 1])
-                        .execute(false)
-                        .success(function(data) {
-                            allSchedules = data.d.results;
-                            getEmployees();
-                        });
-                },
-                getEmployees = function() {
-                    new dataService.getItems('Employee')
-                        .top(999999999)
-                        .select(['Id', 'PreferredName', 'FirstName', 'LastName', 'PhoneNumber',
-                            'EmailAddress', 'Picture', 'Position/Position', 'Position/Id',
-                            'Area/Id', 'Area/Area'
-                        ])
-                        .expand(['Position', 'Area'])
-                        .where({
-                            and: [
-                                ['Active', 'eq', 1],
-                                ['Position/Position', 'ne ', 'FTE']
-                            ]
-                        })
-                        .execute(false)
-                        .success(function(data) {
-                            for (var result in data.d.results) {
-                                result = data.d.results[result];
-                                result.hasSubmittedAvailability = false;
-                                for (var availability in allAvailabilities) {
-                                    availability = allAvailabilities[availability];
-                                    if (availability.Employee.Id === result.Id) {
-                                        result.hasSubmittedAvailability = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            ctrl.allActiveEmployees = data.d.results;
-                            allActiveEmployees = data.d.results;
-                            compileDays();
-                        });
-                },
-                compileDays = function() {
-                    for (var day in days) {
-                        day = days[day];
-                        for (var shift in shifts) {
-                            checkShifts: {
-                                var needsNewShift = true;
-                                // foundEmployee = false;
-                                shift = shifts[shift];
-                                shift.StartTime = new Date(shift.StartTime);
-                                shift.EndTime = new Date(shift.EndTime);
-                                shift.Position = shift.Position.Position || shift.Position;
-                                shift.Employees = [];
-                                var tempDays = shift.Day.replace(/\s/g, '')
-                                    .split('-');
-                                for (var tempDay in tempDays) {
-                                    tempDay = tempDays[tempDay];
-                                    if (tempDay === day.day) {
-                                        for (var dayShift in day.shifts) {
-                                            dayShift = day.shifts[dayShift];
 
-                                        }
-                                        for (var employee in allActiveEmployees) {
-                                            employee = allActiveEmployees[employee];
-                                            if (shift.Position === employee.Position.Position ||
-                                                (employee.Position.Position === 'Coordinator' &&
-                                                    employee.Area.Area === 'SARAS' &&
-                                                    shift.Position === 'Presenter') ||
-                                                (employee.Position.Position === 'Coordinator' &&
-                                                    employee.Area.Area === 'Technology' &&
-                                                    shift.Position === 'Techy') ||
-                                                (employee.Position.Position === 'Coordinator' &&
-                                                    employee.Area.Area === 'Main' &&
-                                                    shift.Position === 'Proctor')) {
-                                                for (dayShift in day.shifts) {
-                                                    dayShift = day.shifts[dayShift];
-                                                    if (dayShift.StartTime.toString('HH:mm') === shift.StartTime.toString(
-                                                            'HH:mm') &&
-                                                        dayShift.EndTime.toString('HH:mm') === shift.EndTime.toString(
-                                                            'HH:mm') &&
-                                                        dayShift.Position === shift.Position) {
-                                                        break checkShifts;
-                                                    }
-                                                }
-                                                var notWorkingTheShift = !(checkSchedules(employee, shift));
-                                                if (notWorkingTheShift) {
-                                                    checkAvailabilities(employee, shift, tempDay);
-                                                }
-                                            }
-                                        }
-                                        if (needsNewShift) {
-                                            day.shifts.push({
-                                                StartTime: shift.StartTime,
-                                                EndTime: shift.EndTime,
-                                                Position: shift.Position,
-                                                Employees: shift.Employees
-                                            });
-                                            delete shift.Employees;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                checkSchedules = function(employee, shift) {
-                    for (var schedule in allSchedules) {
-                        schedule = allSchedules[schedule];
-                        schedule.Shift.StartTime = new Date(schedule.Shift.StartTime);
-                        schedule.Shift.EndTime = new Date(schedule.Shift.EndTime);
-                        // alert(schedule.EmployeeId + ' === ' + employee.Id + '\n' + schedule.ShiftId + ' === ' + shift.Id);
-                        if (schedule.Employee.Id === employee.Id) {
-                            if ((schedule.Shift.StartTime.toString('HH:mm') === shift.StartTime.toString(
-                                        'HH:mm') ||
-                                    schedule.Shift.EndTime.toString('HH:mm') === shift.EndTime.toString(
-                                        'HH:mm'))) {
-                                return true;
-                            }
-                        }
-                    }
-                    return false;
-                },
-                checkAvailabilities = function(employee, shift, day) {
-                    for (var availability in allAvailabilities) {
-                        availability = allAvailabilities[availability];
-                        availability.StartTime = new Date(availability.StartTime);
-                        availability.EndTime = new Date(availability.EndTime);
-                        // alert(day + ' === ' + availability.Day.substring(0,3));
-                        if (availability.Employee.Id === employee.Id &&
-                            availability.Day.substring(0, 3) === day &&
-                            availability.StartTime.toString('HH:mm') <= shift.StartTime.toString(
-                                'HH:mm') &&
-                            availability.EndTime.toString('HH:mm') >= shift.EndTime.toString(
-                                'HH:mm')) {
-                            shift.Employees.push({
-                                FirstName: employee.FirstName,
-                                PreferredName: employee.PreferredName,
-                                LastName: employee.LastName,
-                                Picture: employee.Picture,
-                                EmailAddress: employee.EmailAddress,
-                                PhoneNumber: employee.PhoneNumber
-                            });
-                            break;
-                        }
-                    }
-                },
-                ctrl = this,
-                days = createDays(),
-                shifts = [],
-                allActiveEmployees = [],
-                allAvailabilities = [],
-                allSchedules = [];
-            getShifts();
-            $scope.arrays.allAvailabilityDays = days;
+            var ctrl = this;
+            var shifts = [];
+            var employees = [];
+            var availabilities = [];
+            var schedules = [];
+            getAvailabilities();
             ctrl.activePanel = -1;
+            ctrl.allActiveEmployees = [];
+
+            // function to determine which semesters need availability days added to them
+            function createSemesters() {
+                var semesters = [];
+                if (dataService.properties.nextSemester.ShiftGroup !== undefined) {
+                    dataService.properties.nextSemester.availabilityDays = createDays(dataService.properties.nextSemester);
+                }
+                dataService.properties.currentSemester.availabilityDays = createDays(dataService.properties.currentSemester);
+                console.log(dataService.properties.currentSemester.availabilityDays);
+            }
+
+            // function to create a list of days that can be added to the semester.
+            function createDays(semester) {
+                var days = [];
+                for (var i = 0; i < 6; i++) {
+                    var day = {
+                        title: Date.mon()
+                            .addDays(i)
+                            .toString('dddd'),
+                        day: Date.mon()
+                            .addDays(i)
+                            .toString('ddd'),
+                        visible: true,
+                        shifts: []
+                    };
+                    day.shifts = compileDay(day.day, semester);
+                    days.push(day);
+                }
+                return days;
+            }
+
+            function compileDay(day, semester) {
+                var returnShiftList = [];
+                // Filter out all of the shifts that aren't for the day we are dealing with.
+                var relevantShifts = _.filter(shifts, function(shift) {
+                    return _.find(shift.Day.replace(/\s/g, '').split('-'), function(shiftDay) {
+                        return shiftDay === day
+                    }) !== undefined && shift.ShiftGroup.Id === semester.ShiftGroup.Id;
+                });
+                _.each(relevantShifts, function(shift) {
+                    // For each relevant shift we:
+                    // 1. set a flag that determines wether or not to add to returnShiftList
+                    var addToList = true;
+                    // 2. Check to see if this time period is already represented by another shift
+                    var previousShift = _.find(returnShiftList, function(previousShift) {
+                        return Date.parse(previousShift.StartTime).toString('H:mm') === Date.parse(shift.StartTime).toString('H:mm') &&
+                            Date.parse(previousShift.EndTime).toString('H:mm') === Date.parse(shift.EndTime).toString('H:mm') &&
+                            previousShift.Position.Id === shift.Position.Id;
+                    });
+                    if (previousShift !== undefined) {
+                        // if this is a repeat then assign the previousShift to the current shift
+                        shift = previousShift;
+                        // and set the flag so we know not to readd it to the returnlist.
+                        addToList = false;
+                    } else {
+                        // create a uniquie object that will be passed to the returnlist
+                        shift = {
+                            Day: day,
+                            Employees: [],
+                            EndTime: shift.EndTime,
+                            Id: shift.Id,
+                            Position: _.find($scope.arrays.positions, function(position) {
+                                return position.Id === shift.Position.Id;
+                            }),
+                            ShiftGroup: shift.ShiftGroup,
+                            StartTime: shift.StartTime
+                        }
+                    }
+                    // 3. filter relevantAvailabilities
+                    var relevantAvailabilities = []
+                    relevantAvailabilities = _.filter(availabilities, function(availability) {
+                        return availability.Semester.Id === semester.Id &&
+                            availability.Day.substring(0, 3) === day &&
+                            !(dataService.isTimeBefore(Date.parse(shift.StartTime), Date.parse(availability.StartTime))) &&
+                            !(dataService.isTimeBefore(Date.parse(availability.EndTime), Date.parse(shift.EndTime)));
+                    });
+                    _.each(relevantAvailabilities, function(availability) {
+                        // For each relevant availability we:
+                        // 1. attach the employee
+                        availability.Employee = _.find(employees, function(employee) {
+                            return employee.Id === availability.Employee.Id;
+                        });
+                        // 2. check to see if the employee already works during that time period.
+                        var worksThisSchedule = _.find(schedules, function(schedule) {
+                            return schedule.Employee.Id === availability.Employee.Id &&
+                                schedule.Shift.Id === shift.Id;
+                        });
+                        // 3. check to see if the employee is already listed for this availability
+                        var alreadyAvailable = _.find(shift.Employees, function(employee) {
+                            return employee.Id === availability.Employee.Id;
+                        });
+                        // 4. check to make sure the employee is the correct position for the shift.
+                        if (worksThisSchedule === undefined &&
+                            alreadyAvailable === undefined &&
+                            shift.Position.Id === availability.Employee.Position.Id) {
+                            // if the employee does'nt work during that time period we add them to the availability list.
+                            shift.Employees.push(availability.Employee);
+                        }
+
+                    });
+                    // 4. add the Shift to the return list if it isn't already there.
+                    if (addToList) {
+                        returnShiftList.push(shift);
+                    }
+                });
+                return returnShiftList;
+            }
+
+            function getAvailabilities() {
+                new dataService.getItems('Availability')
+                    .top(999999999)
+                    .select(['Employee/Id', 'Semester/Id', 'Day', 'StartTime', 'EndTime', 'Id'])
+                    .expand(['Employee', 'Semester'])
+                    .where(['Current', 'eq', 1])
+                    .execute(false)
+                    .success(function(data) {
+                        availabilities = data.d.results;
+                        getSchedules();
+                    });
+            }
+
+            function getSchedules() {
+                new dataService.getItems('Schedule')
+                    .top(999999999)
+                    .select(['Shift/Id', 'Shift/StartTime', 'Shift/EndTime', 'Employee/Id', 'Semester/Id'])
+                    .expand(['Shift', 'Employee', 'Semester'])
+                    .where(['Active', 'eq', 1])
+                    .execute(false)
+                    .success(function(data) {
+                        schedules = data.d.results;
+                        getEmployees();
+                    });
+            }
+
+            function getEmployees() {
+                new dataService.getItems('Employee')
+                    .top(999999999)
+                    .select(['Id', 'PreferredName', 'FirstName', 'LastName', 'PhoneNumber',
+                        'EmailAddress', 'Picture', 'Position/Position', 'Position/Id',
+                        'Area/Id', 'Area/Area'
+                    ])
+                    .expand(['Position', 'Area'])
+                    .where({
+                        and: [
+                            ['Active', 'eq', 1],
+                            ['Position/Position', 'ne ', 'FTE']
+                        ]
+                    })
+                    .execute(false)
+                    .success(function(data) {
+                        _.each(data.d.results, function(employee) {
+                            var submittedAvailabilities = _.find(availabilities, function(availability) {
+                                return availability.Employee.Id === employee.Id && availability.Semester.Id === dataService.properties.currentSemester.Id;
+                            });
+                            employee.hasSubmittedAvailability = (submittedAvailabilities !== undefined);
+                        });
+                        ctrl.allActiveEmployees = data.d.results;
+                        employees = data.d.results;
+                        getShifts();
+                    });
+            }
+
+            function getShifts() {
+                new dataService.getItems('Shift')
+                    .top(999999999)
+                    .select(['Id', 'Day', 'Current', 'ShiftGroup/Description',
+                        'ShiftGroup/Id', 'Position/Position', 'Position/Id', 'StartTime',
+                        'EndTime'
+                    ])
+                    .expand(['ShiftGroup', 'Position'])
+                    .where(['Current', 'eq', '1'])
+                    .execute(false)
+                    .success(function(data) {
+                        shifts = data.d.results;
+                        createSemesters();
+                    });
+            }
         }
     ]);
 
@@ -1627,7 +1604,8 @@
                     },
                     ShiftId: shiftId,
                     RequesterId: dataService.properties.currentUser.employeeInfo.Id,
-                    Date: date
+                    Date: date,
+                    SemesterId: dataService.properties.currentSemester.Id
                 };
                 dataService.addItem('SubShift', subRequest)
                     .success(function() {
@@ -1671,7 +1649,8 @@
                         },
                         ShiftId: shiftId,
                         RequesterId: dataService.properties.currentUser.employeeInfo.Id,
-                        Date: date
+                        Date: date,
+                        SemesterId: dataService.properties.currentSemester.Id
                     },
                     item = {
                         '__metadata': {
@@ -2063,15 +2042,17 @@
     schedule.controller('MyAvailabilityCtrl', ['$scope', '$alert', 'dataService',
         function($scope, $alert, dataService) {
             var ctrl = this;
-            ctrl.newAvailability = {
-                '__metadata': {
-                    type: 'SP.Data.AvailabilityListItem'
-                },
-                Day: $scope.day.day,
-                StartTime: $scope.availability.startTime || '',
-                EndTime: $scope.availability.endTime || '',
-                EmployeeId: dataService.properties.currentUser.employeeInfo.Id
-            };
+            if ($scope.availability !== undefined) {
+                ctrl.newAvailability = {
+                    '__metadata': {
+                        type: 'SP.Data.AvailabilityListItem'
+                    },
+                    Day: $scope.day.day,
+                    StartTime: $scope.availability.startTime || '',
+                    EndTime: $scope.availability.endTime || '',
+                    EmployeeId: dataService.properties.currentUser.employeeInfo.Id
+                };
+            }
             ctrl.updateAvailability = function() {
                 delete ctrl.newAvailability.EmployeeId;
                 delete ctrl.newAvailability.Day;
@@ -2117,6 +2098,31 @@
                         $scope.$emit('Refresh Content');
                     });
             };
+            ctrl.markUnavailable = function() {
+                var item = {
+                    '__metadata': {
+                        type: 'SP.Data.AvailabilityListItem'
+                    },
+                    Day: 'Sunday',
+                    StartTime: new Date(),
+                    EndTime: new Date(),
+                    EmployeeId: dataService.properties.currentUser.employeeInfo.Id,
+                    SemesterId: dataService.properties.currentSemester.Id
+                }
+                dataService.addItem('Availability', item)
+                    .success(function() {
+                        $alert({
+                            show: true,
+                            placement: 'top-right',
+                            content: 'You have been marked as unavailable!',
+                            animation: 'am-fade-and-slide-top',
+                            duration: '3',
+                            type: 'success',
+                            template: 'partials/alerts/success-alert.html'
+                        });
+                        $scope.$emit('Refresh Content');
+                    });
+            }
         }
     ]);
     schedule.controller('AddAvailability', ['$scope', '$alert', 'dataService',
@@ -2129,7 +2135,8 @@
                 Day: $scope.day.day,
                 StartTime: '',
                 EndTime: '',
-                EmployeeId: dataService.properties.currentUser.employeeInfo.Id
+                EmployeeId: dataService.properties.currentUser.employeeInfo.Id,
+                SemesterId: dataService.properties.currentSemester.Id
             };
             ctrl.addAvailability = function() {
                 ctrl.newAvailability.StartTime = ctrl.newAvailability.StartTime.toISOString();
