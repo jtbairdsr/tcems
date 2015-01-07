@@ -1,5 +1,7 @@
 assets/
 
+.gitignore
+
 aspnet_client/
 
 TrainingLibrary/
@@ -20,6 +22,6 @@ iis*
 
 npm-debug.log
 
-ChatProject
+ChatProject*
 
 node_modules/
