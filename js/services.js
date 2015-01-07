@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2014-12-15 15:47:18
+ * @Last Modified time: 2015-01-06 18:52:54
  */
 /* global angular, _ */
 
@@ -47,6 +47,21 @@
             //////////////////
             // init methods //
             //////////////////
+            service.isTimeBefore = function(date1, date2) {
+                var hr1 = date1.getHours();
+                var hr2 = date2.getHours();
+                var min1 = date1.getMinutes();
+                var min2 = date2.getMinutes();
+                var returnValue;
+                if (hr1 < hr2) {
+                    returnValue = true;
+                } else if (hr1 === hr2 && min1 < min2) {
+                    returnValue = true;
+                } else {
+                    returnValue = false;
+                }
+                return returnValue;
+            }
             service.getJson = function(url, cache) {
                 cache = cache || false;
                 return $http.get(url, {

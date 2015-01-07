@@ -1,0 +1,19 @@
+<div class="modal" tabindex="-1" role="dialog" ng-controller="MyAvailabilityCtrl as availCtrl">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="$hide()">&times;</button>
+				<h4 class="modal-title">Unavailable</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<p>This means that outside your work schedule you are completely unavailable.  You will not be contacted about substituting or any other help requests.</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
+				<button type="button" class="btn btn-success" ng-click="availCtrl.markUnavailable(); $hide()">Submit</button>
+			</div>
+		</div>
+	</div>
+</div>
