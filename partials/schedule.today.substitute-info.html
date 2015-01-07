@@ -1,0 +1,10 @@
+<div class="popover">
+	<div class="arrow"></div>
+	<h4 class="popover-title">Employee Information:
+		<small>{{employee.substitutePreferredName}} {{employee.substituteLastName}}</small>
+	</h4>
+	<div class="popover-content">
+		Phone:<br>{{employee.substitutePhoneNumber | tel}}
+		<br>Email:<br>{{employee.substituteEmailAddress}}
+	</div>
+</div>
