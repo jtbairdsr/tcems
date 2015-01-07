@@ -1,8 +1,8 @@
-/* 
+/*
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:10
  * @Last Modified 2014-11-18
- * @Last Modified time: 2014-11-18 17:04:58
+ * @Last Modified time: 2015-01-07 09:29:00
  */
 (function() {
 	var app = angular.module('App');
@@ -23,12 +23,13 @@
 					}, '*')
 					.success(function(data) {
 						new dataService.getItems('Message')
-							.select(['Id', 'From/PreferredName', 'From/LastName', 'From/EmailAddress', 'From/Id', 'To/PreferredName', 'To/LastName', 'To/EmailAddress', 'To/Id', 'Subject', 'Message', 'Manditory', 'ExpDate', 'Viewed', 'ViewedDate'])
-							.expand(['From', 'To'])
+							.select(['Id', 'From/PreferredName', 'From/LastName', 'From/EmailAddress', 'From/Id', 'To/PreferredName', 'To/LastName', 'To/EmailAddress', 'To/Id', 'Subject', 'Message', 'Manditory', 'ExpDate', 'Viewed', 'ViewedDate', 'Semester/Id'])
+							.expand(['From', 'To'. 'Semester'])
 							.where({
 								and: [
 									['Active', 'eq', 1],
-									['To/Id', 'eq', dataService.properties.currentUser.employeeInfo.Id]
+									['To/Id', 'eq', dataService.properties.currentUser.employeeInfo.Id],
+									['Semester/Id', 'eq', dataService.properties.currentSemester.Id]
 								]
 							})
 							.execute(true)

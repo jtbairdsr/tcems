@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-06 21:05:57
+ * @Last Modified time: 2015-01-07 09:35:42
  */
 (function() {
     /**
@@ -122,6 +122,11 @@
                                 .where(['Active', 'eq', 1])
                                 .execute(false)
                                 .success(function(data) {
+                                    _.each(data.d.results, function(result) {
+                                        result.Position = _.find($scope.arrays.positions, function(position) {
+                                            return position.Id === result.Position.Id;
+                                        });
+                                    });
                                     $scope.arrays.employees = data.d.results;
                                 });
                             new dataService.getItems('Employee')
@@ -180,12 +185,13 @@
                                     $scope.arrays.professors = data.d.results;
                                 });
                             new dataService.getItems('Message')
-                                .select(['Id', 'From/PreferredName', 'From/LastName', 'From/EmailAddress', 'From/Id', 'To/PreferredName', 'To/LastName', 'To/EmailAddress', 'To/Id', 'Subject', 'Message', 'Manditory', 'ExpDate', 'Viewed', 'ViewedDate', 'Active'])
-                                .expand(['From', 'To'])
+                                .select(['Id', 'From/PreferredName', 'From/LastName', 'From/EmailAddress', 'From/Id', 'To/PreferredName', 'To/LastName', 'To/EmailAddress', 'To/Id', 'Subject', 'Message', 'Manditory', 'ExpDate', 'Viewed', 'ViewedDate', 'Active', 'Semester/Id'])
+                                .expand(['From', 'To', 'Semester'])
                                 .where({
                                     and: [
                                         ['Active', 'eq', 1],
-                                        ['To/Id', 'eq', dataService.properties.currentUser.employeeInfo.Id]
+                                        ['To/Id', 'eq', dataService.properties.currentUser.employeeInfo.Id],
+                                        ['Semester/Id', 'eq', dataService.properties.currentSemester.Id]
                                     ]
                                 })
                                 .execute(true)
