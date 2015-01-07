@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-06 21:05:57
+ * @Last Modified time: 2015-01-07 10:52:46
  */
 (function() {
     /**
@@ -122,6 +122,11 @@
                                 .where(['Active', 'eq', 1])
                                 .execute(false)
                                 .success(function(data) {
+                                    _.each(data.d.results, function(result) {
+                                        result.Position = _.find($scope.arrays.positions, function(position) {
+                                            return position.Id === result.Position.Id;
+                                        });
+                                    });
                                     $scope.arrays.employees = data.d.results;
                                 });
                             new dataService.getItems('Employee')
@@ -130,17 +135,15 @@
                                 .expand(['Position', 'Area', 'Team', 'Track'])
                                 .execute(false)
                                 .success(function(data) {
+                                    _.each(data.d.results, function(result) {
+                                        result.Position = _.find($scope.arrays.allPositions, function(position) {
+                                            return position.Id === result.Position.Id;
+                                        });
+                                    });
                                     $scope.arrays.directoryEmployees = data.d.results;
                                 });
                             new dataService.getItems('Position')
                                 .select(['Position', 'ID', 'Group/Id'])
-                                .where({
-                                    and: [
-                                        ['Position', 'ne', 'Applicant'],
-                                        ['Position', 'ne', 'FTE'],
-                                        ['Position', 'ne', 'Admin']
-                                    ]
-                                })
                                 .expand(['Group'])
                                 .execute(true)
                                 .success(function(data) {
@@ -170,7 +173,10 @@
                                             data.d.results[i].visible = false;
                                         }
                                     }
-                                    $scope.arrays.positions = data.d.results;
+                                    $scope.arrays.positions = _.filter(data.d.results, function(result) {
+                                        return result.Position !== 'FTE' && result.Position !== 'Applicant' && result.Position !== 'Admin';
+                                    });
+                                    $scope.arrays.allPositions = data.d.results;
                                 });
                             new dataService.getItems('FacultyTestingInfo')
                                 .select(['Professor/FirstName', 'Professor/LastName', 'Professor/OfficePhone', 'Professor/EmailAddress', 'Professor/OfficeAddress', 'Professor/OtherPhone', 'Professor/Picture', 'Stipulation', 'Other'])
@@ -180,12 +186,13 @@
                                     $scope.arrays.professors = data.d.results;
                                 });
                             new dataService.getItems('Message')
-                                .select(['Id', 'From/PreferredName', 'From/LastName', 'From/EmailAddress', 'From/Id', 'To/PreferredName', 'To/LastName', 'To/EmailAddress', 'To/Id', 'Subject', 'Message', 'Manditory', 'ExpDate', 'Viewed', 'ViewedDate', 'Active'])
-                                .expand(['From', 'To'])
+                                .select(['Id', 'From/PreferredName', 'From/LastName', 'From/EmailAddress', 'From/Id', 'To/PreferredName', 'To/LastName', 'To/EmailAddress', 'To/Id', 'Subject', 'Message', 'Manditory', 'ExpDate', 'Viewed', 'ViewedDate', 'Active', 'Semester/Id'])
+                                .expand(['From', 'To', 'Semester'])
                                 .where({
                                     and: [
                                         ['Active', 'eq', 1],
-                                        ['To/Id', 'eq', dataService.properties.currentUser.employeeInfo.Id]
+                                        ['To/Id', 'eq', dataService.properties.currentUser.employeeInfo.Id],
+                                        ['Semester/Id', 'eq', dataService.properties.currentSemester.Id]
                                     ]
                                 })
                                 .execute(true)

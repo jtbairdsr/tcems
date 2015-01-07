@@ -10,8 +10,8 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="Day">To:</label>
-								<select ui-select2="{ placeholder: 'Select employee/s' }" name="Day" multiple ng-model="ctrl.toList" ng-required="true">
+								<label for="to">To:</label>
+								<select ui-select2="{ placeholder: 'Select employee/s' }" name="to" multiple ng-model="ctrl.toList" ng-required="true">
 									<option value="all">All</option>
 									<option data-ng-repeat="employee in arrays.employees" value="{{employee.Id}}">{{employee.PreferredName}} {{employee.LastName}}</option>
 								</select>
@@ -21,9 +21,9 @@
 					<div class="row" data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE' || properties.currentUser.employeeInfo.Admin">
 						<div class="col-md-12">
 							<div class="form-group">
-								<label for="Day">From:</label>
-								<select ui-select2="{ placeholder: 'Select employee' }" name="Day" ng-model="ctrl.newMessage.FromId" ng-required="true">
-									<option data-ng-repeat="employee in arrays.employees | filter:{Position:'FTE'}" value="{{employee.Id}}">{{employee.PreferredName}} {{employee.LastName}}</option>
+								<label for="from">From:</label>
+								<select ui-select2="{ placeholder: 'Select employee' }" name="from" ng-model="ctrl.newMessage.FromId" ng-required="true">
+									<option data-ng-repeat="employee in arrays.employees | filter:{Position: ctrl.positionFTE}" value="{{employee.Id}}">{{employee.PreferredName}} {{employee.LastName}}</option>
 								</select>
 							</div>
 						</div>

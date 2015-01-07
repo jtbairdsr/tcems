@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2015-01-06 21:28:22
+ * @Last Modified time: 2015-01-07 10:52:31
  */
 /* global angular, _ */
 
@@ -67,12 +67,17 @@
                     .top(999999999)
                     .select(['Id', 'Picture', 'FirstName', 'PreferredName', 'LastName',
                         'EmailAddress', 'PhoneNumber', 'INumber', 'Track/Description',
-                        'Team/Id', 'Position/Position', 'Area/Area'
+                        'Team/Id', 'Position/Position', 'Area/Area', 'Position/Id'
                     ])
                     .expand(['Track', 'Team', 'Position', 'Area'])
                     .where(['Active', 'eq', 1])
                     .execute(false)
                     .success(function(data) {
+                        _.each(data.d.results, function(result){
+                            result.Position = _.find($scope.arrays.allPositions, function(position){
+                                return position.Id === result.Position.Id;
+                            });
+                        });
                         $scope.arrays.employees = data.d.results;
                     });
                 var availableShifts = function() {
