@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2015-01-07 09:34:52
+ * @Last Modified time: 2015-01-07 10:52:31
  */
 /* global angular, _ */
 
@@ -74,7 +74,7 @@
                     .execute(false)
                     .success(function(data) {
                         _.each(data.d.results, function(result){
-                            result.Position = _.find($scope.arrays.positions, function(position){
+                            result.Position = _.find($scope.arrays.allPositions, function(position){
                                 return position.Id === result.Position.Id;
                             });
                         });
