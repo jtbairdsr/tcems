@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-07 10:52:46
+ * @Last Modified time: 2015-01-09 10:07:45
  */
 (function() {
     /**
@@ -183,6 +183,10 @@
                                 .expand(['Professor'])
                                 .execute(true)
                                 .success(function(data) {
+                                    _.each(data.d.results, function(result){
+                                        result.FirstName = result.Professor.FirstName;
+                                        result.LastName = result.Professor.LastName;
+                                    });
                                     $scope.arrays.professors = data.d.results;
                                 });
                             new dataService.getItems('Message')
