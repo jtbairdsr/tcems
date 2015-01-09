@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2015-01-07 10:52:31
+ * @Last Modified time: 2015-01-09 09:31:37
  */
 /* global angular, _ */
 
@@ -73,8 +73,8 @@
                     .where(['Active', 'eq', 1])
                     .execute(false)
                     .success(function(data) {
-                        _.each(data.d.results, function(result){
-                            result.Position = _.find($scope.arrays.allPositions, function(position){
+                        _.each(data.d.results, function(result) {
+                            result.Position = _.find($scope.arrays.allPositions, function(position) {
                                 return position.Id === result.Position.Id;
                             });
                         });
@@ -128,14 +128,15 @@
                 availableShifts();
                 new dataService.getItems('Availability')
                     .top(999999999)
-                    .select(['Employee/Id', 'Day', 'StartTime', 'EndTime', 'Id'])
-                    .expand(['Employee'])
+                    .select(['Employee/Id', 'Day', 'StartTime', 'EndTime', 'Id', 'Semester/Id'])
+                    .expand(['Employee', 'Semester'])
                     .where({
                         and: [
                             ['Current', 'eq', 1],
                             ['Employee/Id', 'eq', dataService.properties.currentUser.employeeInfo
                                 .Id
-                            ]
+                            ],
+                            ['Semester/Id', 'eq', dataService.properties.currentSemester.Id]
                         ]
                     })
                     .execute(false)
