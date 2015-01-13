@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-09 10:07:45
+ * @Last Modified time: 2015-01-13 09:07:59
  */
 (function() {
     /**
@@ -183,7 +183,7 @@
                                 .expand(['Professor'])
                                 .execute(true)
                                 .success(function(data) {
-                                    _.each(data.d.results, function(result){
+                                    _.each(data.d.results, function(result) {
                                         result.FirstName = result.Professor.FirstName;
                                         result.LastName = result.Professor.LastName;
                                     });
@@ -458,16 +458,68 @@
                     abstract: true,
                     templateUrl: 'partials/faculty.html',
                     controllerAs: 'ctrl',
-                    controller: function($scope, dataService) {
+                    controller: function($scope, dataService, $alert) {
                         $scope.properties.currentApp = $scope.properties.currentUser.employeeInfo.FirstName + ' ' + $scope.properties.currentUser.employeeInfo.LastName;
                         this.addFacultyTestingInfo = function() {
-                            dataService.addItem('FacultyTestingInfo', $scope.properties.currentUser.FacultyTestingInfo);
+                            new dataService.getItems('FacultyTestingInfo')
+                                .select(['Professor/Id', 'Stipulation', 'Other', 'Id'])
+                                .expand(['Professor'])
+                                .where(['Professor/Id', 'eq', dataService.properties.currentUser.employeeInfo.Id])
+                                .execute()
+                                .success(function(data) {
+                                    if (data.d.results.length === 0) {
+                                        dataService.addItem('FacultyTestingInfo', $scope.properties.currentUser.FacultyTestingInfo)
+                                            .success(function(data) {
+                                                $alert({
+                                                    show: true,
+                                                    placement: 'top-right',
+                                                    content: 'Your Testing Information has been submitted!',
+                                                    animation: 'am-fade-and-slide-top',
+                                                    duration: '3',
+                                                    type: 'success',
+                                                    template: 'partials/alerts/success-alert.html'
+                                                });
+                                            });
+                                    } else {
+                                        $alert({
+                                            show: true,
+                                            placement: 'top-right',
+                                            content: 'Your Testing Information has already been submitted!',
+                                            animation: 'am-fade-and-slide-top',
+                                            duration: '3',
+                                            type: 'success',
+                                            template: 'partials/alerts/success-alert.html'
+                                        });
+                                    }
+                                });
                         };
                         this.updateFacultyTestingInfo = function() {
-                            dataService.updateItem('FacultyTestingInfo', $scope.properties.currentUser.FacultyTestingInfo.Id, $scope.properties.currentUser.FacultyTestingInfo, '*');
+                            dataService.updateItem('FacultyTestingInfo', $scope.properties.currentUser.FacultyTestingInfo.Id, $scope.properties.currentUser.FacultyTestingInfo, '*')
+                                .success(function(data) {
+                                    $alert({
+                                        show: true,
+                                        placement: 'top-right',
+                                        content: 'Your Testing Information has been updated!',
+                                        animation: 'am-fade-and-slide-top',
+                                        duration: '3',
+                                        type: 'success',
+                                        template: 'partials/alerts/success-alert.html'
+                                    });
+                                });
                         };
                         this.updateProfessor = function() {
-                            dataService.updateItem('Professor', $scope.properties.currentUser.employeeInfo.Id, $scope.properties.currentUser.employeeInfo, '*');
+                            dataService.updateItem('Professor', $scope.properties.currentUser.employeeInfo.Id, $scope.properties.currentUser.employeeInfo, '*')
+                                .success(function(data) {
+                                    $alert({
+                                        show: true,
+                                        placement: 'top-right',
+                                        content: 'Your Information has been updated!',
+                                        animation: 'am-fade-and-slide-top',
+                                        duration: '3',
+                                        type: 'success',
+                                        template: 'partials/alerts/success-alert.html'
+                                    });
+                                });
                         };
                     }
                 })
