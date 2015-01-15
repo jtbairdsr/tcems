@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-13 09:07:59
+ * @Last Modified time: 2015-01-15 08:34:29
  */
 (function() {
     /**
@@ -50,22 +50,8 @@
                     abstract: true,
                     templateUrl: 'partials/main.html',
                     controller: function($scope, scopeSetter, dataService, $templateCache) {
-                        $scope.arrays = {
-                            errors: [],
-                            positions: [],
-                            shiftGroups: [],
-                            shifts: [],
-                            employees: [],
-                            directoryEmployees: [],
-                            weeks: [],
-                            days: [],
-                            subShifts: [],
-                            areas: [],
-                            tracks: [],
-                            professors: [],
-                            availabilityDays: [],
-                            allAvailabilityDays: []
-                        };
+                        $scope.arrays = dataService.arrays;
+                        dataService.getAllEmployees();
                         dataService.properties.today = {};
                         dataService.properties.unreadMessages = 0;
                         $scope.properties = dataService.properties;
