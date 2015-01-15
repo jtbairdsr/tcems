@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:10
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-07 10:51:33
+ * @Last Modified time: 2015-01-15 10:44:56
  */
 (function() {
 	var app = angular.module('App');
@@ -63,7 +63,8 @@
 				ExpDate: Date.today()
 					.addWeeks(1),
 				Viewed: false,
-				Active: true
+				Active: true,
+				SemesterId: dataService.properties.currentSemester.Id
 			};
 			ctrl.positionFTE = _.find($scope.arrays.allPositions, function(position){
 				return position.Position === 'FTE';
