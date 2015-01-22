@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2015-01-09 09:31:37
+ * @Last Modified time: 2015-01-22 10:52:58
  */
 /* global angular, _ */
 
@@ -1187,7 +1187,8 @@
                 },
                 ShiftId: '',
                 RequesterId: dataService.properties.currentUser.employeeInfo.Id,
-                Date: Date.today()
+                Date: Date.today(),
+                SemesterId: dataService.properties.currentSemester.Id
             };
             new dataService.getItems('Shift')
                 .top(999999999)
