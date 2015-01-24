@@ -1,0 +1,17 @@
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<div class="panel-title">
+			Semesters
+		</div>
+	</div>
+	<div class="panel-body">
+		<ul class="nav nav-pills nav-justified" bs-navbar>
+			<li data-match-route="/main/schedule/schedule/this-semester">
+				<a ui-sref="main.schedule.schedule.this-semester">{{properties.currentSemester.ShiftGroup.Description}}</a>
+			</li>
+			<li data-match-route="/main/schedule/schedule/next-semester">
+				<a ui-sref="main.schedule.schedule.next-semester">{{properties.nextSemester.ShiftGroup.Description}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
