@@ -1,0 +1,34 @@
+<div class="container-fluid">
+    <buffer></buffer>
+    <div class="row-fluid">
+        <div class="col-md-2">
+            <refresh></refresh>
+            <buffer></buffer>
+            <filter-positions></filter-positions>
+        </div>
+        <div class="col-md-10">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center" data-ng-repeat="day in arrays.weeks[0].days" data-ng-class="{ weekend: day.weekend }">
+                            <div>
+                                {{day.title}}
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tr data-ng-repeat="week in arrays.weeks">
+                    <td class="text-center my-schedule" data-ng-repeat="day in week.days" data-ng-class="{ weekend: day.weekend }">
+                        <span class="pull-right">{{day.date | date:'d'}}</span>
+                        <br>
+                        <div class="btn-group-vertical my-schedule">
+                            <button class="btn my-schedule" data-ng-repeat="subShift in day.subShifts" data-ng-disabled="day.past" data-ng-show="subShift.shift.Position.Active" data-ng-class="{taken: subShift.subShift.SubstituteId }" data-animation="am-fade-and-scale" data-template="partials/schedule/subShifts/subShift-take.html" bs-modal="modal">
+                                {{subShift.shift.StartTime | date:'h:mm a'}} - {{subShift.shift.EndTime | date:'h:mm a'}}
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
