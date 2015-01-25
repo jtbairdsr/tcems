@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:55:05
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-01-25 11:27:19
+ * @Last Modified time: 2015-01-25 11:39:45
  */
 
 (function() {
@@ -49,12 +49,10 @@
 			};
 
 			function refreshData() {
-				console.log('REFRESHING DATA');
 				$timeout(function() {
 					GET.subShifts()
 					.then(function() {
-						console.log('GOT SUBSHIFTS');
-						SET.arrayWeeks();
+						day.refresh();
 					});
 				}, 1000);
 
