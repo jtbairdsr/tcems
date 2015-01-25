@@ -89,17 +89,28 @@ button.my-schedule {
 	color: #FFFFFF;
 }
 button.my-schedule:hover {
-	border-radius: 0 !important;
-	background-color: #6ccc38;
+	background-color: #83a945;
+	color: #FFFFFF;
 }
 button.subRequested {
 	background-color: #f4211b;
 }
 button.subRequested:hover {
-	background-color: #f4211b;
+	background-color: #c31814;
+	color: #FFFFFF
 }
 button.subRequested.week2 {
 	background-color: #fe9e37;
+}
+button.subRequested.week2:hover {
+	background-color: #c77b2a;
+	color: #FFFFFF
+}
+button.subRequested.week3:hover {
+	background-color: #c8bb5a;
+	color: #FFFFFF
+}
+button.subRequested.week3 {
 	background-color: #fae871;
 }
 button.subCovered {
