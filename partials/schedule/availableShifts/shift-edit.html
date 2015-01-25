@@ -1,5 +1,5 @@
 <div class="modal" tabindex="-1" role="dialog" ng-controller="ShiftEditCtrl as shiftCtrl">
-	<div class="modal-dialog">
+	<div class="modal-dialog text-muted text-left">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" ng-click="$hide()">&times;</button>
@@ -12,7 +12,7 @@
 					<div class="col-md-6">
 						<div class="input-group">
 							<label for="Day" class="input-group-addon">Days</label>
-							<button type="button" class="btn btn-default form-control" data-ng-model="shiftCtrl.temp" data-multiple="true" data-ng-options="day.day as day.title for day in arrays.weeks[0].days" bs-select>
+							<button type="button" class="btn btn-default form-control" data-ng-model="shiftCtrl.temp" data-multiple="true" data-ng-options="day.day as day.title for day in shiftCtrl.days" bs-select>
 								Action <span class="caret"></span>
 							</button>
 						</div>
