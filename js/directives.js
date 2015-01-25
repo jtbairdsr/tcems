@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-24 12:11:53
+ * @Last Modified time: 2015-01-24 19:27:21
  */
 (function() {
 	var app = angular.module('App');
@@ -81,6 +81,14 @@
 			return {
 				restrict: 'E',
 				templateUrl: 'partials/directive-partials/buffer.html'
+			};
+		}
+	]);
+	app.directive('daySearch', [
+		function() {
+			return {
+				restrict: 'E',
+				templateUrl: 'partials/directive-partials/day-search.html'
 			};
 		}
 	]);
