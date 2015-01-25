@@ -2,14 +2,14 @@
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:24:34
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-01-25 09:26:02
+ * @Last Modified time: 2015-01-25 11:36:12
  */
 (function() {
 	'use strict';
 	var app = angular.module('Schedule');
 
-	app.controller('MyAvailabilityCtrl', ['$scope', '$alert', 'generalService', 'dataService',
-		function($scope, $alert, generalService, dataService) {
+	app.controller('MyAvailabilityCtrl', ['$scope', '$timeout', '$alert', 'generalService', 'dataService',
+		function($scope, $timeout, $alert, generalService, dataService) {
 			/////////////////////////////
 			// Set aliases to the data //
 			/////////////////////////////
@@ -55,11 +55,14 @@
 			};
 
 			function refreshData() {
-				GET.availabilities()
-					.then(function() {
-						SET.arrayNoAvailabilityEmployees();
-						day.getMyAvailabilities();
-					});
+				$timeout(function() {
+					GET.availabilities()
+						.then(function() {
+							SET.arrayNoAvailabilityEmployees();
+							day.getMyAvailabilities();
+						});
+				}, 1000);
+
 			}
 		}
 	]);

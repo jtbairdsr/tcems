@@ -31,7 +31,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>
-				<button type="button" class="btn btn-danger" data-ng-click="ctrl.removeAvailability()">Remove</button>
+				<button type="button" class="btn btn-danger" data-ng-click="ctrl.removeAvailability(); $hide()">Remove</button>
 				<button type="button" class="btn btn-success" ng-click="ctrl.updateAvailability(); $hide()">Update</button>
 			</div>
 		</div>
