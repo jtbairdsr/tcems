@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:24:34
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-01-25 11:36:12
+ * @Last Modified time: 2015-01-26 09:40:38
  */
 (function() {
 	'use strict';
@@ -28,6 +28,8 @@
 				availability.Day = day.title;
 				availability.EmployeeId = PROPERTIES.currentUser.Id;
 				availability.SemesterId = PROPERTIES.currentSemester.Id;
+				availability.StartTime = Date.parse('8:00 AM');
+				availability.EndTime = Date.parse('5:00 PM');
 			} else {
 				availability = $scope.availability;
 			}

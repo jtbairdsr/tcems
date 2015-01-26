@@ -17,17 +17,18 @@
 							<label for="StartTime" class="input-group-addon">
 								<span class="glyphicon glyphicon-time"></span>
 							</label>
-							<input id="StartTime" type="text" class="form-control text-center" ng-model="availability.StartTime" name="time" bs-timepicker placement="bottom-center">
+							<input id="StartTime" type="text" class="form-control text-center" ng-model="availability.StartTime" bs-timepicker>
 							<div class="input-group-addon">
 								<span class="glyphicon glyphicon-minus"></span>
 							</div>
-							<input id="EndTime" type="text" class="form-control text-center" ng-model="availability.EndTime" name="time" bs-timepicker>
+							<input id="EndTime" type="text" class="form-control text-center" ng-model="availability.EndTime" bs-timepicker>
 							<label for="EndTime" class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
 							</label>
 						</div>
 					</div>
 					<div class="col-md-1"></div>
 				</div>
+				<buffer></buffer>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" ng-click="$hide()">Cancel</button>

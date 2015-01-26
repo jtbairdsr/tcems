@@ -1,0 +1,40 @@
+<div data-ng-app="Scheduler">
+	<div>
+		<div class="row">
+			<ul class="nav nav-pillsCustom nav-justified" bs-navbar>
+				<li data-match-route="/main/schedule/today" data-ng-show="properties.extendedPrivledges || properties.currentUser.Position === 'Coordinator'">
+					<a ui-sref="main.schedule.today" data-ng-click="ctrl.partialChange()">Today</a>
+				</li>
+				<li data-match-route="/main/schedule/schedule" data-ng-show="properties.extendedPrivledges">
+					<a ui-sref="main.schedule.schedule.this-semester" data-ng-click="ctrl.partialChange()">Schedule</a>
+				</li>
+				<li data-match-route="/main/schedule/availability" data-ng-show="properties.extendedPrivledges || properties.currentUser.Position === 'Coordinator'">
+					<a ui-sref="main.schedule.availability" data-ng-click="ctrl.partialChange()">Availability</a>
+				</li>
+				<li data-match-route="/main/schedule/subShifts">
+					<a ui-sref="main.schedule.subShifts" data-ng-click="ctrl.partialChange()">Sub Shifts
+						<button type="button" class="btn-xs pull-right hidden-sm" data-ng-show="properties.scheduleProperties.showAddSubShift" data-animation="am-fade-and-scale" bs-modal="modal" data-template="partials/schedule/subShifts/add-extras.html">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</a>
+				</li>
+				<li data-match-route="/main/schedule/availableShifts">
+					<a ui-sref="main.schedule.availableShifts" data-ng-click="ctrl.partialChange()">Available Shifts
+						<button type="button" class="btn-xs pull-right hidden-sm" data-ng-show="properties.scheduleProperties.showAddShift" data-animation="am-fade-and-scale" bs-modal="modal" data-template="partials/schedule/availableShifts/shift-add.html">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</a>
+				</li>
+				<li data-match-route="/main/schedule/mySchedule" data-ng-hide="properties.currentUser.Position.Description === 'FTE'">
+					<a ui-sref="main.schedule.mySchedule" data-ng-click="ctrl.partialChange()">My Schedule</a>
+				</li>
+				<li data-match-route="/main/schedule/myAvailability" data-ng-hide="properties.currentUser.Position.Description === 'FTE'">
+					<a ui-sref="main.schedule.myAvailability" data-ng-click="ctrl.partialChange()">My Availability</a>
+				</li>
+			</ul>
+		</div>
+		<div class="row">
+			<div ui-view></div>
+		</div>
+	</div>
+</div>

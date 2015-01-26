@@ -16,7 +16,7 @@
                     <div class="panel-heading">
                         {{shift.StartTime | date:'hh:mm a'}} to {{shift.EndTime | date:'hh:mm a'}}
                     </div>
-                    <div class="panel-body" data-ng-class="{'list-group-item-success': !employee.needsASub, 'list-group-item-danger': employee.needsASub}" data-ng-repeat="employee in shift.Employees track by $index">
+                    <a class="panel-body list-group-item" data-ng-class="{'list-group-item-success': !employee.needsASub, 'list-group-item-danger': employee.needsASub}" data-ng-repeat="employee in shift.Employees track by $index">
                         <div data-ng-show="employee.substitutePreferredName !== ''">
                             <div class="col-md-5">
                                 <div class="pull-right">
@@ -44,7 +44,7 @@
                             </div>
                             {{employee.employeePreferredName}} {{employee.employeeLastName}}
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
