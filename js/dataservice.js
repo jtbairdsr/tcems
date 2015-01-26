@@ -2,11 +2,12 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-18 20:36:12
+ * @Last Modified time: 2015-01-26 15:36:05
  */
 /* global angular, _ */
 
 (function() {
+	'use strict';
 	Function.prototype.method = function(name, func) {
 		this.prototype[name] = func;
 		return this;
@@ -41,101 +42,270 @@
 		});
 		return this;
 	});
-	Function.prototype.inheritsFrom = function(parentClassOrObject) {
-		if (parentClassOrObject.constructor === Function) {
-			//Normal Inheritance
-			this.prototype = new parentClassOrObject();
-			this.prototype.constructor = this;
-			this.prototype.parent = parentClassOrObject.prototype;
-		} else {
-			//Pure Virtual Inheritance
-			this.prototype = parentClassOrObject;
-			this.prototype.constructor = this;
-			this.prototype.parent = parentClassOrObject;
-		}
-		return this;
-	};
 	var app = angular.module('Services');
 
-	app.service('dataService', ['$http', '$timeout', '$q', '$location', 'generalService',
-		function($http, $timeout, $q, $location, generalService) {
+	app.service('dataService', ['$http', '$timeout', '$q', '$location', 'generalService', 'cfpLoadingBar', '$alert',
+		function($http, $timeout, $q, $location, generalService, cfpLoadingBar, $alert) {
 			var service = this;
 			var dataInitialized = false;
+			/////////////////////////////
+			// Set aliases to the data //
+			/////////////////////////////
+			var DATA = generalService.data,
+				ARRAYS = generalService.arrays,
+				PROPERTIES = generalService.properties;
+
+			///////////////////////////////////
+			// Initialize service categories //
+			///////////////////////////////////
+			service.classes = {};
+			service.get = {};
+			service.set = {};
+			service.utilities = {};
+			service.refresh = {
+				successAlert: {
+					show: true,
+					placement: 'top-right',
+					content: 'Data has been refreshed!',
+					animation: 'am-fade-and-slide-top',
+					duration: '3',
+					type: 'success',
+					template: 'partials/alerts/error-alert.html'
+				}
+			};
+
+			///////////////////////////////////////
+			// Set aliases to service categories //
+			///////////////////////////////////////
+			var GET = service.get,
+				SET = service.set,
+				REFRESH = service.refresh,
+				CLASSES = service.classes,
+				UTILITIES = service.utilities;
+
 			//////////////////
-			// Data Getters //
+			// DATA GETTERS //
 			//////////////////
-			service.getAreas = function() {
+			GET.areas = function() {
 				var deffered = $q.defer();
-				service.getAllItems('Area')
+				UTILITIES.fetchAllItems('Area')
 					.success(function(data) {
-						generalService.data.areas = [];
+						DATA.areas = [];
 						_.each(data.d.results, function(area) {
-							generalService.data.areas.push(new service.Area(area));
+							DATA.areas.push(new CLASSES.Area(area));
 						});
 						deffered.resolve();
 					});
 				return deffered.promise;
 			};
-			service.getAvailabilities = function() {
+			GET.availabilities = function() {
 				var deffered = $q.defer();
-				service.getAllItems('Availability')
+				UTILITIES.fetchAllItems('Availability')
 					.success(function(data) {
-						generalService.data.availabilities = [];
+						DATA.availabilitys = [];
 						_.each(data.d.results, function(availability) {
-							generalService.data.availabilities.push(new service.Availability(availability));
+							DATA.availabilitys.push(new CLASSES.Availability(availability));
 						});
 						deffered.resolve();
 					});
 				return deffered.promise;
 			};
-			service.getEmployees = function() {
+			GET.employees = function() {
 				var deffered = $q.defer();
-				service.getAllItems('Employee')
+				UTILITIES.fetchAllItems('Employee')
 					.success(function(data) {
-						generalService.data.employees = [];
+						DATA.employees = [];
 						_.each(data.d.results, function(employee) {
-							generalService.data.employees.push(new service.Employee(employee));
+							DATA.employees.push(new CLASSES.Employee(employee));
 						});
-						generalService.arrays.employees = _.filter(generalService.data.employee, function(employee) {
+						ARRAYS.employees = _.filter(DATA.employee, function(employee) {
 							return employee.Active;
 						});
-						generalService.arrays.directoryEmployees = generalService.data.employees;
+						ARRAYS.directoryEmployees = DATA.employees;
 						deffered.resolve();
 					});
 				return deffered.promise;
 			};
-			service.getEmployments = function() {
+			GET.employments = function() {
 				var deffered = $q.defer();
-				service.getAllItems('Employment')
+				UTILITIES.fetchAllItems('Employment')
 					.success(function(data) {
-						generalService.data.employments = [];
+						DATA.employments = [];
 						_.each(data.d.results, function(employment) {
-							generalService.data.employments.push(new service.Employment(employment));
+							DATA.employments.push(new CLASSES.Employment(employment));
 						});
 						deffered.resolve();
 					});
 				return deffered.promise;
 			};
-			service.getCurrentUserInfo = function() {
+			GET.messages = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('Message')
+					.success(function(data) {
+						DATA.messages = [];
+						_.each(data.d.results, function(message) {
+							DATA.messages.push(new CLASSES.Message(message));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.noTestingDays = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('NoTestingDay')
+					.success(function(data) {
+						DATA.noTestingDays = [];
+						_.each(data.d.results, function(noTestingDay) {
+							DATA.noTestingDays.push(new CLASSES.NoTestingDay(noTestingDay));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.positions = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('Position')
+					.success(function(data) {
+						DATA.positions = [];
+						_.each(data.d.results, function(position) {
+							DATA.positions.push(new CLASSES.Position(position));
+						});
+						ARRAYS.positions = _.filter(DATA.positions, function(position) {
+							return position.Position !== 'FTE' && position.Position !== 'Applicant' && position.Position !== 'Admin';
+						});
+						ARRAYS.allPositions = DATA.positions;
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.professors = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('Professor')
+					.success(function(data) {
+						DATA.professors = [];
+						_.each(data.d.results, function(professor) {
+							DATA.professors.push(new CLASSES.Professor(professor));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.schedules = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('Schedule')
+					.success(function(data) {
+						DATA.schedules = [];
+						_.each(data.d.results, function(schedule) {
+							DATA.schedules.push(new CLASSES.Schedule(schedule));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.sentMessages = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('SentMessage')
+					.success(function(data) {
+						DATA.sentMessages = [];
+						_.each(data.d.results, function(sentMessage) {
+							DATA.sentMessages.push(new CLASSES.SentMessage(sentMessage));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.semesters = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('Semester')
+					.success(function(data) {
+						DATA.semesters = [];
+						data.d.results.reverse();
+						_.each(data.d.results, function(semester) {
+							DATA.semesters.push(new CLASSES.Semester(semester));
+						});
+						SET.propertyCurrentSemester();
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.shiftGroups = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('ShiftGroup')
+					.success(function(data) {
+						DATA.shiftGroups = [];
+						_.each(data.d.results, function(shiftGroup) {
+							DATA.shiftGroups.push(new CLASSES.ShiftGroup(shiftGroup));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.shifts = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('Shift')
+					.success(function(data) {
+						DATA.shifts = [];
+						_.each(data.d.results, function(shift) {
+							DATA.shifts.push(new CLASSES.Shift(shift));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.subShifts = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('SubShift')
+					.success(function(data) {
+						DATA.subShifts = [];
+						data.d.results.reverse();
+						_.each(data.d.results, function(subShift) {
+							DATA.subShifts.push(new CLASSES.SubShift(subShift));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.tracks = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('Track')
+					.success(function(data) {
+						DATA.tracks = [];
+						_.each(data.d.results, function(track) {
+							DATA.tracks.push(new CLASSES.Track(track));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+
+			//////////////////////
+			// PROPERTY SETTERS //
+			//////////////////////
+			SET.propertyCurrentUser = function() {
 				// TODO: break this down into multiple functions
 				var deffered = $q.defer();
-				service.getCurrentUser()
+				UTILITIES.fetchCurrentUser()
 					.success(function(data) {
 						var userInfo = data.d;
-						new service.getItems('Employee')
+						new UTILITIES.fetchItems('Employee')
 							.where(['EmailAddress', 'eq', userInfo.Email])
 							.execute()
 							.success(function(data) {
 								if (data.d.results.length > 0) {
 									if (data.d.results[0].Active) {
-										generalService.properties.loadEmployeeData = true;
-										service.getPositions()
+										PROPERTIES.loadEmployeeData = true;
+										GET.positions()
 											.then(function() {
-												service.getAreas()
+												GET.areas()
 													.then(function() {
-														service.getTracks()
+														GET.tracks()
 															.then(function() {
-																generalService.properties.currentUser = new service.Employee(data.d.results[0]);
+																PROPERTIES.currentUser = new CLASSES.Employee(data.d.results[0]);
+																PROPERTIES.extendedPrivledges = (
+																	PROPERTIES.currentUser.Admin ||
+																	PROPERTIES.currentUser.Position.Description === 'FTE' ||
+																	PROPERTIES.currentUser.Position.Description === 'HR'
+																);
 																deffered.resolve();
 															});
 													});
@@ -145,18 +315,18 @@
 										deffered.resolve();
 									}
 								} else if (!(/([a-zA-Z]){3}\d{5}/.test(userInfo.Email))) {
-									new service.getItems('Professor')
+									new UTILITIES.fetchItems('Professor')
 										.where(['EmailAddress', 'eq', data.d.Email])
 										.execute()
 										.success(function(data) {
 											$location.path("/main/faculty/info");
 											if (data.d.results.length > 0) {
-												service.getFacultyTestingInfo()
+												GET.FacultyTestingInfo()
 													.then(function() {
-														generalService.properties.currentUser = new service.Professor(data.d.results[0]);
+														PROPERTIES.currentUser = new CLASSES.Professor(data.d.results[0]);
 													});
 											} else {
-												generalService.properties.currentUser = new service.Professor({
+												PROPERTIES.currentUser = new CLASSES.Professor({
 													EmailAddress: userInfor.Email
 												});
 											}
@@ -170,283 +340,416 @@
 					});
 				return deffered.promise;
 			};
-			service.getCurrentSemester = function() {
-				generalService.properties.currentSemester = _.find(generalService.data.semesters, function(semester) {
+			SET.propertyCurrentSemester = function() {
+				PROPERTIES.currentSemester = _.find(DATA.semesters, function(semester) {
 					return semester.Active;
 				});
-				if (generalService.properties.currentSemester.NextSemesterId !== '') {
-					generalService.properties.nextSemester = _.find(generalService.data.semesters, function(semester) {
-						return semester.Id === generalService.properties.currentSemester.NextSemesterId;
+				if (PROPERTIES.currentSemester.NextSemesterId !== undefined) {
+					PROPERTIES.nextSemester = _.find(DATA.semesters, function(semester) {
+						return semester.Id === PROPERTIES.currentSemester.NextSemesterId;
 					});
 				}
 			};
+			SET.propertyToday = function(date) {
+				date = date || PROPERTIES.today.date;
+				var dayView = {
+					title: date.toString('dddd'),
+					day: date.toString('ddd'),
+					shifts: [],
+					date: date
+				};
+				_.each(DATA.shifts, function(shift) {
+					if (shift.Active &&
+						shift.ShiftGroupId === PROPERTIES.currentSemester.ShiftGroupId &&
+						shift.Day.indexOf(date.toString('ddd')) >= 0) {
+						// get employee Information for this shift.
+						var assignableEmployees = getShiftEmployees(shift);
+						// check to see if we have already dealt with this time period
+						var currentShift = _.find(dayView.shifts, function(dayShift) {
+							return (
+								dayShift.StartTime.toTimeString() === shift.StartTime.toTimeString() &&
+								dayShift.EndTime.toTimeString() === shift.EndTime.toTimeString() &&
+								dayShift.PositionId === shift.PositionId
+							);
+						});
+						// if we have add the employees to the previousShift
+						if (currentShift) {
+							_.each(assignableEmployees, function(employee) {
+								currentShift.Employees.push(employee);
+							});
+							// if we haven't create a new shift and add the employees to that.
+						} else {
+							dayView.shifts.push({
+								StartTime: shift.StartTime,
+								EndTime: shift.EndTime,
+								Position: shift.Position,
+								PositionId: shift.PositionId,
+								Shift: shift,
+								Employees: assignableEmployees
+							});
+						}
+					}
+				});
+				PROPERTIES.today = dayView;
+
+				function addEmployee(params) {
+					var employee = params.employee || {
+						PreferredName: 'No',
+						LastName: 'Employee',
+						Picture: '/media/missing.png',
+					};
+					var substitute = params.substitute || {
+						PreferredName: '',
+						LastName: '',
+						Picture: ''
+					};
+					var needsASub = params.needsASub || false;
+					return {
+						// original employee info
+						employeePreferredName: employee.PreferredName,
+						employeeLastName: employee.LastName,
+						employeePhoneNumber: employee.PhoneNumber,
+						employeeEmailAddress: employee.EmailAddress,
+						employeePicture: employee.Picture,
+						// substitute employee info
+						substitutePreferredName: substitute.PreferredName,
+						substituteLastName: substitute.LastName,
+						substitutePhoneNumber: substitute.PhoneNumber,
+						substituteEmailAddress: substitute.EmailAddress,
+						substitutePicture: substitute.Picture,
+						// false since there is a sub
+						needsASub: needsASub
+					};
+				}
+
+				function getShiftEmployees(shift) {
+					var subShifts, returnEmployeeArray;
+					returnEmployeeArray = [];
+					subShifts = _.filter(DATA.subShifts, function(subShift) {
+						return (
+							subShift.Shift.Id === shift.Id &&
+							subShift.Active &&
+							subShift.Date.equals(date)
+						);
+					});
+					_.each(DATA.schedules, function(schedule) {
+						if (schedule.Active &&
+							schedule.Shift.Day.indexOf(date.toString('ddd')) >= 0 &&
+							schedule.Shift.Id === shift.Id) {
+							var substitute = _.find(subShifts, function(subShift) {
+								return subShift.Requester.Id === schedule.Employee.Id;
+							});
+							if (substitute !== undefined) {
+								subShifts = _.without(subShifts, substitute);
+								while (substitute.NewRequest.Id !== undefined) {
+									substitute = substitute.NewRequest;
+									substitute.isNewRequest = true;
+								}
+								if (substitute.Substitute.Id !== undefined) {
+									// we pass the basics, the original employee and the substitute
+									returnEmployeeArray.push(addEmployee({
+										substitute: substitute.Substitute,
+										employee: schedule.Employee,
+									}));
+								} else if (substitute.isNewRequest) {
+									// we are using the requester as the sub because he/she is the current sub until his/her request is filled
+									returnEmployeeArray.push(addEmployee({
+										substitute: substitute.Requester,
+										employee: schedule.Employee,
+										needsASub: true
+									}));
+								} else {
+									// we pass the original employee and true because there is a sub request but no sub yet
+									returnEmployeeArray.push(addEmployee({
+										employee: schedule.Employee,
+										needsASub: true
+									}));
+								}
+							} else {
+								// we pass the original employee
+								returnEmployeeArray.push(addEmployee({
+									employee: schedule.Employee,
+								}));
+							}
+						}
+					});
+					while (returnEmployeeArray.length < shift.Slots) {
+						returnEmployeeArray.push(addEmployee({
+							needsASub: true
+						}));
+					}
+					_.each(subShifts, function(subShift) {
+						var extraEmployee = {
+							PreferredName: 'Extra',
+							LastName: '',
+							PhoneNumber: '',
+							EmailAddress: '',
+							Picture: 'media/missing.png'
+						};
+						while (subShift.NewRequest.Id !== undefined) {
+							subShift = subShift.NewRequest;
+							subShift.isNewRequest = true;
+						}
+						if (subShift.Substitute.Id !== undefined) {
+							// we pass the basics, the original employee and the substitute
+							returnEmployeeArray.push(addEmployee({
+								substitute: subShift.Substitute,
+								employee: extraEmployee
+							}));
+						} else if (subShift.isNewRequest) {
+							// we are using the requester as the sub because he/she is the current sub until his/her request is filled
+							returnEmployeeArray.push(addEmployee({
+								substitute: subShift.Requester,
+								employee: extraEmployee,
+								needsASub: true
+							}));
+						} else {
+							// we pass the original employee and true because there is a sub request but no sub yet
+							returnEmployeeArray.push(addEmployee({
+								employee: extraEmployee,
+								needsASub: true
+							}));
+						}
+					});
+					return returnEmployeeArray;
+				}
+			};
+			///////////////////
+			// ARRAY SETTERS //
+			///////////////////
+			SET.arrayNoAvailabilityEmployees = function() {
+				ARRAYS.noAvailabilityEmployees = [];
+				_.each(DATA.employees, function(employee) {
+					var submittedAvailabilities = _.find(DATA.availabilitys, function(availability) {
+						return (
+							availability.Employee.Id === employee.Id &&
+							availability.Semester.Id === PROPERTIES.currentSemester.Id
+						);
+					});
+					if (submittedAvailabilities === undefined &&
+						employee.Position.Description !== 'FTE' &&
+						employee.Position.Description !== 'Applicant' &&
+						employee.Active) {
+						ARRAYS.noAvailabilityEmployees.push(employee);
+					}
+				});
+			};
+			SET.arrayWeeks = function(numWeeks) {
+				numWeeks = numWeeks || 3;
+				ARRAYS.weeks = [];
+				var sunDate = Date.sunday();
+				var weekTitle = '';
+				for (var i = 0; i < numWeeks; i++) {
+					weekTitle = 'Week ' + (i + 1);
+					ARRAYS.weeks.push(new CLASSES.Week(weekTitle, sunDate));
+					sunDate.addWeeks(1);
+				}
+			};
+			SET.arrayShifts = function() {
+				ARRAYS.shifts = [];
+				_.each(DATA.shifts, function(shift) {
+					shift.setAvailableSlots();
+				});
+				ARRAYS.shifts = _.filter(DATA.shifts, function(shift) {
+					return shift.Active;
+				});
+				ARRAYS.shiftGroups = [];
+				_.each(DATA.shiftGroups, function(shiftGroup) {
+					if (PROPERTIES.nextSemester.ShiftGroup !== undefined) {
+						shiftGroup.Active = (
+							shiftGroup.Id === PROPERTIES.currentSemester.ShiftGroup.Id ||
+							shiftGroup.Id === PROPERTIES.nextSemester.ShiftGroup.Id
+						);
+						ARRAYS.shiftGroups.push(shiftGroup);
+					} else {
+						shiftGroup.Active = (shiftGroup.Id === PROPERTIES.currentSemester.ShiftGroup.Id);
+						ARRAYS.shiftGroups.push(shiftGroup);
+					}
+				});
+			};
+
+			/////////////
+			// REFRESH //
+			/////////////
 			/**
-			 * Refresh all of the generalService.data arrays
+			 * This function gets the first tier of data.
+			 *
+			 * @returns    {promise}    this promise will be resolved when
+			 *    all the data is returned and we can move on to the second
+			 *    tier.
+			 */
+			REFRESH.getData = function(dataCalls) {
+				var deffered = $q.defer();
+
+				$q.all(dataCalls)
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			REFRESH.securityValidation = function() {
+				$http.post(PROPERTIES.sharePointUrl + '_api/contextinfo')
+					.success(function(data) {
+						var siteContextinfo = data.d.GetContextWebInformation;
+						PROPERTIES.validationTimeout = siteContextinfo.FormDigestTimeoutSeconds -
+							10;
+						PROPERTIES.validation = siteContextinfo.FormDigestValue;
+						$timeout(function() {
+							REFRESH.securityValidation();
+							if (dataInitialized) {
+								REFRESH.data();
+							}
+						}, PROPERTIES.validationTimeout * 1000);
+					})
+					.error(function(data) {
+						service.errors.push(data);
+					});
+			};
+			/**
+			 * Refresh all of the DATA arrays
 			 *
 			 * @returns    {promise}    this promise will be resolved when all of the data is ready.
 			 */
-			service.refreshData = function() {
+			REFRESH.data = function() {
 				var deffered1 = $q.defer();
-				getFirstTierData()
+				REFRESH.getData([GET.shiftGroups(), GET.positions(), GET.areas(), GET.tracks(), /*GET.Teams(),*/ GET.professors()])
 					.then(function() {
-						getSecondTierData()
+						cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
+						REFRESH.getData([GET.shifts(), GET.employees(), GET.semesters(), ])
 							.then(function() {
-								console.log('DONE WITH SECOND TIER');
-								getThirdTierData()
+								cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
+								REFRESH.getData([GET.schedules(), GET.subShifts(), GET.availabilities(), GET.employments(), GET.messages(), GET.noTestingDays()])
 									.then(function() {
-										getFourthTierData()
+										cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
+										REFRESH.getData([GET.sentMessages()])
 											.then(function() {
+												cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
+												SET.arrayShifts();
+												SET.arrayWeeks();
+												SET.arrayNoAvailabilityEmployees();
+												cfpLoadingBar.complete();
 												deffered1.resolve();
 											});
 									});
 							});
 					});
 				return deffered1.promise;
-				/**
-				 * This function gets the first tier of data.
-				 *
-				 * @returns    {promise}    this promise will be resolved when
-				 *    all the data is returned and we can move on to the second
-				 *    tier.
-				 */
-				function getFirstTierData() {
-					var deffered = $q.defer();
-					var dataCalls = [
-						service.getShiftGroups(),
-						service.getPositions(),
-						service.getAreas(),
-						service.getTracks(),
-						// service.getTeams(),
-						service.getProfessors()
-					];
-					$q.all(dataCalls)
-						.then(function() {
-							deffered.resolve();
-						});
-					return deffered.promise;
-				}
-
-				/**
-				 * This function gets the second tier of data.
-				 *
-				 * @returns    {promise}    this promise will be resolved when
-				 *    all the data is returned and we can move on to the third
-				 *    tier.
-				 */
-				function getSecondTierData() {
-					var deffered = $q.defer();
-					var dataCalls = [
-						service.getShifts(),
-						service.getEmployees(),
-						service.getSemesters(),
-					];
-					$q.all(dataCalls)
-						.then(function() {
-							deffered.resolve();
-						});
-					return deffered.promise;
-				}
-
-				/**
-				 * This function gets the third tier of data.
-				 *
-				 * @returns    {promise}    this promise will be resolved when
-				 *    all the data is returned and we can move on the fourth
-				 *    tier.
-				 */
-				function getThirdTierData() {
-					console.log('INSIDE THIRD TIER');
-					var deffered = $q.defer();
-					var dataCalls = [
-						service.getSchedules(),
-						service.getSubShifts(),
-						service.getAvailabilities(),
-						service.getEmployments(),
-						service.getMessages(),
-						service.getNoTestingDays()
-					];
-					$q.all(dataCalls)
-						.then(function() {
-							deffered.resolve();
-						});
-					return deffered.promise;
-				}
-
-				/**
-				 * This function gets the fourth tier of data.
-				 *
-				 * @returns    {promise}    this promis will be resolved when
-				 *    all the data is returned and we can move on to the fourth
-				 *    tier.
-				 */
-				function getFourthTierData() {
-					var deffered = $q.defer();
-					var dataCalls = [
-						service.getSentMessages()
-					];
-					$q.all(dataCalls)
-						.then(function() {
-							deffered.resolve();
-						});
-					return deffered.promise;
-				}
 			};
-			service.getInitialData = function() {
+			REFRESH.subShifts = function(hideAlert) {
+				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
-				service.getCurrentUserInfo()
+				REFRESH.getData([GET.shifts(), GET.employees()])
 					.then(function() {
-						if (generalService.properties.loadEmployeeData) {
-							service.refreshData()
-								.then(function() {
-									deffered.resolve();
-								});
+						REFRESH.getData([GET.schedules(), GET.subShifts()])
+							.then(function() {
+								SET.arrayWeeks();
+								if (!hideAlert) {
+									$alert(REFRESH.successAlert);
+								}
+								deffered.resolve();
+							});
+					});
+				return deffered.promise;
+			};
+			REFRESH.availability = function(hideAlert) {
+				hideAlert = hideAlert || false;
+				var deffered = $q.defer();
+				REFRESH.getData([GET.shifts(), GET.employees()])
+					.then(function() {
+						REFRESH.getData([GET.schedules(), GET.availabilities()])
+							.then(function() {
+								SET.arrayWeeks();
+								SET.arrayNoAvailabilityEmployees();
+								if (!hideAlert) {
+									$alert(REFRESH.successAlert);
+								}
+								deffered.resolve();
+							});
+					});
+				return deffered.promise;
+			};
+			REFRESH.schedule = function(hideAlert) {
+				hideAlert = hideAlert || false;
+				var deffered = $q.defer();
+				REFRESH.getData([GET.shifts(), GET.employees()])
+					.then(function() {
+						GET.schedules()
+							.then(function() {
+								SET.arrayWeeks();
+								if (!hideAlert) {
+									$alert(REFRESH.successAlert);
+								}
+								deffered.resolve();
+							});
+					});
+				return deffered.promise;
+			};
+			REFRESH.availableShifts = function(hideAlert) {
+				hideAlert = hideAlert || false;
+				var deffered = $q.defer();
+				REFRESH.getData([GET.shifts(), GET.employees()])
+					.then(function() {
+						GET.schedules()
+							.then(function() {
+								SET.arrayShifts();
+								if (!hideAlert) {
+									$alert(REFRESH.successAlert);
+								}
+								deffered.resolve();
+							});
+					});
+				return deffered.promise;
+			};
+			REFRESH.myAvailability = function(hideAlert) {
+				hideAlert = hideAlert || false;
+				var deffered = $q.defer();
+				GET.availabilities()
+					.then(function() {
+						SET.arrayWeeks();
+						if (!hideAlert) {
+							$alert(REFRESH.successAlert);
 						}
-					});
-				return deffered.promise;
-			};
-			service.getMessages = function() {
-				var deffered = $q.defer();
-				service.getAllItems('Message')
-					.success(function(data) {
-						generalService.data.messages = [];
-						_.each(data.d.results, function(message) {
-							generalService.data.messages.push(new service.Message(message));
-						});
 						deffered.resolve();
 					});
 				return deffered.promise;
 			};
-			service.getNoTestingDays = function() {
+			REFRESH.mySchedule = function(hideAlert) {
+				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
-				service.getAllItems('NoTestingDay')
-					.success(function(data) {
-						generalService.data.noTestingDays = [];
-						_.each(data.d.results, function(noTestingDay) {
-							generalService.data.noTestingDays.push(new service.NoTestingDay(noTestingDay));
-						});
-						deffered.resolve();
+				GET.shifts()
+					.then(function() {
+						REFRESH.getData([GET.schedules(), GET.subShifts()])
+							.then(function() {
+								SET.arrayWeeks();
+								if (!hideAlert) {
+									$alert(REFRESH.successAlert);
+								}
+								deffered.resolve();
+							});
 					});
 				return deffered.promise;
 			};
-			service.getPositions = function() {
+			REFRESH.today = function(hideAlert) {
+				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
-				service.getAllItems('Position')
-					.success(function(data) {
-						generalService.data.positions = [];
-						_.each(data.d.results, function(position) {
-							generalService.data.positions.push(new service.Position(position));
-						});
-						generalService.arrays.positions = _.filter(generalService.data.positions, function(position) {
-							return position.Position !== 'FTE' && position.Position !== 'Applicant' && position.Position !== 'Admin';
-						});
-						generalService.arrays.allPositions = generalService.data.positions;
-						deffered.resolve();
+				REFRESH.getData([GET.shifts(), GET.employees()])
+					.then(function() {
+						REFRESH.getData([GET.schedules(), GET.subShifts()])
+							.then(function() {
+								SET.propertyToday();
+								if (!hideAlert) {
+									$alert(REFRESH.successAlert);
+								}
+								deffered.resolve();
+							});
 					});
 				return deffered.promise;
 			};
-			service.getProfessors = function() {
-				var deffered = $q.defer();
-				service.getAllItems('Professor')
-					.success(function(data) {
-						generalService.data.professors = [];
-						_.each(data.d.results, function(professor) {
-							generalService.data.professors.push(new service.Professor(professor));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};
-			service.getSchedules = function() {
-				var deffered = $q.defer();
-				service.getAllItems('Schedule')
-					.success(function(data) {
-						generalService.data.schedules = [];
-						_.each(data.d.results, function(schedule) {
-							generalService.data.schedules.push(new service.Schedule(schedule));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};
-			service.getSentMessages = function() {
-				var deffered = $q.defer();
-				service.getAllItems('SentMessage')
-					.success(function(data) {
-						generalService.data.sentMessages = [];
-						_.each(data.d.results, function(sentMessage) {
-							generalService.data.sentMessages.push(new service.SentMessage(sentMessage));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};
-			service.getSemesters = function() {
-				var deffered = $q.defer();
-				service.getAllItems('Semester')
-					.success(function(data) {
-						generalService.data.semesters = [];
-						data.d.results.reverse();
-						_.each(data.d.results, function(semester) {
-							generalService.data.semesters.push(new service.Semester(semester));
-						});
-						service.getCurrentSemester();
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};
-			service.getShiftGroups = function() {
-				var deffered = $q.defer();
-				service.getAllItems('ShiftGroup')
-					.success(function(data) {
-						generalService.data.shiftGroups = [];
-						_.each(data.d.results, function(shiftGroup) {
-							generalService.data.shiftGroups.push(new service.ShiftGroup(shiftGroup));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};
-			service.getShifts = function() {
-				var deffered = $q.defer();
-				service.getAllItems('Shift')
-					.success(function(data) {
-						generalService.data.shifts = [];
-						_.each(data.d.results, function(shift) {
-							generalService.data.shifts.push(new service.Shift(shift));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};
-			service.getSubShifts = function() {
-				var deffered = $q.defer();
-				service.getAllItems('SubShift')
-					.success(function(data) {
-						generalService.data.subShifts = [];
-						data.d.results.reverse();
-						_.each(data.d.results, function(subShift) {
-							generalService.data.subShifts.push(new service.SubShift(subShift));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};
-			service.getTracks = function() {
-				var deffered = $q.defer();
-				service.getAllItems('Track')
-					.success(function(data) {
-						generalService.data.tracks = [];
-						_.each(data.d.results, function(track) {
-							generalService.data.tracks.push(new service.Track(track));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};
-			////////////////////
-			// Data Utilities //
-			////////////////////
-			service.getJson = function(url, cache) {
+
+			///////////////
+			// UTILITIES //
+			///////////////
+			UTILITIES.fetchJson = function(url, cache) {
 				cache = cache || false;
 				return $http.get(url, {
 					headers: {
@@ -455,57 +758,53 @@
 					}
 				});
 			};
-			service.getCurrentUser = function() {
-				return service.getJson(generalService.properties.sharePointUrl +
+			UTILITIES.fetchCurrentUser = function() {
+				return UTILITIES.fetchJson(PROPERTIES.sharePointUrl +
 					'_api/web/currentUser', true);
 			};
-			service.addItem = function(listName, item) {
+			UTILITIES.addItem = function(listName, item) {
 				$http.defaults.headers.post = {
 					'Accept': 'application/json;odata=verbose',
 					'Content-Type': 'application/json;odata=verbose',
-					'X-RequestDigest': generalService.properties.validation,
+					'X-RequestDigest': PROPERTIES.validation,
 				};
-				return $http.post(generalService.properties.sharePointUrl +
+				return $http.post(PROPERTIES.sharePointUrl +
 					'_api/lists/getbytitle(\'' + listName + '\')/items', item);
 			};
-			service.updateItem = function(listName, itemId, item, etag) {
+			UTILITIES.updateItem = function(listName, itemId, item, etag) {
 				etag = etag || '*';
 				return $http({
 					method: 'POST',
-					url: generalService.properties.sharePointUrl + '_api/lists/getbytitle(\'' +
+					url: PROPERTIES.sharePointUrl + '_api/lists/getbytitle(\'' +
 						listName + '\')/items(' + itemId + ')',
 					data: item,
 					headers: {
 						'accept': 'application/json;odata=verbose',
 						'content-type': 'application/json;odata=verbose',
-						'X-RequestDigest': generalService.properties.validation,
+						'X-RequestDigest': PROPERTIES.validation,
 						'IF-MATCH': etag,
 						'X-HTTP-Method': 'MERGE'
 					}
 				});
 			};
-			service.deleteItem = function(listName, itemId) {
+			UTILITIES.deleteItem = function(listName, itemId) {
 				return $http({
 					method: 'POST',
-					url: generalService.properties.sharePointUrl + '_api/lists/getbytitle(\'' +
+					url: PROPERTIES.sharePointUrl + '_api/lists/getbytitle(\'' +
 						listName + '\')/items(' + itemId + ')',
 					headers: {
 						'X-HTTP-Method': 'DELETE',
 						'IF-MATCH': '*',
-						'X-RequestDigest': generalService.properties.validation
+						'X-RequestDigest': PROPERTIES.validation
 					}
 				});
 			};
-			service.getItem = function(listName, itemId) {
-				return service.getJson(generalService.properties.sharePointUrl +
+			UTILITIES.fetchItem = function(listName, itemId) {
+				return UTILITIES.fetchJson(PROPERTIES.sharePointUrl +
 					'_api/lists/getbytitle(\'' + listName + '\')/items(\'' + itemId +
 					'\')', false);
 			};
-			service.getAllItems = function(listName) {
-				return service.getJson(generalService.properties.sharePointUrl +
-					'_api/lists/getbytitle(\'' + listName + '\')/items?$top=999999999', false);
-			};
-			service.getItems = function(listName) {
+			UTILITIES.fetchItems = function(listName) {
 				// init properties
 				this.query = '';
 				this.flag = true;
@@ -643,460 +942,442 @@
 					return this;
 				};
 				this.execute = function(cache) {
-					return service.getJson(generalService.properties.sharePointUrl +
+					return UTILITIES.fetchJson(PROPERTIES.sharePointUrl +
 						'_api/lists/getbytitle(\'' + this.listName + '\')/items' + this.query,
 						cache);
 				};
 			};
-			service.getUserByEmail = function(email) {
-				return $http.get(generalService.properties.sharePointUrl +
+			UTILITIES.fetchAllItems = function(listName) {
+				return new UTILITIES.fetchItems(listName).top().execute();
+			};
+			UTILITIES.fetchUserByEmail = function(email) {
+				return $http.get(PROPERTIES.sharePointUrl +
 					'_api/web/siteusers/getbyemail(\'' + email + '\')', {
 						headers: {
 							'accept': 'application/json;odata=verbose'
 						}
 					});
 			};
-			service.refreshSecurityValidation = function() {
-				$http.post(generalService.properties.sharePointUrl + '_api/contextinfo')
-					.success(function(data) {
-						var siteContextinfo = data.d.GetContextWebInformation;
-						generalService.properties.validationTimeout = siteContextinfo.FormDigestTimeoutSeconds -
-							10;
-						generalService.properties.validation = siteContextinfo.FormDigestValue;
-						$timeout(function() {
-							service.refreshSecurityValidation();
-							if (dataInitialized) {
-								service.refreshData();
-							}
-						}, generalService.properties.validationTimeout * 1000);
-					})
-					.error(function(data) {
-						service.errors.push(data);
-					});
-			};
+
+			/////////////
+			// CLASSES //
+			/////////////
 			// ***********************************************************************
 			// DEFINE THE DATA CLASS
 			// ***********************************************************************
-			service.Data = function() {
-				var object = this;
+			CLASSES.Data = function() {
 				this.newData = {};
-				this.dataList = [];
 				this.listName = '';
+			};
+			CLASSES.Data.method('initPublicAttributes', function() {
+				this.Created = (this.newData.Created) ? Date.parse(this.newData.Created) : undefined;
+				this.GUID = this.newData.GUID || undefined;
+				this.Id = this.newData.Id || undefined;
+				this.Modified = (this.newData.Modified) ? Date.parse(this.newData.Modified) : undefined;
+				this.__metadata = this.newData.__metadata || {
+					type: 'SP.Data.' + this.listName + 'ListItem',
+				};
 				this.defaultAlertContent = this.toString();
 				this.addAlertContent = this.defaultAlertContent + ' has been added!';
 				this.removeAlertContent = this.defaultAlertContent + ' has been removed!';
 				this.updateAlertContent = this.defaultAlertContent + ' has been updated!';
-				this.updateData = function() {
-					return {
-						__metadata: this.__metadata
-					};
+			});
+			CLASSES.Data.method('updateData', function() {
+				return {
+					__metadata: this.__metadata
 				};
-				this.initPublicAttributes = function() {
-					this.Created = (this.newData.Created) ? Date.parse(this.newData.Created) : '';
-					this.GUID = this.newData.GUID || '';
-					this.Id = this.newData.Id || '';
-					this.Modified = (this.newData.Modified) ? Date.parse(this.newData.Modified) : '';
-					this.__metadata = this.newData.__metadata || {
-						type: 'SP.Data.' + this.listName + 'GroupListItem'
-					};
-				};
-				this.add = function(hideAlert) {
-					hideAlert = hideAlert || false;
-					var deffered = $q.defer();
-					this.data = this.updateData();
-					if (this.__metadata.etag === undefined) {
-						service.addItem(this.listName, this.data)
-							.success(function(data) {
-								object.initPublicAttributes(data.d);
-								object.dataList.push(object);
+			});
+			CLASSES.Data.method('add', function(hideAlert, newObject) {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				hideAlert = hideAlert || false;
+				newObject = newObject || false;
+				var deffered = $q.defer();
+				this.data = this.updateData();
+				if (this.__metadata.etag === undefined) {
+					UTILITIES.addItem(this.listName, this.data)
+						.success(function(data) {
+							if (!newObject) {
+								object.newData = data.d;
+								object.initPublicAttributes();
+								DATA[object.listName.charAt(0).toLowerCase() + object.listName.slice(1) + 's'].push(object);
+							}
+							if (!hideAlert) {
+								$alert({
+									show: true,
+									placement: 'top-right',
+									content: object.addAlertContent,
+									animation: 'am-fade-and-slide-top',
+									duration: '3',
+									type: 'success',
+									template: 'partials/alerts/success-alert.html'
+								});
+							}
+							deffered.resolve(object.Id);
+						});
+				}
+				return deffered.promise;
+			});
+			CLASSES.Data.method('remove', function(hideAlert) {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				hideAlert = hideAlert || false;
+				var deffered = $q.defer();
+				UTILITIES.updateItem(this.listName, this.Id)
+					.success(function() {
+						DATA[object.listName.charAt(0).toLowerCase() + object.listName.slice(1) + 's'] = _.without(DATA[object.listName.charAt(0).toLowerCase() + object.listName.slice(1) + 's'], object);
+						if (!hideAlert) {
+							$alert({
+								show: true,
+								placement: 'top-right',
+								content: object.removeAlertContent,
+								animation: 'am-fade-and-slide-top',
+								duration: '3',
+								type: 'success',
+								template: 'partials/alerts/success-alert.html'
+							});
+						}
+						deffered.resolve();
+					});
+				return deffered.promise;
+			});
+			CLASSES.Data.method('update', function(hideAlert) {
+				var deffered = $q.defer();
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				hideAlert = hideAlert || false;
+				this.__metadata.etag = this.__metadata.etag || '*';
+				this.data = this.updateData();
+				UTILITIES.updateItem(this.listName, this.Id, this.data, this.__metadata.etag)
+					.success(function() {
+						object.refresh()
+							.then(function() {
 								if (!hideAlert) {
 									$alert({
 										show: true,
 										placement: 'top-right',
-										content: object.addAlertContent,
+										content: object.updateAlertContent,
 										animation: 'am-fade-and-slide-top',
 										duration: '3',
 										type: 'success',
 										template: 'partials/alerts/success-alert.html'
 									});
 								}
-								deffered.resolve(object.Id);
+								deffered.resolve();
 							});
-					}
-					return deffered.promise;
-				};
-				this.remove = function(hideAlert) {
-					hideAlert = hideAlert || false;
-					var deffered = $q.defer();
-					service.deleteItem(this.listName, this.Id)
-						.success(function() {
-							object.dataList = _.without(object.dataList, object);
-							if (!hideAlert) {
-								$alert({
-									show: true,
-									placement: 'top-right',
-									content: object.removeAlertContent,
-									animation: 'am-fade-and-slide-top',
-									duration: '3',
-									type: 'success',
-									template: 'partials/alerts/success-alert.html'
-								});
-							}
-							deffered.resolve();
+					})
+					.error(function(data) {
+						console.error('There has been an error with your network request.', data);
+						$alert({
+							show: true,
+							placement: 'top-right',
+							content: 'You must refesh your data before you can change that item',
+							animation: 'am-fade-and-slide-top',
+							duration: '3',
+							type: 'danger',
+							template: 'partials/alerts/error-alert.html'
 						});
-					return deffered.promise;
-				};
-				this.update = function(hideAlert) {
-					hideAlert = hideAlert || false;
-					var deffered = $q.defer();
-					this.data = this.updateData();
-					service.updateItem(this.listName, this.Id, this.data, '*')
-						.success(function() {
-							Data.refresh();
-							if (!hideAlert) {
-								$alert({
-									show: true,
-									placement: 'top-right',
-									content: object.updateAlertContent,
-									animation: 'am-fade-and-slide-top',
-									duration: '3',
-									type: 'success',
-									template: 'partials/alerts/success-alert.html'
-								});
-							}
-							deffered.resolve();
-						});
-					return deffered.promise;
-				};
-				this.refresh = function() {
-					var deffered = $q.defer();
-					service.getItem(this.listName, this.Id)
-						.success(function(data) {
-							object.newdata = data.d;
-							object.initPublicAttributes();
-							deffered.resolve();
-						});
-					return deffered.promise;
-				};
-			};
+					});
+				return deffered.promise;
+			});
+			CLASSES.Data.method('refresh', function() {
+				var deffered = $q.defer();
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				UTILITIES.fetchItem(this.listName, this.Id)
+					.success(function(data) {
+						object.newData = data.d;
+						object.initPublicAttributes();
+						deffered.resolve();
+					});
+				return deffered.promise;
+			});
 			// ***********************************************************************
 			// DEFINE THE AREA CLASS
 			// ***********************************************************************
-			service.Area = function(data) {
+			CLASSES.Area = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Area object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Area = this.newData.Area || '';
-					this.Description = this.newData.Description || '';
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Area = this.Area;
-					returnData.Description = this.Description;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
 				this.initPublicAttributes();
 				this.listName = 'Area';
-				this.dataList = generalService.data.areas;
 			};
-			service.Area.inherits(service.Data);
-			service.Area.method('toString', function() {
+			CLASSES.Area.inherits(CLASSES.Data);
+			CLASSES.Area.method('initPublicAttributes', function() {
+				this.Area = this.newData.Area || undefined;
+				this.Description = this.newData.Description || undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Area.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Area = this.Area;
+				returnData.Description = this.Description;
+				return returnData;
+			});
+			CLASSES.Area.method('toString', function() {
 				return this.Description + ' Area';
 			});
 			// ***********************************************************************
 			// DEFINE THE AVAILABILITY CLASS
 			// ***********************************************************************
-			service.Availability = function(data) {
+			CLASSES.Availability = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Availability object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Active = this.newData.Active || this.newData.Current || false;
-					this.Current = this.newData.Current || false;
-					this.Day = this.newData.Day || '';
-					this.EmployeeId = this.newData.EmployeeId || '';
-					this.Employee = (this.newData.EmployeeId) ? _.find(generalService.data.employees, function(employee) {
-						return employee.Id === object.EmployeeId;
-					}) : '';
-					this.EndTime = (this.newData.EndTime) ? Date.parse(this.newData.EndTime) : '';
-					this.SemesterId = this.newData.SemesterId || '';
-					this.Semester = (this.newData.SemesterId) ? _.find(generalService.data.semesters, function(semseter) {
-						return semseter.Id === object.SemesterId;
-					}) : {};
-					this.StartTime = (this.newData.StartTime) ? Date.parse(this.newData.StartTime) : '';
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Active = this.Current;
-					returnData.Current = this.Current;
-					returnData.Day = this.Day;
-					returnData.EmployeeId = this.EmployeeId;
-					returnData.EndTime = this.EndTime;
-					returnData.SemesterId = this.SemesterId;
-					returnData.StartTime = object.StartTime;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Availability';
-				this.dataList = generalService.data.availabilities;
-				this.defaultAlertContent = (this.Id === generalService.properties.currentUser.Id) ? 'Your information' : this.toString();
+				this.initPublicAttributes();
+				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your information' : this.toString();
 			};
-			service.Availability.inherits(service.Data);
-			service.Availability.method('toString', function() {
+			CLASSES.Availability.inherits(CLASSES.Data);
+			CLASSES.Availability.method('add', function() {
+				var deffered = $q.defer();
+				this.Active = true;
+				this.Current = true;
+				this.uber('add')
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
+			});
+			CLASSES.Availability.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.Active = this.newData.Active || this.newData.Current || false;
+				this.Current = this.newData.Current || false;
+				this.Day = this.newData.Day || undefined;
+				this.EmployeeId = this.newData.EmployeeId || undefined;
+				this.Employee = (this.newData.EmployeeId) ? _.find(DATA.employees, function(employee) {
+					return employee.Id === object.EmployeeId;
+				}) : {};
+				this.EndTime = (this.newData.EndTime) ? Date.parse(this.newData.EndTime) : undefined;
+				this.SemesterId = this.newData.SemesterId || undefined;
+				this.Semester = (this.newData.SemesterId) ? _.find(DATA.semesters, function(semseter) {
+					return semseter.Id === object.SemesterId;
+				}) : {};
+				this.StartTime = (this.newData.StartTime) ? Date.parse(this.newData.StartTime) : undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Availability.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Active = this.Current;
+				returnData.Current = this.Current;
+				returnData.Day = this.Day;
+				returnData.EmployeeId = this.EmployeeId;
+				returnData.EndTime = this.EndTime;
+				returnData.SemesterId = this.SemesterId;
+				returnData.StartTime = this.StartTime;
+				return returnData;
+			});
+			CLASSES.Availability.method('toString', function() {
 				return this.Employee.toString() + '\'s availability';
 			});
-			service.Availability.method('deactivate', function() {
+			CLASSES.Availability.method('deactivate', function() {
+				var deffered = $q.defer();
 				this.Active = false;
 				this.Current = false;
-				this.update();
+				this.update()
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
 			// ***********************************************************************
 			// DEFINE THE EMPLOYEE CLASS
 			// ***********************************************************************
-			service.Employee = function(data) {
+			CLASSES.Employee = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Employee object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Active = this.newData.Active || false;
-					this.Admin = this.newData.Admin || false;
-					this.AreaId = this.newData.AreaId || '';
-					this.Area = (this.newData.AreaId) ? _.find(generalService.data.areas, function(area) {
-						return area.Id === object.AreaId;
-					}) : {};
-					this.EmailAddress = this.newData.EmailAddress || '';
-					this.FirstName = this.newData.FirstName || '';
-					this.INumber = this.newData.INumber || '';
-					this.LastName = this.newData.LastName || '';
-					this.PhoneNumber = this.newData.PhoneNumber || '';
-					this.Picture = this.newData.Picture || '';
-					this.PositionId = this.newData.PositionId || '';
-					this.Position = (this.newData.PositionId) ? _.find(generalService.data.positions, function(position) {
-						return position.Id === object.PositionId;
-					}) : {};
-					this.PreferredName = this.newData.PreferredName || '';
-					this.Reader = this.newData.Reader || false;
-					this.TeamId = this.newData.TeamId || '';
-					this.Team = (this.newData.TeamId) ? _.find(generalService.data.teams, function(team) {
-						return team.Id === object.TeamId;
-					}) : {};
-					this.TrackId = this.newData.TrackId || '';
-					this.Track = (this.newData.TrackId) ? _.find(generalService.data.tracks, function(track) {
-						return track.Id === object.TrackId;
-					}) : {};
-					this.ExtendedPrivledges = (
-						this.Position.Position === 'FTE' ||
-						this.Position.Position === 'HR' ||
-						this.Admin
-					);
-					this.Employments = [];
-					this.Intent = {};
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Active = this.Active;
-					returnData.Admin = this.Admin;
-					returnData.AreaId = this.AreaId;
-					returnData.EmailAddress = this.EmailAddress;
-					returnData.FirstName = this.FirstName;
-					returnData.INumber = this.INumber;
-					returnData.LastName = this.LastName;
-					returnData.Picture = this.Picture;
-					returnData.PhoneNumber = this.PhoneNumber;
-					returnData.PreferredName = this.PreferredName;
-					returnData.PositionId = this.PositionId;
-					returnData.Reader = this.Reader;
-					// returnData.TeamId = this.TeamId;
-					returnData.TrackId = this.TrackId;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Employee';
-				this.dataList = generalService.data.employees;
-				this.defaultAlertContent = (this.Id === generalService.properties.currentUser.Id) ? 'Your information' : this.toString();
+				this.initPublicAttributes();
+				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your information' : this.toString();
 			};
-			service.Employee.inherits(service.Data);
-			service.Employee.method('toString', function() {
+			CLASSES.Employee.inherits(CLASSES.Data);
+			CLASSES.Employee.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.Active = this.newData.Active || false;
+				this.Admin = this.newData.Admin || false;
+				this.AreaId = this.newData.AreaId || undefined;
+				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area) {
+					return area.Id === object.AreaId;
+				}) : {};
+				this.EmailAddress = this.newData.EmailAddress || undefined;
+				this.FirstName = this.newData.FirstName || undefined;
+				this.INumber = this.newData.INumber || undefined;
+				this.LastName = this.newData.LastName || undefined;
+				this.PhoneNumber = this.newData.PhoneNumber || undefined;
+				this.Picture = this.newData.Picture || undefined;
+				this.PositionId = this.newData.PositionId || undefined;
+				this.Position = (this.newData.PositionId) ? _.find(DATA.positions, function(position) {
+					return position.Id === object.PositionId;
+				}) : {};
+				this.PreferredName = this.newData.PreferredName || undefined;
+				this.Reader = this.newData.Reader || false;
+				this.TeamId = this.newData.TeamId || undefined;
+				this.Team = (this.newData.TeamId) ? _.find(DATA.teams, function(team) {
+					return team.Id === object.TeamId;
+				}) : {};
+				this.TrackId = this.newData.TrackId || undefined;
+				this.Track = (this.newData.TrackId) ? _.find(DATA.tracks, function(track) {
+					return track.Id === object.TrackId;
+				}) : {};
+				this.ExtendedPrivledges = (
+					this.Position.Position === 'FTE' ||
+					this.Position.Position === 'HR' ||
+					this.Admin
+				);
+				this.Employments = [];
+				this.Intent = {};
+				this.Label = (
+					'<div><img class="img-circle" src="' + this.Picture +
+					'" fallback-src="/media/missing.png" width="50px" height="50px"> <b>' +
+					this.PreferredName + ' ' + this.LastName + '</b></div>'
+				);
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Employee.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Active = this.Active;
+				returnData.Admin = this.Admin;
+				returnData.AreaId = this.AreaId;
+				returnData.EmailAddress = this.EmailAddress;
+				returnData.FirstName = this.FirstName;
+				returnData.INumber = this.INumber;
+				returnData.LastName = this.LastName;
+				returnData.Picture = this.Picture;
+				returnData.PhoneNumber = this.PhoneNumber;
+				returnData.PreferredName = this.PreferredName;
+				returnData.PositionId = this.PositionId;
+				returnData.Reader = this.Reader;
+				// returnData.TeamId = this.TeamId;
+				returnData.TrackId = this.TrackId;
+				return returnData;
+			});
+			CLASSES.Employee.method('toString', function() {
 				return this.Position.Description + ': ' + this.PreferredName + ' ' + this.LastName;
 			});
-			service.Employee.prototype.activate = function() {
+			CLASSES.Employee.method('activate', function() {
 				var employment = new Employment();
 				employment.start();
 				this.Active = true;
 				this.update();
-			};
-			service.Employee.prototype.deactivate = function() {
-				var employment = _.find(generalService.data.employments, function(employment) {
-					return employment.EndDate === '' &&
+			});
+			CLASSES.Employee.method('deactivate', function() {
+				var employment = _.find(DATA.employments, function(employment) {
+					return employment.EndDate === undefined &&
 						employment.EmployeeId === this.Id;
 				});
 				employment.end();
 				this.Active = false;
 				this.update();
-			};
-			service.Employee.prototype.add = function() {
+			});
+			CLASSES.Employee.method('add', function() {
 				this.parent.update.call(this);
 				this.activate();
-			};
-			service.Employee.prototype.setEmployements = function() {
-				this.Employments = _.filter(generalService.data.employments, function(employment) {
+			});
+			CLASSES.Employee.method('setEmployements', function() {
+				this.Employments = _.filter(DATA.employments, function(employment) {
 					return employment.EmployeeId === employee.Id;
 				});
-			};
-			service.Employee.prototype.setIntent = function() {
-				employee.Intent = _.find(service.data.intents, function(intent) {
+			});
+			CLASSES.Employee.method('setIntent', function() {
+				this.Intent = _.find(DATA.intents, function(intent) {
 					return intent.EmployeeId === employee.Id;
 				});
-			};
-			service.Employee.prototype.declareIntent = function() {};
+			});
+			CLASSES.Employee.method('declareIntent', function() {});
 			// ***********************************************************************
 			// DEFINE THE EMPLOYMENT CLASS
 			// ***********************************************************************
-			service.Employment = function(data) {
+			CLASSES.Employment = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Employment object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.EmployeeId = this.newData.EmployeeId || '';
-					this.Employee = (this.newData.EmployeeId) ? _.find(generalService.data.employees, function(employee) {
-						return employee.Id === object.EmployeeId;
-					}) : {};
-					this.EndDate = (this.newData.EndDate) ? Date.parse(this.newData.EndDate) : '';
-					this.StartDate = (this.newData.StartDate) ? Date.parse(this.newData.StartDate) : '';
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.EmployeeId = this.EmployeeId;
-					returnData.EndDate = this.EndDate;
-					returnData.StartDate = this.StartDate;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Employment';
-				this.dataList = generalService.data.employments;
-				this.defaultAlertContent = (this.Id === generalService.properties.currentUser.Id) ? 'Your employment' : this.toString();
+				this.initPublicAttributes();
+				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your employment' : this.toString();
 			};
-			service.Employment.inherits(service.Data);
-			service.Employment.method('toString', function() {
+			CLASSES.Employment.inherits(CLASSES.Data);
+			CLASSES.Employment.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.EmployeeId = this.newData.EmployeeId || undefined;
+				this.Employee = (this.newData.EmployeeId) ? _.find(DATA.employees, function(employee) {
+					return employee.Id === object.EmployeeId;
+				}) : {};
+				this.EndDate = (this.newData.EndDate) ? Date.parse(this.newData.EndDate) : undefined;
+				this.StartDate = (this.newData.StartDate) ? Date.parse(this.newData.StartDate) : undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Employment.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.EmployeeId = this.EmployeeId;
+				returnData.EndDate = this.EndDate;
+				returnData.StartDate = this.StartDate;
+				return returnData;
+			});
+			CLASSES.Employment.method('toString', function() {
 				return this.Employee.toString() + '\'s employment';
 			});
-			service.Employment.method('start', function() {
+			CLASSES.Employment.method('start', function() {
 				this.StartDate = new Date();
 				this.add();
 			});
-			service.Employment.method('end', function() {
+			CLASSES.Employment.method('end', function() {
 				this.EndDate = new Date();
 				this.update();
 			});
 			// ***********************************************************************
 			// DEFINE THE MESSAGE CLASS
 			// ***********************************************************************
-			service.Message = function(data) {
+			CLASSES.Message = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Message object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Active = this.newData.Active || false;
-					this.Body = (this.newData.Body) ? Autolinker.link(this.newData.Body, {
-						truncate: 10
-					}).replace(/\n\r?/g, '<br />') : ((this.newData.Message) ? Autolinker.link(this.newData.Message, {
-						truncate: 10
-					}).replace(/\n\r?/g, '<br />') : '');
-					this.DueDate = (this.newData.DueDate) ? Date.parse(this.newData.DueDate) : '';
-					this.ExpDate = (this.newData.ExpDate) ? Date.parse(this.newData.ExpDate) : '';
-					this.FromId = this.newData.FromId || false;
-					this.From = (this.newData.FromId) ? _.find(generalService.data.employees, function(employee) {
-						return employee.Id === object.FromId;
-					}) : {};
-					this.Manditory = this.newData.Manditory || false;
-					this.Policy = this.newData.Policy || false;
-					this.SemesterId = this.newData.SemesterId || '';
-					this.Semester = (this.newData.SemesterId) ? _.find(generalService.data.semesters, function(semester) {
-						return semester.Id === object.SemesterId;
-					}) : {};
-					this.Subject = this.newData.Subject || '';
-					this.tempBody = this.Body;
-					this.Recipients = [];
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Active = this.Active;
-					returnData.Body = this.Body;
-					returnData.DueDate = this.DueDate;
-					returnData.ExpDate = this.ExpDate;
-					returnData.FromId = this.FromId;
-					returnData.Manditory = this.Manditory;
-					returnData.Policy = this.Policy;
-					returnData.SemesterId = this.SemesterId;
-					returnData.Subject = this.Subject;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Message';
-				this.dataList = generalService.data.messages;
-				this.defaultAlertContent = (this.Id === generalService.properties.currentUser.Id) ? 'Your employment' : this.toString();
+				this.initPublicAttributes();
+				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your employment' : this.toString();
 			};
-			service.Message.inherits(service.Data);
-			service.Message.method('toString', function() {
+			CLASSES.Message.inherits(CLASSES.Data);
+			CLASSES.Message.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.Active = this.newData.Active || false;
+				this.Body = (this.newData.Body) ? Autolinker.link(this.newData.Body, {
+					truncate: 10
+				}).replace(/\n\r?/g, '<br />') : ((this.newData.Message) ? Autolinker.link(this.newData.Message, {
+					truncate: 10
+				}).replace(/\n\r?/g, '<br />') : undefined);
+				this.DueDate = (this.newData.DueDate) ? Date.parse(this.newData.DueDate) : undefined;
+				this.ExpDate = (this.newData.ExpDate) ? Date.parse(this.newData.ExpDate) : undefined;
+				this.FromId = this.newData.FromId || false;
+				this.From = (this.newData.FromId) ? _.find(DATA.employees, function(employee) {
+					return employee.Id === object.FromId;
+				}) : {};
+				this.Manditory = this.newData.Manditory || false;
+				this.Policy = this.newData.Policy || false;
+				this.SemesterId = this.newData.SemesterId || undefined;
+				this.Semester = (this.newData.SemesterId) ? _.find(DATA.semesters, function(semester) {
+					return semester.Id === object.SemesterId;
+				}) : {};
+				this.Subject = this.newData.Subject || undefined;
+				this.tempBody = this.Body;
+				this.Recipients = [];
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Message.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Active = this.Active;
+				returnData.Body = this.Body;
+				returnData.DueDate = this.DueDate;
+				returnData.ExpDate = this.ExpDate;
+				returnData.FromId = this.FromId;
+				returnData.Manditory = this.Manditory;
+				returnData.Policy = this.Policy;
+				returnData.SemesterId = this.SemesterId;
+				returnData.Subject = this.Subject;
+				return returnData;
+			});
+			CLASSES.Message.method('toString', function() {
 				return this.Subject + ' message from ' + this.From.toString().split(': ')[1];
 			});
-			service.Message.method('send', function() {
+			CLASSES.Message.method('send', function() {
 				this.add();
 				var recipientCounter = 0;
 				sendMessage(this.Recipients[recipientCounter]);
@@ -1107,7 +1388,7 @@
 				 * @returns    {null}
 				 */
 				function sendMessage(recipient) {
-					var sentMessage = new service.SentMessage();
+					var sentMessage = new CLASSES.SentMessage();
 					sentMessage.EmployeeId = recipient.Id;
 					sentMessage.MessageId = this.Id;
 					sentMessage.add(true)
@@ -1128,7 +1409,7 @@
 						});
 				}
 			});
-			service.Message.method('getRecipients', function() {
+			CLASSES.Message.method('getRecipients', function() {
 				var sentMessages = _.filter(service.data.sentMessages, function(sentMessage) {
 					return sentMessage.MessageId === this.Id;
 				});
@@ -1136,257 +1417,219 @@
 					this.Recipients.push(sentMessage.Employee);
 				});
 			});
-			service.Message.method('deactivate', function() {
+			CLASSES.Message.method('deactivate', function() {
 				this.Active = false;
 				this.update();
 			});
 			// ***********************************************************************
 			// DEFINE THE NOTESTINGDAY CLASS
 			// ***********************************************************************
-			service.NoTestingDay = function(data) {
+			CLASSES.NoTestingDay = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the NoTestingDay object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Title = this.newData.Title || '';
-					this.Date = (this.newData.Date) ? Date.parse(this.newData.Date) : '';
-					this.Description = this.newData.Description || '';
-					this.SemesterId = this.newData.SemesterId || '';
-					this.Semester = (this.newData.SemesterId) ? _.find(generalService.data.semesters, function(semester) {
-						return semester.Id === object.SemesterId;
-					}) : {};
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Title = this.Title;
-					returnData.Date = this.Date;
-					returnData.Description = this.Description;
-					returnData.SemesterId = this.SemesterId;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'NoTestingDay';
-				this.dataList = generalService.data.noTestingDays;
+				this.initPublicAttributes();
 			};
-			service.NoTestingDay.inherits(service.Data);
-			service.NoTestingDay.method('toString', function() {
+			CLASSES.NoTestingDay.inherits(CLASSES.Data);
+			CLASSES.NoTestingDay.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.Title = this.newData.Title || undefined;
+				this.Date = (this.newData.Date) ? Date.parse(this.newData.Date) : undefined;
+				this.Description = this.newData.Description || undefined;
+				this.SemesterId = this.newData.SemesterId || undefined;
+				this.Semester = (this.newData.SemesterId) ? _.find(DATA.semesters, function(semester) {
+					return semester.Id === object.SemesterId;
+				}) : {};
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.NoTestingDay.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Title = this.Title;
+				returnData.Date = this.Date;
+				returnData.Description = this.Description;
+				returnData.SemesterId = this.SemesterId;
+				return returnData;
+			});
+			CLASSES.NoTestingDay.method('toString', function() {
 				return this.Title;
 			});
 			// ***********************************************************************
 			// DEFINE THE POSITION CLASS
 			// ***********************************************************************
-			service.Position = function(data) {
+			CLASSES.Position = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Position object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Position = this.newData.Position || '';
-					this.Description = this.newData.Description || '';
-					this.Active = true;
-					this.Access = true;
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Position = this.Position;
-					returnData.Description = this.Description;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Position';
-				this.dataList = generalService.data.positions;
+				this.initPublicAttributes();
 			};
-			service.Position.inherits(service.Data);
-			service.Position.method('toString', function() {
+			CLASSES.Position.inherits(CLASSES.Data);
+			CLASSES.Position.method('initPublicAttributes', function() {
+				this.Position = this.newData.Position || undefined;
+				this.Description = this.newData.Description || undefined;
+				this.Active = true;
+				this.Access = true;
+				this.setAccess();
+				this.setActive();
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Position.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Position = this.Position;
+				returnData.Description = this.Description;
+				return returnData;
+			});
+			CLASSES.Position.method('toString', function() {
 				return this.Description + ' position';
 			});
-			service.Position.method('setAccess', function() {
-				this.Access = (
-					this.Description === generalService.properties.currentUser.Position.Description ||
-					this.Description === generalService.properties.defaultPosition ||
-					this.Description === 'Proctor' ||
-					generalService.properties.currentUser.Position.Description === 'FTE' ||
-					generalService.properties.currentUser.Admin
-				);
+			CLASSES.Position.method('setAccess', function() {
+				if (PROPERTIES.currentUser.Position !== undefined &&
+					PROPERTIES.defaultPosition !== undefined) {
+					this.Access = (
+						this.Id === PROPERTIES.defaultPosition.Id ||
+						this.Description === PROPERTIES.currentUser.Position.Description ||
+						this.Description === 'Proctor' ||
+						PROPERTIES.currentUser.Position.Description === 'FTE' ||
+						PROPERTIES.currentUser.Admin
+					);
+				}
 			});
-			service.Position.method('setActive', function() {
-				this.Active = (
-					(this.Description === generalService.properties.defaultPosition &&
-						generalService.properties.currentUser.Position.Description === 'FTE') ^
-					this.Description === generalService.properties.currentUser.Position.Description
-				);
+			CLASSES.Position.method('setActive', function() {
+				if (PROPERTIES.currentUser.Position !== undefined &&
+					PROPERTIES.defaultPosition !== undefined) {
+					this.Active = (
+						((this.Id === PROPERTIES.defaultPosition.Id &&
+								PROPERTIES.currentUser.Position.Description === 'FTE') ^
+							this.Description === PROPERTIES.currentUser.Position.Description) === 1
+					);
+				}
 			});
 			// ***********************************************************************
 			// DEFINE THE PROFESSOR CLASS
 			// ***********************************************************************
-			service.Professor = function(data) {
+			CLASSES.Professor = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Employee object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.EmailAddress = this.newData.EmailAddress || '';
-					this.FirstName = this.newData.FirstName || '';
-					this.LastName = this.newData.LastName || '';
-					this.OfficeAddress = this.newData.OfficeAddress || '';
-					this.OfficePhone = this.newData.OfficePhone || '';
-					this.OtherPhone = this.newData.OtherPhone || '';
-					this.Picture = this.newData.Picture || '';
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.EmailAddress = this.EmailAddress;
-					returnData.FirstName = this.FirstName;
-					returnData.LastName = this.LastName;
-					returnData.OfficeAddress = this.OfficeAddress;
-					returnData.OfficePhone = this.OfficePhone;
-					returnData.OtherPhone = this.OtherPhone;
-					returnData.Picture = this.Picture;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Professor';
-				this.dataList = generalService.data.professors;
-				this.defaultAlertContent = (this.Id === generalService.properties.currentUser.Id) ? 'Your information' : this.toString();
+				this.initPublicAttributes();
+				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your information' : this.toString();
 			};
-			service.Professor.inherits(service.Data);
-			service.Professor.method('toString', function() {
+			CLASSES.Professor.inherits(CLASSES.Data);
+			CLASSES.Professor.method('initPublicAttributes', function() {
+				this.EmailAddress = this.newData.EmailAddress || undefined;
+				this.FirstName = this.newData.FirstName || undefined;
+				this.LastName = this.newData.LastName || undefined;
+				this.OfficeAddress = this.newData.OfficeAddress || undefined;
+				this.OfficePhone = this.newData.OfficePhone || undefined;
+				this.OtherPhone = this.newData.OtherPhone || undefined;
+				this.Picture = this.newData.Picture || undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Professor.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.EmailAddress = this.EmailAddress;
+				returnData.FirstName = this.FirstName;
+				returnData.LastName = this.LastName;
+				returnData.OfficeAddress = this.OfficeAddress;
+				returnData.OfficePhone = this.OfficePhone;
+				returnData.OtherPhone = this.OtherPhone;
+				returnData.Picture = this.Picture;
+				return returnData;
+			});
+			CLASSES.Professor.method('toString', function() {
 				return this.listName + ': ' + this.FirstName + ' ' + this.LastName;
 			});
 			// ***********************************************************************
 			// DEFINE THE SCHEDULE CLASS
 			// ***********************************************************************
-			service.Schedule = function(data) {
+			CLASSES.Schedule = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Schedule object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Active = this.newData.Active || false;
-					this.EmployeeId = this.newData.EmployeeId || '';
-					this.Employee = _.find(generalService.data.employees, function(employee) {
-						return employee.Id === object.EmployeeId;
-					}) || {};
-					this.ShiftId = this.newData.ShiftId || '';
-					this.Shift = _.find(generalService.data.shifts, function(shift) {
-						return shift.Id === object.ShiftId;
-					}) || {};
-					this.SemesterId = this.newData.SemesterId || '';
-					this.Semester = (this.newData.SemesterId) ? _.find(generalService.data.semesters, function(semester) {
-						return semester.Id === object.SemesterId;
-					}) : {};
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Active = this.Active;
-					returnData.EmployeeId = this.EmployeeId;
-					returnData.ShiftId = this.ShiftId;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Schedule';
-				this.dataList = generalService.data.schedules;
-				this.defaultAlertContent = (this.Id === generalService.properties.currentUser.Id) ? 'Your schedule' : this.toString();
+				this.initPublicAttributes();
+				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your schedule' : this.toString();
 			};
-			service.Schedule.inherits(service.Data);
-			service.Schedule.method('toString', function() {
+			CLASSES.Schedule.inherits(CLASSES.Data);
+			CLASSES.Schedule.method('add', function() {
+				var deffered = $q.defer();
+				this.Active = true;
+				this.uber('add')
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
+			});
+			CLASSES.Schedule.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.Active = this.newData.Active || false;
+				this.EmployeeId = this.newData.EmployeeId || undefined;
+				this.Employee = _.find(DATA.employees, function(employee) {
+					return employee.Id === object.EmployeeId;
+				}) || {};
+				this.ShiftId = this.newData.ShiftId || undefined;
+				this.Shift = _.find(DATA.shifts, function(shift) {
+					return shift.Id === object.ShiftId;
+				}) || {};
+				this.SemesterId = this.newData.SemesterId || undefined;
+				this.Semester = (this.newData.SemesterId) ? _.find(DATA.semesters, function(semester) {
+					return semester.Id === object.SemesterId;
+				}) : {};
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Schedule.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Active = this.Active;
+				returnData.EmployeeId = this.EmployeeId;
+				returnData.ShiftId = this.ShiftId;
+				returnData.SemesterId = this.SemesterId;
+				return returnData;
+			});
+			CLASSES.Schedule.method('toString', function() {
 				return this.Employee.toString() + '\'s schedule';
 			});
-			service.Schedule.method('deactivate', function() {
+			CLASSES.Schedule.method('deactivate', function() {
 				this.Active = false;
 				this.update();
 			});
 			// ***********************************************************************
 			// DEFINE THE SENTMESSAGE CLASS
 			// ***********************************************************************
-			service.SentMessage = function(data) {
+			CLASSES.SentMessage = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the SentMessage object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.AckDate = (this.newData.AckDate) ? Date.parse(this.newData.AckDate) : '';
-					this.EmployeeId = this.newData.EmployeeId || '';
-					this.Employee = (this.newData.EmployeeId) ? _.find(generalService.data.employees, function(employee) {
-						return employee.Id === object.EmployeeId;
-					}) : {};
-					this.MessageId = this.newData.MessageId || '';
-					this.Message = (this.newData.MessageId) ? _.find(generalService.data.messages, function(message) {
-						return message.Id === object.MessageId;
-					}) : {};
-					this.Read = this.newData.Read || false;
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.AckDate = this.AckDate;
-					returnData.EmployeeId = this.EmployeeId;
-					returnData.MessageId = this.MessageId;
-					returnData.Read = this.Read;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'SentMessage';
-				this.dataList = generalService.data.sentMessages;
-				console.log(this.toString());
-				console.log(this);
+				this.initPublicAttributes();
 			};
-			service.SentMessage.inherits(service.Data);
-			service.SentMessage.method('toString', function() {
+			CLASSES.SentMessage.inherits(CLASSES.Data);
+			CLASSES.SentMessage.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.AckDate = (this.newData.AckDate) ? Date.parse(this.newData.AckDate) : undefined;
+				this.EmployeeId = this.newData.EmployeeId || undefined;
+				this.Employee = (this.newData.EmployeeId) ? _.find(DATA.employees, function(employee) {
+					return employee.Id === object.EmployeeId;
+				}) : {};
+				this.MessageId = this.newData.MessageId || undefined;
+				this.Message = (this.newData.MessageId) ? _.find(DATA.messages, function(message) {
+					return message.Id === object.MessageId;
+				}) : {};
+				this.Read = this.newData.Read || false;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.SentMessage.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.AckDate = this.AckDate;
+				returnData.EmployeeId = this.EmployeeId;
+				returnData.MessageId = this.MessageId;
+				returnData.Read = this.Read;
+				return returnData;
+			});
+			CLASSES.SentMessage.method('toString', function() {
 				return 'Message from ' + this.Message.From.toString().split(': ')[1] + ' to ' + this.Employee.toString().split(': ')[1] +
 					'\nSubject: ' + this.Message.Subject;
 			});
-			service.SentMessage.method('read', function() {
+			CLASSES.SentMessage.method('read', function() {
 				this.Read = true;
 				this.AckDate = new Date();
 				this.update();
@@ -1394,115 +1637,134 @@
 			// ***********************************************************************
 			// DEFINE THE SEMESTER CLASS
 			// ***********************************************************************
-			service.Semester = function(data) {
+			CLASSES.Semester = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Semester object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Active = this.newData.Active || false;
-					this.FirstDay = (this.newData.FirstDay) ? Date.parse(this.newData.FirstDay) : '';
-					this.LastDay = (this.newData.LastDay) ? Date.parse(this.newData.LastDay) : '';
-					this.NextSemesterId = this.newData.NextSemesterId || '';
-					this.NextSemester = (this.newData.NextSemesterId) ? _.find(generalService.data.semesters, function(semseter) {
-						return semseter.Id === object.NextSemesterId;
-					}) : {};
-					this.ShiftGroupId = this.newData.ShiftGroupId || '';
-					this.ShiftGroup = (this.newData.ShiftGroupId) ? _.find(generalService.data.shiftGroups, function(shiftGroup) {
-						return shiftGroup.Id === object.ShiftGroupId;
-					}) : {};
-					this.Year = this.newData.Year || '';
-					this.Description = this.newData.Description || '';
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Active = this.Active;
-					returnData.FirstDay = this.FirstDay;
-					returnData.LastDay = this.LastDay;
-					returnData.NextSemesterId = this.NextSemesterId;
-					returnData.ShiftGroupId = this.ShiftGroupId;
-					returnData.Year = this.Year;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Semester';
-				this.dataList = generalService.data.semesters;
+				this.initPublicAttributes();
 			};
-			service.Semester.inherits(service.Data);
-			service.Semester.method('toString', function() {
+			CLASSES.Semester.inherits(CLASSES.Data);
+			CLASSES.Semester.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.Active = this.newData.Active || false;
+				this.FirstDay = (this.newData.FirstDay) ? Date.parse(this.newData.FirstDay) : undefined;
+				this.LastDay = (this.newData.LastDay) ? Date.parse(this.newData.LastDay) : undefined;
+				this.NextSemesterId = this.newData.NextSemesterId || undefined;
+				this.NextSemester = (this.newData.NextSemesterId) ? _.find(DATA.semesters, function(semseter) {
+					return semseter.Id === object.NextSemesterId;
+				}) : {};
+				this.ShiftGroupId = this.newData.ShiftGroupId || undefined;
+				this.ShiftGroup = (this.newData.ShiftGroupId) ? _.find(DATA.shiftGroups, function(shiftGroup) {
+					return shiftGroup.Id === object.ShiftGroupId;
+				}) : {};
+				this.Year = this.newData.Year || undefined;
+				this.Description = this.newData.Description || undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Semester.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Active = this.Active;
+				returnData.FirstDay = this.FirstDay;
+				returnData.LastDay = this.LastDay;
+				returnData.NextSemesterId = this.NextSemesterId;
+				returnData.ShiftGroupId = this.ShiftGroupId;
+				returnData.Year = this.Year;
+				return returnData;
+			});
+			CLASSES.Semester.method('toString', function() {
 				return this.ShiftGroup.Description + ' ' + this.Year + ' Semester';
 			});
-			service.Semester.method('deactivate', function() {
+			CLASSES.Semester.method('deactivate', function() {
 				this.Active = false;
 				this.update();
 			});
 			// ***********************************************************************
 			// DEFINE THE SHIFT CLASS
 			// ***********************************************************************
-			service.Shift = function(data) {
+			CLASSES.Shift = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the Shift object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Day = this.newData.Day || '';
-					this.Days = (this.newData.Day) ? this.newData.Day.replace(/\s/g, '').split('-') : [];
-					this.Slots = this.newData.Slots || '';
-					this.Active = this.newData.Active || this.newData.Current || false;
-					this.Current = this.newData.Current || false;
-					this.ShiftGroup = (this.newData.ShiftGroupId) ? _.find(generalService.data.shiftGroups, function(shiftGroup) {
-						return shiftGroup.Id === object.ShiftGroupId;
-					}) : {};
-					this.ShiftGroupId = this.newData.ShiftGroupId || '';
-					this.Position = (this.newData.PositionId) ? _.find(generalService.data.positions, function(position) {
-						return position.Id === object.PositionId;
-					}) : {};
-					this.PositionId = this.newData.PositionId || '';
-					this.StartTime = (this.newData.StartTime) ? Date.parse(this.newData.StartTime) : '';
-					this.EndTime = (this.newData.EndTime) ? Date.parse(this.newData.EndTime) : '';
-
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Day = this.Day;
-					returnData.Slots = this.Slots;
-					returnData.Active = this.Active;
-					returnData.Current = this.Current;
-					returnData.ShiftGroupId = this.ShiftGroupId;
-					returnData.PositionId = this.PositionId;
-					returnData.StartTime = this.StartTime;
-					returnData.EndTime = object.EndTime;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Shift';
-				this.dataList = generalService.data.shifts;
+				this.initPublicAttributes();
 			};
-			service.Shift.inherits(service.Data);
-			service.Shift.method('toString', function() {
-				return this.Day.replace(/\s/g, '').replace(/[-]/g, ', ') + '\n' + this.StartTime.toString('h:mm') + ' - ' + this.EndTime.toString('h:mm');
+			CLASSES.Shift.inherits(CLASSES.Data);
+			CLASSES.Shift.method('add', function() {
+				var deffered = $q.defer();
+				this.Active = true;
+				this.Current = true;
+				this.uber('add')
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
-			service.Shift.method('deactivate', function() {
+			CLASSES.Shift.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.Day = this.newData.Day || undefined;
+				this.Days = (this.newData.Day) ? this.newData.Day.replace(/\s/g, '').split('-') : [];
+				this.Slots = this.newData.Slots || undefined;
+				this.AvailableSlots = this.Slots;
+				this.Active = (this.newData.Current !== this.newData.Active) ? this.newData.Current : this.newData.Active || false;
+				this.Current = this.newData.Current || false;
+				this.ShiftGroupId = this.newData.ShiftGroupId || undefined;
+				this.ShiftGroup = (this.newData.ShiftGroupId) ? _.find(DATA.shiftGroups, function(shiftGroup) {
+					return shiftGroup.Id === object.ShiftGroupId;
+				}) : {};
+				this.PositionId = this.newData.PositionId || undefined;
+				this.Position = (this.newData.PositionId) ? _.find(DATA.positions, function(position) {
+					return position.Id === object.PositionId;
+				}) : {};
+				this.StartTime = (this.newData.StartTime) ? Date.parse(this.newData.StartTime) : undefined;
+				this.EndTime = (this.newData.EndTime) ? Date.parse(this.newData.EndTime) : undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Shift.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Day = this.Day;
+				returnData.Slots = this.Slots;
+				returnData.Active = this.Active;
+				returnData.Current = this.Current;
+				returnData.ShiftGroupId = this.ShiftGroupId;
+				returnData.PositionId = this.PositionId;
+				returnData.StartTime = this.StartTime;
+				returnData.EndTime = this.EndTime;
+				return returnData;
+			});
+			CLASSES.Shift.method('toString', function() {
+				if (this.Id === undefined) {
+					return 'New shift';
+				} else {
+					return this.Position.Description + ': ' + this.Day.replace(/\s/g, '').replace(/[-]/g, ', ') + '\n' + this.StartTime.toString('h:mm') + ' - ' + this.EndTime.toString('h:mm');
+				}
+			});
+			CLASSES.Shift.method('setAvailableSlots', function() {
+				var shift = this;
+				this.AvailableSlots = this.Slots - _.filter(DATA.schedules, function(schedule) {
+					return (
+						schedule.ShiftId === shift.Id &&
+						schedule.Active
+					);
+				}).length;
+			});
+			CLASSES.Shift.method('update', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.uber('update')
+					.then(function() {
+						object.setAvailableSlots();
+					});
+			});
+			CLASSES.Shift.method('deactivate', function() {
+				/** @privateAtribute {object} an alias for this */
+				var shift = this;
+				_.each(DATA.schedules, function(schedule) {
+					if (schedule.ShiftId === shift.Id &&
+						schedule.Active) {
+						schedule.deactivate();
+					}
+				});
 				this.Active = false;
 				this.Current = false;
 				this.update();
@@ -1510,151 +1772,550 @@
 			// ***********************************************************************
 			// DEFINE THE SHIFTGROUP CLASS
 			// ***********************************************************************
-			service.ShiftGroup = function(data) {
+			CLASSES.ShiftGroup = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the ShiftGroup object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Description = this.newData.Description || '';
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Description = this.Description;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'ShiftGroup';
-				this.dataList = generalService.data.shiftGroups;
+				this.initPublicAttributes();
 			};
-			service.ShiftGroup.inherits(service.Data);
-			service.ShiftGroup.method('toString', function() {
+			CLASSES.ShiftGroup.inherits(CLASSES.Data);
+			CLASSES.ShiftGroup.method('initPublicAttributes', function() {
+				this.Description = this.newData.Description || undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.ShiftGroup.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Description = this.Description;
+				return returnData;
+			});
+			CLASSES.ShiftGroup.method('toString', function() {
 				return 'The ' + this.Description + ' semester type';
 			});
 			// ***********************************************************************
 			// DEFINE THE SUBSHIFT CLASS
 			// ***********************************************************************
-			service.SubShift = function(data) {
+			CLASSES.SubShift = function(data) {
 				this.newData = data || {};
-				/////////////////////////////////////
-				// PRIVATE VARIABLES AND FUNCTIONS //
-				/////////////////////////////////////
-				/** @privateAtribute {object} an alias for the SubShift object */
-				var object = this;
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Active = (this.newData.Active !== undefined) ? this.newData.Active : true;
-					this.Date = (this.newData.Date) ? Date.parse(this.newData.Date) : '';
-					this.NewRequestId = this.newData.NewRequestId || '';
-					this.NewRequest = (this.newData.NewRequestId) ? _.find(this.dataList, function(newRequest) {
-						return newRequest.Id === object.NewRequestId;
-					}) : {};
-					this.RequesterId = this.newData.RequesterId || '';
-					this.Requester = (this.newData.RequesterId) ? _.find(generalService.data.employees, function(employee) {
-						return employee.Id === object.RequesterId;
-					}) : {};
-					this.SemesterId = this.newData.SemesterId || '';
-					this.Semester = (this.newData.SemesterId) ? _.find(generalService.data.semesters, function(semester) {
-						return semester.Id === object.SemesterId;
-					}) : {};
-					this.ShiftId = this.newData.ShiftId || '';
-					this.Shift = (this.newData.ShiftId) ? _.find(generalService.data.shifts, function(shift) {
-						return shift.Id === object.ShiftId;
-					}) : {};
-					this.SubstituteId = this.newData.SubstituteId || '';
-					this.Substitute = (this.newData.SubstituteId) ? _.find(generalService.data.employees, function(employee) {
-						return employee.Id === object.SubstituteId;
-					}) : {};
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Active = this.Active;
-					returnData.Date = this.Date;
-					returnData.NewRequestId = this.NewRequestId;
-					returnData.RequesterId = this.RequesterId;
-					returnData.SemesterId = this.SemesterId;
-					returnData.ShiftId = this.ShiftId;
-					returnData.SubstituteId = this.SubstituteId;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'SubShift';
-				this.dataList = generalService.data.subShifts;
+				this.initPublicAttributes();
 			};
-			service.SubShift.inherits(service.Data);
-			service.SubShift.method('toString', function() {
+			CLASSES.SubShift.inherits(CLASSES.Data);
+			CLASSES.SubShift.method('add', function() {
+				var deffered = $q.defer();
+				this.Active = true;
+				this.uber('add')
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
+			});
+			CLASSES.SubShift.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.Active = (this.newData.Active !== undefined) ? this.newData.Active : true;
+				this.Date = (this.newData.Date) ? Date.parse(this.newData.Date) : undefined;
+				this.NewRequestId = this.newData.NewRequestId || undefined;
+				this.NewRequest = (this.newData.NewRequestId) ? _.find(DATA.subShifts, function(newRequest) {
+					return newRequest.Id === object.NewRequestId;
+				}) : {};
+				this.RequesterId = this.newData.RequesterId || undefined;
+				this.Requester = (this.newData.RequesterId) ? _.find(DATA.employees, function(employee) {
+					return employee.Id === object.RequesterId;
+				}) : {};
+				this.SemesterId = this.newData.SemesterId || undefined;
+				this.Semester = (this.newData.SemesterId) ? _.find(DATA.semesters, function(semester) {
+					return semester.Id === object.SemesterId;
+				}) : {};
+				this.ShiftId = this.newData.ShiftId || undefined;
+				this.Shift = (this.newData.ShiftId) ? _.find(DATA.shifts, function(shift) {
+					return shift.Id === object.ShiftId;
+				}) : {};
+				this.SubstituteId = this.newData.SubstituteId || undefined;
+				this.Substitute = (this.newData.SubstituteId) ? _.find(DATA.employees, function(employee) {
+					return employee.Id === object.SubstituteId;
+				}) : {};
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.SubShift.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Active = this.Active;
+				returnData.Date = this.Date;
+				returnData.NewRequestId = this.NewRequestId;
+				returnData.RequesterId = this.RequesterId;
+				returnData.SemesterId = this.SemesterId;
+				returnData.ShiftId = this.ShiftId;
+				returnData.SubstituteId = this.SubstituteId;
+				return returnData;
+			});
+			CLASSES.SubShift.method('toString', function() {
 				if (this.SubstituteId) {
 					return this.Substitute.toString().split(': ')[1] + ' subbing for ' + this.Requester.toString().split(': ')[1] + '\n' + this.Date.toString('dddd') + ' ' + this.Shift.toString().split('\n')[1];
-				} else {
+				} else if (this.RequesterId) {
 					return this.Requester.toString().split(': ')[1] + ' Sub Request\n' + this.Date.toString('dddd') + ' ' + this.Shift.toString().split('\n')[1];
+				} else {
+					return 'New SubShift';
 				}
 			});
-			service.SubShift.method('deactivate', function() {
+			CLASSES.SubShift.method('deactivate', function() {
+				var deffered = $q.defer();
 				this.Active = false;
-				this.update();
+				this.update()
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
-			service.SubShift.method('newRequest', function() {
-				var newRequest = new service.SubShift();
+			CLASSES.SubShift.method('newRequest', function() {
+				var deffered = $q.defer();
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				var newRequest = new CLASSES.SubShift();
 				newRequest.Date = this.Date;
-				newRequest.RequesterId = newRequest.RequesterId || generalService.properties.currentUser.Id;
+				newRequest.RequesterId = PROPERTIES.currentUser.Id;
 				newRequest.ShiftId = this.ShiftId;
 				newRequest.SemesterId = this.SemesterId;
 				newRequest.add()
 					.then(function() {
-						this.NewRequestId = newRequest.Id;
-						this.update(true);
+						object.NewRequestId = newRequest.Id;
+						object.update(true)
+							.then(function() {
+								deffered.resolve();
+							});
 					});
+				return deffered.promise;
 			});
-			service.SubShift.method('cancel', function() {
-				this.deactivate();
+			CLASSES.SubShift.method('cancel', function() {
+				var deffered = $q.defer();
+				this.deactivate()
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
 			// ***********************************************************************
 			// DEFINE THE TRACK CLASS
 			// ***********************************************************************
-			service.Track = function(data) {
+			CLASSES.Track = function(data) {
 				this.newData = data || {};
-				////////////////////////
-				// PRIVILEGED METHODS //
-				////////////////////////
-				this.initPublicAttributes = function() {
-					this.uber('initPublicAttributes');
-					this.Description = this.newData.Description || '';
-					this.data = this.updateData();
-				};
-				this.updateData = function() {
-					var returnData = this.uber('updateData');
-					returnData.Description = this.Description;
-					return returnData;
-				};
-				///////////////////////
-				// PUBLIC ATTRIBUTES //
-				///////////////////////
-				this.initPublicAttributes();
 				this.listName = 'Track';
-				this.dataList = generalService.data.tracks;
+				this.initPublicAttributes();
 			};
-			service.Track.inherits(service.Data);
-			service.Track.method('toString', function() {
+			CLASSES.Track.inherits(CLASSES.Data);
+			CLASSES.Track.method('initPublicAttributes', function() {
+				this.Description = this.newData.Description || undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.Track.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.Description = this.Description;
+				return returnData;
+			});
+			CLASSES.Track.method('toString', function() {
 				return 'The ' + this.Description + ' track';
 			});
+			// ***********************************************************************
+			// DEFINE THE WEEK CLASS
+			// ***********************************************************************
+			CLASSES.Week = function(title, firstDay) {
+				this.days = [];
+				this.firstDay = new Date(firstDay) || new Date(Date.sunday());
+				this.title = title || 'Week 1';
+				this.weekNumber = getWeekNumber(this.firstDay);
+				this.days = [];
+				this.getDays();
+				/**
+				 * This method is private and gets the semester week number
+				 *
+				 * @param      {date}    day    first day of the week to compare
+				 *    to the first day of the semester
+				 *
+				 * @returns    {int}            the week number
+				 */
+				function getWeekNumber(day) {
+					var milliseconds = Math.floor(PROPERTIES.currentSemester.FirstDay - day) * -1;
+					var seconds = (milliseconds / 1000) | 0;
+					milliseconds -= seconds * 1000;
+					var minutes = (seconds / 60) | 0;
+					seconds -= minutes * 60;
+					var hours = (minutes / 60) | 0;
+					minutes -= hours * 60;
+					var days = (hours / 24) | 0;
+					hours -= days * 24;
+					var weeks = (days / 7) | 0;
+					days -= weeks * 7;
+					return (weeks + 1);
+				}
+			};
+			CLASSES.Week.method('getDays', function() {
+				var dayDate = new Date(this.firstDay);
+				for (var i = 0; i < 7; i++) {
+					this.days.push(new CLASSES.Day(dayDate));
+					dayDate = dayDate.addDays(1);
+				}
+				return this;
+			});
+			CLASSES.Week.method('toString', function() {
+				return this.title;
+			});
+			// ***********************************************************************
+			// DEFINE THE DAY CLASS
+			// ***********************************************************************
+			CLASSES.Day = function(date) {
+				this.active = true;
+				this.title = date.toString('dddd');
+				this.day = date.toString('ddd');
+				this.date = new Date(date);
+				this.weekend = date.is().weekend();
+				this.today = date.is().today();
+				this.past = (date < Date.today());
+				this.shifts = {
+					currentSemester: [],
+					nextSemester: []
+				}; // data used in the Schedule view
+				this.availabilities = {
+					currentSemester: [],
+					nextSemester: []
+				}; // data used in the Availability view
+				this.subShifts = []; // data used in the Sub Shifts view
+				this.myShifts = {
+					currentSemester: [],
+					nextSemester: []
+				}; // data used in the My Schedule view
+				this.myAvailabilities = {
+					currentSemester: [],
+					nextSemester: []
+				}; // data used in the My Availability view
+				this.getShifts();
+				this.getAvailabilities();
+				this.getSubShifts();
+				this.getMyShifts();
+				this.getMyAvailabilities();
+			};
+			CLASSES.Day.method('refresh', function() {
+				this.getShifts();
+				this.getAvailabilities();
+				this.getSubShifts();
+				this.getMyShifts();
+				this.getMyAvailabilities();
+			});
+			CLASSES.Day.method('toString', function() {
+				return this.title + ' ' + this.date.toString('MMMM dS');
+			});
+			/**
+			 * This gets the shifts for the day.
+			 *
+			 * @returns    {object}           this for chaining
+			 */
+			CLASSES.Day.method('getShifts', function() {
+				/** @privateAtribute {day} an alias for this */
+				var day = this;
+				this.shifts = {
+					currentSemester: [],
+					nextSemester: []
+				}; // data used in the Schedule view
+				getSemester(PROPERTIES.currentSemester, this.shifts.currentSemester);
+				if (PROPERTIES.nextSemester.Id) {
+					getSemester(PROPERTIES.nextSemester, this.shifts.nextSemester);
+				}
 
+				function getSemester(semester, returnData) {
+					_.each(DATA.shifts, function(shift) {
+						if (shift.Active &&
+							shift.ShiftGroupId === semester.ShiftGroupId &&
+							shift.Day.indexOf(day.day) >= 0) {
+							var currentShift = _.find(returnData, function(processedShift) {
+								return (
+									processedShift.StartTime.toTimeString() === shift.StartTime.toTimeString() &&
+									processedShift.EndTime.toTimeString() === shift.EndTime.toTimeString() &&
+									processedShift.Position.Id === shift.PositionId
+								);
+							});
+							if (currentShift) {
+								fillSlots(currentShift, shift, semester.Id);
+							} else {
+								currentShift = {
+									StartTime: shift.StartTime,
+									EndTime: shift.EndTime,
+									Position: shift.Position,
+									PositionId: shift.Position.Id,
+									Employees: []
+								};
+								fillSlots(currentShift, shift, semester.Id);
+								returnData.push(currentShift);
+							}
+						}
+					});
+				}
+
+				function fillSlots(currentShift, shift, semesterId) {
+					var totalSlots = currentShift.Employees.length + shift.Slots;
+					_.each(DATA.schedules, function(schedule) {
+						if (schedule.ShiftId === shift.Id &&
+							schedule.SemesterId === semesterId &&
+							schedule.Active) {
+							currentShift.Employees.push({
+								Shift: shift,
+								Info: schedule.Employee,
+								Schedule: schedule
+							});
+						}
+					});
+					var remainingSlots = totalSlots - currentShift.Employees.length;
+					for (var i = 0; i < remainingSlots; i++) {
+						var noEmployee = {
+							Shift: shift,
+							Info: {
+								Id: i - 100,
+								PreferredName: 'No',
+								LastName: 'Employee',
+								Picture: '/media/missing.png'
+							},
+							Schedule: new CLASSES.Schedule()
+						};
+						noEmployee.Schedule.ShiftId = shift.Id;
+						noEmployee.Schedule.SemesterId = semesterId;
+						currentShift.Employees.push(noEmployee);
+					}
+				}
+			});
+			/**
+			 * This gets the availabilities for the day.
+			 *
+			 * @returns    {object}           this for chaining
+			 */
+			CLASSES.Day.method('getAvailabilities', function() {
+				/** @privateAtribute {day} an alias for this */
+				var day = this;
+				this.availabilities = {
+					currentSemester: [],
+					nextSemester: []
+				}; // data used in the Availability view
+				getSemester(PROPERTIES.currentSemester, this.availabilities.currentSemester);
+				if (PROPERTIES.nextSemester.Id) {
+					getSemester(PROPERTIES.nextSemester, this.availabilities.nextSemester);
+				}
+
+				function getSemester(semester, returnData) {
+					_.each(DATA.shifts, function(shift) {
+						if (shift.Active &&
+							shift.Day.indexOf(day.day) >= 0 &&
+							shift.ShiftGroup.Id === semester.ShiftGroup.Id) {
+							// For each relevant shift we:
+							// 1. set a flag that determines wether or not to add to returnShiftList
+							var addToList = true;
+							var currentShift = {};
+							// 2. Check to see if this time period is already represented by another shift
+							var existingShift = _.find(returnData, function(processedShift) {
+								return (
+									processedShift.StartTime.toTimeString() === shift.StartTime.toTimeString() &&
+									processedShift.EndTime.toTimeString() === shift.EndTime.toTimeString() &&
+									processedShift.Position.Id === shift.PositionId
+								);
+							});
+							if (existingShift !== undefined) {
+								// if this is a repeat then assign the previousShift to the current shift
+								currentShift = existingShift;
+								// and set the flag so we know not to readd it to the returnlist.
+								addToList = false;
+							} else {
+								// create a uniquie object that will be passed to the returnlist
+								currentShift = {
+									StartTime: shift.StartTime,
+									EndTime: shift.EndTime,
+									Position: shift.Position,
+									PositionId: shift.Position.Id,
+									Employees: [],
+								};
+							}
+							// 3. filter relevantAvailabilities
+							_.each(DATA.availabilitys, function(availability) {
+								if (availability.Semester.Id === semester.Id &&
+									availability.Day === day.title &&
+									!(generalService.isTimeBefore(shift.StartTime, availability.StartTime)) &&
+									!(generalService.isTimeBefore(availability.EndTime, shift.EndTime))) {
+									// For each relevant availability we:
+									// 1. check to see if the employee already works during that time period.
+									var worksThisSchedule = _.find(DATA.schedules, function(schedule) {
+										return (
+											schedule.EmployeeId === availability.EmployeeId &&
+											schedule.ShiftId === shift.Id
+										);
+									});
+									// 3. check to see if the employee is already listed for this availability
+									var alreadyAvailable = _.find(currentShift.Employees, function(employee) {
+										return employee.Id === availability.EmployeeId;
+									});
+									// 4. check to make sure the employee is the correct position for the shift.
+									if (worksThisSchedule === undefined &&
+										alreadyAvailable === undefined &&
+										shift.PositionId === availability.Employee.PositionId) {
+										// add them to the availability list.
+										currentShift.Employees.push(availability.Employee);
+									}
+								}
+							});
+							// 4. add the Shift to the return list if it isn't already there.
+							if (addToList) {
+								returnData.push(currentShift);
+							}
+						}
+					});
+				}
+			});
+			/**
+			 * This gets the subShifts for the day.
+			 *
+			 * @returns    {object}           this for chaining
+			 */
+			CLASSES.Day.method('getSubShifts', function() {
+				/** @privateAtribute {day} an alias for this */
+				var day = this;
+				this.subShifts = []; // data used in the Sub Shifts view
+				_.each(DATA.subShifts, function(subShift) {
+					if (subShift.Active &&
+						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
+						subShift.Date.toDateString() === day.date.toDateString()) {
+						day.subShifts.push({
+							originalEmployee: subShift.Requester,
+							responsibleEmployee: subShift.Substitute || subShift.Requester,
+							needsSub: (subShift.SubstituteId === undefined),
+							shift: subShift.Shift,
+							subShift: subShift
+						});
+					}
+				});
+			});
+			/**
+			 * This gets the myShifts for the day.
+			 *
+			 * @returns    {object}           this for chaining
+			 */
+			CLASSES.Day.method('getMyShifts', function() {
+				/** @privateAtribute {day} an alias for this */
+				var day = this;
+				this.myShifts = {
+					currentSemester: [],
+					nextSemester: []
+				}; // data used in the My Schedule view
+
+				getSemester(PROPERTIES.currentSemester.Id, this.myShifts.currentSemester);
+				if (PROPERTIES.nextSemester.Id) {
+					getSemester(PROPERTIES.nextSemester.Id, this.myShifts.nextSemester);
+				}
+
+				function getSemester(semesterId, returnData) {
+					var schedules = _.filter(DATA.schedules, function(schedule) {
+						return (
+							schedule.Active &&
+							schedule.EmployeeId === PROPERTIES.currentUser.Id &&
+							schedule.SemesterId === semesterId &&
+							schedule.Shift.Day.indexOf(day.day) >= 0
+						);
+					});
+					var subShifts = _.filter(DATA.subShifts, function(subShift) {
+						return (
+							subShift.Date.toDateString() === day.date.toDateString() &&
+							subShift.Active && (
+								subShift.SubstituteId === PROPERTIES.currentUser.Id ||
+								subShift.RequesterId === PROPERTIES.currentUser.Id
+							)
+						);
+					});
+					_.each(schedules, function(schedule) {
+						var requestedSub = _.find(subShifts, function(subShift) {
+							return subShift.ShiftId === schedule.ShiftId;
+						});
+						if (requestedSub) {
+							if (!requestedSub.SubstituteId) {
+								returnData.push({
+									isSubShift: false,
+									subShift: undefined,
+									shift: schedule.Shift,
+									subRequest: requestedSub,
+								});
+							}
+							subShifts = _.without(subShifts, requestedSub);
+						} else {
+							returnData.push({
+								shift: schedule.Shift,
+								isSubShift: false,
+								subShift: undefined,
+								subRequest: undefined
+							});
+						}
+					});
+					_.each(subShifts, function(subShift) {
+						if (subShift.NewRequestId) {
+							if (!subShift.NewRequest.SubstituteId) {
+								returnData.push({
+									shift: subShift.Shift,
+									isSubShift: true,
+									subShift: subShift,
+									subRequest: subShift.NewRequest
+								});
+							}
+						} else {
+							returnData.push({
+								shift: subShift.Shift,
+								isSubShift: true,
+								subShift: subShift,
+								subRequest: undefined
+							});
+						}
+					});
+				}
+			});
+			/**
+			 * This gets the myAvailabilities for the day.
+			 *
+			 * @returns    {object}           this for chaining
+			 */
+			CLASSES.Day.method('getMyAvailabilities', function() {
+				/** @privateAtribute {day} an alias for this */
+				var day = this;
+				this.myAvailabilities = {
+					currentSemester: [],
+					nextSemester: []
+				}; // data used in the My Availability view
+				getSemester(PROPERTIES.currentSemester.Id, this.myAvailabilities.currentSemester);
+				if (PROPERTIES.nextSemester.Id) {
+					getSemester(PROPERTIES.nextSemester.Id, this.myAvailabilities.nextSemester);
+				}
+
+				function getSemester(semesterId, returnData) {
+					_.each(DATA.availabilitys, function(availability) {
+						if (availability.Active &&
+							availability.EmployeeId === PROPERTIES.currentUser.Id &&
+							availability.SemesterId === semesterId &&
+							availability.Day === day.title) {
+							returnData.push(availability);
+						}
+					});
+				}
+				return this;
+			});
+
+
+			service.initializeData = function() {
+				var deffered = $q.defer();
+				cfpLoadingBar.start();
+				SET.propertyCurrentUser()
+					.then(function() {
+						if (PROPERTIES.loadEmployeeData) {
+							cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
+							dataInitialized = true;
+							REFRESH.data()
+								.then(function() {
+									deffered.resolve();
+								});
+						} else {
+							cfpLoadingBar.complete();
+						}
+					});
+				return deffered.promise;
+			};
 
 			init();
 			return service;
@@ -1663,11 +2324,11 @@
 				$http.defaults.headers.post = {
 					'Accept': 'application/json;odata=verbose',
 					'Content-Type': 'application/json;odata=verbose',
-					'X-RequestDigest': generalService.properties.validation,
+					'X-RequestDigest': PROPERTIES.validation,
 					'X-HTTP-Method': 'POST',
 					'If-Match': '*'
 				};
-				service.refreshSecurityValidation();
+				REFRESH.securityValidation();
 			}
 
 		}

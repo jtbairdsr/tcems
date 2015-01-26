@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-18 10:45:18
+ * @Last Modified time: 2015-01-24 19:56:46
  */
 /* global angular, _ */
 
@@ -17,18 +17,22 @@
 		service.properties = {
 			currentSemester: {},
 			currentUser: {},
-			defaultPosition: '',
+			defaultPosition: {},
+			dynamic: 0,
 			extendedPrivledges: false,
 			loadEmployeeData: false,
 			localUrl: 'http://testcenterems.byui.edu',
 			nextSemester: {},
+			scheduleProperties: {},
 			sharePointUrl: 'https://inet.byui.edu/sites/TestingServices/',
+			today: undefined,
+			unreadMessages: 0,
 			validation: '',
 			validationTimeout: 0
 		};
 		service.data = {
 			areas: [],
-			availabilities: [],
+			availabilitys: [],
 			employees: [],
 			employments: [],
 			messages: [],
@@ -48,14 +52,13 @@
 			shifts: [],
 			employees: [],
 			directoryEmployees: [],
-			weeks: [],
+			weeks: [], // This is the list of weeks that the Schedule, Availability, Sub Shifts, My Schedule, My Availability views pull from
 			days: [],
 			subShifts: [],
 			professors: [],
 			availabilityDays: [],
-			allAvailabilityDays: []
+			noAvailabilityEmployees: []
 		};
-		console.log(service.properties);
 		//////////////////
 		// Misc Methods //
 		//////////////////
@@ -211,6 +214,15 @@
 				return String(text).substring(0, length) + end;
 			}
 
+		};
+	});
+	app.filter('shiftFilter', function() {
+		return function(shifts, date) {
+			return _.filter(shifts, function(shift) {
+				return (
+					shift.Day.indexOf(date.toString('ddd')) >= 0
+				);
+			});
 		};
 	});
 })();
