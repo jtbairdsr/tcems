@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:24:34
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-01-26 09:40:38
+ * @Last Modified time: 2015-01-26 15:09:02
  */
 (function() {
 	'use strict';
@@ -25,7 +25,7 @@
 			if ($scope.availability === undefined) {
 				$scope.availability = new CLASSES.Availability();
 				availability = $scope.availability;
-				availability.Day = day.title;
+				availability.Day = (day) ? day.title : 'Sunday';
 				availability.EmployeeId = PROPERTIES.currentUser.Id;
 				availability.SemesterId = PROPERTIES.currentSemester.Id;
 				availability.StartTime = Date.parse('8:00 AM');
