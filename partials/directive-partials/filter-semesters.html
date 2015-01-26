@@ -5,13 +5,9 @@
 		</div>
 	</div>
 	<div class="panel-body">
-		<ul class="nav nav-pills nav-justified" bs-navbar>
-			<li data-match-route="/main/schedule/schedule/this-semester">
-				<a ui-sref="main.schedule.schedule.this-semester">{{properties.currentSemester.ShiftGroup.Description}}</a>
-			</li>
-			<li data-match-route="/main/schedule/schedule/next-semester">
-				<a ui-sref="main.schedule.schedule.next-semester">{{properties.nextSemester.ShiftGroup.Description}}</a>
-			</li>
-		</ul>
+		<div class="control-group">
+			<button type="button" class="btn form-control" data-ng-class="{'btn-primary': ctrl.semester === 'currentSemester', 'btn-default': ctrl.semester === 'nextSemester'}" data-ng-click="ctrl.semester = 'currentSemester'">{{properties.currentSemester.ShiftGroup.Description}}</button>
+			<button type="button" class="btn form-control" data-ng-show="properties.nextSemester.Id" data-ng-class="{'btn-primary': ctrl.semester === 'nextSemester', 'btn-default': ctrl.semester === 'currentSemester'}" data-ng-click="ctrl.semester = 'nextSemester'">{{properties.nextSemester.ShiftGroup.Description}}</button>
+		</div>
 	</div>
 </div>
