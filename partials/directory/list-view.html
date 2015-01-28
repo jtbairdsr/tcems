@@ -29,7 +29,7 @@
 							<span class="glyphicon glyphicon-sort"></span>
 						</a>
 					</th>
-					<th data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE'">
+					<th data-ng-show="properties.currentUser.Position.Position === 'FTE'">
 						<a href="" ng-click="properties.predicate = 'INumber'">INumber</a>
 						<a href="" ng-show="properties.predicate === 'INumber' || properties.predicate === '-INumber'" ng-click="properties.predicate = (properties.predicate === 'INumber') ? '-INumber' : 'INumber'">
 							<span class="glyphicon glyphicon-sort"></span>
@@ -53,7 +53,7 @@
 							<span class="glyphicon glyphicon-sort"></span>
 						</a>
 					</th>
-					<th data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE'">
+					<th data-ng-show="properties.currentUser.Position.Position === 'FTE'">
 						<a href="" ng-click="properties.predicate = 'Track.Description'">Track</a>
 						<a href="" ng-show="properties.predicate === 'Track.Description' || properties.predicate === '-Track.Description'" ng-click="properties.predicate = (properties.predicate === 'Track.Description') ? '-Track.Description' : 'Track.Description'">
 							<span class="glyphicon glyphicon-sort"></span>
@@ -76,13 +76,13 @@
 				</td>
 				<td>{{employee.PhoneNumber | tel}}</td>
 				<td>{{employee.EmailAddress}}</td>
-				<td data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE'">{{employee.INumber}}</td>
+				<td data-ng-show="properties.currentUser.Position.Position === 'FTE'">{{employee.INumber}}</td>
 				<td>{{employee.Position.Position}}</td>
 				<td>{{employee.Area.Area}}</td>
 				<td>{{(employee.Reader) ? 'Yes' : 'No'}}</td>
-				<td data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE'">{{employee.Track.Description}}</td>
-				<td data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE'  || properties.currentUser.employeeInfo.Admin">
-					<button class="btn btn-link" data-animation="am-fade-and-scale" data-placement="center" data-template="partials/directory.employee-edit.html" bs-modal="modal">
+				<td data-ng-show="properties.currentUser.Position.Position === 'FTE'">{{employee.Track.Description}}</td>
+				<td data-ng-show="properties.currentUser.Position.Position === 'FTE'  || properties.currentUser.Admin">
+					<button class="btn btn-link" data-animation="am-fade-and-scale" data-template="partials/directory/employee-edit.html" bs-modal="modal">
 						<span class="glyphicon glyphicon-edit"></span>
 					</button>
 				</td>

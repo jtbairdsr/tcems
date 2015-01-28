@@ -1,0 +1,41 @@
+<div class="container-fluid">
+<!-- 	<div class="row hidden-xs hidden-md hidden-sm">
+		<ul class="nav nav-pillsCustom nav-justified" bs-navbar>
+			<li data-match-route="/main/directory/gridView">
+				<a ui-sref="main.directory.gridView">Grid View</a>
+			</li>
+			<li data-match-route="/main/directory/listView">
+				<a ui-sref="main.directory.listView">List View</a>
+			</li>
+		</ul>
+	</div>
+ -->	<div class="row">
+		<div class="navbar-form">
+			<div class="input-group">
+				<label for="employeeSearch" class="input-group-addon">
+					<span class="glyphicon glyphicon-search"></span>
+				</label>
+				<input id="employeeSearch" class="form-control" type="text" data-ng-model="employeeSearch">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" data-ng-click="employeeSearch = null">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</span>
+			</div>
+			<div data-ng-show="properties.currentUser.Position.Position === 'FTE' || properties.currentUser.Admin" class="btn-group">
+				<button class="btn btn-default form-control" data-animation="am-fade-and-scale" data-template="partials/directory/employee-add.html" bs-modal="modal">
+					<span class="glyphicon glyphicon-plus"></span> Add Employee
+				</button>
+				<button type="button" class="btn btn-default form-control" data-ng-click="inactiveEmployees = !inactiveEmployees">
+					<span data-ng-show="inactiveEmployees" class="glyphicon glyphicon-eye-close"></span>
+					<span data-ng-hide="inactiveEmployees" class="glyphicon glyphicon-eye-open"></span>
+					{{(inactiveEmployees) ? 'Hide' : 'Show'}} Inactive Employees
+				</button>
+			</div>
+			<refresh></refresh>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div ui-view></div>
+	</div>
+</div>
