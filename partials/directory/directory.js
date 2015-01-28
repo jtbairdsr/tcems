@@ -2,18 +2,32 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-27 16:50:56
+ * @Last Modified time: 2015-01-28 12:52:55
  */
 (function() {
 	var directory = angular.module('Directory');
 
-	directory.controller('DirectoryCtrl', ['$scope', '$log', '$modal', 'dataService',
-		function($scope, $log, $modal, dataService) {
+	directory.controller('DirectoryCtrl', ['$scope', '$log', '$modal', 'dataService', 'generalService',
+		function($scope, $log, $modal, dataService, generalService) {
 			$scope.$log = $log;
 			$scope.properties.currentApp = 'Directory';
 			$scope.properties.predicate = 'PreferredName';
+			var REFRESH = dataService.refresh,
+				DATA = generalService.data,
+				PROPERTIES = generalService.properties;
+
+			$scope.area = {
+				Id: PROPERTIES.currentUser.Area.Id,
+				hideOthers: true
+			};
+			$scope.position = {
+				Id: _.find(DATA.positions, function(position) {
+					return position.Description === 'FTE';
+				}).Id,
+				hide: true
+			};
+			$scope.hideInactive = true;
 			var ctrl = this;
-			var REFRESH = dataService.refresh;
 			ctrl.refreshContent = function() {
 				REFRESH.directory();
 			};
@@ -23,6 +37,7 @@
 	directory.controller('EmployeeEdit', ['$scope', '$alert', 'dataService', 'generalService', '$timeout',
 		function($scope, $alert, dataService, generalService, $timeout) {
 			$scope.tab = 'profile';
+
 			var CLASSES = dataService.classes,
 				PROPERTIES = generalService.properties;
 			var ctrl = this,
@@ -128,4 +143,24 @@
 			}
 		}
 	]);
+	directory.filter('employeeFilter', function() {
+		return function(employees, hideInactive, area, position) {
+			if (hideInactive) {
+				employees = _.filter(employees, function(employee) {
+					return employee.Active;
+				});
+			}
+			if (area.hideOthers) {
+				employees = _.filter(employees, function(employee) {
+					return employee.Area.Id === area.Id;
+				});
+			}
+			if (position.hide) {
+				employees = _.filter(employees, function(employee) {
+					return employee.Position.Id !== position.Id;
+				});
+			}
+			return employees;
+		};
+	});
 })();

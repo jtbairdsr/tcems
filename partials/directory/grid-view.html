@@ -1,4 +1,4 @@
-<div data-ng-hide="(!inactiveEmployees && !employee.Active) || employee.Position.Position === 'FTE'" data-ng-repeat="employee in arrays.directoryEmployees | orderBy:properties.predicate | filter:employeeSearch" class="col-sm-4 col-md-2 text-center well" style="height: 300px">
+<div data-ng-repeat="employee in arrays.directoryEmployees | orderBy:properties.predicate | employeeFilter:hideInactive:area:position | filter:employeeSearch" class="col-sm-4 col-md-2 text-center well" style="height: 300px">
 	<img data-ng-src="{{employee.Picture}}" fallback-src="/media/missing.png" class="img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
 	<div>
 		<b>{{employee.PreferredName}} {{employee.LastName}}</b>

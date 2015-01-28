@@ -26,10 +26,20 @@
 				<button class="btn btn-default form-control" data-animation="am-fade-and-scale" data-template="partials/directory/employee-add.html" bs-modal="modal">
 					<span class="glyphicon glyphicon-plus"></span> Add Employee
 				</button>
-				<button type="button" class="btn btn-default form-control" data-ng-click="inactiveEmployees = !inactiveEmployees">
-					<span data-ng-show="inactiveEmployees" class="glyphicon glyphicon-eye-close"></span>
-					<span data-ng-hide="inactiveEmployees" class="glyphicon glyphicon-eye-open"></span>
-					{{(inactiveEmployees) ? 'Hide' : 'Show'}} Inactive Employees
+				<button type="button" class="btn btn-default form-control" data-ng-click="position.hide = !position.hide" data-ng-show="properties.currentUser.Admin">
+					<span data-ng-hide="position.hide" class="glyphicon glyphicon-eye-close"></span>
+					<span data-ng-show="position.hide" class="glyphicon glyphicon-eye-open"></span>
+					&nbsp;FTEs
+				</button>
+				<button type="button" class="btn btn-default form-control" data-ng-click="hideInactive = !hideInactive">
+					<span data-ng-hide="hideInactive" class="glyphicon glyphicon-eye-close"></span>
+					<span data-ng-show="hideInactive" class="glyphicon glyphicon-eye-open"></span>
+					&nbsp;Inactive Employees
+				</button>
+				<button type="button" class="btn btn-default form-control" data-ng-click="area.hideOthers = !area.hideOthers">
+					<span data-ng-hide="area.hideOthers" class="glyphicon glyphicon-eye-close"></span>
+					<span data-ng-show="area.hideOthers" class="glyphicon glyphicon-eye-open"></span>
+					&nbsp;Other Areas
 				</button>
 			</div>
 			<refresh></refresh>
