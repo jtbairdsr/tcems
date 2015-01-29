@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2015-01-26 14:52:56
+ * @Last Modified time: 2015-01-29 14:48:05
  */
 /* global angular, _ */
 
@@ -43,6 +43,7 @@
 				}
 				if ((PROPERTIES.currentUser.Position.Description !== 'Coordinator' &&
 					PROPERTIES.currentUser.Position.Description !== 'FTE' &&
+					PROPERTIES.currentUser.Position.Description !== 'HR' &&
 					!(PROPERTIES.currentUser.Admin)) &&
 					($location.path() !== '/main/schedule/mySchedule' &&
 					$location.path() !== '/main/schedule/subShifts' &&
