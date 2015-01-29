@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-28 13:56:37
+ * @Last Modified time: 2015-01-29 14:12:45
  */
 (function() {
 	var directory = angular.module('Directory');
@@ -26,6 +26,7 @@
 				}).Id,
 				hide: true
 			};
+			$scope.retired = false;
 			$scope.hideInactive = true;
 			var ctrl = this;
 			ctrl.refreshContent = function() {
@@ -141,36 +142,6 @@
 					return false;
 				}
 			}
-		}
-	]);
-	directory.filter('employeeFilter', ['generalService',
-		function(generalService) {
-			var DATA = generalService.data,
-				PROPERTIES = generalService.properties;
-			var positionFTE = _.find(DATA.positions, function(position) {
-				return position.Description === 'FTE';
-			});
-			return function(employees, params) {
-				params.inactive = params.inactive || false;
-				params.area = (PROPERTIES.currentUser.Area.Description === 'Director') ? false : params.area || false;
-				params.position = params.position || false;
-				if (params.inactive) {
-					employees = _.filter(employees, function(employee) {
-						return employee.Active;
-					});
-				}
-				if (params.area) {
-					employees = _.filter(employees, function(employee) {
-						return employee.Area.Id === PROPERTIES.currentUser.Area.Id;
-					});
-				}
-				if (params.position) {
-					employees = _.filter(employees, function(employee) {
-						return employee.Position.Id !== positionFTE.Id;
-					});
-				}
-				return employees;
-			};
 		}
 	]);
 })();

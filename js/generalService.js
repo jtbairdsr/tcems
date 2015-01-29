@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-28 18:32:03
+ * @Last Modified time: 2015-01-29 14:39:13
  */
 /* global angular, _ */
 
@@ -225,4 +225,44 @@
 			});
 		};
 	});
+	app.filter('employeeFilter', ['generalService',
+		function(generalService) {
+			var DATA = generalService.data,
+				PROPERTIES = generalService.properties;
+			var positionFTE = _.find(DATA.positions, function(position) {
+				return position.Description === 'FTE';
+			});
+			return function(employees, params) {
+				params.inactive = params.inactive || false;
+				params.area = (PROPERTIES.currentUser.Area.Description === 'Director') ? false : params.area || false;
+				params.position = params.position || false;
+				params.retired = params.retired || false;
+				if (params.retired) {
+					employees = _.filter(employees, function(employee) {
+						return employee.Retired;
+					});
+				} else {
+					employees = _.filter(employees, function(employee) {
+						return !employee.Retired;
+					});
+					if (params.inactive) {
+						employees = _.filter(employees, function(employee) {
+							return employee.Active;
+						});
+					}
+				}
+				if (params.area) {
+					employees = _.filter(employees, function(employee) {
+						return employee.Area.Id === PROPERTIES.currentUser.Area.Id;
+					});
+				}
+				if (params.position) {
+					employees = _.filter(employees, function(employee) {
+						return employee.Position.Id !== positionFTE.Id;
+					});
+				}
+				return employees;
+			};
+		}
+	]);
 })();

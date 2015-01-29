@@ -20,9 +20,9 @@
 						<li role="presentation" data-ng-class="{active: tab === 'employment'}">
 							<a data-ng-click="tab = 'employment'">Employment</a>
 						</li>
-						<li role="presentation" data-ng-class="{active: tab === 'messages'}">
+						<!-- <li role="presentation" data-ng-class="{active: tab === 'messages'}">
 							<a data-ng-click="tab = 'messages'">Messages</a>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 				<buffer></buffer>
@@ -142,15 +142,16 @@
 					</div>
 				</div>
 				<!-- MESSAGES -->
-				<div class="row" data-ng-show="tab === 'messages'">
+				<!-- <div class="row" data-ng-show="tab === 'messages'"> -->
 					<!-- TODO: Create the messages view tab -->
-				</div>
+				<!-- </div> -->
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" ng-click="employee.refresh();$hide()">Cancel</button>
 				<span data-ng-show="tab === 'profile'">
-					<button type="button" class="btn btn-success" data-ng-click="employee.activate();$hide()" data-ng-hide="employee.Active">Activate Employee</button>
-					<button type="button" class="btn btn-danger" data-ng-click="employee.deactivate();$hide()" data-ng-show="employee.Active">Deactivate Employee</button>
+					<button type="button" class="btn btn-success" data-ng-click="employee.activate()" data-ng-hide="employee.Active || employee.Retired">Activate Employee</button>
+					<button type="button" class="btn btn-danger" data-ng-click="employee.deactivate()" data-ng-show="employee.Active">Deactivate Employee</button>
+					<button type="button" class="btn btn-danger" data-ng-click="employee.retire()" data-ng-hide="employee.Active || employee.Retired">Retire</button>
 					<button type="button" class="btn btn-success" ng-click="ctrl.updateEmployee(); $hide()">Update</button>
 				</span>
 			</div>

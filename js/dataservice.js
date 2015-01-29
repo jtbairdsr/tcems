@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-28 20:59:12
+ * @Last Modified time: 2015-01-29 14:34:36
  */
 /* global angular, _ */
 
@@ -1356,6 +1356,7 @@
 				}) : {};
 				this.PreferredName = this.newData.PreferredName || undefined;
 				this.Reader = this.newData.Reader || false;
+				this.Retired = this.newData.Retired || false;
 				this.TeamId = this.newData.TeamId || undefined;
 				this.Team = (this.newData.TeamId) ? _.find(DATA.teams, function(team) {
 					return team.Id === object.TeamId;
@@ -1393,6 +1394,7 @@
 				returnData.PreferredName = this.PreferredName;
 				returnData.PositionId = this.PositionId;
 				returnData.Reader = this.Reader;
+				returnData.Retired = this.Retired;
 				// returnData.TeamId = this.TeamId;
 				returnData.TrackId = this.TrackId;
 				return returnData;
@@ -1418,6 +1420,19 @@
 					}
 				});
 				this.Active = false;
+				this.update();
+			});
+			CLASSES.Employee.method('retire', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				_.each(DATA.employments, function(employment) {
+					if (employment.EndDate === undefined &&
+						employment.EmployeeId === object.Id) {
+						employment.end(true);
+					}
+				});
+				this.Active = false;
+				this.Retired = true;
 				this.update();
 			});
 			CLASSES.Employee.method('add', function() {
