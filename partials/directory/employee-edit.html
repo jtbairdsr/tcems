@@ -1,0 +1,159 @@
+<div class="modal" tabindex="-1" role="dialog" ng-controller="EmployeeEdit as ctrl">
+	<div class="modal-dialog text-muted text-left">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" ng-click="$hide()">&times;</button>
+				<h4 class="modal-title">Edit Employee Information:
+					<small>{{employee.FirstName}} {{employee.LastName}}</small>
+				</h4>
+			</div>
+			<div class="modal-body container-fluid">
+				<div class="row">
+					<img data-ng-src="{{employee.Picture}}" fallback-src="/media/missing.png" data-ng-style="{'max-width': '120px', 'max-height': '170px'}" class="center-block img-circle">
+				</div>
+				<buffer></buffer>
+				<div class="row">
+					<ul class="nav nav-tabs nav-justified">
+						<li role="presentation" data-ng-class="{active: tab === 'profile'}">
+							<a data-ng-click="tab = 'profile'">Profile</a>
+						</li>
+						<li role="presentation" data-ng-class="{active: tab === 'employment'}">
+							<a data-ng-click="tab = 'employment'">Employment</a>
+						</li>
+						<li role="presentation" data-ng-class="{active: tab === 'messages'}">
+							<a data-ng-click="tab = 'messages'">Messages</a>
+						</li>
+					</ul>
+				</div>
+				<buffer></buffer>
+				<!-- PROFILE -->
+				<div class="row form-horizontal" data-ng-show="tab === 'profile'">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">First:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" disabled="true" data-ng-model="employee.FirstName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Preferred:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" data-ng-model="employee.PreferredName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Last:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" data-ng-model="employee.LastName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Phone:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" data-ng-model="employee.PhoneNumber" data-ui-mask="(999) 999-9999">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Position:</label>
+							<div class="col-md-9">
+								<div class="btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default text-justify" data-ng-options="position.Id as position.Description for position in arrays.positions" ng-model="employee.PositionId" bs-select></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Area:</label>
+							<div class="col-md-9">
+								<div class="btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default text-justify" data-ng-options="area.Id as area.Area for area in data.areas" ng-model="employee.AreaId" bs-select></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Track:</label>
+							<div class="col-md-9">
+								<div class="btn-group-justified text-justify">
+									<div class="btn-group text-justify">
+										<button type="button" class="btn btn-default text-justify" data-ng-options="track.Id as track.Description for track in data.tracks" ng-model="employee.TrackId" placeholder="Select a track..." bs-select></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="readerCheckbox">Reader:</label>
+							<div class="col-md-9">
+								<input id="readerCheckbox" type="checkbox" ng-model="employee.Reader">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- EMPLOYMENT -->
+				<div class="row-fluid text-center" data-ng-show="tab === 'employment'">
+					<div class="form-inline">
+						<div data-ng-repeat="employment in data.employments | filter:{EmployeeId: employee.Id}">
+							<div class="row-fluid">
+								<div class="form-group">
+									<button type="button" class="btn btn-danger" data-ng-click="employment.remove()" data-ng-show="properties.currentUser.Admin">
+										<span class="glyphicon glyphicon-remove-sign"></span>
+									</button>
+									<div class="input-group">
+										<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="employment.StartDate" autoclose="true" data-ng-disabled="!employment.Edit">
+										<span class="input-group-addon">
+											to
+										</span>
+										<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="employment.EndDate" autoclose="true" data-ng-disabled="!employment.Edit">
+										<div class="input-group-btn">
+											<button type="button" class="btn btn-default" data-ng-click="ctrl.editEmployment(employment)">
+												<span class="glyphicon glyphicon-edit" data-ng-hide="employment.Edit"></span>
+												<span class="glyphicon glyphicon-save" data-ng-show="employment.Edit"></span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<buffer></buffer>
+						</div>
+						<div style="border-bottom: 1px solid #ccc"></div>
+						<buffer></buffer>
+						<div class="row-fluid">
+							<div class="form-group">
+								<div class="input-group">
+									<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="ctrl.newEmployment.StartDate" autoclose="true" data-ng-disabled="!ctrl.newEmployment.Edit">
+									<span class="input-group-addon">
+										to
+									</span>
+									<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="ctrl.newEmployment.EndDate" autoclose="true" data-ng-disabled="!ctrl.newEmployment.Edit">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-default" data-ng-click="ctrl.addEmployment()">
+											<span class="glyphicon glyphicon-plus" data-ng-hide="ctrl.newEmployment.Edit"></span>
+											<span class="glyphicon glyphicon-save" data-ng-show="ctrl.newEmployment.Edit && ctrl.newEmployment.StartDate"></span>
+											<span class="glyphicon glyphicon-remove" data-ng-show="ctrl.newEmployment.Edit && !ctrl.newEmployment.StartDate"></span>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- MESSAGES -->
+				<div class="row" data-ng-show="tab === 'messages'">
+					<!-- TODO: Create the messages view tab -->
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="employee.refresh();$hide()">Cancel</button>
+				<span data-ng-show="tab === 'profile'">
+					<button type="button" class="btn btn-success" data-ng-click="employee.activate();$hide()" data-ng-hide="employee.Active">Activate Employee</button>
+					<button type="button" class="btn btn-danger" data-ng-click="employee.deactivate();$hide()" data-ng-show="employee.Active">Deactivate Employee</button>
+					<button type="button" class="btn btn-success" ng-click="ctrl.updateEmployee(); $hide()">Update</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

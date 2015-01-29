@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-11-18
- * @Last Modified time: 2014-12-16 19:38:31
+ * @Last Modified time: 2015-01-28 22:06:15
  */
 /* global angular, saveAs */
 (function() {
@@ -12,6 +12,8 @@
         function(dataService, $scope, $modal, $http, $alert) {
             var ctrl = this;
             $scope.properties.currentApp = 'Utilities';
+            ctrl.testScript = function() {
+            };
             ctrl.getPictures = function() {
                 new dataService.getItems('Employee')
                     .top(999999999)

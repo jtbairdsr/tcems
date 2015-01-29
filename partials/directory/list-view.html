@@ -1,0 +1,92 @@
+<div class="row">
+	<table class="table table-hover">
+		<tbody>
+			<thead>
+				<tr>
+					<th>
+					</th>
+					<th>
+						<a href="" ng-click="properties.predicate = 'PreferredName'">Preferred Name</a>
+						<a href="" ng-show="properties.predicate === 'PreferredName' || properties.predicate === '-PreferredName'" ng-click="properties.predicate = (properties.predicate === 'PreferredName') ? '-PreferredName' : 'PreferredName'">
+							<span class="glyphicon glyphicon-sort"></span>
+						</a>
+					</th>
+					<th>
+						<a href="" ng-click="properties.predicate = 'LastName'">Last Name</a>
+						<a href="" ng-show="properties.predicate === 'LastName' || properties.predicate === '-LastName'" ng-click="properties.predicate = (properties.predicate === 'LastName') ? '-LastName' : 'LastName'">
+							<span class="glyphicon glyphicon-sort"></span>
+						</a>
+					</th>
+					<th>
+						<a href="" ng-click="properties.predicate = 'PhoneNumber'">Phone Number</a>
+						<a href="" ng-show="properties.predicate === 'PhoneNumber' || properties.predicate === '-PhoneNumber'" ng-click="properties.predicate = (properties.predicate === 'PhoneNumber') ? '-PhoneNumber' : 'PhoneNumber'">
+							<span class="glyphicon glyphicon-sort"></span>
+						</a>
+					</th>
+					<th>
+						<a href="" ng-click="properties.predicate = 'EmailAddress'">Email Address</a>
+						<a href="" ng-show="properties.predicate === 'EmailAddress' || properties.predicate === '-EmailAddress'" ng-click="properties.predicate = (properties.predicate === 'EmailAddress') ? '-EmailAddress' : 'EmailAddress'">
+							<span class="glyphicon glyphicon-sort"></span>
+						</a>
+					</th>
+					<th data-ng-show="properties.currentUser.Position.Position === 'FTE'">
+						<a href="" ng-click="properties.predicate = 'INumber'">INumber</a>
+						<a href="" ng-show="properties.predicate === 'INumber' || properties.predicate === '-INumber'" ng-click="properties.predicate = (properties.predicate === 'INumber') ? '-INumber' : 'INumber'">
+							<span class="glyphicon glyphicon-sort"></span>
+						</a>
+					</th>
+					<th>
+						<a href="" ng-click="properties.predicate = 'Position.Position'">Position</a>
+						<a href="" ng-show="properties.predicate === 'Position.Position' || properties.predicate === '-Position.Position'" ng-click="properties.predicate = (properties.predicate === 'Position.Position') ? '-Position.Position' : 'Position.Position'">
+							<span class="glyphicon glyphicon-sort"></span>
+						</a>
+					</th>
+					<th>
+						<a href="" ng-click="properties.predicate = 'Area.Area'">Area</a>
+						<a href="" ng-show="properties.predicate === 'Area.Area' || properties.predicate === '-Area.Area'" ng-click="properties.predicate = (properties.predicate === 'Area.Area') ? '-Area.Area' : 'Area.Area'">
+							<span class="glyphicon glyphicon-sort"></span>
+						</a>
+					</th>
+					<th>
+						<a href="" ng-click="properties.predicate = 'Reader'">Reader</a>
+						<a href="" ng-show="properties.predicate === 'Reader' || properties.predicate === '-Reader'" ng-click="properties.predicate = (properties.predicate === 'Reader') ? '-Reader' : 'Reader'">
+							<span class="glyphicon glyphicon-sort"></span>
+						</a>
+					</th>
+					<th data-ng-show="properties.currentUser.Position.Position === 'FTE'">
+						<a href="" ng-click="properties.predicate = 'Track.Description'">Track</a>
+						<a href="" ng-show="properties.predicate === 'Track.Description' || properties.predicate === '-Track.Description'" ng-click="properties.predicate = (properties.predicate === 'Track.Description') ? '-Track.Description' : 'Track.Description'">
+							<span class="glyphicon glyphicon-sort"></span>
+						</a>
+					</th>
+					<th>
+					</th>
+				</tr>
+			</thead>
+			<tr data-ng-hide="!inactiveEmployees && !employee.Active" data-ng-repeat="employee in arrays.directoryEmployees | orderBy:properties.predicate | filter:employeeSearch">
+				<td>
+					<img data-ng-src="{{employee.Picture}}" fallback-src="/media/missing.png" class="img-responsive img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+				</td>
+				<td>
+					<span data-ng-hide="employee.PreferredName === null">{{employee.PreferredName}}</span>
+					<span data-ng-show="employee.PreferredName === null">{{employee.FirstName}}</span>
+				</td>
+				<td>
+					{{employee.LastName}}
+				</td>
+				<td>{{employee.PhoneNumber | tel}}</td>
+				<td>{{employee.EmailAddress}}</td>
+				<td data-ng-show="properties.currentUser.Position.Position === 'FTE'">{{employee.INumber}}</td>
+				<td>{{employee.Position.Position}}</td>
+				<td>{{employee.Area.Area}}</td>
+				<td>{{(employee.Reader) ? 'Yes' : 'No'}}</td>
+				<td data-ng-show="properties.currentUser.Position.Position === 'FTE'">{{employee.Track.Description}}</td>
+				<td data-ng-show="properties.currentUser.Position.Position === 'FTE'  || properties.currentUser.Admin">
+					<button class="btn btn-link" data-animation="am-fade-and-scale" data-template="partials/directory/employee-edit.html" bs-modal="modal">
+						<span class="glyphicon glyphicon-edit"></span>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

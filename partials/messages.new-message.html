@@ -5,62 +5,128 @@
 				<button type="button" class="close" ng-click="$hide()">×</button>
 				<h4 class="aside-title">New Message</h4>
 			</div>
-			<div class="aside-body">
-				<form novalidate accept-charset="utf-8" name="newShiftForm" role="form">
-					<div class="row">
-						<div class="col-md-12">
+			<div class="aside-body container-fluid">
+				<!-- TO -->
+				<div class="row-fluid">
+					<div class="form-group well">
+						<label for="to">To:</label>
+						<div class="btn-group-justified">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.Recipients" data-ng-options="employee as employee.Label for employee in ctrl.employees" data-multiple="true" data-html="true" placeholder="Select employee(s)..." bs-select data-placement="bottom">
+									Action
+									<span class="caret"></span>
+								</button>
+							</div>
+						</div>
+						<buffer></buffer>
+						<div style="height: 2px; border-top: 1px solid #ccc; text-align: center">
+							<span style="background-color: #f2f2f2; position: relative; top: -0.75em;">&nbsp;&nbsp;OR&nbsp;&nbsp;</span>
+						</div>
+						<buffer></buffer>
+						<!-- Admin view -->
+						<!-- Director view -->
+						<div data-ng-show="properties.currentUser.Area.Description === 'Director' || properties.currentUser.Admin">
 							<div class="form-group">
-								<label for="to">To:</label>
-								<select ui-select2="{ placeholder: 'Select employee/s' }" name="to" multiple ng-model="ctrl.toList" ng-required="true">
-									<option value="all">All</option>
-									<option data-ng-repeat="employee in arrays.employees" value="{{employee.Id}}">{{employee.PreferredName}} {{employee.LastName}}</option>
-								</select>
+								<div class="btn-group-justified">
+									<div class="button-group">
+										<button type="button" class="btn btn-default form-control" data-ng-click="ctrl.newMessage.Recipients = ctrl.activeEmloyees">ALL</button>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="btn-group btn-group-justified">
+									<div class="btn-group" data-ng-repeat="area in data.areas | filter:ctrl.areaFilter">
+										<button type="button" class="btn btn-default" data-ng-click="ctrl.areaEmployees(area.Id)">{{area.Description}}</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- FTE view -->
+						<div data-ng-show="properties.currentUser.Position.Id === ctrl.positionFTE.Id && !properties.currentUser.Admin">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.newMessage.Recipients = ctrl.activeEmloyees">ALL</button>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.newMessage.Recipients = ctrl.employees">Area</button>
+								</div>
+								<div class="btn-group" data-ng-repeat="position in properties.defaultArea.Positions | filter:ctrl.positionFilter">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.positionEmployees(position.Id)">{{position.Description}}</button>
+								</div>
+							</div>
+						</div>
+						<!-- Employee view -->
+						<div data-ng-hide="properties.currentUser.Position.Id === ctrl.positionFTE.Id || properties.currentUser.Admin">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.newMessage.Recipients = ctrl.employees">ALL</button>
+								</div>
+								<div class="btn-group" data-ng-repeat="position in properties.defaultArea.Positions | filter:ctrl.positionFilter">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.positionEmployees(position.Id)">{{position.Description}}</button>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row" data-ng-show="properties.currentUser.employeeInfo.Position.Position === 'FTE' || properties.currentUser.employeeInfo.Admin">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="from">From:</label>
-								<select ui-select2="{ placeholder: 'Select employee' }" name="from" ng-model="ctrl.newMessage.FromId" ng-required="true">
-									<option data-ng-repeat="employee in arrays.employees | filter:{Position: ctrl.positionFTE}" value="{{employee.Id}}">{{employee.PreferredName}} {{employee.LastName}}</option>
-								</select>
+				</div>
+				<!-- FROM -->
+				<div class="row-fluid" data-ng-show="properties.currentUser.Position.Position === 'FTE' || properties.currentUser.Admin">
+					<div class="form-group">
+						<label for="from">From:</label>
+						<div class="btn-group-justified">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.FromId" data-ng-options="employee.Id as employee.Label for employee in data.employees | filter:{PositionId: ctrl.positionFTE.Id}" data-html="true" placeholder="Select employee..." bs-select data-placement="bottom">
+									Action
+									<span class="caret"></span>
+								</button>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="Day">Subject:</label>
-								<input type="text" data-ng-model="ctrl.newMessage.Subject" class="form-control">
-							</div>
-						</div>
+				</div>
+				<!-- SUBJECT -->
+				<div class="row-fluid">
+					<div class="form-group">
+						<label for="Day">Subject:</label>
+						<input type="text" data-ng-model="ctrl.newMessage.Subject" class="form-control">
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="Day">Message:</label>
-								<textarea data-ng-model="ctrl.newMessage.Message" class="form-control" rows="10"></textarea>
-							</div>
-						</div>
+				</div>
+				<!-- BODY -->
+				<div class="row-fluid">
+					<div class="form-group">
+						<label for="Day">Body:</label>
+						<textarea data-ng-model="ctrl.newMessage.Body" class="form-control" rows="10"></textarea>
 					</div>
-					<div class="row">
-						<div class="col-md-6">
+				</div>
+				<!-- DATE SETTINGS -->
+				<div class="row-fluid" data-ng-show="properties.extendedPrivledges">
+					<div class="form-group">
+						<div class="form-group">
 							<div class="input-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
 								<div class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar"></span>Expires:
+									<span class="glyphicon glyphicon-calendar"></span>&nbsp;Expires:
 								</div>
 								<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="ctrl.newMessage.ExpDate">
 							</div>
 						</div>
-						<div class="col-md-6">
-							<label class="pull-left" for="manditory">
-								Mandatory:&#8199
-							</label>
-							<input id="manditory" class="pull-left" type="checkbox" data-ng-model="ctrl.newMessage.Manditory" class="form-control">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>&nbsp;Due:
+								</div>
+								<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="ctrl.newMessage.DueDate">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" ng-model="ctrl.newMessage.Policy" data-ng-click="ctrl.newMessage.Mandatory = !ctrl.newMessage.Mandatory" bs-checkbox>{{(ctrl.newMessage.Policy) ? 'Policy' : 'Not policy'}}</button>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" ng-model="ctrl.newMessage.Mandatory" bs-checkbox>{{(ctrl.newMessage.Mandatory) ? 'Mandatory' : 'Not mandatory'}}</button>
+								</div>
+							</div>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 			<div class="aside-footer">
 				<button type="button" class="btn btn-default" ng-click="$hide()">Close</button>

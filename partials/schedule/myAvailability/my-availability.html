@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <buffer></buffer>
+    <div class="row-fluid">
+        <div class="col-md-2">
+            <refresh></refresh>
+            <buffer></buffer>
+            <button type="button" class="btn btn-default form-control" bs-modal="modal" data-template="partials/schedule/myAvailability/unavailable.html" data-animation="am-fade-and-scale">
+                Unavailable
+            </button>
+            <buffer></buffer>
+            <filter-semesters></filter-semesters>
+        </div>
+        <div class="col-md-10">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th data-ng-repeat="day in arrays.weeks[0].days" class="text-center" data-ng-hide="day.title === 'Sunday'" data-ng-class="{ weekend: day.weekend }">
+                            <div>
+                                {{day.title}}
+                                <button type="button" class="btn-link btn-xs pull-right" bs-modal="modal" data-template="partials/schedule/myAvailability/availability-add.html" data-animation="am-fade-and-scale">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-ng-repeat="day in arrays.weeks[0].days" class="text-center my-schedule" data-ng-hide="day.title === 'Sunday'" data-ng-class="{ weekend: day.weekend }">
+                            <div class="btn-group-vertical my-schedule">
+                                <button class="btn my-schedule" data-ng-repeat="availability in day.myAvailabilities.currentSemester | orderBy:'StartTime':false" data-ng-hide="day.title === 'Sunday'" data-animation="am-fade-and-scale" data-template="partials/schedule/myAvailability/availability-edit.html" bs-modal="modal">
+                                    {{availability.StartTime | date:'h:mm a'}} - {{availability.EndTime | date:'h:mm a'}}
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
