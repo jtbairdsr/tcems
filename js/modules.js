@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-28 18:33:50
+ * @Last Modified time: 2015-01-29 15:32:52
  */
 (function() {
 
@@ -236,7 +236,7 @@
 			///////////////////
 			.state('main.utilities', {
 				url: '/utilities',
-				templateUrl: 'partials/utilities.html',
+				templateUrl: 'partials/utilities/utilities.html',
 				controller: 'UtilitiesCtrl'
 			});
 		// TODO: add additional states

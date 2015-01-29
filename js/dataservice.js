@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-29 14:34:36
+ * @Last Modified time: 2015-01-29 15:58:47
  */
 /* global angular, _ */
 
@@ -1423,6 +1423,7 @@
 				this.update();
 			});
 			CLASSES.Employee.method('retire', function() {
+				var deffered = $q.defer();
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				_.each(DATA.employments, function(employment) {
@@ -1433,7 +1434,8 @@
 				});
 				this.Active = false;
 				this.Retired = true;
-				this.update();
+				this.update().then(function(){deffered.resolve();});
+				return deffered.promise;
 			});
 			CLASSES.Employee.method('add', function() {
 				var object = this;
@@ -1442,8 +1444,9 @@
 				});
 			});
 			CLASSES.Employee.method('setEmployements', function() {
+				var object = this;
 				this.Employments = _.filter(DATA.employments, function(employment) {
-					return employment.EmployeeId === employee.Id;
+					return employment.EmployeeId === object.Id;
 				});
 			});
 			CLASSES.Employee.method('setIntent', function() {
