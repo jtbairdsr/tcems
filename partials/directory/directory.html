@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<!-- 	<div class="row hidden-xs hidden-md hidden-sm">
+	<!-- 	<div class="row hidden-xs hidden-md hidden-sm">
 		<ul class="nav nav-pillsCustom nav-justified" bs-navbar>
 			<li data-match-route="/main/directory/gridView">
 				<a ui-sref="main.directory.gridView">Grid View</a>
@@ -9,7 +9,8 @@
 			</li>
 		</ul>
 	</div>
- -->	<div class="row">
+ -->
+	<div class="row">
 		<div class="navbar-form">
 			<div class="input-group">
 				<label for="employeeSearch" class="input-group-addon">
@@ -22,19 +23,21 @@
 					</button>
 				</span>
 			</div>
-			<div data-ng-show="properties.currentUser.Position.Position === 'FTE' || properties.currentUser.Admin" class="btn-group">
+			<div class="btn-group" data-ng-show="properties.extendedPrivledges">
 				<button class="btn btn-default form-control" data-animation="am-fade-and-scale" data-template="partials/directory/employee-add.html" bs-modal="modal">
 					<span class="glyphicon glyphicon-plus"></span> Add Employee
-				</button>
-				<button type="button" class="btn btn-default form-control" data-ng-click="position.hide = !position.hide" data-ng-show="properties.currentUser.Admin">
-					<span data-ng-hide="position.hide" class="glyphicon glyphicon-eye-close"></span>
-					<span data-ng-show="position.hide" class="glyphicon glyphicon-eye-open"></span>
-					&nbsp;FTEs
 				</button>
 				<button type="button" class="btn btn-default form-control" data-ng-click="hideInactive = !hideInactive">
 					<span data-ng-hide="hideInactive" class="glyphicon glyphicon-eye-close"></span>
 					<span data-ng-show="hideInactive" class="glyphicon glyphicon-eye-open"></span>
 					&nbsp;Inactive Employees
+				</button>
+			</div>
+			<div data-ng-show="properties.currentUser.Position.Position === 'FTE' || properties.currentUser.Admin" class="btn-group">
+				<button type="button" class="btn btn-default form-control" data-ng-click="position.hide = !position.hide" data-ng-show="properties.currentUser.Admin">
+					<span data-ng-hide="position.hide" class="glyphicon glyphicon-eye-close"></span>
+					<span data-ng-show="position.hide" class="glyphicon glyphicon-eye-open"></span>
+					&nbsp;FTEs
 				</button>
 				<button type="button" class="btn btn-default form-control" data-ng-click="area.hideOthers = !area.hideOthers">
 					<span data-ng-hide="area.hideOthers" class="glyphicon glyphicon-eye-close"></span>
