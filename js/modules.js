@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-26 14:56:19
+ * @Last Modified time: 2015-01-28 18:33:50
  */
 (function() {
 
@@ -63,71 +63,16 @@
 				url: '/main',
 				// abstract: true,
 				templateUrl: 'partials/main.html',
-				controller: function($scope, scopeSetter, generalService, dataService, $templateCache) {
+				controller: function($scope, scopeSetter, generalService) {
 					$scope.data = generalService.data;
 					$scope.arrays = generalService.arrays;
 					$scope.properties = generalService.properties;
-					/////////////////////////////
-					// Set aliases to the data //
-					/////////////////////////////
-					var DATA = generalService.data,
-						ARRAYS = generalService.arrays,
-						PROPERTIES = generalService.properties;
-					if (PROPERTIES.loadEmployeeInformation) {
-						var messages = function() {
-							console.log('INSIDE MESSAGES()');
-							$scope.panels = _.filter(DATA.sentMessages, function(sentMessage) {
-								if (sentMessage.Message.Manditory && !sentMessage.Read) {
-									PROPERTIES.unreadMessages++;
-								}
-								return (
-									sentMessage.Employee.Id === PROPERTIES.currentUser.Id &&
-									sentMessage.Message.Semester.Id === PROPERTIES.currentSemester.Id
-								);
-							});
-							$scope.panels.activePanel = -1;
-						};
-						messages();
-						new dataService.getItems('FacultyTestingInfo')
-							.select(['Professor/FirstName', 'Professor/LastName', 'Professor/OfficePhone', 'Professor/EmailAddress', 'Professor/OfficeAddress', 'Professor/OtherPhone', 'Professor/Picture', 'Stipulation', 'Other'])
-							.expand(['Professor'])
-							.execute(true)
-							.success(function(data) {
-								_.each(data.d.results, function(result) {
-									result.FirstName = result.Professor.FirstName;
-									result.LastName = result.Professor.LastName;
-								});
-								$scope.arrays.professors = data.d.results;
-							});
-					}
 				},
 				resolve: {
-					scopeSetter: function($location, $q, generalService, dataService) {
+					scopeSetter: function($q, dataService) {
 						var deffered = $q.defer();
-						/////////////////////////////
-						// Set aliases to the data //
-						/////////////////////////////
-						var DATA = generalService.data,
-							ARRAYS = generalService.arrays,
-							PROPERTIES = generalService.properties;
 						dataService.initializeData()
 							.then(function() {
-								switch (PROPERTIES.currentUser.Area.Area) {
-									case 'SARAS':
-										PROPERTIES.defaultPosition = _.find(DATA.positions, function(position) {
-											return position.Description === 'Presenter';
-										});
-										break;
-									case 'Technology':
-										PROPERTIES.defaultPosition = _.find(DATA.positions, function(position) {
-											return position.Description === 'Techy';
-										});
-										break;
-									default:
-										PROPERTIES.defaultPosition = _.find(DATA.positions, function(position) {
-											return position.Description === 'Proctor';
-										});
-								}
 								deffered.resolve();
 							});
 						return deffered.promise;
@@ -198,7 +143,7 @@
 				url: '/directory',
 				templateUrl: 'partials/directory/directory.html',
 				controller: 'DirectoryCtrl',
-				controllerAs: 'directory',
+				controllerAs: 'ctrl',
 				abstract: true
 			})
 			.state('main.directory.listView', {

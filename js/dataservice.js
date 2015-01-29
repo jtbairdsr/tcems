@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-26 15:36:05
+ * @Last Modified time: 2015-01-28 20:59:12
  */
 /* global angular, _ */
 
@@ -98,6 +98,18 @@
 					});
 				return deffered.promise;
 			};
+			GET.areaPositions = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('AreaPosition')
+					.success(function(data) {
+						DATA.areaPositions = [];
+						_.each(data.d.results, function(areaPosition) {
+							DATA.areaPositions.push(new CLASSES.AreaPosition(areaPosition));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
 			GET.availabilities = function() {
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Availability')
@@ -144,7 +156,9 @@
 					.success(function(data) {
 						DATA.messages = [];
 						_.each(data.d.results, function(message) {
-							DATA.messages.push(new CLASSES.Message(message));
+							if (message.ToId === null) {
+								DATA.messages.push(new CLASSES.Message(message));
+							}
 						});
 						deffered.resolve();
 					});
@@ -208,8 +222,21 @@
 					.success(function(data) {
 						DATA.sentMessages = [];
 						_.each(data.d.results, function(sentMessage) {
-							DATA.sentMessages.push(new CLASSES.SentMessage(sentMessage));
+							sentMessage = new CLASSES.SentMessage(sentMessage);
+							if (sentMessage.EmployeeId === PROPERTIES.currentUser.Id &&
+								sentMessage.Message.Semester.Id === PROPERTIES.currentSemester.Id &&
+								Date.today().compareTo(sentMessage.Message.ExpDate) < 1) {
+								if (!sentMessage.Read &&
+									sentMessage.Message.Mandatory &&
+									Date.today().compareTo(sentMessage.Message.DueDate) < 1) {
+									PROPERTIES.unreadMessages++;
+								}
+								ARRAYS.messages.push(sentMessage);
+							}
+							DATA.sentMessages.push(sentMessage);
 						});
+						ARRAYS.messages.activePanel = -1;
+						console.log(ARRAYS.messages);
 						deffered.resolve();
 					});
 				return deffered.promise;
@@ -514,6 +541,12 @@
 					return returnEmployeeArray;
 				}
 			};
+			SET.propertyDefaultPosition = function() {
+				PROPERTIES.defaultPosition = PROPERTIES.currentUser.Area.DefaultPosition;
+			};
+			SET.propertyDefaultArea = function() {
+				PROPERTIES.defaultArea = PROPERTIES.currentUser.Area;
+			};
 			///////////////////
 			// ARRAY SETTERS //
 			///////////////////
@@ -553,6 +586,8 @@
 				ARRAYS.shifts = _.filter(DATA.shifts, function(shift) {
 					return shift.Active;
 				});
+			};
+			SET.arrayShiftGroups = function() {
 				ARRAYS.shiftGroups = [];
 				_.each(DATA.shiftGroups, function(shiftGroup) {
 					if (PROPERTIES.nextSemester.ShiftGroup !== undefined) {
@@ -566,6 +601,26 @@
 						ARRAYS.shiftGroups.push(shiftGroup);
 					}
 				});
+			};
+			SET.arraySentMessages = function() {
+				ARRAYS.sentMessages = [];
+				_.each(DATA.messages, function(message) {
+					if (PROPERTIES.currentUser.Area.Description === 'Campus' && (
+							PROPERTIES.currentUser.Position.Description === 'FTE' ||
+							PROPERTIES.currentUser.Position.Description === 'HR')) {
+						if (message.From.Area.Description === 'Campus' && (
+								message.From.Position.Description === 'FTE' ||
+								message.From.Position.Description === 'HR'
+							)) {
+							ARRAYS.sentMessages.push(message);
+						}
+					} else {
+						if (PROPERTIES.currentUser.Id === message.FromId) {
+							ARRAYS.sentMessages.push(message);
+						}
+					}
+				});
+				ARRAYS.sentMessages.activePanel = -1;
 			};
 
 			/////////////
@@ -615,7 +670,7 @@
 				REFRESH.getData([GET.shiftGroups(), GET.positions(), GET.areas(), GET.tracks(), /*GET.Teams(),*/ GET.professors()])
 					.then(function() {
 						cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
-						REFRESH.getData([GET.shifts(), GET.employees(), GET.semesters(), ])
+						REFRESH.getData([GET.shifts(), GET.employees(), GET.semesters(), GET.areaPositions()])
 							.then(function() {
 								cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
 								REFRESH.getData([GET.schedules(), GET.subShifts(), GET.availabilities(), GET.employments(), GET.messages(), GET.noTestingDays()])
@@ -625,6 +680,8 @@
 											.then(function() {
 												cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
 												SET.arrayShifts();
+												SET.arrayShiftGroups();
+												SET.arraySentMessages();
 												SET.arrayWeeks();
 												SET.arrayNoAvailabilityEmployees();
 												cfpLoadingBar.complete();
@@ -634,6 +691,11 @@
 							});
 					});
 				return deffered1.promise;
+			};
+			REFRESH.properties = function() {
+				PROPERTIES.currentUser = new CLASSES.Employee(PROPERTIES.currentUser);
+				SET.propertyDefaultArea();
+				SET.propertyDefaultPosition();
 			};
 			REFRESH.subShifts = function(hideAlert) {
 				hideAlert = hideAlert || false;
@@ -737,6 +799,37 @@
 						REFRESH.getData([GET.schedules(), GET.subShifts()])
 							.then(function() {
 								SET.propertyToday();
+								if (!hideAlert) {
+									$alert(REFRESH.successAlert);
+								}
+								deffered.resolve();
+							});
+					});
+				return deffered.promise;
+			};
+			REFRESH.directory = function(hideAlert) {
+				hideAlert = hideAlert || false;
+				var deffered = $q.defer();
+				GET.employees()
+					.then(function() {
+						GET.employments()
+							.then(function() {
+								if (!hideAlert) {
+									$alert(REFRESH.successAlert);
+								}
+								deffered.resolve();
+							});
+					});
+				return deffered.promise;
+			};
+			REFRESH.messages = function(hideAlert) {
+				hideAlert = hideAlert || false;
+				var deffered = $q.defer();
+				GET.messages()
+					.then(function() {
+						GET.sentMessages()
+							.then(function() {
+								SET.arraySentMessages();
 								if (!hideAlert) {
 									$alert(REFRESH.successAlert);
 								}
@@ -1023,7 +1116,7 @@
 				var object = this;
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
-				UTILITIES.updateItem(this.listName, this.Id)
+				UTILITIES.deleteItem(this.listName, this.Id)
 					.success(function() {
 						DATA[object.listName.charAt(0).toLowerCase() + object.listName.slice(1) + 's'] = _.without(DATA[object.listName.charAt(0).toLowerCase() + object.listName.slice(1) + 's'], object);
 						if (!hideAlert) {
@@ -1102,8 +1195,15 @@
 			};
 			CLASSES.Area.inherits(CLASSES.Data);
 			CLASSES.Area.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
 				this.Area = this.newData.Area || undefined;
 				this.Description = this.newData.Description || undefined;
+				this.DefaultPositionId = this.newData.DefaultPositionId || undefined;
+				this.DefaultPosition = (this.newData.DefaultPositionId) ? _.find(DATA.positions, function(position) {
+					return position.Id === object.DefaultPositionId;
+				}) : {};
+				this.Positions = this.newData.Positions || [];
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
 			});
@@ -1111,10 +1211,56 @@
 				var returnData = this.uber('updateData');
 				returnData.Area = this.Area;
 				returnData.Description = this.Description;
+				returnData.DefaultPositionId = this.DefaultPositionId;
 				return returnData;
 			});
 			CLASSES.Area.method('toString', function() {
 				return this.Description + ' Area';
+			});
+			CLASSES.Area.method('setPositions', function() {
+				var object = this;
+				this.Positions = [];
+				_.each(DATA.areaPositions, function(areaPosition) {
+					if (areaPosition.Area.Id === object.Id) {
+						object.Positions.push(areaPosition.Position);
+					}
+				});
+			});
+			// ***********************************************************************
+			// DEFINE THE AREAPOSITION CLASS
+			// ***********************************************************************
+			CLASSES.AreaPosition = function(data) {
+				this.newData = data || {};
+				this.initPublicAttributes();
+				this.listName = 'AreaPosition';
+			};
+			CLASSES.AreaPosition.inherits(CLASSES.Data);
+			CLASSES.AreaPosition.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.AreaId = this.newData.AreaId || undefined;
+				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area) {
+					return area.Id === object.AreaId;
+				}) : {};
+				this.PositionId = this.newData.PositionId || undefined;
+				this.Position = (this.newData.PositionId) ? _.find(DATA.positions, function(position) {
+					return position.Id === object.PositionId;
+				}) : {};
+				this.setAreasPosition();
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.AreaPosition.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.AreaId = this.AreaId;
+				returnData.PositionId = this.PositionId;
+				return returnData;
+			});
+			CLASSES.AreaPosition.method('toString', function() {
+				return this.Area.Description + ' ' + this.Position.Description;
+			});
+			CLASSES.AreaPosition.method('setAreasPosition', function() {
+				this.Area.Positions.push(this.Position);
 			});
 			// ***********************************************************************
 			// DEFINE THE AVAILABILITY CLASS
@@ -1126,16 +1272,6 @@
 				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your information' : this.toString();
 			};
 			CLASSES.Availability.inherits(CLASSES.Data);
-			CLASSES.Availability.method('add', function() {
-				var deffered = $q.defer();
-				this.Active = true;
-				this.Current = true;
-				this.uber('add')
-					.then(function() {
-						deffered.resolve();
-					});
-				return deffered.promise;
-			});
 			CLASSES.Availability.method('initPublicAttributes', function() {
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
@@ -1165,6 +1301,16 @@
 				returnData.SemesterId = this.SemesterId;
 				returnData.StartTime = this.StartTime;
 				return returnData;
+			});
+			CLASSES.Availability.method('add', function() {
+				var deffered = $q.defer();
+				this.Active = true;
+				this.Current = true;
+				this.uber('add')
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
 			CLASSES.Availability.method('toString', function() {
 				return this.Employee.toString() + '\'s availability';
@@ -1227,7 +1373,7 @@
 				this.Intent = {};
 				this.Label = (
 					'<div><img class="img-circle" src="' + this.Picture +
-					'" fallback-src="/media/missing.png" width="50px" height="50px"> <b>' +
+					'" fallback-src="/media/missing.png" width="50px" height="' + ((this.Position.Description === 'FTE') ? 70.8333 : 50) + 'px"> <b>' +
 					this.PreferredName + ' ' + this.LastName + '</b></div>'
 				);
 				this.uber('initPublicAttributes');
@@ -1255,23 +1401,30 @@
 				return this.Position.Description + ': ' + this.PreferredName + ' ' + this.LastName;
 			});
 			CLASSES.Employee.method('activate', function() {
-				var employment = new Employment();
-				employment.start();
+				var employment = new CLASSES.Employment({
+					EmployeeId: this.Id
+				});
+				employment.start(true);
 				this.Active = true;
 				this.update();
 			});
 			CLASSES.Employee.method('deactivate', function() {
-				var employment = _.find(DATA.employments, function(employment) {
-					return employment.EndDate === undefined &&
-						employment.EmployeeId === this.Id;
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				_.each(DATA.employments, function(employment) {
+					if (employment.EndDate === undefined &&
+						employment.EmployeeId === object.Id) {
+						employment.end(true);
+					}
 				});
-				employment.end();
 				this.Active = false;
 				this.update();
 			});
 			CLASSES.Employee.method('add', function() {
-				this.parent.update.call(this);
-				this.activate();
+				var object = this;
+				this.uber('add').then(function() {
+					object.activate();
+				});
 			});
 			CLASSES.Employee.method('setEmployements', function() {
 				this.Employments = _.filter(DATA.employments, function(employment) {
@@ -1303,6 +1456,7 @@
 				}) : {};
 				this.EndDate = (this.newData.EndDate) ? Date.parse(this.newData.EndDate) : undefined;
 				this.StartDate = (this.newData.StartDate) ? Date.parse(this.newData.StartDate) : undefined;
+				this.Edit = false;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
 			});
@@ -1316,13 +1470,15 @@
 			CLASSES.Employment.method('toString', function() {
 				return this.Employee.toString() + '\'s employment';
 			});
-			CLASSES.Employment.method('start', function() {
+			CLASSES.Employment.method('start', function(hideAlert) {
+				hideAlert = hideAlert || false;
 				this.StartDate = new Date();
-				this.add();
+				this.add(hideAlert);
 			});
-			CLASSES.Employment.method('end', function() {
+			CLASSES.Employment.method('end', function(hideAlert) {
+				hideAlert = hideAlert || false;
 				this.EndDate = new Date();
-				this.update();
+				this.update(hideAlert);
 			});
 			// ***********************************************************************
 			// DEFINE THE MESSAGE CLASS
@@ -1338,26 +1494,31 @@
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Active = this.newData.Active || false;
-				this.Body = (this.newData.Body) ? Autolinker.link(this.newData.Body, {
+				this.AreaId = this.newData.AreaId || undefined;
+				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area){
+					return area.Id === object.AreaId;
+				}) : {};
+				this.Body = (this.newData.Body) ? this.newData.Body.replace(/<[a-z]*(.*\W)?>/g, '').replace(/<\/[a-z]*(.*\W)?>/g, '') : undefined;
+				this.FormattedBody = (this.newData.Body) ? Autolinker.link(this.newData.Body, {
 					truncate: 10
-				}).replace(/\n\r?/g, '<br />') : ((this.newData.Message) ? Autolinker.link(this.newData.Message, {
-					truncate: 10
-				}).replace(/\n\r?/g, '<br />') : undefined);
+				}).replace(/\n\r?/g, '<br />') : undefined;
 				this.DueDate = (this.newData.DueDate) ? Date.parse(this.newData.DueDate) : undefined;
 				this.ExpDate = (this.newData.ExpDate) ? Date.parse(this.newData.ExpDate) : undefined;
 				this.FromId = this.newData.FromId || false;
 				this.From = (this.newData.FromId) ? _.find(DATA.employees, function(employee) {
 					return employee.Id === object.FromId;
 				}) : {};
-				this.Manditory = this.newData.Manditory || false;
+				this.Mandatory = this.newData.Mandatory || false;
 				this.Policy = this.newData.Policy || false;
 				this.SemesterId = this.newData.SemesterId || undefined;
 				this.Semester = (this.newData.SemesterId) ? _.find(DATA.semesters, function(semester) {
 					return semester.Id === object.SemesterId;
 				}) : {};
 				this.Subject = this.newData.Subject || undefined;
+				this.UniversalPolicy = (this.AreaId) ? this.Area.Description === 'Directory' : false;
 				this.tempBody = this.Body;
-				this.Recipients = [];
+				this.Recipients = this.newData.Recipients || [];
+				this.Edit = false;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
 			});
@@ -1368,7 +1529,7 @@
 				returnData.DueDate = this.DueDate;
 				returnData.ExpDate = this.ExpDate;
 				returnData.FromId = this.FromId;
-				returnData.Manditory = this.Manditory;
+				returnData.Mandatory = this.Mandatory;
 				returnData.Policy = this.Policy;
 				returnData.SemesterId = this.SemesterId;
 				returnData.Subject = this.Subject;
@@ -1378,9 +1539,17 @@
 				return this.Subject + ' message from ' + this.From.toString().split(': ')[1];
 			});
 			CLASSES.Message.method('send', function() {
-				this.add();
+				var deffered = $q.defer();
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				var recipients = this.Recipients;
 				var recipientCounter = 0;
-				sendMessage(this.Recipients[recipientCounter]);
+				this.SemesterId = PROPERTIES.currentSemester.Id;
+				this.add()
+					.then(function() {
+						sendMessage(recipients[recipientCounter]);
+					});
+				return deffered.promise;
 				/**
 				 * This function sends a message to each employee on the Recipients list.
 				 *
@@ -1388,13 +1557,14 @@
 				 * @returns    {null}
 				 */
 				function sendMessage(recipient) {
-					var sentMessage = new CLASSES.SentMessage();
-					sentMessage.EmployeeId = recipient.Id;
-					sentMessage.MessageId = this.Id;
+					var sentMessage = new CLASSES.SentMessage({
+						EmployeeId: recipient.Id,
+						MessageId: object.Id
+					});
 					sentMessage.add(true)
 						.then(function() {
-							if (recipientCounter !== this.Recipients.length) {
-								sendMessage(this.Recipients[++recipientCounter]);
+							if (recipientCounter !== object.Recipients.length) {
+								sendMessage(recipients[++recipientCounter]);
 							} else {
 								$alert({
 									show: true,
@@ -1405,6 +1575,7 @@
 									type: 'success',
 									template: 'partials/alerts/success-alert.html'
 								});
+								deffered.resolve();
 							}
 						});
 				}
@@ -1613,6 +1784,7 @@
 				this.Message = (this.newData.MessageId) ? _.find(DATA.messages, function(message) {
 					return message.Id === object.MessageId;
 				}) : {};
+				this.Policy = this.Message.Policy || false;
 				this.Read = this.newData.Read || false;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
@@ -1630,9 +1802,14 @@
 					'\nSubject: ' + this.Message.Subject;
 			});
 			CLASSES.SentMessage.method('read', function() {
+				var deffered = $q.defer();
 				this.Read = true;
 				this.AckDate = new Date();
-				this.update();
+				this.update()
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
 			// ***********************************************************************
 			// DEFINE THE SEMESTER CLASS
@@ -2306,8 +2483,10 @@
 						if (PROPERTIES.loadEmployeeData) {
 							cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
 							dataInitialized = true;
+							PROPERTIES.defaultArea = PROPERTIES.currentUser.Area;
 							REFRESH.data()
 								.then(function() {
+									REFRESH.properties();
 									deffered.resolve();
 								});
 						} else {

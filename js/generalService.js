@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-24 19:56:46
+ * @Last Modified time: 2015-01-28 18:32:03
  */
 /* global angular, _ */
 
@@ -32,6 +32,7 @@
 		};
 		service.data = {
 			areas: [],
+			areaPositions: [],
 			availabilitys: [],
 			employees: [],
 			employments: [],
@@ -47,17 +48,16 @@
 			tracks: [],
 		};
 		service.arrays = {
+			days: [],
+			directoryEmployees: [],
+			employees: [],
+			noAvailabilityEmployees: [], // This is the list used by the availability view to determine who hasn't submitted their availability
 			positions: [],
+			professors: [],
 			shiftGroups: [],
 			shifts: [],
-			employees: [],
-			directoryEmployees: [],
-			weeks: [], // This is the list of weeks that the Schedule, Availability, Sub Shifts, My Schedule, My Availability views pull from
-			days: [],
-			subShifts: [],
-			professors: [],
-			availabilityDays: [],
-			noAvailabilityEmployees: []
+			messages: [], // This is the list used on the messages panel
+			weeks: [] // This is the list of weeks that the Schedule, Availability, Sub Shifts, My Schedule, My Availability views pull from
 		};
 		//////////////////
 		// Misc Methods //
@@ -226,5 +226,3 @@
 		};
 	});
 })();
-//  || text.length - end.length <= length
-//  - end.length
