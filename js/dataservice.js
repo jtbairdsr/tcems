@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-29 15:58:47
+ * @Last Modified time: 2015-01-29 17:26:08
  */
 /* global angular, _ */
 
@@ -104,7 +104,19 @@
 					.success(function(data) {
 						DATA.areaPositions = [];
 						_.each(data.d.results, function(areaPosition) {
-							DATA.areaPositions.push(new CLASSES.AreaPosition(areaPosition));
+							areaPosition = new CLASSES.AreaPosition(areaPosition);
+							DATA.areaPositions.push(areaPosition);
+							if (areaPosition.Position.Description !== 'FTE' &&
+								areaPosition.Position.Description !== 'Applicant' &&
+								areaPosition.Position.Description !== 'Admin') {
+								if (PROPERTIES.currentUser.PositionId !== PROPERTIES.currentUser.Area.DefaultPositionId &&
+									// PROPERTIES.currentUser.Position.Description !== 'FTE' &&
+									!PROPERTIES.currentUser.Admin) {
+									if (areaPosition.AreaId === PROPERTIES.currentUser.AreaId) {
+										ARRAYS.positions.push(areaPosition.Position);
+									}
+								}
+							}
 						});
 						deffered.resolve();
 					});
@@ -181,11 +193,25 @@
 				UTILITIES.fetchAllItems('Position')
 					.success(function(data) {
 						DATA.positions = [];
+						ARRAYS.positions = [];
 						_.each(data.d.results, function(position) {
-							DATA.positions.push(new CLASSES.Position(position));
-						});
-						ARRAYS.positions = _.filter(DATA.positions, function(position) {
-							return position.Position !== 'FTE' && position.Position !== 'Applicant' && position.Position !== 'Admin';
+							position = new CLASSES.Position(position);
+							DATA.positions.push(position);
+							if (position.Description !== 'FTE' &&
+								position.Description !== 'Applicant' &&
+								position.Description !== 'Admin') {
+								if (PROPERTIES.currentUser.Id) {
+									if (PROPERTIES.currentUser.Admin /*||
+										PROPERTIES.currentUser.Position.Description === 'FTE'*/) {
+										ARRAYS.positions.push(position);
+									} else if (
+										PROPERTIES.currentUser.PositionId === PROPERTIES.currentUser.Area.DefaultPositionId &&
+										PROPERTIES.currentUser.PositionId === position.Id
+									) {
+										ARRAYS.positions.push(position);
+									}
+								}
+							}
 						});
 						ARRAYS.allPositions = DATA.positions;
 						deffered.resolve();
@@ -236,7 +262,6 @@
 							DATA.sentMessages.push(sentMessage);
 						});
 						ARRAYS.messages.activePanel = -1;
-						console.log(ARRAYS.messages);
 						deffered.resolve();
 					});
 				return deffered.promise;
@@ -1434,7 +1459,9 @@
 				});
 				this.Active = false;
 				this.Retired = true;
-				this.update().then(function(){deffered.resolve();});
+				this.update().then(function() {
+					deffered.resolve();
+				});
 				return deffered.promise;
 			});
 			CLASSES.Employee.method('add', function() {
@@ -1513,7 +1540,7 @@
 				var object = this;
 				this.Active = this.newData.Active || false;
 				this.AreaId = this.newData.AreaId || undefined;
-				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area){
+				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area) {
 					return area.Id === object.AreaId;
 				}) : {};
 				this.Body = (this.newData.Body) ? this.newData.Body.replace(/<[a-z]*(.*\W)?>/g, '').replace(/<\/[a-z]*(.*\W)?>/g, '') : undefined;

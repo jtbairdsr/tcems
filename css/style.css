@@ -182,9 +182,6 @@ div.aside-header {
 .top-buffer {
 	margin-top: 20px;
 }
-button.taken {
-	background-color: #fe9e37;
-}
 .vertical-center {
 	min-height: 100%;
 	/* Fallback for browsers do NOT support vh unit */

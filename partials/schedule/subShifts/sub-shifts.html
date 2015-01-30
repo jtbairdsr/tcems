@@ -10,7 +10,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th class="text-center" data-ng-repeat="day in arrays.weeks[0].days" data-ng-class="{ weekend: day.weekend }">
+                        <th class="text-center" data-ng-repeat="day in arrays.weeks[0].days" data-ng-class="{ weekend: day.weekend }" data-ng-hide="day.title === 'Sunday'">
                             <div>
                                 {{day.title}}
                             </div>
@@ -18,11 +18,14 @@
                     </tr>
                 </thead>
                 <tr data-ng-repeat="week in arrays.weeks">
-                    <td class="text-center my-schedule" data-ng-repeat="day in week.days" data-ng-class="{ weekend: day.weekend }">
+                    <td class="text-center my-schedule" data-ng-repeat="day in week.days" data-ng-class="{ weekend: day.weekend }" data-ng-hide="day.title === 'Sunday'">
                         <span class="pull-right">{{day.date | date:'d'}}</span>
                         <br>
-                        <div class="btn-group-vertical my-schedule">
-                            <button class="btn my-schedule" data-ng-repeat="subShift in day.subShifts" data-ng-disabled="day.past" data-ng-show="subShift.shift.Position.Active" data-ng-class="{taken: subShift.subShift.SubstituteId }" data-animation="am-fade-and-scale" data-template="partials/schedule/subShifts/subShift-take.html" bs-modal="modal">
+                        <div class="btn-group-vertical my-schedule"  style="min-height: 100px">
+                            <button class="btn my-schedule" data-ng-repeat="subShift in day.subShifts" data-ng-disabled="day.past" data-ng-show="subShift.shift.Position.Active && !properties.extendedPrivledges && !subShift.subShift.SubstituteId" data-animation="am-fade-and-scale" data-template="partials/schedule/subShifts/subShift-take.html" bs-modal="modal">
+                                {{subShift.shift.StartTime | date:'h:mm a'}} - {{subShift.shift.EndTime | date:'h:mm a'}}
+                            </button>
+                            <button class="btn my-schedule" data-ng-repeat="subShift in day.subShifts" data-ng-disabled="day.past" data-ng-show="subShift.shift.Position.Active && properties.extendedPrivledges" data-ng-class="{subRequested: !subShift.subShift.SubstituteId, week2: week.title === 'Week 2', week3: week.title === 'Week 3' }" data-animation="am-fade-and-scale" data-template="partials/schedule/subShifts/subShift-take.html" bs-modal="modal">
                                 {{subShift.shift.StartTime | date:'h:mm a'}} - {{subShift.shift.EndTime | date:'h:mm a'}}
                             </button>
                         </div>
