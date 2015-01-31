@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:10
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-30 18:35:20
+ * @Last Modified time: 2015-01-30 19:22:27
  */
 (function() {
 	var app = angular.module('App');
@@ -22,7 +22,7 @@
 					.addWeeks(1),
 				DueDate: Date.today()
 					.addWeeks(1),
-				AreaId: PROPERTIES.defaultArea.Id
+				AreaId: PROPERTIES.currentUser.Area.Id
 			});
 			ctrl.activeEmloyees = _.filter(DATA.employees, function(employee) {
 				return employee.Active;
@@ -83,7 +83,7 @@
 				return area.Id !== ctrl.areaDirector.Id;
 			};
 			ctrl.positionEmployees = function(positionId, areaId) {
-				areaId = areaId || PROPERTIES.defaultArea.Id;
+				areaId = areaId || PROPERTIES.currentUser.Area.Id;
 				ctrl.newMessage.Recipients = _.filter(ctrl.activeEmloyees, function(employee) {
 					return employee.PositionId === positionId && employee.AreaId === areaId;
 				});

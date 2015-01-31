@@ -60,7 +60,7 @@
 							<div class="col-md-9">
 								<div class="btn-group-justified">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default text-justify" data-ng-options="position.Id as position.Description for position in arrays.positions" ng-model="employee.PositionId" bs-select></button>
+										<button type="button" class="btn btn-default text-justify" data-ng-options="position.Id as position.Description for position in properties.currentUser.Area.Positions" ng-model="employee.PositionId" bs-select></button>
 									</div>
 								</div>
 							</div>
@@ -70,7 +70,7 @@
 							<div class="col-md-9">
 								<div class="btn-group-justified">
 									<div class="btn-group">
-										<button type="button" class="btn btn-default text-justify" data-ng-options="area.Id as area.Area for area in data.areas" ng-model="employee.AreaId" bs-select></button>
+										<button type="button" class="btn btn-default text-justify" data-ng-options="area.Id as area.Area for area in data.areas" ng-model="employee.AreaId" bs-select data-ng-disabled="!(properties.currentUser.Area.Description === 'Director' || properties.currentUser.Admin)"></button>
 									</div>
 								</div>
 							</div>

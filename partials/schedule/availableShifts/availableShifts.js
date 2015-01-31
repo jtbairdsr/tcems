@@ -1,8 +1,8 @@
 /*
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:28:03
- * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-01-25 09:29:01
+ * @Last Modified by:   jonathan
+ * @Last Modified time: 2015-01-30 19:23:12
  */
 (function() {
 	'use strict';
@@ -30,7 +30,7 @@
 			if ($scope.shift === undefined) {
 				$scope.shift = new CLASSES.Shift();
 				shift = $scope.shift;
-				shift.PositionId = PROPERTIES.defaultPosition.Id;
+				shift.PositionId = PROPERTIES.currentUser.Area.DefaultPosition.Id;
 				shift.ShiftGroupId = PROPERTIES.currentSemester.ShiftGroupId;
 				ctrl.temp = [];
 			} else {

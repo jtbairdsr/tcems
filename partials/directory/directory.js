@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-29 14:12:45
+ * @Last Modified time: 2015-01-30 19:23:15
  */
 (function() {
 	var directory = angular.module('Directory');
@@ -46,7 +46,7 @@
 				initialPhoneNumber = employee.PhoneNumber;
 
 			ctrl.newEmployee = new CLASSES.Employee({
-				PositionId: PROPERTIES.defaultPosition.Id,
+				PositionId: PROPERTIES.currentUser.Area.DefaultPosition.Id,
 				AreaId: PROPERTIES.currentUser.AreaId
 			});
 			ctrl.newEmployment = new CLASSES.Employment({

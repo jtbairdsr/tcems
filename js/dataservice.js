@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-30 18:42:56
+ * @Last Modified time: 2015-01-30 19:28:03
  */
 /* global angular, _ */
 
@@ -139,13 +139,15 @@
 				UTILITIES.fetchAllItems('Employee')
 					.success(function(data) {
 						DATA.employees = [];
+						ARRAYS.employees = [];
 						_.each(data.d.results, function(employee) {
-							DATA.employees.push(new CLASSES.Employee(employee));
+							employee = new CLASSES.Employee(employee);
+							DATA.employees.push(employee);
+							ARRAYS.employees.push(employee);
+							if(employee.Id === PROPERTIES.currentUser.Id) {
+								PROPERTIES.currentUser = employee;
+							}
 						});
-						ARRAYS.employees = _.filter(DATA.employee, function(employee) {
-							return employee.Active;
-						});
-						ARRAYS.directoryEmployees = DATA.employees;
 						deffered.resolve();
 					});
 				return deffered.promise;
@@ -578,12 +580,6 @@
 					return returnEmployeeArray;
 				}
 			};
-			SET.propertyDefaultPosition = function() {
-				PROPERTIES.defaultPosition = PROPERTIES.currentUser.Area.DefaultPosition;
-			};
-			SET.propertyDefaultArea = function() {
-				PROPERTIES.defaultArea = PROPERTIES.currentUser.Area;
-			};
 			///////////////////
 			// ARRAY SETTERS //
 			///////////////////
@@ -728,11 +724,6 @@
 							});
 					});
 				return deffered1.promise;
-			};
-			REFRESH.properties = function() {
-				PROPERTIES.currentUser = new CLASSES.Employee(PROPERTIES.currentUser);
-				SET.propertyDefaultArea();
-				SET.propertyDefaultPosition();
 			};
 			REFRESH.subShifts = function(hideAlert) {
 				hideAlert = hideAlert || false;
@@ -1727,9 +1718,9 @@
 			});
 			CLASSES.Position.method('setAccess', function() {
 				if (PROPERTIES.currentUser.Position !== undefined &&
-					PROPERTIES.defaultPosition !== undefined) {
+					PROPERTIES.currentUser.Area.DefaultPosition !== undefined) {
 					this.Access = (
-						this.Id === PROPERTIES.defaultPosition.Id ||
+						this.Id === PROPERTIES.currentUser.Area.DefaultPosition.Id ||
 						this.Description === PROPERTIES.currentUser.Position.Description ||
 						this.Description === 'Proctor' ||
 						PROPERTIES.currentUser.Position.Description === 'FTE' ||
@@ -1739,9 +1730,9 @@
 			});
 			CLASSES.Position.method('setActive', function() {
 				if (PROPERTIES.currentUser.Position !== undefined &&
-					PROPERTIES.defaultPosition !== undefined) {
+					PROPERTIES.currentUser.Area.DefaultPosition !== undefined) {
 					this.Active = (
-						((this.Id === PROPERTIES.defaultPosition.Id &&
+						((this.Id === PROPERTIES.currentUser.Area.DefaultPosition.Id &&
 								PROPERTIES.currentUser.Position.Description === 'FTE') ^
 							this.Description === PROPERTIES.currentUser.Position.Description) === 1
 					);
@@ -2556,10 +2547,8 @@
 						if (PROPERTIES.loadEmployeeData) {
 							cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
 							dataInitialized = true;
-							PROPERTIES.defaultArea = PROPERTIES.currentUser.Area;
 							REFRESH.data()
 								.then(function() {
-									REFRESH.properties();
 									deffered.resolve();
 								});
 						} else {
