@@ -2,7 +2,7 @@
 	<div class="aside-dialog">
 		<div class="aside-content">
 			<div class="aside-header">
-				<button type="button" class="close" ng-click="$hide()">×</button>
+				<a type="button" class="close" ng-click="ctrl.refreshContent()"><span class="glyphicon glyphicon-refresh"></span></a>
 				<h4 class="aside-title">Messages</h4>
 			</div>
 			<ul class="nav nav-pillsCustom nav-justified" bs-navbar>
@@ -48,8 +48,11 @@
 											<b>Body:</b>
 											<div data-ng-bind-html="message.Message.FormattedBody"></div>
 											<br>
-											<button data-ng-show="message.Message.Mandatory && !message.Read" class="btn btn-success" data-ng-click="ctrl.readMessage(message)">Acknowledged</button>
-											<button data-ng-hide="message.Message.Mandatory || message.Read" class="btn btn-default" data-ng-click="ctrl.readMessage(message)">Read</button>
+											<span data-ng-show="message.Message.Mandatory">Due: {{message.Message.DueDate | date:'d-MMM-yyyy'}}</span>
+											<br>
+											<br>
+											<button data-ng-show="message.Message.Mandatory" class="btn btn-success" data-ng-click="ctrl.readMessage(message)" data-ng-disabled="message.Disabled">Acknowledged</button>
+											<button data-ng-hide="message.Message.Mandatory && !message.Disabled" class="btn btn-default" data-ng-click="ctrl.readMessage(message)">Read</button>
 										</div>
 									</div>
 								</div>
@@ -89,25 +92,25 @@
 					<div data-ng-show="tab === 'policy'">
 						<div class="row-fluid">
 							<div class="panel-group" ng-model="arrays.messages.activePanel" bs-collapse>
-								<div class="panel panel-default" ng-repeat="message in arrays.messages | filter:{Policy: true}">
+								<div class="panel panel-default" ng-repeat="message in arrays.policies">
 									<div class="panel-heading">
 										<h4 class="panel-title">
-											{{ message.Message.Subject | truncate:20}}
+											{{ message.Subject | truncate:20}}
 											<a class="pull-right" bs-collapse-toggle data-ng-click="toggle = !toggle">
 												<span class="glyphicon glyphicon-collapse-down" data-ng-hide="toggle"></span>
 												<span class="glyphicon glyphicon-collapse-up" data-ng-show="toggle"></span>
 											</a>
 											<span class="pull-right">
-												<small>{{message.Message.From.toString('name')}}&nbsp;&nbsp;</small>
+												<small>{{message.From.toString('name')}}&nbsp;&nbsp;</small>
 											</span>
 										</h4>
 									</div>
 									<div class="panel-collapse" bs-collapse-target>
 										<div class="panel-body">
 											<b>Subject:</b>
-											<p>{{message.Message.Subject}}</p>
+											<p>{{message.Subject}}</p>
 											<b>Body:</b>
-											<div data-ng-bind-html="message.Message.FormattedBody"></div>
+											<div data-ng-bind-html="message.FormattedBody"></div>
 										</div>
 									</div>
 								</div>
@@ -124,7 +127,7 @@
 						</div>
 						<buffer></buffer>
 						<div class="panel-group" ng-model="arrays.sentMessages.activePanel" bs-collapse>
-							<div class="panel panel-default" ng-repeat="message in arrays.sentMessages">
+							<div class="panel panel-default" ng-repeat="message in arrays.sentMessages | filter:{Active: true}">
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										{{ message.Subject | truncate:20}}
@@ -178,12 +181,21 @@
 												</div>
 											</div>
 										</div>
-										<!-- Edit Button -->
+										<!-- Edit & Delete Buttons -->
 										<div class="form-group">
-											<button type="button" class="btn btn-default pull-right" data-ng-click="ctrl.saveMessage(message)">
-												<span class="glyphicon glyphicon-edit" data-ng-hide="message.Edit"></span>
-												<span class="glyphicon glyphicon-save" data-ng-show="message.Edit"></span>
-											</button>
+											<div data-ng-hide="message.Edit" class="pull-right">
+												<button type="button" class="btn btn-default" data-ng-class="{'btn-default': !message.Edit, 'btn-success': message.Edit}" data-ng-click="ctrl.saveMessage(message)">
+													<span class="glyphicon glyphicon-edit" data-ng-hide="message.Edit"></span>
+												</button>
+											</div>
+											<div class="btn-group pull-right" data-ng-show="message.Edit">
+												<button type="button" class="btn btn-success" data-ng-click="ctrl.saveMessage(message)">
+													<span class="glyphicon glyphicon-save"></span>
+												</button>
+												<button type="button" class="btn btn-danger" data-ng-click="ctrl.removeMessage(message)">
+													<span class="glyphicon glyphicon-remove-sign"></span>
+												</button>
+											</div>
 										</div>
 									</div>
 								</div>

@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-29 15:32:52
+ * @Last Modified time: 2015-01-29 19:23:46
  */
 (function() {
 
@@ -23,8 +23,8 @@
 		'mgcrea.ngStrap',
 		'ui.router',
 		'ui.select',
-		'ui.select2',
 		'ui.utils',
+
 
 		// 'mgcrea.ngStrap.collapse',
 		// 'mgcrea.ngStrap.helpers.dateParser',
@@ -269,7 +269,6 @@
 		'ngSanitize',
 
 		// 3rd party modules
-		'ui.select2',
 		'mgcrea.ngStrap',
 		// 'mgcrea.ngStrap.helpers.dateParser',
 		// 'ui.bootstrap',
@@ -288,7 +287,6 @@
 		'ngSanitize',
 
 		// 3rd party modules
-		'ui.select2',
 		'mgcrea.ngStrap',
 		// 'mgcrea.ngStrap.helpers.dateParser',
 
@@ -307,7 +305,6 @@
 		'ngSanitize',
 
 		// 3rd party libraries
-		'ui.select2',
 		'ui.router',
 		'mgcrea.ngStrap',
 		// 'mgcrea.ngStrap.helpers.dateParser',

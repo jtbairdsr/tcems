@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:10
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-28 21:42:52
+ * @Last Modified time: 2015-01-30 18:35:20
  */
 (function() {
 	var app = angular.module('App');
@@ -66,6 +66,16 @@
 					message.Edit = true;
 				}
 			};
+			ctrl.removeMessage = function(message) {
+				if (message.Edit) {
+					message.deactivate()
+						.then(function() {
+							REFRESH.messages();
+						});
+				} else {
+					message.Edit = true;
+				}
+			};
 			ctrl.positionFilter = function(position) {
 				return position.Id !== ctrl.positionFTE.Id;
 			};
@@ -74,22 +84,28 @@
 			};
 			ctrl.positionEmployees = function(positionId, areaId) {
 				areaId = areaId || PROPERTIES.defaultArea.Id;
-					ctrl.newMessage.Recipients = _.filter(ctrl.activeEmloyees, function(employee) {
-						return employee.PositionId === positionId && employee.AreaId === areaId;
-					});
+				ctrl.newMessage.Recipients = _.filter(ctrl.activeEmloyees, function(employee) {
+					return employee.PositionId === positionId && employee.AreaId === areaId;
+				});
 			};
 			ctrl.areaEmployees = function(Id) {
 				ctrl.newMessage.Recipients = _.filter(ctrl.activeEmloyees, function(employee) {
-					return 	employee.Area.Id === Id;
+					return employee.Area.Id === Id;
 				});
 			};
 			ctrl.sendNewMessage = function() {
 				if (ctrl.newMessage.Policy) {
 					ctrl.newMessage.Mandatory = true;
 				}
+				if(ctrl.newMessage.DueDate.compareTo(ctrl.newMessage.ExpDate) > 0) {
+					ctrl.newMessage.DueDate = ctrl.newMessage.ExpDate;
+				}
 				ctrl.newMessage.send().then(function() {
 					REFRESH.messages(true);
 				});
+			};
+			ctrl.refreshContent = function() {
+				REFRESH.messages();
 			};
 		}
 	]);

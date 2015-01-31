@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-29 17:26:08
+ * @Last Modified time: 2015-01-30 18:42:56
  */
 /* global angular, _ */
 
@@ -167,9 +167,17 @@
 				UTILITIES.fetchAllItems('Message')
 					.success(function(data) {
 						DATA.messages = [];
+						ARRAYS.policies = [];
 						_.each(data.d.results, function(message) {
 							if (message.ToId === null) {
-								DATA.messages.push(new CLASSES.Message(message));
+								message = new CLASSES.Message(message);
+								DATA.messages.push(message);
+								if ((message.AreaId === PROPERTIES.currentUser.AreaId ||
+										message.Area.Description === 'Director') &&
+									message.Active &&
+									message.Policy) {
+									ARRAYS.policies.push(message);
+								}
 							}
 						});
 						deffered.resolve();
@@ -201,8 +209,10 @@
 								position.Description !== 'Applicant' &&
 								position.Description !== 'Admin') {
 								if (PROPERTIES.currentUser.Id) {
-									if (PROPERTIES.currentUser.Admin /*||
-										PROPERTIES.currentUser.Position.Description === 'FTE'*/) {
+									if (PROPERTIES.currentUser.Admin
+										/*||
+																				PROPERTIES.currentUser.Position.Description === 'FTE'*/
+									) {
 										ARRAYS.positions.push(position);
 									} else if (
 										PROPERTIES.currentUser.PositionId === PROPERTIES.currentUser.Area.DefaultPositionId &&
@@ -247,14 +257,16 @@
 				UTILITIES.fetchAllItems('SentMessage')
 					.success(function(data) {
 						DATA.sentMessages = [];
+						ARRAYS.messages = [];
+						PROPERTIES.unreadMessages = 0;
 						_.each(data.d.results, function(sentMessage) {
 							sentMessage = new CLASSES.SentMessage(sentMessage);
-							if (sentMessage.EmployeeId === PROPERTIES.currentUser.Id &&
+							if (sentMessage.Message.Active &&
+								sentMessage.EmployeeId === PROPERTIES.currentUser.Id &&
 								sentMessage.Message.Semester.Id === PROPERTIES.currentSemester.Id &&
 								Date.today().compareTo(sentMessage.Message.ExpDate) < 1) {
 								if (!sentMessage.Read &&
-									sentMessage.Message.Mandatory &&
-									Date.today().compareTo(sentMessage.Message.DueDate) < 1) {
+									sentMessage.Message.Mandatory) {
 									PROPERTIES.unreadMessages++;
 								}
 								ARRAYS.messages.push(sentMessage);
@@ -1570,6 +1582,7 @@
 			CLASSES.Message.method('updateData', function() {
 				var returnData = this.uber('updateData');
 				returnData.Active = this.Active;
+				returnData.AreaId = this.AreaId;
 				returnData.Body = this.Body;
 				returnData.DueDate = this.DueDate;
 				returnData.ExpDate = this.ExpDate;
@@ -1582,6 +1595,15 @@
 			});
 			CLASSES.Message.method('toString', function() {
 				return this.Subject + ' message from ' + this.From.toString().split(': ')[1];
+			});
+			CLASSES.Message.method('add', function() {
+				var deffered = $q.defer();
+				this.Active = true;
+				this.uber('add')
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
 			CLASSES.Message.method('send', function() {
 				var deffered = $q.defer();
@@ -1608,8 +1630,8 @@
 					});
 					sentMessage.add(true)
 						.then(function() {
-							if (recipientCounter !== object.Recipients.length) {
-								sendMessage(recipients[++recipientCounter]);
+							if (++recipientCounter < object.Recipients.length) {
+								sendMessage(recipients[recipientCounter]);
 							} else {
 								$alert({
 									show: true,
@@ -1634,8 +1656,13 @@
 				});
 			});
 			CLASSES.Message.method('deactivate', function() {
+				var deffered = $q.defer();
 				this.Active = false;
-				this.update();
+				this.update()
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
 			// ***********************************************************************
 			// DEFINE THE NOTESTINGDAY CLASS
@@ -1831,6 +1858,7 @@
 				}) : {};
 				this.Policy = this.Message.Policy || false;
 				this.Read = this.newData.Read || false;
+				this.Disabled = (this.newData.MessageId) ? (this.Message.DueDate.compareTo(Date.today()) < 1) : false;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
 			});
