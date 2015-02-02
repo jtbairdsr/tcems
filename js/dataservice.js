@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-02 09:58:19
+ * @Last Modified time: 2015-02-02 10:50:07
  */
 /* global angular, _ */
 
@@ -171,15 +171,13 @@
 						DATA.messages = [];
 						ARRAYS.policies = [];
 						_.each(data.d.results, function(message) {
-							if (message.ToId === null) {
-								message = new CLASSES.Message(message);
-								DATA.messages.push(message);
-								if ((message.AreaId === PROPERTIES.currentUser.AreaId ||
-										message.Area.Description === 'Director') &&
-									message.Active &&
-									message.Policy) {
-									ARRAYS.policies.push(message);
-								}
+							message = new CLASSES.Message(message);
+							DATA.messages.push(message);
+							if ((message.AreaId === PROPERTIES.currentUser.AreaId ||
+									message.Area.Description === 'Director') &&
+								message.Active &&
+								message.Policy) {
+								ARRAYS.policies.push(message);
 							}
 						});
 						deffered.resolve();
@@ -1430,7 +1428,7 @@
 			CLASSES.Employee.method('toString', function(param) {
 				if (param) {
 					if (param === 'name') {
-					return this.PreferredName + ' ' + this.LastName;
+						return this.PreferredName + ' ' + this.LastName;
 					}
 				} else {
 					return this.Position.Description + ': ' + this.PreferredName + ' ' + this.LastName;
