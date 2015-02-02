@@ -21,9 +21,9 @@
 					<tr>
 						<td data-ng-repeat="day in week.days" class="text-center my-schedule" data-ng-hide="day.title === 'Sunday'" data-ng-class="{ weekend: day.weekend }">
 							<span class="pull-right">
-						{{day.date | date:'d'}}
-				</span>
-							<div class="btn-group-vertical my-schedule">
+								{{day.date | date:'d'}}
+							</span>
+							<div class="btn-group-vertical my-schedule" style="min-height: 100px">
 								<button data-ng-hide="shift.subCovered" data-ng-disabled="day.past" data-ng-class="{ subRequested: shift.subRequest, week2: week.title === 'Week 2', week3: week.title === 'Week 3', subCovered: day.past }" class="btn my-schedule" data-ng-repeat="shift in day.myShifts.currentSemester" data-animation="am-fade-and-scale" data-template="partials/schedule/mySchedule/sub-request.html" bs-modal="modal">
 									{{shift.shift.StartTime | date:'h:mm a'}} - {{shift.shift.EndTime | date:'h:mm a'}}
 								</button>

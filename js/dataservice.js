@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-28 20:59:12
+ * @Last Modified time: 2015-02-02 13:14:59
  */
 /* global angular, _ */
 
@@ -104,7 +104,19 @@
 					.success(function(data) {
 						DATA.areaPositions = [];
 						_.each(data.d.results, function(areaPosition) {
-							DATA.areaPositions.push(new CLASSES.AreaPosition(areaPosition));
+							areaPosition = new CLASSES.AreaPosition(areaPosition);
+							DATA.areaPositions.push(areaPosition);
+							if (areaPosition.Position.Description !== 'FTE' &&
+								areaPosition.Position.Description !== 'Applicant' &&
+								areaPosition.Position.Description !== 'Admin') {
+								if (PROPERTIES.currentUser.PositionId !== PROPERTIES.currentUser.Area.DefaultPositionId &&
+									// PROPERTIES.currentUser.Position.Description !== 'FTE' &&
+									!PROPERTIES.currentUser.Admin) {
+									if (areaPosition.AreaId === PROPERTIES.currentUser.AreaId) {
+										ARRAYS.positions.push(areaPosition.Position);
+									}
+								}
+							}
 						});
 						deffered.resolve();
 					});
@@ -127,13 +139,15 @@
 				UTILITIES.fetchAllItems('Employee')
 					.success(function(data) {
 						DATA.employees = [];
+						ARRAYS.employees = [];
 						_.each(data.d.results, function(employee) {
-							DATA.employees.push(new CLASSES.Employee(employee));
+							employee = new CLASSES.Employee(employee);
+							DATA.employees.push(employee);
+							ARRAYS.employees.push(employee);
+							if (employee.Id === PROPERTIES.currentUser.Id) {
+								PROPERTIES.currentUser = employee;
+							}
 						});
-						ARRAYS.employees = _.filter(DATA.employee, function(employee) {
-							return employee.Active;
-						});
-						ARRAYS.directoryEmployees = DATA.employees;
 						deffered.resolve();
 					});
 				return deffered.promise;
@@ -150,14 +164,33 @@
 					});
 				return deffered.promise;
 			};
+			GET.facultyTestingInfos = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('FacultyTestingInfo')
+					.success(function(data) {
+						DATA.facultyTestingInfos = [];
+						_.each(data.d.results, function(facultyTestingInfo) {
+							facultyTestingInfo = new CLASSES.FacultyTestingInfo(facultyTestingInfo);
+							DATA.facultyTestingInfos.push(facultyTestingInfo);
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
 			GET.messages = function() {
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Message')
 					.success(function(data) {
 						DATA.messages = [];
+						ARRAYS.policies = [];
 						_.each(data.d.results, function(message) {
-							if (message.ToId === null) {
-								DATA.messages.push(new CLASSES.Message(message));
+							message = new CLASSES.Message(message);
+							DATA.messages.push(message);
+							if ((message.AreaId === PROPERTIES.currentUser.AreaId ||
+									message.Area.Description === 'Director') &&
+								message.Active &&
+								message.Policy) {
+								ARRAYS.policies.push(message);
 							}
 						});
 						deffered.resolve();
@@ -181,11 +214,27 @@
 				UTILITIES.fetchAllItems('Position')
 					.success(function(data) {
 						DATA.positions = [];
+						ARRAYS.positions = [];
 						_.each(data.d.results, function(position) {
-							DATA.positions.push(new CLASSES.Position(position));
-						});
-						ARRAYS.positions = _.filter(DATA.positions, function(position) {
-							return position.Position !== 'FTE' && position.Position !== 'Applicant' && position.Position !== 'Admin';
+							position = new CLASSES.Position(position);
+							DATA.positions.push(position);
+							if (position.Description !== 'FTE' &&
+								position.Description !== 'Applicant' &&
+								position.Description !== 'Admin') {
+								if (PROPERTIES.currentUser.Id) {
+									if (PROPERTIES.currentUser.Admin
+										/*||
+																				PROPERTIES.currentUser.Position.Description === 'FTE'*/
+									) {
+										ARRAYS.positions.push(position);
+									} else if (
+										PROPERTIES.currentUser.PositionId === PROPERTIES.currentUser.Area.DefaultPositionId &&
+										PROPERTIES.currentUser.PositionId === position.Id
+									) {
+										ARRAYS.positions.push(position);
+									}
+								}
+							}
 						});
 						ARRAYS.allPositions = DATA.positions;
 						deffered.resolve();
@@ -221,14 +270,16 @@
 				UTILITIES.fetchAllItems('SentMessage')
 					.success(function(data) {
 						DATA.sentMessages = [];
+						ARRAYS.messages = [];
+						PROPERTIES.unreadMessages = 0;
 						_.each(data.d.results, function(sentMessage) {
 							sentMessage = new CLASSES.SentMessage(sentMessage);
-							if (sentMessage.EmployeeId === PROPERTIES.currentUser.Id &&
+							if (sentMessage.Message.Active &&
+								sentMessage.EmployeeId === PROPERTIES.currentUser.Id &&
 								sentMessage.Message.Semester.Id === PROPERTIES.currentSemester.Id &&
 								Date.today().compareTo(sentMessage.Message.ExpDate) < 1) {
 								if (!sentMessage.Read &&
-									sentMessage.Message.Mandatory &&
-									Date.today().compareTo(sentMessage.Message.DueDate) < 1) {
+									sentMessage.Message.Mandatory) {
 									PROPERTIES.unreadMessages++;
 								}
 								ARRAYS.messages.push(sentMessage);
@@ -236,7 +287,6 @@
 							DATA.sentMessages.push(sentMessage);
 						});
 						ARRAYS.messages.activePanel = -1;
-						console.log(ARRAYS.messages);
 						deffered.resolve();
 					});
 				return deffered.promise;
@@ -348,13 +398,10 @@
 										.success(function(data) {
 											$location.path("/main/faculty/info");
 											if (data.d.results.length > 0) {
-												GET.FacultyTestingInfo()
-													.then(function() {
-														PROPERTIES.currentUser = new CLASSES.Professor(data.d.results[0]);
-													});
+												PROPERTIES.currentUser = new CLASSES.Professor(data.d.results[0]);
 											} else {
 												PROPERTIES.currentUser = new CLASSES.Professor({
-													EmailAddress: userInfor.Email
+													EmailAddress: userInfo.Email
 												});
 											}
 											deffered.resolve();
@@ -541,12 +588,6 @@
 					return returnEmployeeArray;
 				}
 			};
-			SET.propertyDefaultPosition = function() {
-				PROPERTIES.defaultPosition = PROPERTIES.currentUser.Area.DefaultPosition;
-			};
-			SET.propertyDefaultArea = function() {
-				PROPERTIES.defaultArea = PROPERTIES.currentUser.Area;
-			};
 			///////////////////
 			// ARRAY SETTERS //
 			///////////////////
@@ -670,7 +711,7 @@
 				REFRESH.getData([GET.shiftGroups(), GET.positions(), GET.areas(), GET.tracks(), /*GET.Teams(),*/ GET.professors()])
 					.then(function() {
 						cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
-						REFRESH.getData([GET.shifts(), GET.employees(), GET.semesters(), GET.areaPositions()])
+						REFRESH.getData([GET.shifts(), GET.employees(), GET.semesters(), GET.areaPositions(), GET.facultyTestingInfos()])
 							.then(function() {
 								cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
 								REFRESH.getData([GET.schedules(), GET.subShifts(), GET.availabilities(), GET.employments(), GET.messages(), GET.noTestingDays()])
@@ -691,11 +732,6 @@
 							});
 					});
 				return deffered1.promise;
-			};
-			REFRESH.properties = function() {
-				PROPERTIES.currentUser = new CLASSES.Employee(PROPERTIES.currentUser);
-				SET.propertyDefaultArea();
-				SET.propertyDefaultPosition();
 			};
 			REFRESH.subShifts = function(hideAlert) {
 				hideAlert = hideAlert || false;
@@ -1356,6 +1392,7 @@
 				}) : {};
 				this.PreferredName = this.newData.PreferredName || undefined;
 				this.Reader = this.newData.Reader || false;
+				this.Retired = this.newData.Retired || false;
 				this.TeamId = this.newData.TeamId || undefined;
 				this.Team = (this.newData.TeamId) ? _.find(DATA.teams, function(team) {
 					return team.Id === object.TeamId;
@@ -1393,12 +1430,19 @@
 				returnData.PreferredName = this.PreferredName;
 				returnData.PositionId = this.PositionId;
 				returnData.Reader = this.Reader;
+				returnData.Retired = this.Retired;
 				// returnData.TeamId = this.TeamId;
 				returnData.TrackId = this.TrackId;
 				return returnData;
 			});
-			CLASSES.Employee.method('toString', function() {
-				return this.Position.Description + ': ' + this.PreferredName + ' ' + this.LastName;
+			CLASSES.Employee.method('toString', function(param) {
+				if (param) {
+					if (param === 'name') {
+						return this.PreferredName + ' ' + this.LastName;
+					}
+				} else {
+					return this.Position.Description + ': ' + this.PreferredName + ' ' + this.LastName;
+				}
 			});
 			CLASSES.Employee.method('activate', function() {
 				var employment = new CLASSES.Employment({
@@ -1420,6 +1464,23 @@
 				this.Active = false;
 				this.update();
 			});
+			CLASSES.Employee.method('retire', function() {
+				var deffered = $q.defer();
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				_.each(DATA.employments, function(employment) {
+					if (employment.EndDate === undefined &&
+						employment.EmployeeId === object.Id) {
+						employment.end(true);
+					}
+				});
+				this.Active = false;
+				this.Retired = true;
+				this.update().then(function() {
+					deffered.resolve();
+				});
+				return deffered.promise;
+			});
 			CLASSES.Employee.method('add', function() {
 				var object = this;
 				this.uber('add').then(function() {
@@ -1427,8 +1488,9 @@
 				});
 			});
 			CLASSES.Employee.method('setEmployements', function() {
+				var object = this;
 				this.Employments = _.filter(DATA.employments, function(employment) {
-					return employment.EmployeeId === employee.Id;
+					return employment.EmployeeId === object.Id;
 				});
 			});
 			CLASSES.Employee.method('setIntent', function() {
@@ -1481,6 +1543,43 @@
 				this.update(hideAlert);
 			});
 			// ***********************************************************************
+			// DEFINE THE FACULTYTESTINGINFO CLASS
+			// ***********************************************************************
+			CLASSES.FacultyTestingInfo = function(data) {
+				this.newData = data || {};
+				this.listName = 'FacultyTestingInfo';
+				this.initPublicAttributes();
+			};
+			CLASSES.FacultyTestingInfo.inherits(CLASSES.Data);
+			CLASSES.FacultyTestingInfo.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.ProfessorId = this.newData.ProfessorId || undefined;
+				this.Professor = (this.newData.ProfessorId) ? _.find(DATA.professors, function(professor) {
+					return professor.Id === object.ProfessorId;
+				}) || _.find(DATA.employees, function(employee) {
+					return employee.Id === object.ProfessorId;
+				}) : {};
+				this.Stipulation = this.newData.Stipulation || 'No stipulation.';
+				this.Other = this.newData.Other || undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.FacultyTestingInfo.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.ProfessorId = this.ProfessorId;
+				returnData.Stipulation = this.Stipulation;
+				returnData.Other = this.Other;
+				return returnData;
+			});
+			CLASSES.FacultyTestingInfo.method('toString', function() {
+				if (this.Professor.Id) {
+					return this.Professor.toString() + '\'s testing information';
+				} else {
+					return 'New FacultyTestingInfo';
+				}
+			});
+			// ***********************************************************************
 			// DEFINE THE MESSAGE CLASS
 			// ***********************************************************************
 			CLASSES.Message = function(data) {
@@ -1495,7 +1594,7 @@
 				var object = this;
 				this.Active = this.newData.Active || false;
 				this.AreaId = this.newData.AreaId || undefined;
-				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area){
+				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area) {
 					return area.Id === object.AreaId;
 				}) : {};
 				this.Body = (this.newData.Body) ? this.newData.Body.replace(/<[a-z]*(.*\W)?>/g, '').replace(/<\/[a-z]*(.*\W)?>/g, '') : undefined;
@@ -1525,6 +1624,7 @@
 			CLASSES.Message.method('updateData', function() {
 				var returnData = this.uber('updateData');
 				returnData.Active = this.Active;
+				returnData.AreaId = this.AreaId;
 				returnData.Body = this.Body;
 				returnData.DueDate = this.DueDate;
 				returnData.ExpDate = this.ExpDate;
@@ -1537,6 +1637,15 @@
 			});
 			CLASSES.Message.method('toString', function() {
 				return this.Subject + ' message from ' + this.From.toString().split(': ')[1];
+			});
+			CLASSES.Message.method('add', function() {
+				var deffered = $q.defer();
+				this.Active = true;
+				this.uber('add')
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
 			CLASSES.Message.method('send', function() {
 				var deffered = $q.defer();
@@ -1563,8 +1672,8 @@
 					});
 					sentMessage.add(true)
 						.then(function() {
-							if (recipientCounter !== object.Recipients.length) {
-								sendMessage(recipients[++recipientCounter]);
+							if (++recipientCounter < object.Recipients.length) {
+								sendMessage(recipients[recipientCounter]);
 							} else {
 								$alert({
 									show: true,
@@ -1589,8 +1698,13 @@
 				});
 			});
 			CLASSES.Message.method('deactivate', function() {
+				var deffered = $q.defer();
 				this.Active = false;
-				this.update();
+				this.update()
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
 			// ***********************************************************************
 			// DEFINE THE NOTESTINGDAY CLASS
@@ -1655,9 +1769,9 @@
 			});
 			CLASSES.Position.method('setAccess', function() {
 				if (PROPERTIES.currentUser.Position !== undefined &&
-					PROPERTIES.defaultPosition !== undefined) {
+					PROPERTIES.currentUser.Area.DefaultPosition !== undefined) {
 					this.Access = (
-						this.Id === PROPERTIES.defaultPosition.Id ||
+						this.Id === PROPERTIES.currentUser.Area.DefaultPosition.Id ||
 						this.Description === PROPERTIES.currentUser.Position.Description ||
 						this.Description === 'Proctor' ||
 						PROPERTIES.currentUser.Position.Description === 'FTE' ||
@@ -1667,9 +1781,9 @@
 			});
 			CLASSES.Position.method('setActive', function() {
 				if (PROPERTIES.currentUser.Position !== undefined &&
-					PROPERTIES.defaultPosition !== undefined) {
+					PROPERTIES.currentUser.Area.DefaultPosition !== undefined) {
 					this.Active = (
-						((this.Id === PROPERTIES.defaultPosition.Id &&
+						((this.Id === PROPERTIES.currentUser.Area.DefaultPosition.Id &&
 								PROPERTIES.currentUser.Position.Description === 'FTE') ^
 							this.Description === PROPERTIES.currentUser.Position.Description) === 1
 					);
@@ -1786,6 +1900,7 @@
 				}) : {};
 				this.Policy = this.Message.Policy || false;
 				this.Read = this.newData.Read || false;
+				this.Disabled = (this.newData.MessageId) ? (this.Message.DueDate.compareTo(Date.today()) < 1) : false;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
 			});
@@ -2483,10 +2598,8 @@
 						if (PROPERTIES.loadEmployeeData) {
 							cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
 							dataInitialized = true;
-							PROPERTIES.defaultArea = PROPERTIES.currentUser.Area;
 							REFRESH.data()
 								.then(function() {
-									REFRESH.properties();
 									deffered.resolve();
 								});
 						} else {

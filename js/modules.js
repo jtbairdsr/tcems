@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-28 18:33:50
+ * @Last Modified time: 2015-02-02 10:59:48
  */
 (function() {
 
@@ -23,8 +23,8 @@
 		'mgcrea.ngStrap',
 		'ui.router',
 		'ui.select',
-		'ui.select2',
 		'ui.utils',
+
 
 		// 'mgcrea.ngStrap.collapse',
 		// 'mgcrea.ngStrap.helpers.dateParser',
@@ -33,6 +33,7 @@
 		// 'mgcrea.ngStrap.button',
 
 		// Our custom libraries
+		'Faculty',
 		'Services',
 		'Schedule',
 		'Directory',
@@ -160,83 +161,20 @@
 			.state('main.faculty', {
 				url: '/faculty',
 				abstract: true,
-				templateUrl: 'partials/faculty.html',
+				templateUrl: 'partials/faculty/faculty.html',
 				controllerAs: 'ctrl',
-				controller: function($scope, dataService, $alert) {
-					$scope.properties.currentApp = $scope.properties.currentUser.employeeInfo.FirstName + ' ' + $scope.properties.currentUser.employeeInfo.LastName;
-					this.addFacultyTestingInfo = function() {
-						new dataService.getItems('FacultyTestingInfo')
-							.select(['Professor/Id', 'Stipulation', 'Other', 'Id'])
-							.expand(['Professor'])
-							.where(['Professor/Id', 'eq', generalService.properties.currentUser.employeeInfo.Id])
-							.execute()
-							.success(function(data) {
-								if (data.d.results.length === 0) {
-									dataService.addItem('FacultyTestingInfo', $scope.properties.currentUser.FacultyTestingInfo)
-										.success(function(data) {
-											$alert({
-												show: true,
-												placement: 'top-right',
-												content: 'Your Testing Information has been submitted!',
-												animation: 'am-fade-and-slide-top',
-												duration: '3',
-												type: 'success',
-												template: 'partials/alerts/success-alert.html'
-											});
-										});
-								} else {
-									$alert({
-										show: true,
-										placement: 'top-right',
-										content: 'Your Testing Information has already been submitted!',
-										animation: 'am-fade-and-slide-top',
-										duration: '3',
-										type: 'success',
-										template: 'partials/alerts/success-alert.html'
-									});
-								}
-							});
-					};
-					this.updateFacultyTestingInfo = function() {
-						dataService.updateItem('FacultyTestingInfo', $scope.properties.currentUser.FacultyTestingInfo.Id, $scope.properties.currentUser.FacultyTestingInfo, '*')
-							.success(function(data) {
-								$alert({
-									show: true,
-									placement: 'top-right',
-									content: 'Your Testing Information has been updated!',
-									animation: 'am-fade-and-slide-top',
-									duration: '3',
-									type: 'success',
-									template: 'partials/alerts/success-alert.html'
-								});
-							});
-					};
-					this.updateProfessor = function() {
-						dataService.updateItem('Professor', $scope.properties.currentUser.employeeInfo.Id, $scope.properties.currentUser.employeeInfo, '*')
-							.success(function(data) {
-								$alert({
-									show: true,
-									placement: 'top-right',
-									content: 'Your Information has been updated!',
-									animation: 'am-fade-and-slide-top',
-									duration: '3',
-									type: 'success',
-									template: 'partials/alerts/success-alert.html'
-								});
-							});
-					};
-				}
+				controller: 'FacultyCtrl'
 			})
 			.state('main.faculty.info', {
 				url: '/info',
-				templateUrl: 'partials/faculty.info.html',
+				templateUrl: 'partials/faculty/info.html',
 			})
 			///////////////////
 			// Utilities State //
 			///////////////////
 			.state('main.utilities', {
 				url: '/utilities',
-				templateUrl: 'partials/utilities.html',
+				templateUrl: 'partials/utilities/utilities.html',
 				controller: 'UtilitiesCtrl'
 			});
 		// TODO: add additional states
@@ -269,7 +207,6 @@
 		'ngSanitize',
 
 		// 3rd party modules
-		'ui.select2',
 		'mgcrea.ngStrap',
 		// 'mgcrea.ngStrap.helpers.dateParser',
 		// 'ui.bootstrap',
@@ -288,7 +225,6 @@
 		'ngSanitize',
 
 		// 3rd party modules
-		'ui.select2',
 		'mgcrea.ngStrap',
 		// 'mgcrea.ngStrap.helpers.dateParser',
 
@@ -307,7 +243,6 @@
 		'ngSanitize',
 
 		// 3rd party libraries
-		'ui.select2',
 		'ui.router',
 		'mgcrea.ngStrap',
 		// 'mgcrea.ngStrap.helpers.dateParser',
