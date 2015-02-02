@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-02 10:50:07
+ * @Last Modified time: 2015-02-02 13:14:59
  */
 /* global angular, _ */
 
@@ -159,6 +159,19 @@
 						DATA.employments = [];
 						_.each(data.d.results, function(employment) {
 							DATA.employments.push(new CLASSES.Employment(employment));
+						});
+						deffered.resolve();
+					});
+				return deffered.promise;
+			};
+			GET.facultyTestingInfos = function() {
+				var deffered = $q.defer();
+				UTILITIES.fetchAllItems('FacultyTestingInfo')
+					.success(function(data) {
+						DATA.facultyTestingInfos = [];
+						_.each(data.d.results, function(facultyTestingInfo) {
+							facultyTestingInfo = new CLASSES.FacultyTestingInfo(facultyTestingInfo);
+							DATA.facultyTestingInfos.push(facultyTestingInfo);
 						});
 						deffered.resolve();
 					});
@@ -385,13 +398,10 @@
 										.success(function(data) {
 											$location.path("/main/faculty/info");
 											if (data.d.results.length > 0) {
-												GET.FacultyTestingInfo()
-													.then(function() {
-														PROPERTIES.currentUser = new CLASSES.Professor(data.d.results[0]);
-													});
+												PROPERTIES.currentUser = new CLASSES.Professor(data.d.results[0]);
 											} else {
 												PROPERTIES.currentUser = new CLASSES.Professor({
-													EmailAddress: userInfor.Email
+													EmailAddress: userInfo.Email
 												});
 											}
 											deffered.resolve();
@@ -701,7 +711,7 @@
 				REFRESH.getData([GET.shiftGroups(), GET.positions(), GET.areas(), GET.tracks(), /*GET.Teams(),*/ GET.professors()])
 					.then(function() {
 						cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
-						REFRESH.getData([GET.shifts(), GET.employees(), GET.semesters(), GET.areaPositions()])
+						REFRESH.getData([GET.shifts(), GET.employees(), GET.semesters(), GET.areaPositions(), GET.facultyTestingInfos()])
 							.then(function() {
 								cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
 								REFRESH.getData([GET.schedules(), GET.subShifts(), GET.availabilities(), GET.employments(), GET.messages(), GET.noTestingDays()])
@@ -1531,6 +1541,43 @@
 				hideAlert = hideAlert || false;
 				this.EndDate = new Date();
 				this.update(hideAlert);
+			});
+			// ***********************************************************************
+			// DEFINE THE FACULTYTESTINGINFO CLASS
+			// ***********************************************************************
+			CLASSES.FacultyTestingInfo = function(data) {
+				this.newData = data || {};
+				this.listName = 'FacultyTestingInfo';
+				this.initPublicAttributes();
+			};
+			CLASSES.FacultyTestingInfo.inherits(CLASSES.Data);
+			CLASSES.FacultyTestingInfo.method('initPublicAttributes', function() {
+				/** @privateAtribute {object} an alias for this */
+				var object = this;
+				this.ProfessorId = this.newData.ProfessorId || undefined;
+				this.Professor = (this.newData.ProfessorId) ? _.find(DATA.professors, function(professor) {
+					return professor.Id === object.ProfessorId;
+				}) || _.find(DATA.employees, function(employee) {
+					return employee.Id === object.ProfessorId;
+				}) : {};
+				this.Stipulation = this.newData.Stipulation || 'No stipulation.';
+				this.Other = this.newData.Other || undefined;
+				this.uber('initPublicAttributes');
+				this.data = this.updateData();
+			});
+			CLASSES.FacultyTestingInfo.method('updateData', function() {
+				var returnData = this.uber('updateData');
+				returnData.ProfessorId = this.ProfessorId;
+				returnData.Stipulation = this.Stipulation;
+				returnData.Other = this.Other;
+				return returnData;
+			});
+			CLASSES.FacultyTestingInfo.method('toString', function() {
+				if (this.Professor.Id) {
+					return this.Professor.toString() + '\'s testing information';
+				} else {
+					return 'New FacultyTestingInfo';
+				}
 			});
 			// ***********************************************************************
 			// DEFINE THE MESSAGE CLASS

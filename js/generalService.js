@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-29 14:39:13
+ * @Last Modified time: 2015-02-02 13:14:11
  */
 /* global angular, _ */
 
@@ -265,4 +265,17 @@
 			};
 		}
 	]);
+	app.filter('professorFilter', function() {
+		return function(professors, parameter) {
+			parameter = parameter || '^.';
+			parameter = new RegExp(parameter, 'i');
+			professors = _.filter(professors, function(professor) {
+				return (
+					parameter.test(professor.Professor.FirstName) ||
+					parameter.test(professor.Professor.LastName)
+				);
+			});
+			return professors;
+		};
+	});
 })();

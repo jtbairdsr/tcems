@@ -95,14 +95,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr data-ng-repeat="professor in arrays.professors | filter: professorSearch | orderBy: 'Professor.LastName'">
+                            <tr data-ng-repeat="facultyTestingInfo in data.facultyTestingInfos | professorFilter:professorSearch | orderBy: 'Professor.LastName'">
                                 <td>
-                                    <img data-ng-src="{{professor.Professor.Picture}}" fallback-src="/media/missing.png" class="pull-right img-circle" data-ng-style="{'max-width': '40px', 'max-height': '56.67px'}" data-template="partials/profile.professor-info.html" data-animation="am-flip-x" data-placement="right" bs-tooltip="tooltip">
+                                    <img data-ng-src="{{facultyTestingInfo.Professor.Picture}}" fallback-src="/media/missing.png" class="pull-right img-circle" data-ng-style="{'max-width': '40px', 'max-height': '56.67px'}" data-template="partials/profile.professor-info.html" data-animation="am-flip-x" data-placement="right" bs-tooltip="tooltip">
                                 </td>
                                 <td>
-                                    {{professor.FirstName}} {{professor.LastName}}
+                                    {{facultyTestingInfo.Professor.FirstName}} {{facultyTestingInfo.Professor.LastName}}
                                 </td>
-                                <td>{{professor.Stipulation}}</td>
+                                <td>{{facultyTestingInfo.Stipulation}}</td>
                             </tr>
                             <tr>
                                 <th colspan="4">If you haven't found your Professor's Instructions than they haven't contacted us yet.</th>
