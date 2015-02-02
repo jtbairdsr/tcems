@@ -99,9 +99,6 @@
 						<div data-ng-repeat="employment in data.employments | filter:{EmployeeId: employee.Id}">
 							<div class="row-fluid">
 								<div class="form-group">
-									<button type="button" class="btn btn-danger" data-ng-click="employment.remove()" data-ng-show="properties.currentUser.Admin">
-										<span class="glyphicon glyphicon-remove-sign"></span>
-									</button>
 									<div class="input-group">
 										<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="employment.StartDate" autoclose="true" data-ng-disabled="!employment.Edit">
 										<span class="input-group-addon">
@@ -109,9 +106,15 @@
 										</span>
 										<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="employment.EndDate" autoclose="true" data-ng-disabled="!employment.Edit">
 										<div class="input-group-btn">
-											<button type="button" class="btn btn-default" data-ng-click="ctrl.editEmployment(employment)">
+											<button type="button" class="btn btn-default" data-ng-show="employment.Edit" data-ng-click="employment.Edit = false">
+												<span class="glyphicon glyphicon-remove"></span>
+											</button>
+											<button type="button" class="btn btn-danger" data-ng-click="employment.remove()" data-ng-show="properties.currentUser.Admin && employment.Edit">
+												<span class="glyphicon glyphicon-trash"></span>
+											</button>
+											<button type="button" class="btn btn-default" data-ng-click="ctrl.editEmployment(employment)" data-ng-class="{'btn-success':employment.Edit}">
 												<span class="glyphicon glyphicon-edit" data-ng-hide="employment.Edit"></span>
-												<span class="glyphicon glyphicon-save" data-ng-show="employment.Edit"></span>
+												<span class="glyphicon glyphicon-floppy-disk" data-ng-show="employment.Edit"></span>
 											</button>
 										</div>
 									</div>
@@ -130,9 +133,12 @@
 									</span>
 									<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="ctrl.newEmployment.EndDate" autoclose="true" data-ng-disabled="!ctrl.newEmployment.Edit">
 									<div class="input-group-btn">
-										<button type="button" class="btn btn-default" data-ng-click="ctrl.addEmployment()">
+										<button type="button" class="btn btn-default" data-ng-show="ctrl.newEmployment.Edit && ctrl.newEmployment.StartDate" data-ng-click="ctrl.newEmployment.Edit = false">
+											<span class="glyphicon glyphicon-remove"></span>
+										</button>
+										<button type="button" class="btn btn-default" data-ng-click="ctrl.addEmployment()" data-ng-class="{'btn-success':ctrl.newEmployment.Edit && ctrl.newEmployment.StartDate}">
 											<span class="glyphicon glyphicon-plus" data-ng-hide="ctrl.newEmployment.Edit"></span>
-											<span class="glyphicon glyphicon-save" data-ng-show="ctrl.newEmployment.Edit && ctrl.newEmployment.StartDate"></span>
+											<span class="glyphicon glyphicon-floppy-disk" data-ng-show="ctrl.newEmployment.Edit && ctrl.newEmployment.StartDate"></span>
 											<span class="glyphicon glyphicon-remove" data-ng-show="ctrl.newEmployment.Edit && !ctrl.newEmployment.StartDate"></span>
 										</button>
 									</div>
@@ -143,7 +149,7 @@
 				</div>
 				<!-- MESSAGES -->
 				<!-- <div class="row" data-ng-show="tab === 'messages'"> -->
-					<!-- TODO: Create the messages view tab -->
+				<!-- TODO: Create the messages view tab -->
 				<!-- </div> -->
 			</div>
 			<div class="modal-footer">

@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:10
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-30 19:22:27
+ * @Last Modified time: 2015-02-02 09:26:05
  */
 (function() {
 	var app = angular.module('App');
@@ -41,6 +41,16 @@
 				return employee.Position.Id === ctrl.positionFTE.Id ||
 					employee.Admin;
 			});
+			ctrl.clearMessage = function() {
+				ctrl.newMessage = new CLASSES.Message({
+					FromId: generalService.properties.currentUser.Id,
+					ExpDate: Date.today()
+						.addWeeks(1),
+					DueDate: Date.today()
+						.addWeeks(1),
+					AreaId: PROPERTIES.currentUser.Area.Id
+				});
+			};
 			ctrl.setUniversalPolicy = function() {
 				if (ctrl.newMessage.UniversalPolicy) {
 					ctrl.newMessage.AreaId = '';
@@ -97,7 +107,7 @@
 				if (ctrl.newMessage.Policy) {
 					ctrl.newMessage.Mandatory = true;
 				}
-				if(ctrl.newMessage.DueDate.compareTo(ctrl.newMessage.ExpDate) > 0) {
+				if (ctrl.newMessage.DueDate.compareTo(ctrl.newMessage.ExpDate) > 0) {
 					ctrl.newMessage.DueDate = ctrl.newMessage.ExpDate;
 				}
 				ctrl.newMessage.send().then(function() {

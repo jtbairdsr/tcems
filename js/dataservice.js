@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-01-30 19:28:03
+ * @Last Modified time: 2015-02-02 09:58:19
  */
 /* global angular, _ */
 
@@ -144,7 +144,7 @@
 							employee = new CLASSES.Employee(employee);
 							DATA.employees.push(employee);
 							ARRAYS.employees.push(employee);
-							if(employee.Id === PROPERTIES.currentUser.Id) {
+							if (employee.Id === PROPERTIES.currentUser.Id) {
 								PROPERTIES.currentUser = employee;
 							}
 						});
@@ -1427,8 +1427,14 @@
 				returnData.TrackId = this.TrackId;
 				return returnData;
 			});
-			CLASSES.Employee.method('toString', function() {
-				return this.Position.Description + ': ' + this.PreferredName + ' ' + this.LastName;
+			CLASSES.Employee.method('toString', function(param) {
+				if (param) {
+					if (param === 'name') {
+					return this.PreferredName + ' ' + this.LastName;
+					}
+				} else {
+					return this.Position.Description + ': ' + this.PreferredName + ' ' + this.LastName;
+				}
 			});
 			CLASSES.Employee.method('activate', function() {
 				var employment = new CLASSES.Employment({
