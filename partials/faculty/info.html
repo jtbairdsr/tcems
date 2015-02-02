@@ -9,19 +9,19 @@
 				<div class="panel-body">
 					<div class="row-fluid">
 						<label>Stipulation:</label>
-						<div class="btn-group btn-group-justified" data-ng-model="properties.ProfessorInfo.FacultyTestingInfo.Stipulation" bs-radio-group>
-							<label class="btn btn-default">
-								<input type="radio" value="No stipulation." class="btn btn-default">No stipulation.
-							</label>
-							<label class="btn btn-default">
-								<input type="radio" value="Take before you work." class="btn btn-default">Take before you work.
-							</label>
-							<label class="btn btn-default">
-								<input type="radio" value="Take before it opens." class="btn btn-default">Take before it opens.
-							</label>
-							<label class="btn btn-default">
-								<input type="radio" value="Talk to the Professor." class="btn btn-default">Talk to the Professor.
-							</label>
+						<div class="btn-group btn-group-justified">
+							<div class="btn-group">
+								<label class="btn btn-default" data-ng-class="{active:properties.ProfessorInfo.FacultyTestingInfo.Stipulation === 'No stipulation.'}" data-ng-click="properties.ProfessorInfo.FacultyTestingInfo.Stipulation = 'No stipulation.'">No stipulation.</label>
+							</div>
+							<div class="btn-group">
+								<label class="btn btn-default" data-ng-class="{active:properties.ProfessorInfo.FacultyTestingInfo.Stipulation === 'Take before you work.'}" data-ng-click="properties.ProfessorInfo.FacultyTestingInfo.Stipulation = 'Take before you work.'">Take before you work.</label>
+							</div>
+							<div class="btn-group">
+								<label class="btn btn-default" data-ng-class="{active:properties.ProfessorInfo.FacultyTestingInfo.Stipulation === 'Take before it opens.'}" data-ng-click="properties.ProfessorInfo.FacultyTestingInfo.Stipulation = 'Take before it opens.'">Take before it opens.</label>
+							</div>
+							<div class="btn-group">
+								<label class="btn btn-default" data-ng-class="{active:properties.ProfessorInfo.FacultyTestingInfo.Stipulation === 'Talk to the Professor.'}" data-ng-click="properties.ProfessorInfo.FacultyTestingInfo.Stipulation = 'Talk to the Professor.'">Talk to the Professor.</label>
+							</div>
 						</div>
 					</div>
 					<buffer></buffer>
