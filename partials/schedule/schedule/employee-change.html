@@ -1,4 +1,4 @@
-<div class="modal" tabindex="-1" role="dialog">
+<div class="modal" tabindex="-1" role="dialog" data-ng-controller="ScheduleCtrl as sctrl">
 	<div class="modal-dialog text-muted text-left">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -24,8 +24,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-ng-click="$hide()">No</button>
-				<button type="button" class="btn btn-success" data-ng-hide="employee.Info.Id < 0" data-ng-click="employee.Schedule.deactivate();ctrl.refreshContent(true); $hide()">Yes</button>
-				<button type="button" class="btn btn-success" data-ng-show="employee.Info.Id < 0" data-ng-disabled="!employee.Schedule.EmployeeId" data-ng-click="employee.Schedule.add();ctrl.refreshContent(true); $hide()">Yes</button>
+				<button type="button" class="btn btn-success" data-ng-hide="employee.Info.Id < 0" data-ng-click="sctrl.removeEmployee();$hide()">Yes</button>
+				<button type="button" class="btn btn-success" data-ng-show="employee.Info.Id < 0" data-ng-disabled="!employee.Schedule.EmployeeId" data-ng-click="sctrl.addEmployee(); $hide()">Yes</button>
 			</div>
 		</div>
 	</div>

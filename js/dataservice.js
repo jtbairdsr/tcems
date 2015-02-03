@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-03 08:22:51
+ * @Last Modified time: 2015-02-03 08:50:45
  */
 /* global angular, _ */
 
@@ -1874,8 +1874,13 @@
 				return this.Employee.toString() + '\'s schedule';
 			});
 			CLASSES.Schedule.method('deactivate', function() {
+				var deffered = $q.defer();
 				this.Active = false;
-				this.update();
+				this.update()
+					.then(function() {
+						deffered.resolve();
+					});
+				return deffered.promise;
 			});
 			// ***********************************************************************
 			// DEFINE THE SENTMESSAGE CLASS
