@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-02 13:48:41
+ * @Last Modified time: 2015-02-03 08:22:51
  */
 /* global angular, _ */
 
@@ -1672,7 +1672,7 @@
 					});
 					sentMessage.add(true)
 						.then(function() {
-							if (++recipientCounter < object.Recipients.length) {
+							if (++recipientCounter < recipients.length) {
 								sendMessage(recipients[recipientCounter]);
 							} else {
 								$alert({
