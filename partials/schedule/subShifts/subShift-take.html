@@ -17,6 +17,10 @@
                 <!-- ---------If there is NOT a Substitute you will see this view--------- -->
 
                 <div class="row text-center" data-ng-show="subShift.subShift.SubstituteId === undefined">
+                    <div class="row-fluid" data-ng-show="properties.extendedPrivledges">
+                        Requested: {{subShift.subShift.Created | date:'MMM d'}}
+                    </div>
+                    <buffer></buffer>
                     {{day.date | date:'MMM d'}}
                     <br>{{subShift.shift.StartTime | date:'hh:mm a'}} to {{subShift.shift.EndTime | date:'hh:mm a'}}
                     <br>
@@ -27,6 +31,9 @@
                 <!-- -----------If there is a Substitute you will see this view----------- -->
 
                 <div data-ng-hide="subShift.subShift.SubstituteId === undefined">
+                    <div class="row-fluid" data-ng-show="properties.extendedPrivledges">
+                        Created: {{subShift.shift.Created | date:'MMM d'}}
+                    </div>
                     <div class="row text-center">
                         {{day.date | date:'MMM d'}}
                         <br>{{subShift.shift.StartTime | date:'h:mm a'}} to {{subShift.shift.EndTime | date:'h:mm a'}}
