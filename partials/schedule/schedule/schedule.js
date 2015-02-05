@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:55:05
  * @Last Modified by:   jonathan
- * @Last Modified time: 2015-02-03 08:51:46
+ * @Last Modified time: 2015-02-05 09:35:14
  */
 
 (function() {
@@ -24,7 +24,6 @@
 				shift = $scope.shift.shift,
 				subShift;
 
-			console.log($scope.employee.Schedule);
 			this.addEmployee = function() {
 				$scope.employee.Schedule.add()
 					.then(function() {
