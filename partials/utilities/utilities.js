@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-02-02 11:00:44
+ * @Last Modified time: 2015-02-05 10:14:50
  */
 /* global angular, saveAs */
 (function() {
@@ -29,47 +29,47 @@
                 retireEmployee(DATA.employees[employeeCounter]);
 
                 function retireEmployee(employee) {
-                        employee.setEmployements();
-                        var retire = false;
-                        if (!employee.Retired || employee.Active) {
-                            retire = true;
-                            _.each(employee.Employments, function(employment) {
-                                if (employment.EndDate) {
-                                    if (employment.EndDate.compareTo(Date.parse('January 1, 2014')) > 0) {
-                                        retire = false;
-                                    }
-                                } else {
+                    employee.setEmployements();
+                    var retire = false;
+                    if (!employee.Retired || employee.Active) {
+                        retire = true;
+                        _.each(employee.Employments, function(employment) {
+                            if (employment.EndDate) {
+                                if (employment.EndDate.compareTo(Date.parse('January 1, 2014')) > 0) {
                                     retire = false;
                                 }
-                            });
-                        }
-                        if (retire) {
-                            console.groupCollapsed('%c retireing employees "%s"', "color:orange", employee.toString('name'));
-                        } else {
-                            console.groupCollapsed('retireing employees "%s"', employee.toString('name'));
-                        }
-                        _.each(employee.Employments, function(employment) {
-                            console.log(((employment.StartDate) ? employment.StartDate.toString('d-MMM-yyyy') : '') + ' ' + ((employment.EndDate) ? employment.EndDate.toString('d-MMM-yyyy') : ''));
-                        });
-                        console.log(retire);
-                        console.groupEnd();
-                        if (retire) {
-                            employee.retire(true)
-                                .then(function() {
-                                    if (++employeeCounter < DATA.employees.length) {
-                                        retireEmployee(DATA.employees[employeeCounter]);
-                                    } else {
-                                        $alert(finishedAlert);
-                                    }
-                                });
-                        } else {
-                            if (++employeeCounter < DATA.employees.length) {
-                                retireEmployee(DATA.employees[employeeCounter]);
                             } else {
-                                $alert(finishedAlert);
+                                retire = false;
                             }
+                        });
+                    }
+                    if (retire) {
+                        console.groupCollapsed('%c retireing employees "%s"', "color:orange", employee.toString('name'));
+                    } else {
+                        console.groupCollapsed('retireing employees "%s"', employee.toString('name'));
+                    }
+                    _.each(employee.Employments, function(employment) {
+                        console.log(((employment.StartDate) ? employment.StartDate.toString('d-MMM-yyyy') : '') + ' ' + ((employment.EndDate) ? employment.EndDate.toString('d-MMM-yyyy') : ''));
+                    });
+                    console.log(retire);
+                    console.groupEnd();
+                    if (retire) {
+                        employee.retire(true)
+                            .then(function() {
+                                if (++employeeCounter < DATA.employees.length) {
+                                    retireEmployee(DATA.employees[employeeCounter]);
+                                } else {
+                                    $alert(finishedAlert);
+                                }
+                            });
+                    } else {
+                        if (++employeeCounter < DATA.employees.length) {
+                            retireEmployee(DATA.employees[employeeCounter]);
+                        } else {
+                            $alert(finishedAlert);
                         }
                     }
+                }
             };
             ctrl.getPictures = function() {
                 // initialize lists
@@ -79,9 +79,9 @@
                 // we have to sort out the FTEs from the student Employees so we set them aside temporarily
                 _.each(DATA.employees, function(employee) {
                     if (employee.Position.Position === 'FTE') {
-                        FTEList.push(employee.picture);
+                        FTEList.push(employee.Picture.replace(/\//g, '\\') + ' ');
                     } else {
-                        batFileContents.push(employee.picture);
+                        batFileContents.push(employee.Picture.replace(/\//g, '\\') + ' ');
                     }
                 });
                 // Add a different command to the batchfile
@@ -92,7 +92,7 @@
                 });
                 // Add each professor to the batchfile
                 _.each(DATA.professors, function(professor) {
-                    batFileContents.push(professor.picture);
+                    batFileContents.push(professor.Picture.replace(/\//g, '\\') + ' ');
                 });
                 // Add the end options and commands to the batchfile
                 batFileContents.push('/XC /XN /XO\ndel /f "%~f0%"');
