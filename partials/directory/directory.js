@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-02-05 14:07:05
+ * @Last Modified time: 2015-02-05 16:19:32
  */
 (function() {
 	var directory = angular.module('Directory');
@@ -78,7 +78,18 @@
 					}
 				}
 			});
-
+			ctrl.unreadMessages = [];
+			_.each(DATA.sentMessages, function(message) {
+				if (message.EmployeeId === employee.Id &&
+					(message.Message.Mandatory && message.AckDate === undefined) &&
+					message.Message.Active &&
+					message.Message.SemesterId === PROPERTIES.currentSemester.Id) {
+					ctrl.unreadMessages.push({
+						Message: message.Message.toString().replace(/\n\r?/g, '<br />'),
+						OverDue: (message.Message.DueDate < new Date())
+					});
+				}
+			});
 			ctrl.editEmployment = function(employment) {
 				if (employment.Edit) {
 					employment.update();

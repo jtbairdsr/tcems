@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-05 13:21:07
+ * @Last Modified time: 2015-02-05 16:17:22
  */
 /* global angular, _ */
 
@@ -1636,7 +1636,7 @@
 				return returnData;
 			});
 			CLASSES.Message.method('toString', function() {
-				return this.Subject + ' message from ' + this.From.toString().split(': ')[1];
+				return 'Subject: ' + this.Subject + '\n From: ' + this.From.toString('name');
 			});
 			CLASSES.Message.method('add', function() {
 				var deffered = $q.defer();
