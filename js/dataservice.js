@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-05 16:17:22
+ * @Last Modified time: 2015-02-05 16:38:18
  */
 /* global angular, _ */
 
@@ -2491,7 +2491,6 @@
 			 */
 			CLASSES.Day.method('getMyShifts', function() {
 				/** @privateAtribute {day} an alias for this */
-				console.log(new Date());
 				var day = this;
 				this.myShifts = {
 					currentSemester: [],
