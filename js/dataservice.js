@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-03 08:50:45
+ * @Last Modified time: 2015-02-05 11:09:56
  */
 /* global angular, _ */
 
@@ -2491,6 +2491,7 @@
 			 */
 			CLASSES.Day.method('getMyShifts', function() {
 				/** @privateAtribute {day} an alias for this */
+				console.log(new Date());
 				var day = this;
 				this.myShifts = {
 					currentSemester: [],
@@ -2531,6 +2532,10 @@
 									subShift: undefined,
 									shift: schedule.Shift,
 									subRequest: requestedSub,
+									disabled: (day.date.set({
+										hour: parseInt(schedule.Shift.StartTime.toString('H')),
+										minute: parseInt(schedule.Shift.StartTime.toString('m'))
+									}) <= new Date().today().addDays(1))
 								});
 							}
 							subShifts = _.without(subShifts, requestedSub);
@@ -2539,7 +2544,11 @@
 								shift: schedule.Shift,
 								isSubShift: false,
 								subShift: undefined,
-								subRequest: undefined
+								subRequest: undefined,
+								disabled: (day.date.set({
+									hour: parseInt(schedule.Shift.StartTime.toString('H')),
+									minute: parseInt(schedule.Shift.StartTime.toString('m'))
+								}) <= new Date().addDays(1))
 							});
 						}
 					});
@@ -2550,7 +2559,11 @@
 									shift: subShift.Shift,
 									isSubShift: true,
 									subShift: subShift,
-									subRequest: subShift.NewRequest
+									subRequest: subShift.NewRequest,
+									disabled: (day.date.set({
+										hour: parseInt(schedule.Shift.StartTime.toString('H')),
+										minute: parseInt(schedule.Shift.StartTime.toString('m'))
+									}) <= new Date().today().addDays(1))
 								});
 							}
 						} else {
@@ -2558,7 +2571,11 @@
 								shift: subShift.Shift,
 								isSubShift: true,
 								subShift: subShift,
-								subRequest: undefined
+								subRequest: undefined,
+								disabled: (day.date.set({
+									hour: parseInt(schedule.Shift.StartTime.toString('H')),
+									minute: parseInt(schedule.Shift.StartTime.toString('m'))
+								}) <= new Date().today().addDays(1))
 							});
 						}
 					});
