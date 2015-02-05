@@ -20,6 +20,9 @@
 						<li role="presentation" data-ng-class="{active: tab === 'employment'}">
 							<a data-ng-click="tab = 'employment'">Employment</a>
 						</li>
+						<li role="presentation" data-ng-class="{active: tab === 'subShifts'}">
+							<a data-ng-click="tab = 'subShifts'">SubShifts</a>
+						</li>
 						<!-- <li role="presentation" data-ng-class="{active: tab === 'messages'}">
 							<a data-ng-click="tab = 'messages'">Messages</a>
 						</li> -->
@@ -147,8 +150,35 @@
 						</div>
 					</div>
 				</div>
+				<!-- SUBSHIFTS -->
+				<div class="row-fluid" data-ng-show="tab === 'subShifts'">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<b>{{employee.toString('name')}} {{(ctrl.isASub) ? ' is only a Sub.' : ' works a regular shift.'}}</b>
+						</div>
+					</div>
+					<buffer></buffer>
+					<div class="row">
+						<div class="col-md-6" style="border-right: 1px solid #ccc">
+							<h4>Worked Shifts</h4>
+							<ul class="list-group" style="max-height: 150px; overflow: scroll">
+								<li class="list-group-item" data-ng-repeat="subShift in ctrl.workedSubShifts | orderBy:'Date'">
+									{{subShift.Date.toString('dddd MMM dS')}} {{subShift.Shift.StartTime.toString('h:mm')}} - {{subShift.Shift.EndTime.toString('h:mm')}}
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<h4>Requested Shifts</h4>
+							<ul class="list-group" style="max-height: 150px; overflow: scroll">
+								<li class="list-group-item" data-ng-repeat="subShift in ctrl.requestedSubShifts | orderBy:'Date'" data-ng-class="{'list-group-item-danger': (subShift.SubstituteId === undefined)}">
+									{{subShift.Date.toString('dddd MMM dS')}} {{subShift.Shift.StartTime.toString('h:mm')}} - {{subShift.Shift.EndTime.toString('h:mm')}}
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 				<!-- MESSAGES -->
-				<!-- <div class="row" data-ng-show="tab === 'messages'"> -->
+				<!-- <div class="row-fluid[" data-ng-show="tab === 'messages'"> -->
 				<!-- TODO: Create the messages view tab -->
 				<!-- </div> -->
 			</div>

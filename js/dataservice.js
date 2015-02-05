@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-05 11:09:56
+ * @Last Modified time: 2015-02-05 13:21:07
  */
 /* global angular, _ */
 
@@ -2147,7 +2147,7 @@
 			});
 			CLASSES.SubShift.method('toString', function() {
 				if (this.SubstituteId) {
-					return this.Substitute.toString().split(': ')[1] + ' subbing for ' + this.Requester.toString().split(': ')[1] + '\n' + this.Date.toString('dddd') + ' ' + this.Shift.toString().split('\n')[1];
+					return this.Substitute.toString().split(': ')[1] + ' subbing for ' + this.Requester.toString().split(': ')[1] + '\n' + this.Date.toString('dddd MMM dS') + ' from ' + this.Shift.toString().split('\n')[1];
 				} else if (this.RequesterId) {
 					return this.Requester.toString().split(': ')[1] + ' Sub Request\n' + this.Date.toString('dddd') + ' ' + this.Shift.toString().split('\n')[1];
 				} else {

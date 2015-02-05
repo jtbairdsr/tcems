@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-02-05 09:59:11
+ * @Last Modified time: 2015-02-05 14:07:05
  */
 (function() {
 	var directory = angular.module('Directory');
@@ -40,17 +40,43 @@
 			$scope.tab = 'profile';
 
 			var CLASSES = dataService.classes,
+				DATA = generalService.data,
 				PROPERTIES = generalService.properties;
 			var ctrl = this,
 				employee = $scope.employee || PROPERTIES.currentUser,
 				initialPhoneNumber = employee.PhoneNumber;
 
+			ctrl.isASub = (_.find(DATA.schedules, function(schedule) {
+				return (
+					schedule.EmployeeId === employee.Id &&
+					schedule.SemesterId === PROPERTIES.currentSemester.Id &&
+					schedule.Active
+				);
+			}) === undefined);
 			ctrl.newEmployee = new CLASSES.Employee({
 				PositionId: PROPERTIES.currentUser.Area.DefaultPosition.Id,
 				AreaId: PROPERTIES.currentUser.AreaId
 			});
 			ctrl.newEmployment = new CLASSES.Employment({
 				EmployeeId: employee.Id
+			});
+			ctrl.workedSubShifts = [];
+			ctrl.requestedSubShifts = [];
+			_.each(DATA.subShifts, function(subShift) {
+				if (subShift.Active &&
+					subShift.SemesterId === PROPERTIES.currentSemester.Id) {
+					if (subShift.RequesterId === employee.Id) {
+						ctrl.requestedSubShifts.push(subShift);
+					} else if (subShift.SubstituteId === employee.Id) {
+						if (subShift.NewRequestId !== undefined) {
+							if (subShift.NewRequestId.SubstituteId === undefined) {
+								ctrl.workedSubShifts.push(subShift);
+							}
+						} else {
+							ctrl.workedSubShifts.push(subShift);
+						}
+					}
+				}
 			});
 
 			ctrl.editEmployment = function(employment) {
