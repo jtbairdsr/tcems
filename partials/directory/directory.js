@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-30 19:23:15
+ * @Last Modified time: 2015-02-05 09:59:11
  */
 (function() {
 	var directory = angular.module('Directory');
@@ -75,6 +75,7 @@
 			};
 			ctrl.addEmployee = function() {
 				if (/([a-zA-Z]){3}\d{5}/.test(ctrl.newEmployee.EmailAddress)) {
+					ctrl.newEmployee.EmailAddress = ctrl.newEmployee.EmailAddress.split('@')[0];
 					ctrl.newEmployee.Picture = '/media/' + ctrl.newEmployee.EmailAddress + '.jpg';
 					ctrl.newEmployee.EmailAddress += '@byui.edu';
 					if ((ctrl.newEmployee.PhoneNumber = ctrl.newEmployee.PhoneNumber.replace(/\D/g, '')).length === 10) {
