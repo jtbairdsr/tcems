@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-05 18:13:50
+ * @Last Modified time: 2015-02-05 20:18:56
  */
 /* global angular, _ */
 
@@ -2546,7 +2546,7 @@
 									disabled: (day.date.set({
 										hour: parseInt(schedule.Shift.StartTime.toString('H')),
 										minute: parseInt(schedule.Shift.StartTime.toString('m'))
-									}) <= new Date().today().addDays(1))
+									}) <= new Date().addDays(1))
 								});
 							}
 							subShifts = _.without(subShifts, requestedSub);
