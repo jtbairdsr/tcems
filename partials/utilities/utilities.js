@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-02-05 17:01:01
+ * @Last Modified time: 2015-02-06 10:43:38
  */
 /* global angular, saveAs */
 (function() {
@@ -61,9 +61,9 @@
                 // we have to sort out the FTEs from the student Employees so we set them aside temporarily
                 _.each(DATA.employees, function(employee) {
                     if (employee.Position.Position === 'FTE') {
-                        FTEList.push(employee.Picture.replace(/\//g, '\\') + ' ');
+                        FTEList.push(employee.Picture.split('media/')[1].replace(/\//g, '\\') + ' ');
                     } else {
-                        batFileContents.push(employee.Picture.replace(/\//g, '\\') + ' ');
+                        batFileContents.push(employee.Picture.split('media/')[1].replace(/\//g, '\\') + ' ');
                     }
                 });
                 // Add a different command to the batchfile
@@ -74,7 +74,7 @@
                 });
                 // Add each professor to the batchfile
                 _.each(DATA.professors, function(professor) {
-                    batFileContents.push(professor.Picture.replace(/\//g, '\\') + ' ');
+                    batFileContents.push(professor.Picture.split('media/')[1].replace(/\//g, '\\') + ' ');
                 });
                 // Add the end options and commands to the batchfile
                 batFileContents.push('/XC /XN /XO\ndel /f "%~f0%"');
