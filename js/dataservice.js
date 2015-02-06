@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-05 16:38:18
+ * @Last Modified time: 2015-02-05 18:13:50
  */
 /* global angular, _ */
 
@@ -1446,7 +1446,9 @@
 			});
 			CLASSES.Employee.method('activate', function() {
 				var employment = new CLASSES.Employment({
-					EmployeeId: this.Id
+					AreaId: this.AreaId,
+					EmployeeId: this.Id,
+					PositionId: this.PositionId
 				});
 				employment.start(true);
 				this.Active = true;
@@ -1512,11 +1514,19 @@
 			CLASSES.Employment.method('initPublicAttributes', function() {
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
+				this.AreaId = this.newData.AreaId || undefined;
+				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area){
+					return area.Id === object.AreaId;
+				}) : {};
 				this.EmployeeId = this.newData.EmployeeId || undefined;
 				this.Employee = (this.newData.EmployeeId) ? _.find(DATA.employees, function(employee) {
 					return employee.Id === object.EmployeeId;
 				}) : {};
 				this.EndDate = (this.newData.EndDate) ? Date.parse(this.newData.EndDate) : undefined;
+				this.PositionId = this.newData.PositionId || undefined;
+				this.Position = (this.newData.PositionId) ? _.find(DATA.positions, function(position){
+					return position.Id === object.PositionId;
+				}) : {};
 				this.StartDate = (this.newData.StartDate) ? Date.parse(this.newData.StartDate) : undefined;
 				this.Edit = false;
 				this.uber('initPublicAttributes');
@@ -1524,9 +1534,11 @@
 			});
 			CLASSES.Employment.method('updateData', function() {
 				var returnData = this.uber('updateData');
+				returnData.AreaId = this.AreaId;
 				returnData.EmployeeId = this.EmployeeId;
 				returnData.EndDate = this.EndDate;
 				returnData.StartDate = this.StartDate;
+				returnData.PositionId = this.PositionId;
 				return returnData;
 			});
 			CLASSES.Employment.method('toString', function() {

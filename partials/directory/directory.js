@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-02-05 16:19:32
+ * @Last Modified time: 2015-02-05 18:17:43
  */
 (function() {
 	var directory = angular.module('Directory');
@@ -58,7 +58,9 @@
 				AreaId: PROPERTIES.currentUser.AreaId
 			});
 			ctrl.newEmployment = new CLASSES.Employment({
-				EmployeeId: employee.Id
+				AreaId: employee.AreaId,
+				EmployeeId: employee.Id,
+				PositionId: employee.PositionId
 			});
 			ctrl.workedSubShifts = [];
 			ctrl.requestedSubShifts = [];
@@ -90,6 +92,11 @@
 					});
 				}
 			});
+			ctrl.updateArea = function(item) {
+				item.Area = _.find(DATA.areas, function(area) {
+					return area.Id === item.AreaId;
+				});
+			};
 			ctrl.editEmployment = function(employment) {
 				if (employment.Edit) {
 					employment.update();
@@ -102,10 +109,16 @@
 				if (ctrl.newEmployment.Edit && ctrl.newEmployment.StartDate) {
 					ctrl.newEmployment.add();
 					ctrl.newEmployment = new CLASSES.Employment({
-						EmployeeId: employee.Id
+						AreaId: employee.AreaId,
+						EmployeeId: employee.Id,
+						PositionId: employee.PositionId
 					});
 				} else if (ctrl.newEmployment.Edit) {
-					ctrl.newEmployment = new CLASSES.Employment();
+					ctrl.newEmployment = new CLASSES.Employment({
+						AreaId: employee.AreaId,
+						EmployeeId: employee.Id,
+						PositionId: employee.PositionId
+					});
 				} else {
 					ctrl.newEmployment.Edit = true;
 				}

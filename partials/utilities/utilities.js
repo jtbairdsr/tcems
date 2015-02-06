@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-02-05 10:14:50
+ * @Last Modified time: 2015-02-05 17:01:01
  */
 /* global angular, saveAs */
 (function() {
@@ -16,55 +16,37 @@
                 CLASSES = dataService.classes;
             $scope.properties.currentApp = 'Utilities';
             ctrl.testScript = function() {
-                var employeeCounter = 0;
+                var employmentsCounter = 0;
                 var finishedAlert = {
                     show: true,
                     placement: 'top-right',
-                    content: 'Finished retiring Employees',
+                    content: 'Finished adding Position and Area information',
                     animation: 'am-fade-and-slide-top',
                     duration: '3',
                     type: 'success',
                     template: 'partials/alerts/success-alert.html'
                 };
-                retireEmployee(DATA.employees[employeeCounter]);
+                addPositionAndArea(DATA.employments[employmentsCounter]);
 
-                function retireEmployee(employee) {
-                    employee.setEmployements();
-                    var retire = false;
-                    if (!employee.Retired || employee.Active) {
-                        retire = true;
-                        _.each(employee.Employments, function(employment) {
-                            if (employment.EndDate) {
-                                if (employment.EndDate.compareTo(Date.parse('January 1, 2014')) > 0) {
-                                    retire = false;
-                                }
-                            } else {
-                                retire = false;
-                            }
-                        });
-                    }
-                    if (retire) {
-                        console.groupCollapsed('%c retireing employees "%s"', "color:orange", employee.toString('name'));
-                    } else {
-                        console.groupCollapsed('retireing employees "%s"', employee.toString('name'));
-                    }
-                    _.each(employee.Employments, function(employment) {
-                        console.log(((employment.StartDate) ? employment.StartDate.toString('d-MMM-yyyy') : '') + ' ' + ((employment.EndDate) ? employment.EndDate.toString('d-MMM-yyyy') : ''));
-                    });
-                    console.log(retire);
+                function addPositionAndArea(employment) {
+                    console.groupCollapsed(employment.Employee.toString());
+                    console.log(employment.Employee.Area.Description);
+                    console.log(employment.Employee.Position.Description);
                     console.groupEnd();
-                    if (retire) {
-                        employee.retire(true)
+                    if (employment.AreaId === undefined || employment.PositionId === undefined) {
+                        employment.AreaId = employment.Employee.AreaId;
+                        employment.PositionId = employment.Employee.PositionId;
+                        employment.update(true)
                             .then(function() {
-                                if (++employeeCounter < DATA.employees.length) {
-                                    retireEmployee(DATA.employees[employeeCounter]);
+                                if (++employmentsCounter < DATA.employments.length) {
+                                    addPositionAndArea(DATA.employments[employmentsCounter]);
                                 } else {
                                     $alert(finishedAlert);
                                 }
                             });
                     } else {
-                        if (++employeeCounter < DATA.employees.length) {
-                            retireEmployee(DATA.employees[employeeCounter]);
+                        if (++employmentsCounter < DATA.employments.length) {
+                            addPositionAndArea(DATA.employments[employmentsCounter]);
                         } else {
                             $alert(finishedAlert);
                         }
