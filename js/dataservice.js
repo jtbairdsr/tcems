@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-05 20:18:56
+ * @Last Modified time: 2015-02-06 14:57:55
  */
 /* global angular, _ */
 
@@ -588,6 +588,15 @@
 					return returnEmployeeArray;
 				}
 			};
+			SET.propertyIsASub = function() {
+				PROPERTIES.isASub = (_.find(DATA.schedules, function(schedule) {
+					return (
+						schedule.EmployeeId === PROPERTIES.currentUser.Id &&
+						schedule.SemesterId === PROPERTIES.currentSemester.Id &&
+						schedule.Active
+					);
+				}) === undefined);
+			};
 			///////////////////
 			// ARRAY SETTERS //
 			///////////////////
@@ -720,6 +729,7 @@
 										REFRESH.getData([GET.sentMessages()])
 											.then(function() {
 												cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
+												SET.propertyIsASub();
 												SET.arrayShifts();
 												SET.arrayShiftGroups();
 												SET.arraySentMessages();
@@ -1457,6 +1467,36 @@
 			CLASSES.Employee.method('deactivate', function() {
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
+				console.groupCollapsed('Deactivating ' + object.toString('name'));
+				_.each(DATA.availabilitys, function(availability) {
+					if (availability.EmployeeId === object.Id &&
+						availability.SemesterId === PROPERTIES.currentSemester.Id &&
+						availability.Active) {
+						console.log(availability.toString());
+						availability.deactivate(true);
+					}
+				});
+				_.each(DATA.schedules, function(schedule) {
+					if (schedule.EmployeeId === object.Id &&
+						schedule.SemesterId === PROPERTIES.currentSemester.Id &&
+						schedule.Active) {
+						console.log(schedule.toString());
+						schedule.deactivate(true);
+					}
+				});
+				_.each(DATA.subShifts, function(subShift) {
+					if (subShift.RequesterId === object.Id &&
+						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
+						subShift.Active) {
+						console.log(subShift.toString());
+						subShift.deactivate(true);
+					} else if (subShift.SubstituteId === object.Id &&
+						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
+						subShift.Active) {
+						console.log(subShift.toString());
+						subShift.newRequest(true);
+					}
+				});
 				_.each(DATA.employments, function(employment) {
 					if (employment.EndDate === undefined &&
 						employment.EmployeeId === object.Id) {
@@ -1465,6 +1505,7 @@
 				});
 				this.Active = false;
 				this.update();
+				console.groupEnd();
 			});
 			CLASSES.Employee.method('retire', function() {
 				var deffered = $q.defer();
@@ -1515,7 +1556,7 @@
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.AreaId = this.newData.AreaId || undefined;
-				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area){
+				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area) {
 					return area.Id === object.AreaId;
 				}) : {};
 				this.EmployeeId = this.newData.EmployeeId || undefined;
@@ -1524,7 +1565,7 @@
 				}) : {};
 				this.EndDate = (this.newData.EndDate) ? Date.parse(this.newData.EndDate) : undefined;
 				this.PositionId = this.newData.PositionId || undefined;
-				this.Position = (this.newData.PositionId) ? _.find(DATA.positions, function(position){
+				this.Position = (this.newData.PositionId) ? _.find(DATA.positions, function(position) {
 					return position.Id === object.PositionId;
 				}) : {};
 				this.StartDate = (this.newData.StartDate) ? Date.parse(this.newData.StartDate) : undefined;
@@ -2440,7 +2481,8 @@
 							}
 							// 3. filter relevantAvailabilities
 							_.each(DATA.availabilitys, function(availability) {
-								if (availability.Semester.Id === semester.Id &&
+								if (availability.Active &&
+									availability.Semester.Id === semester.Id &&
 									availability.Day === day.title &&
 									!(generalService.isTimeBefore(shift.StartTime, availability.StartTime)) &&
 									!(generalService.isTimeBefore(availability.EndTime, shift.EndTime))) {
@@ -2572,9 +2614,9 @@
 									subShift: subShift,
 									subRequest: subShift.NewRequest,
 									disabled: (day.date.set({
-										hour: parseInt(schedule.Shift.StartTime.toString('H')),
-										minute: parseInt(schedule.Shift.StartTime.toString('m'))
-									}) <= new Date().today().addDays(1))
+										hour: parseInt(subShift.Shift.StartTime.toString('H')),
+										minute: parseInt(subShift.Shift.StartTime.toString('m'))
+									}) <= new Date().addDays(1))
 								});
 							}
 						} else {
@@ -2584,9 +2626,9 @@
 								subShift: subShift,
 								subRequest: undefined,
 								disabled: (day.date.set({
-									hour: parseInt(schedule.Shift.StartTime.toString('H')),
-									minute: parseInt(schedule.Shift.StartTime.toString('m'))
-								}) <= new Date().today().addDays(1))
+									hour: parseInt(subShift.Shift.StartTime.toString('H')),
+									minute: parseInt(subShift.Shift.StartTime.toString('m'))
+								}) <= new Date().addDays(1))
 							});
 						}
 					});

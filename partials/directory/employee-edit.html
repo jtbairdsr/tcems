@@ -245,7 +245,7 @@
 					<buffer></buffer>
 					<div class="row">
 						<div class="col-md-6" style="border-right: 1px solid #ccc">
-							<h4>Worked Shifts</h4>
+							<h4>{{ctrl.workedSubShifts.length}} Worked Shift(s)</h4>
 							<ul class="list-group" style="height: 190px; overflow: scroll" data-ng-hide="ctrl.workedSubShifts.length === 0">
 								<li class="list-group-item text-center" data-ng-repeat="subShift in ctrl.workedSubShifts | orderBy:'Date'">
 									{{subShift.Date.toString('dddd MMM. dS')}}
@@ -257,7 +257,7 @@
 							</ul>
 						</div>
 						<div class="col-md-6">
-							<h4>Requested Shifts</h4>
+							<h4>{{ctrl.requestedSubShifts.length}} Requested Shift(s)</h4>
 							<ul class="list-group" style="height: 190px; overflow: scroll" data-ng-hide="ctrl.requestedSubShifts.length === 0">
 								<li class="list-group-item text-center" data-ng-repeat="subShift in ctrl.requestedSubShifts | orderBy:'Date'" data-ng-class="{'list-group-item-danger': (subShift.SubstituteId === undefined)}">
 									{{subShift.Date.toString('dddd MMM. dS')}}
@@ -272,7 +272,7 @@
 				</div>
 				<!-- MESSAGES -->
 				<div class="row-fluid" data-ng-show="tab === 'messages'">
-					<h4>Unread Mandatory Messages</h4>
+					<h4>{{ctrl.unreadMessages.length}} Unread Mandatory Message(s)</h4>
 					<ul class="list-group" style="height: 190px; overflow: scroll">
 						<li class="list-group-item" data-ng-show="ctrl.unreadMessages.length === 0">No unread messages.</li>
 						<li class="list-group-item" data-ng-repeat="message in ctrl.unreadMessages | orderBy:'Created'" data-ng-class="{'list-group-item-danger': message.OverDue}" data-ng-bind-html="message.Message">
