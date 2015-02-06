@@ -8,7 +8,7 @@
             <filter-positions></filter-positions>
         </div>
         <div class="col-md-10 text-center">
-            <div class="panel panel-primary" ng-model="ctrl.activePanel">
+            <div class="panel panel-primary" ng-model="ctrl.activePanel" data-ng-show="properties.extendedPrivledges || properties.currentUser.Position.Description === 'Coordinator'">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                     Employees that haven't submitted there availability. {{'(' + arrays.noAvailabilityEmployees.length + ')'}}
