@@ -1,5 +1,5 @@
 <div data-ng-repeat="employee in data.employees | orderBy:properties.predicate | employeeFilter:{inactive:hideInactive, area: area.hideOthers, position: position.hide, retired: retired} | filter:employeeSearch" class="col-sm-4 col-md-2 text-center well" style="height: 300px">
-	<img data-ng-src="{{employee.Picture}}" fallback-src="/media/missing.png" class="img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+	<img data-ng-src="{{employee.Picture}}" fallback-src="media/missing.png" class="img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
 	<div>
 		<b>{{employee.PreferredName}} {{employee.LastName}}</b>
 		<br>Position: {{employee.Position.Position}}

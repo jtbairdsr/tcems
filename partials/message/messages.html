@@ -9,7 +9,7 @@
 			</div>
 			<ul class="nav nav-pillsCustom nav-justified" bs-navbar>
 				<li data-ng-class="{active: tab === 'new'}">
-					<a href="" data-ng-click="tab = 'new'">New<span data-ng-show="properties.unreadMessages > 0" class="badge badge-error">{{properties.unreadMessages}}</span></a>
+					<a href="" data-ng-click="tab = 'new'">Unread<span data-ng-show="properties.unreadMessages > 0" class="badge badge-error">{{properties.unreadMessages}}</span></a>
 				</li>
 				<li data-ng-class="{active: tab === 'read'}">
 					<a href="" data-ng-click="tab = 'read'">Read</a>
@@ -217,7 +217,7 @@
 								<label for="to">To:</label>
 								<ui-select multiple data-ng-model="ctrl.newMessage.Recipients" theme="bootstrap" close-on-select="false" title="Choose an Employee">
 									<ui-select-match placeholder="Select employee(s)...">{{$item.toString('name')}}</ui-select-match>
-									<ui-select-choices repeat="employee in ctrl.activeEmloyees | filter:$select.search">
+									<ui-select-choices repeat="employee in ctrl.activeEmloyees | orderBy:'PreferredName' | filter:$select.search">
 										<span data-ng-bind-html="employee.Label"></span>
 									</ui-select-choices>
 								</ui-select>
@@ -276,14 +276,12 @@
 							</div>
 							<div class="form-group well" data-ng-hide="properties.currentUser.Admin || properties.currentUser.Area.Description === 'Director'">
 								<label for="to">To:</label>
-								<div class="btn-group-justified">
-									<div class="btn-group">
-										<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.Recipients" data-ng-options="employee as employee.Label for employee in ctrl.activeEmloyees" data-multiple="true" data-html="true" placeholder="Select employee(s)..." bs-select data-placement="bottom">
-											Action
-											<span class="caret"></span>
-										</button>
-									</div>
-								</div>
+								<ui-select multiple data-ng-model="ctrl.newMessage.Recipients" theme="bootstrap" close-on-select="false" title="Choose an Employee">
+									<ui-select-match placeholder="Select employee(s)...">{{$item.toString('name')}}</ui-select-match>
+									<ui-select-choices repeat="employee in ctrl.activeEmloyees | filter:{AreaId: properties.currentUser.AreaId} | orderBy:'PreferredName' | filter:$select.search">
+										<span data-ng-bind-html="employee.Label"></span>
+									</ui-select-choices>
+								</ui-select>
 								<buffer></buffer>
 								<div style="height: 2px; border-top: 1px solid #ccc; text-align: center">
 									<span style="background-color: #f2f2f2; position: relative; top: -0.75em;">&nbsp;&nbsp;OR&nbsp;&nbsp;</span>
@@ -407,7 +405,7 @@
 				<div data-ng-show="newMessage">
 					<button type="button" class="btn btn-default" ng-click="newMessage = false">Close</button>
 					<button type="button" class="btn btn-default" ng-click="ctrl.clearMessage()">Clear</button>
-					<button type="button" class="btn btn-success" ng-click="ctrl.sendNewMessage()" data-ng-disabled="!(ctrl.newMessage.Recipients.length && ctrl.newMessage.Subject && ctrl.newMessage.Body)">Send</button>
+					<button type="button" class="btn btn-success" ng-click="ctrl.sendNewMessage();newMessage = false" data-ng-disabled="!(ctrl.newMessage.Recipients.length && ctrl.newMessage.Subject && ctrl.newMessage.Body)">Send</button>
 				</div>
 			</div>
 		</div>

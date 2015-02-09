@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-03 08:50:45
+ * @Last Modified time: 2015-02-09 10:14:40
  */
 /* global angular, _ */
 
@@ -588,6 +588,15 @@
 					return returnEmployeeArray;
 				}
 			};
+			SET.propertyIsASub = function() {
+				PROPERTIES.isASub = (_.find(DATA.schedules, function(schedule) {
+					return (
+						schedule.EmployeeId === PROPERTIES.currentUser.Id &&
+						schedule.SemesterId === PROPERTIES.currentSemester.Id &&
+						schedule.Active
+					);
+				}) === undefined);
+			};
 			///////////////////
 			// ARRAY SETTERS //
 			///////////////////
@@ -720,6 +729,7 @@
 										REFRESH.getData([GET.sentMessages()])
 											.then(function() {
 												cfpLoadingBar.set(cfpLoadingBar.status() + 0.1);
+												SET.propertyIsASub();
 												SET.arrayShifts();
 												SET.arrayShiftGroups();
 												SET.arraySentMessages();
@@ -1351,11 +1361,12 @@
 			CLASSES.Availability.method('toString', function() {
 				return this.Employee.toString() + '\'s availability';
 			});
-			CLASSES.Availability.method('deactivate', function() {
+			CLASSES.Availability.method('deactivate', function(hideAlert) {
 				var deffered = $q.defer();
+				hideAlert = hideAlert || false;
 				this.Active = false;
 				this.Current = false;
-				this.update()
+				this.update(hideAlert)
 					.then(function() {
 						deffered.resolve();
 					});
@@ -1410,7 +1421,7 @@
 				this.Intent = {};
 				this.Label = (
 					'<div><img class="img-circle" src="' + this.Picture +
-					'" fallback-src="/media/missing.png" width="50px" height="' + ((this.Position.Description === 'FTE') ? 70.8333 : 50) + 'px"> <b>' +
+					'" fallback-src="media/missing.png" width="50px" height="' + ((this.Position.Description === 'FTE') ? 70.8333 : 50) + 'px"> <b>' +
 					this.PreferredName + ' ' + this.LastName + '</b></div>'
 				);
 				this.uber('initPublicAttributes');
@@ -1446,15 +1457,46 @@
 			});
 			CLASSES.Employee.method('activate', function() {
 				var employment = new CLASSES.Employment({
-					EmployeeId: this.Id
+					AreaId: this.AreaId,
+					EmployeeId: this.Id,
+					PositionId: this.PositionId
 				});
 				employment.start(true);
 				this.Active = true;
 				this.update();
 			});
-			CLASSES.Employee.method('deactivate', function() {
+			CLASSES.Employee.method('deactivate', function(hideAlert) {
+				hideAlert = hideAlert || false;
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
+				_.each(DATA.availabilitys, function(availability) {
+					if (availability.EmployeeId === object.Id &&
+						availability.SemesterId === PROPERTIES.currentSemester.Id &&
+						availability.Active) {
+						availability.deactivate(true);
+					}
+				});
+				_.each(DATA.schedules, function(schedule) {
+					if (schedule.EmployeeId === object.Id &&
+						schedule.SemesterId === PROPERTIES.currentSemester.Id &&
+						schedule.Active) {
+						schedule.deactivate(true);
+					}
+				});
+				_.each(DATA.subShifts, function(subShift) {
+					if (subShift.RequesterId === object.Id &&
+						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
+						subShift.Active) {
+						subShift.deactivate(true);
+					} else if (subShift.SubstituteId === object.Id &&
+						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
+						subShift.Active) {
+						if (subShift.NewRequestId) {
+							subShift.NewRequest.deactivate(true);
+						}
+						subShift.newRequest(true);
+					}
+				});
 				_.each(DATA.employments, function(employment) {
 					if (employment.EndDate === undefined &&
 						employment.EmployeeId === object.Id) {
@@ -1512,11 +1554,19 @@
 			CLASSES.Employment.method('initPublicAttributes', function() {
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
+				this.AreaId = this.newData.AreaId || undefined;
+				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area) {
+					return area.Id === object.AreaId;
+				}) : {};
 				this.EmployeeId = this.newData.EmployeeId || undefined;
 				this.Employee = (this.newData.EmployeeId) ? _.find(DATA.employees, function(employee) {
 					return employee.Id === object.EmployeeId;
 				}) : {};
 				this.EndDate = (this.newData.EndDate) ? Date.parse(this.newData.EndDate) : undefined;
+				this.PositionId = this.newData.PositionId || undefined;
+				this.Position = (this.newData.PositionId) ? _.find(DATA.positions, function(position) {
+					return position.Id === object.PositionId;
+				}) : {};
 				this.StartDate = (this.newData.StartDate) ? Date.parse(this.newData.StartDate) : undefined;
 				this.Edit = false;
 				this.uber('initPublicAttributes');
@@ -1524,9 +1574,11 @@
 			});
 			CLASSES.Employment.method('updateData', function() {
 				var returnData = this.uber('updateData');
+				returnData.AreaId = this.AreaId;
 				returnData.EmployeeId = this.EmployeeId;
 				returnData.EndDate = this.EndDate;
 				returnData.StartDate = this.StartDate;
+				returnData.PositionId = this.PositionId;
 				return returnData;
 			});
 			CLASSES.Employment.method('toString', function() {
@@ -1636,7 +1688,7 @@
 				return returnData;
 			});
 			CLASSES.Message.method('toString', function() {
-				return this.Subject + ' message from ' + this.From.toString().split(': ')[1];
+				return 'Subject: ' + this.Subject + '\n From: ' + this.From.toString('name');
 			});
 			CLASSES.Message.method('add', function() {
 				var deffered = $q.defer();
@@ -1873,10 +1925,11 @@
 			CLASSES.Schedule.method('toString', function() {
 				return this.Employee.toString() + '\'s schedule';
 			});
-			CLASSES.Schedule.method('deactivate', function() {
+			CLASSES.Schedule.method('deactivate', function(hideAlert) {
 				var deffered = $q.defer();
+				hideAlert = hideAlert || false;
 				this.Active = false;
-				this.update()
+				this.update(hideAlert)
 					.then(function() {
 						deffered.resolve();
 					});
@@ -2147,17 +2200,18 @@
 			});
 			CLASSES.SubShift.method('toString', function() {
 				if (this.SubstituteId) {
-					return this.Substitute.toString().split(': ')[1] + ' subbing for ' + this.Requester.toString().split(': ')[1] + '\n' + this.Date.toString('dddd') + ' ' + this.Shift.toString().split('\n')[1];
+					return this.Substitute.toString().split(': ')[1] + ' subbing for ' + this.Requester.toString().split(': ')[1] + '\n' + this.Date.toString('dddd MMM dS') + ' from ' + this.Shift.toString().split('\n')[1];
 				} else if (this.RequesterId) {
 					return this.Requester.toString().split(': ')[1] + ' Sub Request\n' + this.Date.toString('dddd') + ' ' + this.Shift.toString().split('\n')[1];
 				} else {
 					return 'New SubShift';
 				}
 			});
-			CLASSES.SubShift.method('deactivate', function() {
+			CLASSES.SubShift.method('deactivate', function(hideAlert) {
 				var deffered = $q.defer();
+				hideAlert = hideAlert || false;
 				this.Active = false;
-				this.update()
+				this.update(hideAlert)
 					.then(function() {
 						deffered.resolve();
 					});
@@ -2167,11 +2221,13 @@
 				var deffered = $q.defer();
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
-				var newRequest = new CLASSES.SubShift();
-				newRequest.Date = this.Date;
-				newRequest.RequesterId = PROPERTIES.currentUser.Id;
-				newRequest.ShiftId = this.ShiftId;
-				newRequest.SemesterId = this.SemesterId;
+				console.log(object);
+				var newRequest = new CLASSES.SubShift({
+					Date: object.Date,
+					RequesterId: PROPERTIES.currentUser.Id,
+					ShiftId: object.ShiftId,
+					SemesterId: object.SemesterId
+				});
 				newRequest.add()
 					.then(function() {
 						object.NewRequestId = newRequest.Id;
@@ -2428,7 +2484,8 @@
 							}
 							// 3. filter relevantAvailabilities
 							_.each(DATA.availabilitys, function(availability) {
-								if (availability.Semester.Id === semester.Id &&
+								if (availability.Active &&
+									availability.Semester.Id === semester.Id &&
 									availability.Day === day.title &&
 									!(generalService.isTimeBefore(shift.StartTime, availability.StartTime)) &&
 									!(generalService.isTimeBefore(availability.EndTime, shift.EndTime))) {
@@ -2531,6 +2588,10 @@
 									subShift: undefined,
 									shift: schedule.Shift,
 									subRequest: requestedSub,
+									disabled: (day.date.set({
+										hour: parseInt(schedule.Shift.StartTime.toString('H')),
+										minute: parseInt(schedule.Shift.StartTime.toString('m'))
+									}) <= new Date().addDays(1))
 								});
 							}
 							subShifts = _.without(subShifts, requestedSub);
@@ -2539,27 +2600,45 @@
 								shift: schedule.Shift,
 								isSubShift: false,
 								subShift: undefined,
-								subRequest: undefined
+								subRequest: undefined,
+								disabled: (day.date.set({
+									hour: parseInt(schedule.Shift.StartTime.toString('H')),
+									minute: parseInt(schedule.Shift.StartTime.toString('m'))
+								}) <= new Date().addDays(1))
 							});
 						}
 					});
 					_.each(subShifts, function(subShift) {
+						var disabled = (day.date.set({
+							hour: parseInt(subShift.Shift.StartTime.toString('H')),
+							minute: parseInt(subShift.Shift.StartTime.toString('m'))
+						}) <= new Date().addDays(1));
 						if (subShift.NewRequestId) {
 							if (!subShift.NewRequest.SubstituteId) {
 								returnData.push({
 									shift: subShift.Shift,
 									isSubShift: true,
 									subShift: subShift,
-									subRequest: subShift.NewRequest
+									subRequest: subShift.NewRequest,
+									disabled: disabled
 								});
 							}
 						} else {
-							returnData.push({
-								shift: subShift.Shift,
-								isSubShift: true,
-								subShift: subShift,
-								subRequest: undefined
-							});
+							if (_.find(returnData, function(testData) {
+									return testData.NewRequestId === subShift.Id;
+								}) === undefined) {
+								if (_.find(subShifts, function(testData) {
+										return testData.NewRequestId === subShift.Id;
+									}) === undefined) {
+									returnData.push({
+										shift: subShift.Shift,
+										isSubShift: true,
+										subShift: subShift,
+										subRequest: undefined,
+										disabled: disabled
+									});
+								}
+							}
 						}
 					});
 				}

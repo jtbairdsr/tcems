@@ -8,7 +8,7 @@
 				<li data-match-route="/main/schedule/schedule" data-ng-show="properties.extendedPrivledges">
 					<a ui-sref="main.schedule.schedule" data-ng-click="ctrl.partialChange()">Schedule</a>
 				</li>
-				<li data-match-route="/main/schedule/availability" data-ng-show="properties.extendedPrivledges || properties.currentUser.Position.Description === 'Coordinator'">
+				<li data-match-route="/main/schedule/availability">
 					<a ui-sref="main.schedule.availability" data-ng-click="ctrl.partialChange()">Availability</a>
 				</li>
 				<li data-match-route="/main/schedule/subShifts">

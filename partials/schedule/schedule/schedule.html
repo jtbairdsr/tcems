@@ -24,7 +24,7 @@
                         </a>
                             <a class="list-group-item" data-ng-class="{'list-group-item-success': employee.Info.Id > 0, 'list-group-item-danger': employee.Info.Id < 0}" data-ng-repeat="employee in shift.Employees" data-animation="am-fade-and-scale" data-template="partials/schedule/schedule/employee-change.html" bs-modal="modal">
                                 <div>
-                                    <img data-ng-src="{{employee.Info.Picture}}" fallback-src="/media/missing.png" class="list-item img-circle" data-template="partials/schedule/employee-info.html" data-animation="am-flip-x" bs-tooltip="tooltip">
+                                    <img data-ng-src="{{employee.Info.Picture}}" fallback-src="media/missing.png" class="list-item img-circle" data-template="partials/schedule/employee-info.html" data-animation="am-flip-x" bs-tooltip="tooltip">
                                 </div>
                                 {{employee.Info.PreferredName}} {{employee.Info.LastName}}
                             </a>
