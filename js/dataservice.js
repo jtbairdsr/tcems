@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-09 08:17:23
+ * @Last Modified time: 2015-02-09 10:14:40
  */
 /* global angular, _ */
 
@@ -1491,6 +1491,9 @@
 					} else if (subShift.SubstituteId === object.Id &&
 						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
 						subShift.Active) {
+						if (subShift.NewRequestId) {
+							subShift.NewRequest.deactivate(true);
+						}
 						subShift.newRequest(true);
 					}
 				});
@@ -2218,11 +2221,13 @@
 				var deffered = $q.defer();
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
-				var newRequest = new CLASSES.SubShift();
-				newRequest.Date = this.Date;
-				newRequest.RequesterId = PROPERTIES.currentUser.Id;
-				newRequest.ShiftId = this.ShiftId;
-				newRequest.SemesterId = this.SemesterId;
+				console.log(object);
+				var newRequest = new CLASSES.SubShift({
+					Date: object.Date,
+					RequesterId: PROPERTIES.currentUser.Id,
+					ShiftId: object.ShiftId,
+					SemesterId: object.SemesterId
+				});
 				newRequest.add()
 					.then(function() {
 						object.NewRequestId = newRequest.Id;
@@ -2604,6 +2609,10 @@
 						}
 					});
 					_.each(subShifts, function(subShift) {
+						var disabled = (day.date.set({
+							hour: parseInt(subShift.Shift.StartTime.toString('H')),
+							minute: parseInt(subShift.Shift.StartTime.toString('m'))
+						}) <= new Date().addDays(1));
 						if (subShift.NewRequestId) {
 							if (!subShift.NewRequest.SubstituteId) {
 								returnData.push({
@@ -2611,23 +2620,25 @@
 									isSubShift: true,
 									subShift: subShift,
 									subRequest: subShift.NewRequest,
-									disabled: (day.date.set({
-										hour: parseInt(subShift.Shift.StartTime.toString('H')),
-										minute: parseInt(subShift.Shift.StartTime.toString('m'))
-									}) <= new Date().addDays(1))
+									disabled: disabled
 								});
 							}
 						} else {
-							returnData.push({
-								shift: subShift.Shift,
-								isSubShift: true,
-								subShift: subShift,
-								subRequest: undefined,
-								disabled: (day.date.set({
-									hour: parseInt(subShift.Shift.StartTime.toString('H')),
-									minute: parseInt(subShift.Shift.StartTime.toString('m'))
-								}) <= new Date().addDays(1))
-							});
+							if (_.find(returnData, function(testData) {
+									return testData.NewRequestId === subShift.Id;
+								}) === undefined) {
+								if (_.find(subShifts, function(testData) {
+										return testData.NewRequestId === subShift.Id;
+									}) === undefined) {
+									returnData.push({
+										shift: subShift.Shift,
+										isSubShift: true,
+										subShift: subShift,
+										subRequest: undefined,
+										disabled: disabled
+									});
+								}
+							}
 						}
 					});
 				}
