@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-09 08:08:48
+ * @Last Modified time: 2015-02-09 08:17:23
  */
 /* global angular, _ */
 
@@ -1361,11 +1361,12 @@
 			CLASSES.Availability.method('toString', function() {
 				return this.Employee.toString() + '\'s availability';
 			});
-			CLASSES.Availability.method('deactivate', function() {
+			CLASSES.Availability.method('deactivate', function(hideAlert) {
 				var deffered = $q.defer();
+				hideAlert = hideAlert || false;
 				this.Active = false;
 				this.Current = false;
-				this.update()
+				this.update(hideAlert)
 					.then(function() {
 						deffered.resolve();
 					});
@@ -1464,15 +1465,14 @@
 				this.Active = true;
 				this.update();
 			});
-			CLASSES.Employee.method('deactivate', function() {
+			CLASSES.Employee.method('deactivate', function(hideAlert) {
+				hideAlert = hideAlert || false;
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
-				console.groupCollapsed('Deactivating ' + object.toString('name'));
 				_.each(DATA.availabilitys, function(availability) {
 					if (availability.EmployeeId === object.Id &&
 						availability.SemesterId === PROPERTIES.currentSemester.Id &&
 						availability.Active) {
-						console.log(availability.toString());
 						availability.deactivate(true);
 					}
 				});
@@ -1480,7 +1480,6 @@
 					if (schedule.EmployeeId === object.Id &&
 						schedule.SemesterId === PROPERTIES.currentSemester.Id &&
 						schedule.Active) {
-						console.log(schedule.toString());
 						schedule.deactivate(true);
 					}
 				});
@@ -1488,12 +1487,10 @@
 					if (subShift.RequesterId === object.Id &&
 						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
 						subShift.Active) {
-						console.log(subShift.toString());
 						subShift.deactivate(true);
 					} else if (subShift.SubstituteId === object.Id &&
 						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
 						subShift.Active) {
-						console.log(subShift.toString());
 						subShift.newRequest(true);
 					}
 				});
@@ -1505,7 +1502,6 @@
 				});
 				this.Active = false;
 				this.update();
-				console.groupEnd();
 			});
 			CLASSES.Employee.method('retire', function() {
 				var deffered = $q.defer();
@@ -1926,10 +1922,11 @@
 			CLASSES.Schedule.method('toString', function() {
 				return this.Employee.toString() + '\'s schedule';
 			});
-			CLASSES.Schedule.method('deactivate', function() {
+			CLASSES.Schedule.method('deactivate', function(hideAlert) {
 				var deffered = $q.defer();
+				hideAlert = hideAlert || false;
 				this.Active = false;
-				this.update()
+				this.update(hideAlert)
 					.then(function() {
 						deffered.resolve();
 					});
@@ -2207,10 +2204,11 @@
 					return 'New SubShift';
 				}
 			});
-			CLASSES.SubShift.method('deactivate', function() {
+			CLASSES.SubShift.method('deactivate', function(hideAlert) {
 				var deffered = $q.defer();
+				hideAlert = hideAlert || false;
 				this.Active = false;
-				this.update()
+				this.update(hideAlert)
 					.then(function() {
 						deffered.resolve();
 					});
