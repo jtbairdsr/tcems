@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-02-06 14:57:55
+ * @Last Modified time: 2015-02-09 08:08:48
  */
 /* global angular, _ */
 
@@ -1420,7 +1420,7 @@
 				this.Intent = {};
 				this.Label = (
 					'<div><img class="img-circle" src="' + this.Picture +
-					'" fallback-src="/media/missing.png" width="50px" height="' + ((this.Position.Description === 'FTE') ? 70.8333 : 50) + 'px"> <b>' +
+					'" fallback-src="media/missing.png" width="50px" height="' + ((this.Position.Description === 'FTE') ? 70.8333 : 50) + 'px"> <b>' +
 					this.PreferredName + ' ' + this.LastName + '</b></div>'
 				);
 				this.uber('initPublicAttributes');

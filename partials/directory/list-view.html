@@ -65,7 +65,7 @@
 			</thead>
 			<tr data-ng-hide="!inactiveEmployees && !employee.Active" data-ng-repeat="employee in arrays.directoryEmployees | orderBy:properties.predicate | filter:employeeSearch">
 				<td>
-					<img data-ng-src="{{employee.Picture}}" fallback-src="/media/missing.png" class="img-responsive img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+					<img data-ng-src="{{employee.Picture}}" fallback-src="media/missing.png" class="img-responsive img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
 				</td>
 				<td>
 					<span data-ng-hide="employee.PreferredName === null">{{employee.PreferredName}}</span>
