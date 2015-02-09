@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-01-30 19:23:15
+ * @Last Modified time: 2015-02-05 18:17:43
  */
 (function() {
 	var directory = angular.module('Directory');
@@ -40,19 +40,63 @@
 			$scope.tab = 'profile';
 
 			var CLASSES = dataService.classes,
+				DATA = generalService.data,
 				PROPERTIES = generalService.properties;
 			var ctrl = this,
 				employee = $scope.employee || PROPERTIES.currentUser,
 				initialPhoneNumber = employee.PhoneNumber;
 
+			ctrl.isASub = (_.find(DATA.schedules, function(schedule) {
+				return (
+					schedule.EmployeeId === employee.Id &&
+					schedule.SemesterId === PROPERTIES.currentSemester.Id &&
+					schedule.Active
+				);
+			}) === undefined);
 			ctrl.newEmployee = new CLASSES.Employee({
 				PositionId: PROPERTIES.currentUser.Area.DefaultPosition.Id,
 				AreaId: PROPERTIES.currentUser.AreaId
 			});
 			ctrl.newEmployment = new CLASSES.Employment({
-				EmployeeId: employee.Id
+				AreaId: employee.AreaId,
+				EmployeeId: employee.Id,
+				PositionId: employee.PositionId
 			});
-
+			ctrl.workedSubShifts = [];
+			ctrl.requestedSubShifts = [];
+			_.each(DATA.subShifts, function(subShift) {
+				if (subShift.Active &&
+					subShift.SemesterId === PROPERTIES.currentSemester.Id) {
+					if (subShift.RequesterId === employee.Id) {
+						ctrl.requestedSubShifts.push(subShift);
+					} else if (subShift.SubstituteId === employee.Id) {
+						if (subShift.NewRequestId !== undefined) {
+							if (subShift.NewRequestId.SubstituteId === undefined) {
+								ctrl.workedSubShifts.push(subShift);
+							}
+						} else {
+							ctrl.workedSubShifts.push(subShift);
+						}
+					}
+				}
+			});
+			ctrl.unreadMessages = [];
+			_.each(DATA.sentMessages, function(message) {
+				if (message.EmployeeId === employee.Id &&
+					(message.Message.Mandatory && message.AckDate === undefined) &&
+					message.Message.Active &&
+					message.Message.SemesterId === PROPERTIES.currentSemester.Id) {
+					ctrl.unreadMessages.push({
+						Message: message.Message.toString().replace(/\n\r?/g, '<br />'),
+						OverDue: (message.Message.DueDate < new Date())
+					});
+				}
+			});
+			ctrl.updateArea = function(item) {
+				item.Area = _.find(DATA.areas, function(area) {
+					return area.Id === item.AreaId;
+				});
+			};
 			ctrl.editEmployment = function(employment) {
 				if (employment.Edit) {
 					employment.update();
@@ -65,16 +109,23 @@
 				if (ctrl.newEmployment.Edit && ctrl.newEmployment.StartDate) {
 					ctrl.newEmployment.add();
 					ctrl.newEmployment = new CLASSES.Employment({
-						EmployeeId: employee.Id
+						AreaId: employee.AreaId,
+						EmployeeId: employee.Id,
+						PositionId: employee.PositionId
 					});
 				} else if (ctrl.newEmployment.Edit) {
-					ctrl.newEmployment = new CLASSES.Employment();
+					ctrl.newEmployment = new CLASSES.Employment({
+						AreaId: employee.AreaId,
+						EmployeeId: employee.Id,
+						PositionId: employee.PositionId
+					});
 				} else {
 					ctrl.newEmployment.Edit = true;
 				}
 			};
 			ctrl.addEmployee = function() {
 				if (/([a-zA-Z]){3}\d{5}/.test(ctrl.newEmployee.EmailAddress)) {
+					ctrl.newEmployee.EmailAddress = ctrl.newEmployee.EmailAddress.split('@')[0];
 					ctrl.newEmployee.Picture = '/media/' + ctrl.newEmployee.EmailAddress + '.jpg';
 					ctrl.newEmployee.EmailAddress += '@byui.edu';
 					if ((ctrl.newEmployee.PhoneNumber = ctrl.newEmployee.PhoneNumber.replace(/\D/g, '')).length === 10) {

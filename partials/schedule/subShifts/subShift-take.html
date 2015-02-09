@@ -17,28 +17,35 @@
                 <!-- ---------If there is NOT a Substitute you will see this view--------- -->
 
                 <div class="row text-center" data-ng-show="subShift.subShift.SubstituteId === undefined">
+                    <div class="row-fluid" data-ng-show="properties.extendedPrivledges">
+                        Requested: {{subShift.subShift.Created | date:'MMM d'}}
+                    </div>
+                    <buffer></buffer>
                     {{day.date | date:'MMM d'}}
                     <br>{{subShift.shift.StartTime | date:'hh:mm a'}} to {{subShift.shift.EndTime | date:'hh:mm a'}}
                     <br>
-                    <img data-ng-src="{{subShift.originalEmployee.Picture}}" fallback-src="/media/missing.png" class="img-circle center-block" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+                    <img data-ng-src="{{subShift.originalEmployee.Picture}}" fallback-src="media/missing.png" class="img-circle center-block" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
                     <br>{{subShift.originalEmployee.PreferredName}} {{subShift.originalEmployee.LastName}}
                 </div>
 
                 <!-- -----------If there is a Substitute you will see this view----------- -->
 
                 <div data-ng-hide="subShift.subShift.SubstituteId === undefined">
+                    <div class="row-fluid" data-ng-show="properties.extendedPrivledges">
+                        Created: {{subShift.shift.Created | date:'MMM d'}}
+                    </div>
                     <div class="row text-center">
                         {{day.date | date:'MMM d'}}
                         <br>{{subShift.shift.StartTime | date:'h:mm a'}} to {{subShift.shift.EndTime | date:'h:mm a'}}
                     </div>
                     <div class="row">
                         <div class="col-md-5">
-                            <img data-ng-src="{{subShift.responsibleEmployee.Picture}}" fallback-src="/media/missing.png" class="img-circle center-block" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+                            <img data-ng-src="{{subShift.responsibleEmployee.Picture}}" fallback-src="media/missing.png" class="img-circle center-block" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
                         </div>
                         <div class="col-md-2">
                         </div>
                         <div class="col-md-5">
-                            <img data-ng-src="{{subShift.originalEmployee.Picture}}" fallback-src="/media/missing.png" class="img-circle center-block" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+                            <img data-ng-src="{{subShift.originalEmployee.Picture}}" fallback-src="media/missing.png" class="img-circle center-block" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
                         </div>
                     </div>
                     <div class="row text-center">

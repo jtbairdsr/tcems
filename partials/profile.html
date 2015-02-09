@@ -3,7 +3,7 @@
         <div class="aside-content">
             <div class="aside-header">
                 <button type="button" class="close" ng-click="$hide()">×</button>
-                <img data-ng-src="{{properties.currentUser.Picture}}" fallback-src="/media/missing.png" class="img-responsive img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+                <img data-ng-src="{{properties.currentUser.Picture}}" fallback-src="media/missing.png" class="img-responsive img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
                 <h4 class="aside-title">{{properties.currentUser.PreferredName}} {{properties.currentUser.LastName}}</h4>
             </div>
             <ul class="nav nav-pillsCustom nav-justified" bs-navbar>
@@ -97,7 +97,7 @@
                         <tbody>
                             <tr data-ng-repeat="facultyTestingInfo in data.facultyTestingInfos | professorFilter:professorSearch | orderBy: 'Professor.LastName'">
                                 <td>
-                                    <img data-ng-src="{{facultyTestingInfo.Professor.Picture}}" fallback-src="/media/missing.png" class="pull-right img-circle" data-ng-style="{'max-width': '40px', 'max-height': '56.67px'}" data-template="partials/profile.professor-info.html" data-animation="am-flip-x" data-placement="right" bs-tooltip="tooltip">
+                                    <img data-ng-src="{{facultyTestingInfo.Professor.Picture}}" fallback-src="media/missing.png" class="pull-right img-circle" data-ng-style="{'max-width': '40px', 'max-height': '56.67px'}" data-template="partials/profile.professor-info.html" data-animation="am-flip-x" data-placement="right" bs-tooltip="tooltip">
                                 </td>
                                 <td>
                                     {{facultyTestingInfo.Professor.FirstName}} {{facultyTestingInfo.Professor.LastName}}

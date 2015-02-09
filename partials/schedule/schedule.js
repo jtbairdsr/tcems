@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2015-01-29 14:48:05
+ * @Last Modified time: 2015-02-06 08:44:54
  */
 /* global angular, _ */
 
@@ -47,7 +47,8 @@
 					!(PROPERTIES.currentUser.Admin)) &&
 					($location.path() !== '/main/schedule/mySchedule' &&
 					$location.path() !== '/main/schedule/subShifts' &&
-					$location.path() !== '/main/schedule/myAvailability')) {
+					$location.path() !== '/main/schedule/myAvailability' &&
+					$location.path() !== '/main/schedule/availability')) {
 					$location.path('/main/schedule/mySchedule');
 				}
 			};

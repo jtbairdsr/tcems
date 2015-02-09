@@ -1,8 +1,8 @@
 /*
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:55:05
- * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-01-25 11:39:45
+ * @Last Modified by:   jonathan
+ * @Last Modified time: 2015-02-09 09:33:40
  */
 
 (function() {
@@ -10,8 +10,8 @@
 
 	var app = angular.module('Schedule');
 
-	app.controller('MyScheduleCtrl', ['$scope', '$timeout', '$alert', 'generalService', 'dataService',
-		function($scope, $timeout, $alert, generalService, dataService) {
+	app.controller('MyScheduleCtrl', ['$q', '$scope', '$timeout', '$alert', 'generalService', 'dataService',
+		function($q, $scope, $timeout, $alert, generalService, dataService) {
 			/////////////////////////////
 			// Set aliases to the data //
 			/////////////////////////////
@@ -23,16 +23,16 @@
 			var ctrl = this,
 				day = $scope.day,
 				shift = $scope.shift.shift,
-				subShift;
-
-			if ($scope.shift.subRequest === undefined) {
-				subShift = new CLASSES.SubShift();
-				subShift.ShiftId = shift.Id;
-				subShift.Date = day.date;
-				subShift.RequesterId = PROPERTIES.currentUser.Id;
-				subShift.SemesterId = PROPERTIES.currentSemester.Id;
+				subShift, newRequest;
+			if ($scope.shift.subShift === undefined) {
+				subShift = new CLASSES.SubShift({
+					ShiftId: shift.Id,
+					Date: day.date,
+					RequesterId: PROPERTIES.currentUser.Id,
+					SemesterId: PROPERTIES.currentSemester.Id
+				});
 			} else {
-				subShift = $scope.shift.subRequest;
+				subShift = $scope.shift.subShift;
 			}
 
 			ctrl.requestSub = function() {
@@ -40,8 +40,19 @@
 					.then(refreshData());
 			};
 			ctrl.cancel = function() {
-				subShift.deactivate()
-					.then(refreshData());
+				console.log(subShift);
+				if (subShift.NewRequestId) {
+					subShift.NewRequestId = null;
+					var dataCalls = [
+						subShift.NewRequest.deactivate(),
+						subShift.update()
+					];
+					$q.all(dataCalls)
+						.then(refreshData());
+				} else {
+					subShift.deactivate()
+						.then(refreshData());
+				}
 			};
 			ctrl.requestSubOfSub = function() {
 				subShift.newRequest()
@@ -51,9 +62,9 @@
 			function refreshData() {
 				$timeout(function() {
 					GET.subShifts()
-					.then(function() {
-						day.refresh();
-					});
+						.then(function() {
+							day.refresh();
+						});
 				}, 1000);
 
 			}
