@@ -500,6 +500,7 @@
 					var subShifts, returnEmployeeArray;
 					returnEmployeeArray = [];
 					subShifts = _.filter(DATA.subShifts, function(subShift) {
+						subShift.Date.setHours(0,0,0,0);
 						return (
 							subShift.Shift.Id === shift.Id &&
 							subShift.Active &&
