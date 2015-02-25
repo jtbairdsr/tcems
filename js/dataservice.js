@@ -8,6 +8,7 @@
 
 (function() {
 	'use strict';
+	// {{{
 	Function.prototype.method = function(name, func) {
 		this.prototype[name] = func;
 		return this;
@@ -42,22 +43,23 @@
 		});
 		return this;
 	});
+	// }}}
 	var app = angular.module('Services');
+
 
 	app.service('dataService', ['$http', '$timeout', '$q', '$location', 'generalService', 'cfpLoadingBar', '$alert',
 		function($http, $timeout, $q, $location, generalService, cfpLoadingBar, $alert) {
 			var service = this;
 			var dataInitialized = false;
-			/////////////////////////////
-			// Set aliases to the data //
-			/////////////////////////////
+			// Set aliases to the data {{{
 			var DATA = generalService.data,
 				ARRAYS = generalService.arrays,
 				PROPERTIES = generalService.properties;
-
-			///////////////////////////////////
-			// Initialize service categories //
-			///////////////////////////////////
+			//}}}
+			// Initialize service categories {{{
+			/********************************************************************
+			 *                Initialize Service Categories                     *
+			 ********************************************************************/
 			service.classes = {};
 			service.get = {};
 			service.set = {};
@@ -73,20 +75,21 @@
 					template: 'partials/alerts/error-alert.html'
 				}
 			};
-
-			///////////////////////////////////////
-			// Set aliases to service categories //
-			///////////////////////////////////////
+			//}}}
+			// Set aliases to service categories {{{
+			/********************************************************************
+			 *                            Set Aliases                           *
+			 ********************************************************************/
 			var GET = service.get,
 				SET = service.set,
 				REFRESH = service.refresh,
 				CLASSES = service.classes,
-				UTILITIES = service.utilities;
-
-			//////////////////
-			// DATA GETTERS //
-			//////////////////
-			GET.areas = function() {
+				UTILITIES = service.utilities;//}}}
+			// DATA GETTERS {{{
+			/********************************************************************
+			 *                         DATA GETTERS                             *
+			 ********************************************************************/
+			GET.areas = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Area')
 					.success(function(data) {
@@ -97,8 +100,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.areaPositions = function() {
+			};//}}}
+			GET.areaPositions = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('AreaPosition')
 					.success(function(data) {
@@ -121,8 +124,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.availabilities = function() {
+			};//}}}
+			GET.availabilities = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Availability')
 					.success(function(data) {
@@ -133,8 +136,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.employees = function() {
+			};//}}}
+			GET.employees = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Employee')
 					.success(function(data) {
@@ -151,8 +154,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.employments = function() {
+			};//}}}
+			GET.employments = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Employment')
 					.success(function(data) {
@@ -163,8 +166,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.facultyTestingInfos = function() {
+			};//}}}
+			GET.facultyTestingInfos = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('FacultyTestingInfo')
 					.success(function(data) {
@@ -176,8 +179,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.messages = function() {
+			};//}}}
+			GET.messages = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Message')
 					.success(function(data) {
@@ -196,8 +199,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.noTestingDays = function() {
+			};//}}}
+			GET.noTestingDays = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('NoTestingDay')
 					.success(function(data) {
@@ -208,8 +211,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.positions = function() {
+			};//}}}
+			GET.positions = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Position')
 					.success(function(data) {
@@ -240,8 +243,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.professors = function() {
+			};//}}}
+			GET.professors = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Professor')
 					.success(function(data) {
@@ -252,8 +255,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.schedules = function() {
+			};//}}}
+			GET.schedules = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Schedule')
 					.success(function(data) {
@@ -264,8 +267,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.sentMessages = function() {
+			};//}}}
+			GET.sentMessages = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('SentMessage')
 					.success(function(data) {
@@ -290,8 +293,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.semesters = function() {
+			};//}}}
+			GET.semesters = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Semester')
 					.success(function(data) {
@@ -304,8 +307,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.shiftGroups = function() {
+			};//}}}
+			GET.shiftGroups = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('ShiftGroup')
 					.success(function(data) {
@@ -316,8 +319,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.shifts = function() {
+			};//}}}
+			GET.shifts = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Shift')
 					.success(function(data) {
@@ -328,8 +331,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.subShifts = function() {
+			};//}}}
+			GET.subShifts = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('SubShift')
 					.success(function(data) {
@@ -341,8 +344,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			GET.tracks = function() {
+			};//}}}
+			GET.tracks = function() {//{{{
 				var deffered = $q.defer();
 				UTILITIES.fetchAllItems('Track')
 					.success(function(data) {
@@ -353,12 +356,12 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-
-			//////////////////////
-			// PROPERTY SETTERS //
-			//////////////////////
-			SET.propertyCurrentUser = function() {
+			};//}}}//}}}
+			// PROPERTY SETTERS//{{{
+			/********************************************************************
+			 *                        PROPERTY SETTERS                          *
+			 ********************************************************************/
+			SET.propertyCurrentUser = function() {//{{{
 				// TODO: break this down into multiple functions
 				var deffered = $q.defer();
 				UTILITIES.fetchCurrentUser()
@@ -413,8 +416,8 @@
 							});
 					});
 				return deffered.promise;
-			};
-			SET.propertyCurrentSemester = function() {
+			};//}}}
+			SET.propertyCurrentSemester = function() {//{{{
 				PROPERTIES.currentSemester = _.find(DATA.semesters, function(semester) {
 					return semester.Active;
 				});
@@ -423,8 +426,8 @@
 						return semester.Id === PROPERTIES.currentSemester.NextSemesterId;
 					});
 				}
-			};
-			SET.propertyToday = function(date) {
+			};//}}}
+			SET.propertyToday = function(date) {//{{{
 				date = date || PROPERTIES.today.date;
 				var dayView = {
 					title: date.toString('dddd'),
@@ -588,8 +591,8 @@
 					});
 					return returnEmployeeArray;
 				}
-			};
-			SET.propertyIsASub = function() {
+			};//}}}
+			SET.propertyIsASub = function() {//{{{
 				PROPERTIES.isASub = (_.find(DATA.schedules, function(schedule) {
 					return (
 						schedule.EmployeeId === PROPERTIES.currentUser.Id &&
@@ -597,11 +600,12 @@
 						schedule.Active
 					);
 				}) === undefined);
-			};
-			///////////////////
-			// ARRAY SETTERS //
-			///////////////////
-			SET.arrayNoAvailabilityEmployees = function() {
+			};//}}}//}}}
+			// ARRAY SETTERS//{{{
+			/********************************************************************
+			 *                   	   ARRAY SETTERS                            *
+			 ********************************************************************/
+			SET.arrayNoAvailabilityEmployees = function() {//{{{
 				ARRAYS.noAvailabilityEmployees = [];
 				_.each(DATA.employees, function(employee) {
 					var submittedAvailabilities = _.find(DATA.availabilitys, function(availability) {
@@ -617,8 +621,8 @@
 						ARRAYS.noAvailabilityEmployees.push(employee);
 					}
 				});
-			};
-			SET.arrayWeeks = function(numWeeks) {
+			};//}}}
+			SET.arrayWeeks = function(numWeeks) {//{{{
 				numWeeks = numWeeks || 3;
 				ARRAYS.weeks = [];
 				var sunDate = Date.sunday();
@@ -628,8 +632,8 @@
 					ARRAYS.weeks.push(new CLASSES.Week(weekTitle, sunDate));
 					sunDate.addWeeks(1);
 				}
-			};
-			SET.arrayShifts = function() {
+			};//}}}
+			SET.arrayShifts = function() {//{{{
 				ARRAYS.shifts = [];
 				_.each(DATA.shifts, function(shift) {
 					shift.setAvailableSlots();
@@ -637,8 +641,8 @@
 				ARRAYS.shifts = _.filter(DATA.shifts, function(shift) {
 					return shift.Active;
 				});
-			};
-			SET.arrayShiftGroups = function() {
+			};//}}}
+			SET.arrayShiftGroups = function() {//{{{
 				ARRAYS.shiftGroups = [];
 				_.each(DATA.shiftGroups, function(shiftGroup) {
 					if (PROPERTIES.nextSemester.ShiftGroup !== undefined) {
@@ -652,8 +656,8 @@
 						ARRAYS.shiftGroups.push(shiftGroup);
 					}
 				});
-			};
-			SET.arraySentMessages = function() {
+			};//}}}
+			SET.arraySentMessages = function() {//{{{
 				ARRAYS.sentMessages = [];
 				_.each(DATA.messages, function(message) {
 					if (PROPERTIES.currentUser.Area.Description === 'Campus' && (
@@ -672,11 +676,12 @@
 					}
 				});
 				ARRAYS.sentMessages.activePanel = -1;
-			};
-
-			/////////////
-			// REFRESH //
-			/////////////
+			};//}}}//}}}
+			// REFRESH//{{{
+			/********************************************************************
+			 *        						    REFRESH                              *
+			 ********************************************************************/
+			REFRESH.getData = function(dataCalls) {//{{{
 			/**
 			 * This function gets the first tier of data.
 			 *
@@ -684,7 +689,6 @@
 			 *    all the data is returned and we can move on to the second
 			 *    tier.
 			 */
-			REFRESH.getData = function(dataCalls) {
 				var deffered = $q.defer();
 
 				$q.all(dataCalls)
@@ -692,8 +696,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			REFRESH.securityValidation = function() {
+			};//}}}
+			REFRESH.securityValidation = function() {//{{{
 				$http.post(PROPERTIES.sharePointUrl + '_api/contextinfo')
 					.success(function(data) {
 						var siteContextinfo = data.d.GetContextWebInformation;
@@ -710,13 +714,13 @@
 					.error(function(data) {
 						service.errors.push(data);
 					});
-			};
+			};//}}}
+			REFRESH.data = function() {//{{{
 			/**
 			 * Refresh all of the DATA arrays
 			 *
 			 * @returns    {promise}    this promise will be resolved when all of the data is ready.
 			 */
-			REFRESH.data = function() {
 				var deffered1 = $q.defer();
 				REFRESH.getData([GET.shiftGroups(), GET.positions(), GET.areas(), GET.tracks(), /*GET.Teams(),*/ GET.professors()])
 					.then(function() {
@@ -743,8 +747,8 @@
 							});
 					});
 				return deffered1.promise;
-			};
-			REFRESH.subShifts = function(hideAlert) {
+			};//}}}
+			REFRESH.subShifts = function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
 				REFRESH.getData([GET.shifts(), GET.employees()])
@@ -759,8 +763,8 @@
 							});
 					});
 				return deffered.promise;
-			};
-			REFRESH.availability = function(hideAlert) {
+			};//}}}
+			REFRESH.availability = function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
 				REFRESH.getData([GET.shifts(), GET.employees()])
@@ -776,8 +780,8 @@
 							});
 					});
 				return deffered.promise;
-			};
-			REFRESH.schedule = function(hideAlert) {
+			};//}}}
+			REFRESH.schedule = function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
 				REFRESH.getData([GET.shifts(), GET.employees()])
@@ -792,8 +796,8 @@
 							});
 					});
 				return deffered.promise;
-			};
-			REFRESH.availableShifts = function(hideAlert) {
+			};//}}}
+			REFRESH.availableShifts = function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
 				REFRESH.getData([GET.shifts(), GET.employees()])
@@ -808,8 +812,8 @@
 							});
 					});
 				return deffered.promise;
-			};
-			REFRESH.myAvailability = function(hideAlert) {
+			};//}}}
+			REFRESH.myAvailability = function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
 				GET.availabilities()
@@ -821,8 +825,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			};
-			REFRESH.mySchedule = function(hideAlert) {
+			};//}}}
+			REFRESH.mySchedule = function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
 				GET.shifts()
@@ -837,8 +841,8 @@
 							});
 					});
 				return deffered.promise;
-			};
-			REFRESH.today = function(hideAlert) {
+			};//}}}
+			REFRESH.today = function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
 				REFRESH.getData([GET.shifts(), GET.employees()])
@@ -853,8 +857,8 @@
 							});
 					});
 				return deffered.promise;
-			};
-			REFRESH.directory = function(hideAlert) {
+			};//}}}
+			REFRESH.directory = function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
 				GET.employees()
@@ -868,8 +872,8 @@
 							});
 					});
 				return deffered.promise;
-			};
-			REFRESH.messages = function(hideAlert) {
+			};//}}}
+			REFRESH.messages = function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				var deffered = $q.defer();
 				GET.messages()
@@ -884,12 +888,12 @@
 							});
 					});
 				return deffered.promise;
-			};
-
-			///////////////
-			// UTILITIES //
-			///////////////
-			UTILITIES.fetchJson = function(url, cache) {
+			};//}}}//}}}
+			// UTILITIES//{{{
+			/********************************************************************
+			 *                             UTILITIES                            *
+			 ********************************************************************/
+			UTILITIES.fetchJson = function(url, cache) {//{{{
 				cache = cache || false;
 				return $http.get(url, {
 					headers: {
@@ -897,12 +901,12 @@
 						'cache': cache
 					}
 				});
-			};
-			UTILITIES.fetchCurrentUser = function() {
+			};//}}}
+			UTILITIES.fetchCurrentUser = function() {//{{{
 				return UTILITIES.fetchJson(PROPERTIES.sharePointUrl +
 					'_api/web/currentUser', true);
-			};
-			UTILITIES.addItem = function(listName, item) {
+			};//}}}
+			UTILITIES.addItem = function(listName, item) {//{{{
 				$http.defaults.headers.post = {
 					'Accept': 'application/json;odata=verbose',
 					'Content-Type': 'application/json;odata=verbose',
@@ -910,8 +914,8 @@
 				};
 				return $http.post(PROPERTIES.sharePointUrl +
 					'_api/lists/getbytitle(\'' + listName + '\')/items', item);
-			};
-			UTILITIES.updateItem = function(listName, itemId, item, etag) {
+			};//}}}
+			UTILITIES.updateItem = function(listName, itemId, item, etag) {//{{{
 				etag = etag || '*';
 				return $http({
 					method: 'POST',
@@ -926,8 +930,8 @@
 						'X-HTTP-Method': 'MERGE'
 					}
 				});
-			};
-			UTILITIES.deleteItem = function(listName, itemId) {
+			};//}}}
+			UTILITIES.deleteItem = function(listName, itemId) {//{{{
 				return $http({
 					method: 'POST',
 					url: PROPERTIES.sharePointUrl + '_api/lists/getbytitle(\'' +
@@ -938,13 +942,13 @@
 						'X-RequestDigest': PROPERTIES.validation
 					}
 				});
-			};
-			UTILITIES.fetchItem = function(listName, itemId) {
+			};//}}}
+			UTILITIES.fetchItem = function(listName, itemId) {//{{{
 				return UTILITIES.fetchJson(PROPERTIES.sharePointUrl +
 					'_api/lists/getbytitle(\'' + listName + '\')/items(\'' + itemId +
 					'\')', false);
-			};
-			UTILITIES.fetchItems = function(listName) {
+			};//}}}
+			UTILITIES.fetchItems = function(listName) {//{{{
 				// init properties
 				this.query = '';
 				this.flag = true;
@@ -1086,30 +1090,28 @@
 						'_api/lists/getbytitle(\'' + this.listName + '\')/items' + this.query,
 						cache);
 				};
-			};
-			UTILITIES.fetchAllItems = function(listName) {
+			};//}}}
+			UTILITIES.fetchAllItems = function(listName) {//{{{
 				return new UTILITIES.fetchItems(listName).top().execute();
-			};
-			UTILITIES.fetchUserByEmail = function(email) {
+			};//}}}
+			UTILITIES.fetchUserByEmail = function(email) {//{{{
 				return $http.get(PROPERTIES.sharePointUrl +
 					'_api/web/siteusers/getbyemail(\'' + email + '\')', {
 						headers: {
 							'accept': 'application/json;odata=verbose'
 						}
 					});
-			};
-
-			/////////////
-			// CLASSES //
-			/////////////
-			// ***********************************************************************
-			// DEFINE THE DATA CLASS
-			// ***********************************************************************
-			CLASSES.Data = function() {
+			};//}}}//}}}
+			// CLASSES//{{{
+			/********************************************************************
+			 *                            CLASSES                               *
+			 ********************************************************************/
+			//*********************DEFINE THE DATA CLASS*********************//{{{
+			CLASSES.Data = function() {//{{{
 				this.newData = {};
 				this.listName = '';
-			};
-			CLASSES.Data.method('initPublicAttributes', function() {
+			};//}}}
+			CLASSES.Data.method('initPublicAttributes', function() {//{{{
 				this.Created = (this.newData.Created) ? Date.parse(this.newData.Created) : undefined;
 				this.GUID = this.newData.GUID || undefined;
 				this.Id = this.newData.Id || undefined;
@@ -1121,13 +1123,13 @@
 				this.addAlertContent = this.defaultAlertContent + ' has been added!';
 				this.removeAlertContent = this.defaultAlertContent + ' has been removed!';
 				this.updateAlertContent = this.defaultAlertContent + ' has been updated!';
-			});
-			CLASSES.Data.method('updateData', function() {
+			});//}}}
+			CLASSES.Data.method('updateData', function() {//{{{
 				return {
 					__metadata: this.__metadata
 				};
-			});
-			CLASSES.Data.method('add', function(hideAlert, newObject) {
+			});//}}}
+			CLASSES.Data.method('add', function(hideAlert, newObject) {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				hideAlert = hideAlert || false;
@@ -1157,8 +1159,8 @@
 						});
 				}
 				return deffered.promise;
-			});
-			CLASSES.Data.method('remove', function(hideAlert) {
+			});//}}}
+			CLASSES.Data.method('remove', function(hideAlert) {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				hideAlert = hideAlert || false;
@@ -1180,8 +1182,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			CLASSES.Data.method('update', function(hideAlert) {
+			});//}}}
+			CLASSES.Data.method('update', function(hideAlert) {//{{{
 				var deffered = $q.defer();
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
@@ -1219,8 +1221,8 @@
 						});
 					});
 				return deffered.promise;
-			});
-			CLASSES.Data.method('refresh', function() {
+			});//}}}
+			CLASSES.Data.method('refresh', function() {//{{{
 				var deffered = $q.defer();
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
@@ -1231,17 +1233,15 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			// ***********************************************************************
-			// DEFINE THE AREA CLASS
-			// ***********************************************************************
-			CLASSES.Area = function(data) {
+			});//}}}//}}}
+			//*********************DEFINE THE AREA CLASS*********************//{{{
+			CLASSES.Area = function(data) {//{{{
 				this.newData = data || {};
 				this.initPublicAttributes();
 				this.listName = 'Area';
-			};
+			};//}}}
 			CLASSES.Area.inherits(CLASSES.Data);
-			CLASSES.Area.method('initPublicAttributes', function() {
+			CLASSES.Area.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Area = this.newData.Area || undefined;
@@ -1253,18 +1253,18 @@
 				this.Positions = this.newData.Positions || [];
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Area.method('updateData', function() {
+			});//}}}
+			CLASSES.Area.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Area = this.Area;
 				returnData.Description = this.Description;
 				returnData.DefaultPositionId = this.DefaultPositionId;
 				return returnData;
-			});
-			CLASSES.Area.method('toString', function() {
+			});//}}}
+			CLASSES.Area.method('toString', function() {//{{{
 				return this.Description + ' Area';
-			});
-			CLASSES.Area.method('setPositions', function() {
+			});//}}}
+			CLASSES.Area.method('setPositions', function() {//{{{
 				var object = this;
 				this.Positions = [];
 				_.each(DATA.areaPositions, function(areaPosition) {
@@ -1272,17 +1272,15 @@
 						object.Positions.push(areaPosition.Position);
 					}
 				});
-			});
-			// ***********************************************************************
-			// DEFINE THE AREAPOSITION CLASS
-			// ***********************************************************************
-			CLASSES.AreaPosition = function(data) {
+			});//}}}//}}}
+			//*****************DEFINE THE AREAPOSITION CLASS*****************//{{{
+			CLASSES.AreaPosition = function(data) {//{{{
 				this.newData = data || {};
 				this.initPublicAttributes();
 				this.listName = 'AreaPosition';
-			};
+			};//}}}
 			CLASSES.AreaPosition.inherits(CLASSES.Data);
-			CLASSES.AreaPosition.method('initPublicAttributes', function() {
+			CLASSES.AreaPosition.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.AreaId = this.newData.AreaId || undefined;
@@ -1296,30 +1294,28 @@
 				this.setAreasPosition();
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.AreaPosition.method('updateData', function() {
+			});//}}}
+			CLASSES.AreaPosition.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.AreaId = this.AreaId;
 				returnData.PositionId = this.PositionId;
 				return returnData;
-			});
-			CLASSES.AreaPosition.method('toString', function() {
+			});//}}}
+			CLASSES.AreaPosition.method('toString', function() {//{{{
 				return this.Area.Description + ' ' + this.Position.Description;
-			});
-			CLASSES.AreaPosition.method('setAreasPosition', function() {
+			});//}}}
+			CLASSES.AreaPosition.method('setAreasPosition', function() {//{{{
 				this.Area.Positions.push(this.Position);
-			});
-			// ***********************************************************************
-			// DEFINE THE AVAILABILITY CLASS
-			// ***********************************************************************
-			CLASSES.Availability = function(data) {
+			});//}}}//}}}
+			//*****************DEFINE THE AVAILABILITY CLASS*****************//{{{
+			CLASSES.Availability = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Availability';
 				this.initPublicAttributes();
 				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your information' : this.toString();
-			};
+			};//}}}
 			CLASSES.Availability.inherits(CLASSES.Data);
-			CLASSES.Availability.method('initPublicAttributes', function() {
+			CLASSES.Availability.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Active = this.newData.Active || this.newData.Current || false;
@@ -1337,8 +1333,8 @@
 				this.StartTime = (this.newData.StartTime) ? Date.parse(this.newData.StartTime) : undefined;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Availability.method('updateData', function() {
+			});//}}}
+			CLASSES.Availability.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Active = this.Current;
 				returnData.Current = this.Current;
@@ -1348,8 +1344,8 @@
 				returnData.SemesterId = this.SemesterId;
 				returnData.StartTime = this.StartTime;
 				return returnData;
-			});
-			CLASSES.Availability.method('add', function() {
+			});//}}}
+			CLASSES.Availability.method('add', function() {//{{{
 				var deffered = $q.defer();
 				this.Active = true;
 				this.Current = true;
@@ -1358,11 +1354,11 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			CLASSES.Availability.method('toString', function() {
+			});//}}}
+			CLASSES.Availability.method('toString', function() {//{{{
 				return this.Employee.toString() + '\'s availability';
-			});
-			CLASSES.Availability.method('deactivate', function(hideAlert) {
+			});//}}}
+			CLASSES.Availability.method('deactivate', function(hideAlert) {//{{{
 				var deffered = $q.defer();
 				hideAlert = hideAlert || false;
 				this.Active = false;
@@ -1372,18 +1368,16 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			// ***********************************************************************
-			// DEFINE THE EMPLOYEE CLASS
-			// ***********************************************************************
-			CLASSES.Employee = function(data) {
+			});//}}}//}}}
+			//*******************DEFINE THE EMPLOYEE CLASS*******************//{{{
+			CLASSES.Employee = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Employee';
 				this.initPublicAttributes();
 				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your information' : this.toString();
-			};
+			};//}}}
 			CLASSES.Employee.inherits(CLASSES.Data);
-			CLASSES.Employee.method('initPublicAttributes', function() {
+			CLASSES.Employee.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Active = this.newData.Active || false;
@@ -1427,8 +1421,8 @@
 				);
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Employee.method('updateData', function() {
+			});//}}}
+			CLASSES.Employee.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Active = this.Active;
 				returnData.Admin = this.Admin;
@@ -1446,8 +1440,8 @@
 				// returnData.TeamId = this.TeamId;
 				returnData.TrackId = this.TrackId;
 				return returnData;
-			});
-			CLASSES.Employee.method('toString', function(param) {
+			});//}}}
+			CLASSES.Employee.method('toString', function(param) {//{{{
 				if (param) {
 					if (param === 'name') {
 						return this.PreferredName + ' ' + this.LastName;
@@ -1455,8 +1449,8 @@
 				} else {
 					return this.Position.Description + ': ' + this.PreferredName + ' ' + this.LastName;
 				}
-			});
-			CLASSES.Employee.method('activate', function() {
+			});//}}}
+			CLASSES.Employee.method('activate', function() {//{{{
 				var employment = new CLASSES.Employment({
 					AreaId: this.AreaId,
 					EmployeeId: this.Id,
@@ -1465,8 +1459,8 @@
 				employment.start(true);
 				this.Active = true;
 				this.update();
-			});
-			CLASSES.Employee.method('deactivate', function(hideAlert) {
+			});//}}}
+			CLASSES.Employee.method('deactivate', function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
@@ -1506,8 +1500,8 @@
 				});
 				this.Active = false;
 				this.update();
-			});
-			CLASSES.Employee.method('retire', function() {
+			});//}}}
+			CLASSES.Employee.method('retire', function() {//{{{
 				var deffered = $q.defer();
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
@@ -1523,36 +1517,34 @@
 					deffered.resolve();
 				});
 				return deffered.promise;
-			});
-			CLASSES.Employee.method('add', function() {
+			});//}}}
+			CLASSES.Employee.method('add', function() {//{{{
 				var object = this;
 				this.uber('add').then(function() {
 					object.activate();
 				});
-			});
-			CLASSES.Employee.method('setEmployements', function() {
+			});//}}}
+			CLASSES.Employee.method('setEmployements', function() {//{{{
 				var object = this;
 				this.Employments = _.filter(DATA.employments, function(employment) {
 					return employment.EmployeeId === object.Id;
 				});
-			});
-			CLASSES.Employee.method('setIntent', function() {
+			});//}}}
+			CLASSES.Employee.method('setIntent', function() {//{{{
 				this.Intent = _.find(DATA.intents, function(intent) {
 					return intent.EmployeeId === employee.Id;
 				});
-			});
-			CLASSES.Employee.method('declareIntent', function() {});
-			// ***********************************************************************
-			// DEFINE THE EMPLOYMENT CLASS
-			// ***********************************************************************
-			CLASSES.Employment = function(data) {
+			});//}}}
+			CLASSES.Employee.method('declareIntent', function() {});//}}}
+			//******************DEFINE THE EMPLOYMENT CLASS******************//{{{
+			CLASSES.Employment = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Employment';
 				this.initPublicAttributes();
 				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your employment' : this.toString();
-			};
+			};//}}}
 			CLASSES.Employment.inherits(CLASSES.Data);
-			CLASSES.Employment.method('initPublicAttributes', function() {
+			CLASSES.Employment.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.AreaId = this.newData.AreaId || undefined;
@@ -1572,8 +1564,8 @@
 				this.Edit = false;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Employment.method('updateData', function() {
+			});//}}}
+			CLASSES.Employment.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.AreaId = this.AreaId;
 				returnData.EmployeeId = this.EmployeeId;
@@ -1581,30 +1573,28 @@
 				returnData.StartDate = this.StartDate;
 				returnData.PositionId = this.PositionId;
 				return returnData;
-			});
-			CLASSES.Employment.method('toString', function() {
+			});//}}}
+			CLASSES.Employment.method('toString', function() {//{{{
 				return this.Employee.toString() + '\'s employment';
-			});
-			CLASSES.Employment.method('start', function(hideAlert) {
+			});//}}}
+			CLASSES.Employment.method('start', function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				this.StartDate = new Date();
 				this.add(hideAlert);
-			});
-			CLASSES.Employment.method('end', function(hideAlert) {
+			});//}}}
+			CLASSES.Employment.method('end', function(hideAlert) {//{{{
 				hideAlert = hideAlert || false;
 				this.EndDate = new Date();
 				this.update(hideAlert);
-			});
-			// ***********************************************************************
-			// DEFINE THE FACULTYTESTINGINFO CLASS
-			// ***********************************************************************
-			CLASSES.FacultyTestingInfo = function(data) {
+			});//}}}//}}}
+			//**************DEFINE THE FACULTYTESTINGINFO CLASS**************//{{{
+			CLASSES.FacultyTestingInfo = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'FacultyTestingInfo';
 				this.initPublicAttributes();
-			};
+			};//}}}
 			CLASSES.FacultyTestingInfo.inherits(CLASSES.Data);
-			CLASSES.FacultyTestingInfo.method('initPublicAttributes', function() {
+			CLASSES.FacultyTestingInfo.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.ProfessorId = this.newData.ProfessorId || undefined;
@@ -1617,32 +1607,30 @@
 				this.Other = this.newData.Other || undefined;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.FacultyTestingInfo.method('updateData', function() {
+			});//}}}
+			CLASSES.FacultyTestingInfo.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.ProfessorId = this.ProfessorId;
 				returnData.Stipulation = this.Stipulation;
 				returnData.Other = this.Other;
 				return returnData;
-			});
-			CLASSES.FacultyTestingInfo.method('toString', function() {
+			});//}}}
+			CLASSES.FacultyTestingInfo.method('toString', function() {//{{{
 				if (this.Professor.Id) {
 					return this.Professor.toString() + '\'s testing information';
 				} else {
 					return 'New FacultyTestingInfo';
 				}
-			});
-			// ***********************************************************************
-			// DEFINE THE MESSAGE CLASS
-			// ***********************************************************************
-			CLASSES.Message = function(data) {
+			});//}}}//}}}
+			//********************DEFINE THE MESSAGE CLASS*******************//{{{
+			CLASSES.Message = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Message';
 				this.initPublicAttributes();
 				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your employment' : this.toString();
-			};
+			};//}}}
 			CLASSES.Message.inherits(CLASSES.Data);
-			CLASSES.Message.method('initPublicAttributes', function() {
+			CLASSES.Message.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Active = this.newData.Active || false;
@@ -1673,8 +1661,8 @@
 				this.Edit = false;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Message.method('updateData', function() {
+			});//}}}
+			CLASSES.Message.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Active = this.Active;
 				returnData.AreaId = this.AreaId;
@@ -1687,11 +1675,11 @@
 				returnData.SemesterId = this.SemesterId;
 				returnData.Subject = this.Subject;
 				return returnData;
-			});
-			CLASSES.Message.method('toString', function() {
+			});//}}}
+			CLASSES.Message.method('toString', function() {//{{{
 				return 'Subject: ' + this.Subject + '\n From: ' + this.From.toString('name');
-			});
-			CLASSES.Message.method('add', function() {
+			});//}}}
+			CLASSES.Message.method('add', function() {//{{{
 				var deffered = $q.defer();
 				this.Active = true;
 				this.uber('add')
@@ -1699,8 +1687,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			CLASSES.Message.method('send', function() {
+			});//}}}
+			CLASSES.Message.method('send', function() {//{{{
 				var deffered = $q.defer();
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
@@ -1741,16 +1729,16 @@
 							}
 						});
 				}
-			});
-			CLASSES.Message.method('getRecipients', function() {
+			});//}}}
+			CLASSES.Message.method('getRecipients', function() {//{{{
 				var sentMessages = _.filter(service.data.sentMessages, function(sentMessage) {
 					return sentMessage.MessageId === this.Id;
 				});
 				_.each(sentMessages, function(sentMessage) {
 					this.Recipients.push(sentMessage.Employee);
 				});
-			});
-			CLASSES.Message.method('deactivate', function() {
+			});//}}}
+			CLASSES.Message.method('deactivate', function() {//{{{
 				var deffered = $q.defer();
 				this.Active = false;
 				this.update()
@@ -1758,17 +1746,15 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			// ***********************************************************************
-			// DEFINE THE NOTESTINGDAY CLASS
-			// ***********************************************************************
-			CLASSES.NoTestingDay = function(data) {
+			});//}}}//}}}
+			//*****************DEFINE THE NOTESTINGDAY CLASS*****************//{{{
+			CLASSES.NoTestingDay = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'NoTestingDay';
 				this.initPublicAttributes();
-			};
+			};//}}}
 			CLASSES.NoTestingDay.inherits(CLASSES.Data);
-			CLASSES.NoTestingDay.method('initPublicAttributes', function() {
+			CLASSES.NoTestingDay.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Title = this.newData.Title || undefined;
@@ -1780,28 +1766,26 @@
 				}) : {};
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.NoTestingDay.method('updateData', function() {
+			});//}}}
+			CLASSES.NoTestingDay.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Title = this.Title;
 				returnData.Date = this.Date;
 				returnData.Description = this.Description;
 				returnData.SemesterId = this.SemesterId;
 				return returnData;
-			});
-			CLASSES.NoTestingDay.method('toString', function() {
+			});//}}}
+			CLASSES.NoTestingDay.method('toString', function() {//{{{
 				return this.Title;
-			});
-			// ***********************************************************************
-			// DEFINE THE POSITION CLASS
-			// ***********************************************************************
-			CLASSES.Position = function(data) {
+			});//}}}//}}}
+			//*******************DEFINE THE POSITION CLASS*******************//{{{
+			CLASSES.Position = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Position';
 				this.initPublicAttributes();
-			};
+			};//}}}
 			CLASSES.Position.inherits(CLASSES.Data);
-			CLASSES.Position.method('initPublicAttributes', function() {
+			CLASSES.Position.method('initPublicAttributes', function() {//{{{
 				this.Position = this.newData.Position || undefined;
 				this.Description = this.newData.Description || undefined;
 				this.Active = true;
@@ -1810,17 +1794,17 @@
 				this.setActive();
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Position.method('updateData', function() {
+			});//}}}
+			CLASSES.Position.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Position = this.Position;
 				returnData.Description = this.Description;
 				return returnData;
-			});
-			CLASSES.Position.method('toString', function() {
+			});//}}}
+			CLASSES.Position.method('toString', function() {//{{{
 				return this.Description + ' position';
-			});
-			CLASSES.Position.method('setAccess', function() {
+			});//}}}
+			CLASSES.Position.method('setAccess', function() {//{{{
 				if (PROPERTIES.currentUser.Position !== undefined &&
 					PROPERTIES.currentUser.Area.DefaultPosition !== undefined) {
 					this.Access = (
@@ -1831,8 +1815,8 @@
 						PROPERTIES.currentUser.Admin
 					);
 				}
-			});
-			CLASSES.Position.method('setActive', function() {
+			});//}}}
+			CLASSES.Position.method('setActive', function() {//{{{
 				if (PROPERTIES.currentUser.Position !== undefined &&
 					PROPERTIES.currentUser.Area.DefaultPosition !== undefined) {
 					this.Active = (
@@ -1841,18 +1825,16 @@
 							this.Description === PROPERTIES.currentUser.Position.Description) === 1
 					);
 				}
-			});
-			// ***********************************************************************
-			// DEFINE THE PROFESSOR CLASS
-			// ***********************************************************************
-			CLASSES.Professor = function(data) {
+			});//}}}//}}}
+			//*******************DEFINE THE PROFESSOR CLASS******************//{{{
+			CLASSES.Professor = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Professor';
 				this.initPublicAttributes();
 				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your information' : this.toString();
-			};
+			};//}}}
 			CLASSES.Professor.inherits(CLASSES.Data);
-			CLASSES.Professor.method('initPublicAttributes', function() {
+			CLASSES.Professor.method('initPublicAttributes', function() {//{{{
 				this.EmailAddress = this.newData.EmailAddress || undefined;
 				this.FirstName = this.newData.FirstName || undefined;
 				this.LastName = this.newData.LastName || undefined;
@@ -1862,8 +1844,8 @@
 				this.Picture = this.newData.Picture || undefined;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Professor.method('updateData', function() {
+			});//}}}
+			CLASSES.Professor.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.EmailAddress = this.EmailAddress;
 				returnData.FirstName = this.FirstName;
@@ -1873,21 +1855,19 @@
 				returnData.OtherPhone = this.OtherPhone;
 				returnData.Picture = this.Picture;
 				return returnData;
-			});
-			CLASSES.Professor.method('toString', function() {
+			});//}}}
+			CLASSES.Professor.method('toString', function() {//{{{
 				return this.listName + ': ' + this.FirstName + ' ' + this.LastName;
-			});
-			// ***********************************************************************
-			// DEFINE THE SCHEDULE CLASS
-			// ***********************************************************************
-			CLASSES.Schedule = function(data) {
+			});//}}}//}}}
+			//*******************DEFINE THE SCHEDULE CLASS*******************//{{{
+			CLASSES.Schedule = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Schedule';
 				this.initPublicAttributes();
 				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your schedule' : this.toString();
-			};
+			};//}}}
 			CLASSES.Schedule.inherits(CLASSES.Data);
-			CLASSES.Schedule.method('add', function() {
+			CLASSES.Schedule.method('add', function() {//{{{
 				var deffered = $q.defer();
 				this.Active = true;
 				this.uber('add')
@@ -1895,8 +1875,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			CLASSES.Schedule.method('initPublicAttributes', function() {
+			});//}}}
+			CLASSES.Schedule.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Active = this.newData.Active || false;
@@ -1914,19 +1894,19 @@
 				}) : {};
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Schedule.method('updateData', function() {
+			});//}}}
+			CLASSES.Schedule.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Active = this.Active;
 				returnData.EmployeeId = this.EmployeeId;
 				returnData.ShiftId = this.ShiftId;
 				returnData.SemesterId = this.SemesterId;
 				return returnData;
-			});
-			CLASSES.Schedule.method('toString', function() {
+			});//}}}
+			CLASSES.Schedule.method('toString', function() {//{{{
 				return this.Employee.toString() + '\'s schedule';
-			});
-			CLASSES.Schedule.method('deactivate', function(hideAlert) {
+			});//}}}
+			CLASSES.Schedule.method('deactivate', function(hideAlert) {//{{{
 				var deffered = $q.defer();
 				hideAlert = hideAlert || false;
 				this.Active = false;
@@ -1935,17 +1915,15 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			// ***********************************************************************
-			// DEFINE THE SENTMESSAGE CLASS
-			// ***********************************************************************
-			CLASSES.SentMessage = function(data) {
+			});//}}}//}}}
+			//******************DEFINE THE SENTMESSAGE CLASS*****************//{{{
+			CLASSES.SentMessage = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'SentMessage';
 				this.initPublicAttributes();
-			};
+			};//}}}
 			CLASSES.SentMessage.inherits(CLASSES.Data);
-			CLASSES.SentMessage.method('initPublicAttributes', function() {
+			CLASSES.SentMessage.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.AckDate = (this.newData.AckDate) ? Date.parse(this.newData.AckDate) : undefined;
@@ -1962,20 +1940,20 @@
 				this.Disabled = (this.newData.MessageId) ? (this.Message.DueDate.compareTo(Date.today()) < 1) : false;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.SentMessage.method('updateData', function() {
+			});//}}}
+			CLASSES.SentMessage.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.AckDate = this.AckDate;
 				returnData.EmployeeId = this.EmployeeId;
 				returnData.MessageId = this.MessageId;
 				returnData.Read = this.Read;
 				return returnData;
-			});
-			CLASSES.SentMessage.method('toString', function() {
+			});//}}}
+			CLASSES.SentMessage.method('toString', function() {//{{{
 				return 'Message from ' + this.Message.From.toString().split(': ')[1] + ' to ' + this.Employee.toString().split(': ')[1] +
 					'\nSubject: ' + this.Message.Subject;
-			});
-			CLASSES.SentMessage.method('read', function() {
+			});//}}}
+			CLASSES.SentMessage.method('read', function() {//{{{
 				var deffered = $q.defer();
 				this.Read = true;
 				this.AckDate = new Date();
@@ -1984,17 +1962,15 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			// ***********************************************************************
-			// DEFINE THE SEMESTER CLASS
-			// ***********************************************************************
-			CLASSES.Semester = function(data) {
+			});//}}}//}}}
+			//*******************DEFINE THE SEMESTER CLASS*******************//{{{
+			CLASSES.Semester = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Semester';
 				this.initPublicAttributes();
-			};
+			};//}}}
 			CLASSES.Semester.inherits(CLASSES.Data);
-			CLASSES.Semester.method('initPublicAttributes', function() {
+			CLASSES.Semester.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Active = this.newData.Active || false;
@@ -2012,8 +1988,8 @@
 				this.Description = this.newData.Description || undefined;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Semester.method('updateData', function() {
+			});//}}}
+			CLASSES.Semester.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Active = this.Active;
 				returnData.FirstDay = this.FirstDay;
@@ -2022,24 +1998,22 @@
 				returnData.ShiftGroupId = this.ShiftGroupId;
 				returnData.Year = this.Year;
 				return returnData;
-			});
-			CLASSES.Semester.method('toString', function() {
+			});//}}}
+			CLASSES.Semester.method('toString', function() {//{{{
 				return this.ShiftGroup.Description + ' ' + this.Year + ' Semester';
-			});
-			CLASSES.Semester.method('deactivate', function() {
+			});//}}}
+			CLASSES.Semester.method('deactivate', function() {//{{{
 				this.Active = false;
 				this.update();
-			});
-			// ***********************************************************************
-			// DEFINE THE SHIFT CLASS
-			// ***********************************************************************
-			CLASSES.Shift = function(data) {
+			});//}}}//}}}
+			//*********************DEFINE THE SHIFT CLASS********************//{{{
+			CLASSES.Shift = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Shift';
 				this.initPublicAttributes();
-			};
+			};//}}}
 			CLASSES.Shift.inherits(CLASSES.Data);
-			CLASSES.Shift.method('add', function() {
+			CLASSES.Shift.method('add', function() {//{{{
 				var deffered = $q.defer();
 				this.Active = true;
 				this.Current = true;
@@ -2048,8 +2022,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			CLASSES.Shift.method('initPublicAttributes', function() {
+			});//}}}
+			CLASSES.Shift.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Day = this.newData.Day || undefined;
@@ -2070,8 +2044,8 @@
 				this.EndTime = (this.newData.EndTime) ? Date.parse(this.newData.EndTime) : undefined;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Shift.method('updateData', function() {
+			});//}}}
+			CLASSES.Shift.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Day = this.Day;
 				returnData.Slots = this.Slots;
@@ -2082,15 +2056,15 @@
 				returnData.StartTime = this.StartTime;
 				returnData.EndTime = this.EndTime;
 				return returnData;
-			});
-			CLASSES.Shift.method('toString', function() {
+			});//}}}
+			CLASSES.Shift.method('toString', function() {//{{{
 				if (this.Id === undefined) {
 					return 'New shift';
 				} else {
 					return this.Position.Description + ': ' + this.Day.replace(/\s/g, '').replace(/[-]/g, ', ') + '\n' + this.StartTime.toString('h:mm') + ' - ' + this.EndTime.toString('h:mm');
 				}
-			});
-			CLASSES.Shift.method('setAvailableSlots', function() {
+			});//}}}
+			CLASSES.Shift.method('setAvailableSlots', function() {//{{{
 				var shift = this;
 				this.AvailableSlots = this.Slots - _.filter(DATA.schedules, function(schedule) {
 					return (
@@ -2098,16 +2072,16 @@
 						schedule.Active
 					);
 				}).length;
-			});
-			CLASSES.Shift.method('update', function() {
+			});//}}}
+			CLASSES.Shift.method('update', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.uber('update')
 					.then(function() {
 						object.setAvailableSlots();
 					});
-			});
-			CLASSES.Shift.method('deactivate', function() {
+			});//}}}
+			CLASSES.Shift.method('deactivate', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var shift = this;
 				_.each(DATA.schedules, function(schedule) {
@@ -2119,39 +2093,35 @@
 				this.Active = false;
 				this.Current = false;
 				this.update();
-			});
-			// ***********************************************************************
-			// DEFINE THE SHIFTGROUP CLASS
-			// ***********************************************************************
-			CLASSES.ShiftGroup = function(data) {
+			});//}}}//}}}
+			//******************DEFINE THE SHIFTGROUP CLASS******************//{{{
+			CLASSES.ShiftGroup = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'ShiftGroup';
 				this.initPublicAttributes();
-			};
+			};//}}}
 			CLASSES.ShiftGroup.inherits(CLASSES.Data);
-			CLASSES.ShiftGroup.method('initPublicAttributes', function() {
+			CLASSES.ShiftGroup.method('initPublicAttributes', function() {//{{{
 				this.Description = this.newData.Description || undefined;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.ShiftGroup.method('updateData', function() {
+			});//}}}
+			CLASSES.ShiftGroup.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Description = this.Description;
 				return returnData;
-			});
-			CLASSES.ShiftGroup.method('toString', function() {
+			});//}}}
+			CLASSES.ShiftGroup.method('toString', function() {//{{{
 				return 'The ' + this.Description + ' semester type';
-			});
-			// ***********************************************************************
-			// DEFINE THE SUBSHIFT CLASS
-			// ***********************************************************************
-			CLASSES.SubShift = function(data) {
+			});//}}}//}}}
+			//*******************DEFINE THE SUBSHIFT CLASS*******************//{{{
+			CLASSES.SubShift = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'SubShift';
 				this.initPublicAttributes();
-			};
+			};//}}}
 			CLASSES.SubShift.inherits(CLASSES.Data);
-			CLASSES.SubShift.method('add', function() {
+			CLASSES.SubShift.method('add', function() {//{{{
 				var deffered = $q.defer();
 				this.Active = true;
 				this.uber('add')
@@ -2159,8 +2129,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			CLASSES.SubShift.method('initPublicAttributes', function() {
+			});//}}}
+			CLASSES.SubShift.method('initPublicAttributes', function() {//{{{
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
 				this.Active = (this.newData.Active !== undefined) ? this.newData.Active : true;
@@ -2187,8 +2157,8 @@
 				}) : {};
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.SubShift.method('updateData', function() {
+			});//}}}
+			CLASSES.SubShift.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Active = this.Active;
 				returnData.Date = this.Date;
@@ -2198,8 +2168,8 @@
 				returnData.ShiftId = this.ShiftId;
 				returnData.SubstituteId = this.SubstituteId;
 				return returnData;
-			});
-			CLASSES.SubShift.method('toString', function() {
+			});//}}}
+			CLASSES.SubShift.method('toString', function() {//{{{
 				if (this.SubstituteId) {
 					return this.Substitute.toString().split(': ')[1] + ' subbing for ' + this.Requester.toString().split(': ')[1] + '\n' + this.Date.toString('dddd MMM dS') + ' from ' + this.Shift.toString().split('\n')[1];
 				} else if (this.RequesterId) {
@@ -2207,8 +2177,8 @@
 				} else {
 					return 'New SubShift';
 				}
-			});
-			CLASSES.SubShift.method('deactivate', function(hideAlert) {
+			});//}}}
+			CLASSES.SubShift.method('deactivate', function(hideAlert) {//{{{
 				var deffered = $q.defer();
 				hideAlert = hideAlert || false;
 				this.Active = false;
@@ -2217,8 +2187,8 @@
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			CLASSES.SubShift.method('newRequest', function() {
+			});//}}}
+			CLASSES.SubShift.method('newRequest', function() {//{{{
 				var deffered = $q.defer();
 				/** @privateAtribute {object} an alias for this */
 				var object = this;
@@ -2238,41 +2208,37 @@
 							});
 					});
 				return deffered.promise;
-			});
-			CLASSES.SubShift.method('cancel', function() {
+			});//}}}
+			CLASSES.SubShift.method('cancel', function() {//{{{
 				var deffered = $q.defer();
 				this.deactivate()
 					.then(function() {
 						deffered.resolve();
 					});
 				return deffered.promise;
-			});
-			// ***********************************************************************
-			// DEFINE THE TRACK CLASS
-			// ***********************************************************************
-			CLASSES.Track = function(data) {
+			});//}}}//}}}
+			//*********************DEFINE THE TRACK CLASS********************//{{{
+			CLASSES.Track = function(data) {//{{{
 				this.newData = data || {};
 				this.listName = 'Track';
 				this.initPublicAttributes();
-			};
+			};//}}}
 			CLASSES.Track.inherits(CLASSES.Data);
-			CLASSES.Track.method('initPublicAttributes', function() {
+			CLASSES.Track.method('initPublicAttributes', function() {//{{{
 				this.Description = this.newData.Description || undefined;
 				this.uber('initPublicAttributes');
 				this.data = this.updateData();
-			});
-			CLASSES.Track.method('updateData', function() {
+			});//}}}
+			CLASSES.Track.method('updateData', function() {//{{{
 				var returnData = this.uber('updateData');
 				returnData.Description = this.Description;
 				return returnData;
-			});
-			CLASSES.Track.method('toString', function() {
+			});//}}}
+			CLASSES.Track.method('toString', function() {//{{{
 				return 'The ' + this.Description + ' track';
-			});
-			// ***********************************************************************
-			// DEFINE THE WEEK CLASS
-			// ***********************************************************************
-			CLASSES.Week = function(title, firstDay) {
+			});//}}}//}}}
+			//*********************DEFINE THE WEEK CLASS*********************//{{{
+			CLASSES.Week = function(title, firstDay) {//{{{
 				this.days = [];
 				this.firstDay = new Date(firstDay) || new Date(Date.sunday());
 				this.title = title || 'Week 1';
@@ -2301,22 +2267,20 @@
 					days -= weeks * 7;
 					return (weeks + 1);
 				}
-			};
-			CLASSES.Week.method('getDays', function() {
+			};//}}}
+			CLASSES.Week.method('getDays', function() {//{{{
 				var dayDate = new Date(this.firstDay);
 				for (var i = 0; i < 7; i++) {
 					this.days.push(new CLASSES.Day(dayDate));
 					dayDate = dayDate.addDays(1);
 				}
 				return this;
-			});
-			CLASSES.Week.method('toString', function() {
+			});//}}}
+			CLASSES.Week.method('toString', function() {//{{{
 				return this.title;
-			});
-			// ***********************************************************************
-			// DEFINE THE DAY CLASS
-			// ***********************************************************************
-			CLASSES.Day = function(date) {
+			});//}}}//}}}
+			//**********************DEFINE THE DAY CLASS*********************//{{{
+			CLASSES.Day = function(date) {//{{{
 				this.active = true;
 				this.title = date.toString('dddd');
 				this.day = date.toString('ddd');
@@ -2346,23 +2310,23 @@
 				this.getSubShifts();
 				this.getMyShifts();
 				this.getMyAvailabilities();
-			};
-			CLASSES.Day.method('refresh', function() {
+			};//}}}
+			CLASSES.Day.method('refresh', function() {//{{{
 				this.getShifts();
 				this.getAvailabilities();
 				this.getSubShifts();
 				this.getMyShifts();
 				this.getMyAvailabilities();
-			});
-			CLASSES.Day.method('toString', function() {
+			});//}}}
+			CLASSES.Day.method('toString', function() {//{{{
 				return this.title + ' ' + this.date.toString('MMMM dS');
-			});
+			});//}}}
+			CLASSES.Day.method('getShifts', function() {//{{{
 			/**
 			 * This gets the shifts for the day.
 			 *
 			 * @returns    {object}           this for chaining
 			 */
-			CLASSES.Day.method('getShifts', function() {
 				/** @privateAtribute {day} an alias for this */
 				var day = this;
 				this.shifts = {
@@ -2433,13 +2397,13 @@
 						currentShift.Employees.push(noEmployee);
 					}
 				}
-			});
+			});//}}}
+			CLASSES.Day.method('getAvailabilities', function() {//{{{
 			/**
 			 * This gets the availabilities for the day.
 			 *
 			 * @returns    {object}           this for chaining
 			 */
-			CLASSES.Day.method('getAvailabilities', function() {
 				/** @privateAtribute {day} an alias for this */
 				var day = this;
 				this.availabilities = {
@@ -2518,13 +2482,13 @@
 						}
 					});
 				}
-			});
+			});//}}}
+			CLASSES.Day.method('getSubShifts', function() {//{{{
 			/**
 			 * This gets the subShifts for the day.
 			 *
 			 * @returns    {object}           this for chaining
 			 */
-			CLASSES.Day.method('getSubShifts', function() {
 				/** @privateAtribute {day} an alias for this */
 				var day = this;
 				this.subShifts = []; // data used in the Sub Shifts view
@@ -2541,13 +2505,13 @@
 						});
 					}
 				});
-			});
+			});//}}}
+			CLASSES.Day.method('getMyShifts', function() {//{{{
 			/**
 			 * This gets the myShifts for the day.
 			 *
 			 * @returns    {object}           this for chaining
 			 */
-			CLASSES.Day.method('getMyShifts', function() {
 				/** @privateAtribute {day} an alias for this */
 				var day = this;
 				this.myShifts = {
@@ -2643,13 +2607,13 @@
 						}
 					});
 				}
-			});
+			});//}}}
+			CLASSES.Day.method('getMyAvailabilities', function() {//{{{
 			/**
 			 * This gets the myAvailabilities for the day.
 			 *
 			 * @returns    {object}           this for chaining
 			 */
-			CLASSES.Day.method('getMyAvailabilities', function() {
 				/** @privateAtribute {day} an alias for this */
 				var day = this;
 				this.myAvailabilities = {
@@ -2672,10 +2636,8 @@
 					});
 				}
 				return this;
-			});
-
-
-			service.initializeData = function() {
+			});//}}}//}}}//}}}
+			service.initializeData = function() {//{{{
 				var deffered = $q.defer();
 				cfpLoadingBar.start();
 				SET.propertyCurrentUser()
@@ -2692,12 +2654,8 @@
 						}
 					});
 				return deffered.promise;
-			};
-
-			init();
-			return service;
-
-			function init() {
+			};//}}}
+			function init() {//{{{
 				$http.defaults.headers.post = {
 					'Accept': 'application/json;odata=verbose',
 					'Content-Type': 'application/json;odata=verbose',
@@ -2706,8 +2664,11 @@
 					'If-Match': '*'
 				};
 				REFRESH.securityValidation();
-			}
-
+			}//}}}
+			init();
+			return service;
 		}
 	]);
 })();
+
+// vim:foldmethod=marker:foldlevel=0
