@@ -13,11 +13,11 @@
 			<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 				<ul class="nav navbar-nav">
 					<li data-ng-show="properties.currentUser.Active">
-						<a ui-sref="main.schedule.today">
+						<a data-ui-sref="main.schedule.today">
 							<span class="glyphicon glyphicon-calendar"></span>&#8199Schedule</a>
 					</li>
 					<li data-ng-show="properties.currentUser.Active">
-						<a ui-sref="main.directory.gridView">
+						<a data-ui-sref="main.directory.gridView">
 							<span class="glyphicon glyphicon-earphone"></span>&#8199Directory</a>
 					</li>
 					<!-- <li data-ng-show="properties.currentUser.Admin || properties.currentUser.Position.Position === 'FTE' || properties.currentUser.Position.Position === 'HR'">
@@ -30,21 +30,21 @@
 						<a ui-sref="main.saras">SARAS</a>
 					</li> -->
 					<li data-ng-show="properties.currentUser.Admin">
-						<a ui-sref="main.faculty.info"><span class="glyphicon glyphicon-briefcase"></span>&#8199Faculty Portal</a>
+						<a data-ui-sref="main.faculty.info">Faculty Portal</a>
 					</li>
 					<li data-ng-show="properties.currentUser.Admin">
-						<a ui-sref="main.utilities">
+						<a data-ui-sref="main.utilities">
 							<span class="glyphicon glyphicon-cog"></span>&#8199Utilities</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li data-ng-show="properties.currentUser.Active">
-						<a href="" bs-aside="aside" data-template="partials/message/messages.html" data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
+						<a data-bs-aside="aside" data-template="partials/message/messages.html" data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
 							<span class="glyphicon glyphicon-envelope"></span><span data-ng-show="properties.unreadMessages > 0" class="badge badge-error">{{properties.unreadMessages}}</span>
 						</a>
 					</li>
 					<li data-ng-show="properties.currentUser.Active">
-						<a href="" bs-aside="aside" data-template="partials/profile.html" data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
+						<a data-bs-aside="aside" data-template="partials/profile.html" data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
 							<span class="glyphicon glyphicon-user"></span>
 						</a>
 					</li>
