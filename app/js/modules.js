@@ -33,11 +33,11 @@
 		// 'mgcrea.ngStrap.button',
 
 		// Our custom libraries
-		'Faculty',
-		'Services',
-		'Schedule',
-		'Directory',
-		'Utilities'
+		//'Faculty',
+		//'Services',
+		//'Schedule',
+		//'Directory',
+		//'Utilities'
 	]);
 	app.run(function($rootScope, generalService) {
 		$rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
@@ -201,7 +201,7 @@
 	 *
 	 * This module runs the schedule portion of the app.  All controllers that deal with Scheduling, Availability, and Shifts will be contained in this module
 	 */
-	angular.module('Schedule', [
+	/* angular.module('Schedule', [
 		// Official Angular modules
 		'ngAnimate',
 		'ngSanitize',
@@ -213,13 +213,13 @@
 
 		// Our custom libraries
 		'Services'
-	]);
+	]); */
 	/**
 	 * Directory Module
 	 *
 	 * This is the module that runs the directory portion of the app.
 	 */
-	angular.module('Directory', [
+	/* angular.module('Directory', [
 		// Official Angular modules
 		'ngAnimate',
 		'ngSanitize',
@@ -230,13 +230,13 @@
 
 		// Our custom libraries
 		'Services'
-	]);
+	]); */
 	/**
 	 * Utilities Module
 	 *
 	 * This is the module that will handle all of the controllers for admin utilities;
 	 */
-	angular.module('Utilities', [
+	/* angular.module('Utilities', [
 		// ootb Angular Modules
 		'ngRoute',
 		'ngAnimate',
@@ -250,7 +250,7 @@
 		// Our custom libraries
 		'Services',
 		'Schedule'
-	]);
-	angular.module('Services', []);
+	]); */
+	/* angular.module('Services', []); */
 
 })();

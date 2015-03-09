@@ -23,9 +23,9 @@
 					<!-- <li data-ng-show="properties.currentUser.Admin || properties.currentUser.Position.Position === 'FTE' || properties.currentUser.Position.Position === 'HR'">
 						<a ui-sref="main.hr">HR</a>
 					</li> -->
-					<!-- <li data-ng-show="properties.currentUser.Admin || properties.currentUser.Position.Area === 'SARAS'">
-						<a ui-sref="main.saras">SARAS</a>
-					</li> -->
+					<li data-ng-show="properties.currentUser.Admin || properties.currentUser.Area.Description === 'SARAS'">
+						<a data-ui-sref="main.saras">SARAS</a>
+					</li>
 					<!-- <li data-ng-show="properties.currentUser.Admin || properties.currentUser.Position === undefined">
 						<a ui-sref="main.saras">SARAS</a>
 					</li> -->

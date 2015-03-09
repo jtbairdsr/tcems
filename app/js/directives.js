@@ -5,7 +5,7 @@
  * @Last Modified time: 2015-01-24 19:27:21
  */
 (function() {
-	var app = angular.module('App');
+	var app = angular.module('Services');
 
 	/////////////////////////////////
 	// Header Banner Directive //

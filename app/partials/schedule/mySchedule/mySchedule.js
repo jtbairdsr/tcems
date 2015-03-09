@@ -12,6 +12,7 @@
 
 	app.controller('MyScheduleCtrl', ['$q', '$scope', '$timeout', '$alert', 'generalService', 'dataService',
 		function($q, $scope, $timeout, $alert, generalService, dataService) {
+			console.log($scope.shift);
 			/////////////////////////////
 			// Set aliases to the data //
 			/////////////////////////////
@@ -23,7 +24,7 @@
 			var ctrl = this,
 				day = $scope.day,
 				shift = $scope.shift.shift,
-				subShift, newRequest;
+				subShift, newRequest, subRequest;
 			if ($scope.shift.subShift === undefined) {
 				subShift = new CLASSES.SubShift({
 					ShiftId: shift.Id,
@@ -34,13 +35,15 @@
 			} else {
 				subShift = $scope.shift.subShift;
 			}
+			if ($scope.shift.subRequest !== undefined) {
+				subRequest = $scope.shift.subRequest;
+			}
 
 			ctrl.requestSub = function() {
 				subShift.add()
 					.then(refreshData());
 			};
 			ctrl.cancel = function() {
-				console.log(subShift);
 				if (subShift.NewRequestId) {
 					subShift.NewRequestId = null;
 					var dataCalls = [
@@ -50,7 +53,7 @@
 					$q.all(dataCalls)
 						.then(refreshData());
 				} else {
-					subShift.deactivate()
+					subRequest.deactivate()
 						.then(refreshData());
 				}
 			};

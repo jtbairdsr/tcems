@@ -56,307 +56,7 @@
 				ARRAYS = generalService.arrays,
 				PROPERTIES = generalService.properties;
 			//}}}
-			// Initialize service categories {{{
-			/********************************************************************
-			 *                Initialize Service Categories                     *
-			 ********************************************************************/
-			service.classes = {};
-			service.get = {};
-			service.set = {};
-			service.utilities = {};
-			service.refresh = {
-				successAlert: {
-					show: true,
-					placement: 'top-right',
-					content: 'Data has been refreshed!',
-					animation: 'am-fade-and-slide-top',
-					duration: '3',
-					type: 'success',
-					template: 'partials/alerts/error-alert.html'
-				}
-			};
-			//}}}
-			// Set aliases to service categories {{{
-			/********************************************************************
-			 *                            Set Aliases                           *
-			 ********************************************************************/
-			var GET = service.get,
-				SET = service.set,
-				REFRESH = service.refresh,
-				CLASSES = service.classes,
-				UTILITIES = service.utilities;//}}}
-			// DATA GETTERS {{{
-			/********************************************************************
-			 *                         DATA GETTERS                             *
-			 ********************************************************************/
-			GET.areas = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Area')
-					.success(function(data) {
-						DATA.areas = [];
-						_.each(data.d.results, function(area) {
-							DATA.areas.push(new CLASSES.Area(area));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.areaPositions = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('AreaPosition')
-					.success(function(data) {
-						DATA.areaPositions = [];
-						_.each(data.d.results, function(areaPosition) {
-							areaPosition = new CLASSES.AreaPosition(areaPosition);
-							DATA.areaPositions.push(areaPosition);
-							if (areaPosition.Position.Description !== 'FTE' &&
-								areaPosition.Position.Description !== 'Applicant' &&
-								areaPosition.Position.Description !== 'Admin') {
-								if (PROPERTIES.currentUser.PositionId !== PROPERTIES.currentUser.Area.DefaultPositionId &&
-									// PROPERTIES.currentUser.Position.Description !== 'FTE' &&
-									!PROPERTIES.currentUser.Admin) {
-									if (areaPosition.AreaId === PROPERTIES.currentUser.AreaId) {
-										ARRAYS.positions.push(areaPosition.Position);
-									}
-								}
-							}
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.availabilities = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Availability')
-					.success(function(data) {
-						DATA.availabilitys = [];
-						_.each(data.d.results, function(availability) {
-							DATA.availabilitys.push(new CLASSES.Availability(availability));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.employees = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Employee')
-					.success(function(data) {
-						DATA.employees = [];
-						ARRAYS.employees = [];
-						_.each(data.d.results, function(employee) {
-							employee = new CLASSES.Employee(employee);
-							DATA.employees.push(employee);
-							ARRAYS.employees.push(employee);
-							if (employee.Id === PROPERTIES.currentUser.Id) {
-								PROPERTIES.currentUser = employee;
-							}
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.employments = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Employment')
-					.success(function(data) {
-						DATA.employments = [];
-						_.each(data.d.results, function(employment) {
-							DATA.employments.push(new CLASSES.Employment(employment));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.facultyTestingInfos = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('FacultyTestingInfo')
-					.success(function(data) {
-						DATA.facultyTestingInfos = [];
-						_.each(data.d.results, function(facultyTestingInfo) {
-							facultyTestingInfo = new CLASSES.FacultyTestingInfo(facultyTestingInfo);
-							DATA.facultyTestingInfos.push(facultyTestingInfo);
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.messages = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Message')
-					.success(function(data) {
-						DATA.messages = [];
-						ARRAYS.policies = [];
-						_.each(data.d.results, function(message) {
-							message = new CLASSES.Message(message);
-							DATA.messages.push(message);
-							if ((message.AreaId === PROPERTIES.currentUser.AreaId ||
-									message.Area.Description === 'Director') &&
-								message.Active &&
-								message.Policy) {
-								ARRAYS.policies.push(message);
-							}
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.noTestingDays = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('NoTestingDay')
-					.success(function(data) {
-						DATA.noTestingDays = [];
-						_.each(data.d.results, function(noTestingDay) {
-							DATA.noTestingDays.push(new CLASSES.NoTestingDay(noTestingDay));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.positions = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Position')
-					.success(function(data) {
-						DATA.positions = [];
-						ARRAYS.positions = [];
-						_.each(data.d.results, function(position) {
-							position = new CLASSES.Position(position);
-							DATA.positions.push(position);
-							if (position.Description !== 'FTE' &&
-								position.Description !== 'Applicant' &&
-								position.Description !== 'Admin') {
-								if (PROPERTIES.currentUser.Id) {
-									if (PROPERTIES.currentUser.Admin
-										/*||
-																				PROPERTIES.currentUser.Position.Description === 'FTE'*/
-									) {
-										ARRAYS.positions.push(position);
-									} else if (
-										PROPERTIES.currentUser.PositionId === PROPERTIES.currentUser.Area.DefaultPositionId &&
-										PROPERTIES.currentUser.PositionId === position.Id
-									) {
-										ARRAYS.positions.push(position);
-									}
-								}
-							}
-						});
-						ARRAYS.allPositions = DATA.positions;
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.professors = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Professor')
-					.success(function(data) {
-						DATA.professors = [];
-						_.each(data.d.results, function(professor) {
-							DATA.professors.push(new CLASSES.Professor(professor));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.schedules = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Schedule')
-					.success(function(data) {
-						DATA.schedules = [];
-						_.each(data.d.results, function(schedule) {
-							DATA.schedules.push(new CLASSES.Schedule(schedule));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.sentMessages = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('SentMessage')
-					.success(function(data) {
-						DATA.sentMessages = [];
-						ARRAYS.messages = [];
-						PROPERTIES.unreadMessages = 0;
-						_.each(data.d.results, function(sentMessage) {
-							sentMessage = new CLASSES.SentMessage(sentMessage);
-							if (sentMessage.Message.Active &&
-								sentMessage.EmployeeId === PROPERTIES.currentUser.Id &&
-								sentMessage.Message.Semester.Id === PROPERTIES.currentSemester.Id &&
-								Date.today().compareTo(sentMessage.Message.ExpDate) < 1) {
-								if (!sentMessage.Read &&
-									sentMessage.Message.Mandatory) {
-									PROPERTIES.unreadMessages++;
-								}
-								ARRAYS.messages.push(sentMessage);
-							}
-							DATA.sentMessages.push(sentMessage);
-						});
-						ARRAYS.messages.activePanel = -1;
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.semesters = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Semester')
-					.success(function(data) {
-						DATA.semesters = [];
-						data.d.results.reverse();
-						_.each(data.d.results, function(semester) {
-							DATA.semesters.push(new CLASSES.Semester(semester));
-						});
-						SET.propertyCurrentSemester();
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.shiftGroups = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('ShiftGroup')
-					.success(function(data) {
-						DATA.shiftGroups = [];
-						_.each(data.d.results, function(shiftGroup) {
-							DATA.shiftGroups.push(new CLASSES.ShiftGroup(shiftGroup));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.shifts = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Shift')
-					.success(function(data) {
-						DATA.shifts = [];
-						_.each(data.d.results, function(shift) {
-							DATA.shifts.push(new CLASSES.Shift(shift));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.subShifts = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('SubShift')
-					.success(function(data) {
-						DATA.subShifts = [];
-						data.d.results.reverse();
-						_.each(data.d.results, function(subShift) {
-							DATA.subShifts.push(new CLASSES.SubShift(subShift));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}
-			GET.tracks = function() {//{{{
-				var deffered = $q.defer();
-				UTILITIES.fetchAllItems('Track')
-					.success(function(data) {
-						DATA.tracks = [];
-						_.each(data.d.results, function(track) {
-							DATA.tracks.push(new CLASSES.Track(track));
-						});
-						deffered.resolve();
-					});
-				return deffered.promise;
-			};//}}}//}}}
+
 			// PROPERTY SETTERS//{{{
 			/********************************************************************
 			 *                        PROPERTY SETTERS                          *
@@ -1106,211 +806,11 @@
 			/********************************************************************
 			 *                            CLASSES                               *
 			 ********************************************************************/
-			//*********************DEFINE THE DATA CLASS*********************//{{{
-			CLASSES.Data = function() {//{{{
-				this.newData = {};
-				this.listName = '';
-			};//}}}
-			CLASSES.Data.method('initPublicAttributes', function() {//{{{
-				this.Created = (this.newData.Created) ? Date.parse(this.newData.Created) : undefined;
-				this.GUID = this.newData.GUID || undefined;
-				this.Id = this.newData.Id || undefined;
-				this.Modified = (this.newData.Modified) ? Date.parse(this.newData.Modified) : undefined;
-				this.__metadata = this.newData.__metadata || {
-					type: 'SP.Data.' + this.listName + 'ListItem',
-				};
-				this.defaultAlertContent = this.toString();
-				this.addAlertContent = this.defaultAlertContent + ' has been added!';
-				this.removeAlertContent = this.defaultAlertContent + ' has been removed!';
-				this.updateAlertContent = this.defaultAlertContent + ' has been updated!';
-			});//}}}
-			CLASSES.Data.method('updateData', function() {//{{{
-				return {
-					__metadata: this.__metadata
-				};
-			});//}}}
-			CLASSES.Data.method('add', function(hideAlert, newObject) {//{{{
-				/** @privateAtribute {object} an alias for this */
-				var object = this;
-				hideAlert = hideAlert || false;
-				newObject = newObject || false;
-				var deffered = $q.defer();
-				this.data = this.updateData();
-				if (this.__metadata.etag === undefined) {
-					UTILITIES.addItem(this.listName, this.data)
-						.success(function(data) {
-							if (!newObject) {
-								object.newData = data.d;
-								object.initPublicAttributes();
-								DATA[object.listName.charAt(0).toLowerCase() + object.listName.slice(1) + 's'].push(object);
-							}
-							if (!hideAlert) {
-								$alert({
-									show: true,
-									placement: 'top-right',
-									content: object.addAlertContent,
-									animation: 'am-fade-and-slide-top',
-									duration: '3',
-									type: 'success',
-									template: 'partials/alerts/success-alert.html'
-								});
-							}
-							deffered.resolve(object.Id);
-						});
-				}
-				return deffered.promise;
-			});//}}}
-			CLASSES.Data.method('remove', function(hideAlert) {//{{{
-				/** @privateAtribute {object} an alias for this */
-				var object = this;
-				hideAlert = hideAlert || false;
-				var deffered = $q.defer();
-				UTILITIES.deleteItem(this.listName, this.Id)
-					.success(function() {
-						DATA[object.listName.charAt(0).toLowerCase() + object.listName.slice(1) + 's'] = _.without(DATA[object.listName.charAt(0).toLowerCase() + object.listName.slice(1) + 's'], object);
-						if (!hideAlert) {
-							$alert({
-								show: true,
-								placement: 'top-right',
-								content: object.removeAlertContent,
-								animation: 'am-fade-and-slide-top',
-								duration: '3',
-								type: 'success',
-								template: 'partials/alerts/success-alert.html'
-							});
-						}
-						deffered.resolve();
-					});
-				return deffered.promise;
-			});//}}}
-			CLASSES.Data.method('update', function(hideAlert) {//{{{
-				var deffered = $q.defer();
-				/** @privateAtribute {object} an alias for this */
-				var object = this;
-				hideAlert = hideAlert || false;
-				this.__metadata.etag = this.__metadata.etag || '*';
-				this.data = this.updateData();
-				UTILITIES.updateItem(this.listName, this.Id, this.data, this.__metadata.etag)
-					.success(function() {
-						object.refresh()
-							.then(function() {
-								if (!hideAlert) {
-									$alert({
-										show: true,
-										placement: 'top-right',
-										content: object.updateAlertContent,
-										animation: 'am-fade-and-slide-top',
-										duration: '3',
-										type: 'success',
-										template: 'partials/alerts/success-alert.html'
-									});
-								}
-								deffered.resolve();
-							});
-					})
-					.error(function(data) {
-						console.error('There has been an error with your network request.', data);
-						$alert({
-							show: true,
-							placement: 'top-right',
-							content: 'You must refesh your data before you can change that item',
-							animation: 'am-fade-and-slide-top',
-							duration: '3',
-							type: 'danger',
-							template: 'partials/alerts/error-alert.html'
-						});
-					});
-				return deffered.promise;
-			});//}}}
-			CLASSES.Data.method('refresh', function() {//{{{
-				var deffered = $q.defer();
-				/** @privateAtribute {object} an alias for this */
-				var object = this;
-				UTILITIES.fetchItem(this.listName, this.Id)
-					.success(function(data) {
-						object.newData = data.d;
-						object.initPublicAttributes();
-						deffered.resolve();
-					});
-				return deffered.promise;
-			});//}}}//}}}
-			//*********************DEFINE THE AREA CLASS*********************//{{{
-			CLASSES.Area = function(data) {//{{{
-				this.newData = data || {};
-				this.initPublicAttributes();
-				this.listName = 'Area';
-			};//}}}
-			CLASSES.Area.inherits(CLASSES.Data);
-			CLASSES.Area.method('initPublicAttributes', function() {//{{{
-				/** @privateAtribute {object} an alias for this */
-				var object = this;
-				this.Area = this.newData.Area || undefined;
-				this.Description = this.newData.Description || undefined;
-				this.DefaultPositionId = this.newData.DefaultPositionId || undefined;
-				this.DefaultPosition = (this.newData.DefaultPositionId) ? _.find(DATA.positions, function(position) {
-					return position.Id === object.DefaultPositionId;
-				}) : {};
-				this.Positions = this.newData.Positions || [];
-				this.uber('initPublicAttributes');
-				this.data = this.updateData();
-			});//}}}
-			CLASSES.Area.method('updateData', function() {//{{{
-				var returnData = this.uber('updateData');
-				returnData.Area = this.Area;
-				returnData.Description = this.Description;
-				returnData.DefaultPositionId = this.DefaultPositionId;
-				return returnData;
-			});//}}}
-			CLASSES.Area.method('toString', function() {//{{{
-				return this.Description + ' Area';
-			});//}}}
-			CLASSES.Area.method('setPositions', function() {//{{{
-				var object = this;
-				this.Positions = [];
-				_.each(DATA.areaPositions, function(areaPosition) {
-					if (areaPosition.Area.Id === object.Id) {
-						object.Positions.push(areaPosition.Position);
-					}
-				});
-			});//}}}//}}}
-			//*****************DEFINE THE AREAPOSITION CLASS*****************//{{{
-			CLASSES.AreaPosition = function(data) {//{{{
-				this.newData = data || {};
-				this.initPublicAttributes();
-				this.listName = 'AreaPosition';
-			};//}}}
-			CLASSES.AreaPosition.inherits(CLASSES.Data);
-			CLASSES.AreaPosition.method('initPublicAttributes', function() {//{{{
-				/** @privateAtribute {object} an alias for this */
-				var object = this;
-				this.AreaId = this.newData.AreaId || undefined;
-				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area) {
-					return area.Id === object.AreaId;
-				}) : {};
-				this.PositionId = this.newData.PositionId || undefined;
-				this.Position = (this.newData.PositionId) ? _.find(DATA.positions, function(position) {
-					return position.Id === object.PositionId;
-				}) : {};
-				this.setAreasPosition();
-				this.uber('initPublicAttributes');
-				this.data = this.updateData();
-			});//}}}
-			CLASSES.AreaPosition.method('updateData', function() {//{{{
-				var returnData = this.uber('updateData');
-				returnData.AreaId = this.AreaId;
-				returnData.PositionId = this.PositionId;
-				return returnData;
-			});//}}}
-			CLASSES.AreaPosition.method('toString', function() {//{{{
-				return this.Area.Description + ' ' + this.Position.Description;
-			});//}}}
-			CLASSES.AreaPosition.method('setAreasPosition', function() {//{{{
-				this.Area.Positions.push(this.Position);
-			});//}}}//}}}
+
+
+
 			//*****************DEFINE THE AVAILABILITY CLASS*****************//{{{
 			CLASSES.Availability = function(data) {//{{{
-				this.newData = data || {};
-				this.listName = 'Availability';
 				this.initPublicAttributes();
 				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your information' : this.toString();
 			};//}}}
@@ -1369,173 +869,9 @@
 					});
 				return deffered.promise;
 			});//}}}//}}}
-			//*******************DEFINE THE EMPLOYEE CLASS*******************//{{{
-			CLASSES.Employee = function(data) {//{{{
-				this.newData = data || {};
-				this.listName = 'Employee';
-				this.initPublicAttributes();
-				this.defaultAlertContent = (this.Id === PROPERTIES.currentUser.Id) ? 'Your information' : this.toString();
-			};//}}}
-			CLASSES.Employee.inherits(CLASSES.Data);
-			CLASSES.Employee.method('initPublicAttributes', function() {//{{{
-				/** @privateAtribute {object} an alias for this */
-				var object = this;
-				this.Active = this.newData.Active || false;
-				this.Admin = this.newData.Admin || false;
-				this.AreaId = this.newData.AreaId || undefined;
-				this.Area = (this.newData.AreaId) ? _.find(DATA.areas, function(area) {
-					return area.Id === object.AreaId;
-				}) : {};
-				this.EmailAddress = this.newData.EmailAddress || undefined;
-				this.FirstName = this.newData.FirstName || undefined;
-				this.INumber = this.newData.INumber || undefined;
-				this.LastName = this.newData.LastName || undefined;
-				this.PhoneNumber = this.newData.PhoneNumber || undefined;
-				this.Picture = this.newData.Picture || undefined;
-				this.PositionId = this.newData.PositionId || undefined;
-				this.Position = (this.newData.PositionId) ? _.find(DATA.positions, function(position) {
-					return position.Id === object.PositionId;
-				}) : {};
-				this.PreferredName = this.newData.PreferredName || undefined;
-				this.Reader = this.newData.Reader || false;
-				this.Retired = this.newData.Retired || false;
-				this.TeamId = this.newData.TeamId || undefined;
-				this.Team = (this.newData.TeamId) ? _.find(DATA.teams, function(team) {
-					return team.Id === object.TeamId;
-				}) : {};
-				this.TrackId = this.newData.TrackId || undefined;
-				this.Track = (this.newData.TrackId) ? _.find(DATA.tracks, function(track) {
-					return track.Id === object.TrackId;
-				}) : {};
-				this.ExtendedPrivledges = (
-					this.Position.Position === 'FTE' ||
-					this.Position.Position === 'HR' ||
-					this.Admin
-				);
-				this.Employments = [];
-				this.Intent = {};
-				this.Label = (
-					'<div><img class="img-circle" src="' + this.Picture +
-					'" fallback-src="media/missing.png" width="50px" height="' + ((this.Position.Description === 'FTE') ? 70.8333 : 50) + 'px"> <b>' +
-					this.PreferredName + ' ' + this.LastName + '</b></div>'
-				);
-				this.uber('initPublicAttributes');
-				this.data = this.updateData();
-			});//}}}
-			CLASSES.Employee.method('updateData', function() {//{{{
-				var returnData = this.uber('updateData');
-				returnData.Active = this.Active;
-				returnData.Admin = this.Admin;
-				returnData.AreaId = this.AreaId;
-				returnData.EmailAddress = this.EmailAddress;
-				returnData.FirstName = this.FirstName;
-				returnData.INumber = this.INumber;
-				returnData.LastName = this.LastName;
-				returnData.Picture = this.Picture;
-				returnData.PhoneNumber = this.PhoneNumber;
-				returnData.PreferredName = this.PreferredName;
-				returnData.PositionId = this.PositionId;
-				returnData.Reader = this.Reader;
-				returnData.Retired = this.Retired;
-				// returnData.TeamId = this.TeamId;
-				returnData.TrackId = this.TrackId;
-				return returnData;
-			});//}}}
-			CLASSES.Employee.method('toString', function(param) {//{{{
-				if (param) {
-					if (param === 'name') {
-						return this.PreferredName + ' ' + this.LastName;
-					}
-				} else {
-					return this.Position.Description + ': ' + this.PreferredName + ' ' + this.LastName;
-				}
-			});//}}}
-			CLASSES.Employee.method('activate', function() {//{{{
-				var employment = new CLASSES.Employment({
-					AreaId: this.AreaId,
-					EmployeeId: this.Id,
-					PositionId: this.PositionId
-				});
-				employment.start(true);
-				this.Active = true;
-				this.update();
-			});//}}}
-			CLASSES.Employee.method('deactivate', function(hideAlert) {//{{{
-				hideAlert = hideAlert || false;
-				/** @privateAtribute {object} an alias for this */
-				var object = this;
-				_.each(DATA.availabilitys, function(availability) {
-					if (availability.EmployeeId === object.Id &&
-						availability.SemesterId === PROPERTIES.currentSemester.Id &&
-						availability.Active) {
-						availability.deactivate(true);
-					}
-				});
-				_.each(DATA.schedules, function(schedule) {
-					if (schedule.EmployeeId === object.Id &&
-						schedule.SemesterId === PROPERTIES.currentSemester.Id &&
-						schedule.Active) {
-						schedule.deactivate(true);
-					}
-				});
-				_.each(DATA.subShifts, function(subShift) {
-					if (subShift.RequesterId === object.Id &&
-						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
-						subShift.Active) {
-						subShift.deactivate(true);
-					} else if (subShift.SubstituteId === object.Id &&
-						subShift.SemesterId === PROPERTIES.currentSemester.Id &&
-						subShift.Active) {
-						if (subShift.NewRequestId) {
-							subShift.NewRequest.deactivate(true);
-						}
-						subShift.newRequest(true);
-					}
-				});
-				_.each(DATA.employments, function(employment) {
-					if (employment.EndDate === undefined &&
-						employment.EmployeeId === object.Id) {
-						employment.end(true);
-					}
-				});
-				this.Active = false;
-				this.update();
-			});//}}}
-			CLASSES.Employee.method('retire', function() {//{{{
-				var deffered = $q.defer();
-				/** @privateAtribute {object} an alias for this */
-				var object = this;
-				_.each(DATA.employments, function(employment) {
-					if (employment.EndDate === undefined &&
-						employment.EmployeeId === object.Id) {
-						employment.end(true);
-					}
-				});
-				this.Active = false;
-				this.Retired = true;
-				this.update().then(function() {
-					deffered.resolve();
-				});
-				return deffered.promise;
-			});//}}}
-			CLASSES.Employee.method('add', function() {//{{{
-				var object = this;
-				this.uber('add').then(function() {
-					object.activate();
-				});
-			});//}}}
-			CLASSES.Employee.method('setEmployements', function() {//{{{
-				var object = this;
-				this.Employments = _.filter(DATA.employments, function(employment) {
-					return employment.EmployeeId === object.Id;
-				});
-			});//}}}
-			CLASSES.Employee.method('setIntent', function() {//{{{
-				this.Intent = _.find(DATA.intents, function(intent) {
-					return intent.EmployeeId === employee.Id;
-				});
-			});//}}}
-			CLASSES.Employee.method('declareIntent', function() {});//}}}
+
+
+
 			//******************DEFINE THE EMPLOYMENT CLASS******************//{{{
 			CLASSES.Employment = function(data) {//{{{
 				this.newData = data || {};
@@ -1587,6 +923,9 @@
 				this.EndDate = new Date();
 				this.update(hideAlert);
 			});//}}}//}}}
+
+
+
 			//**************DEFINE THE FACULTYTESTINGINFO CLASS**************//{{{
 			CLASSES.FacultyTestingInfo = function(data) {//{{{
 				this.newData = data || {};
@@ -1622,6 +961,9 @@
 					return 'New FacultyTestingInfo';
 				}
 			});//}}}//}}}
+
+
+
 			//********************DEFINE THE MESSAGE CLASS*******************//{{{
 			CLASSES.Message = function(data) {//{{{
 				this.newData = data || {};
@@ -1747,6 +1089,9 @@
 					});
 				return deffered.promise;
 			});//}}}//}}}
+
+
+
 			//*****************DEFINE THE NOTESTINGDAY CLASS*****************//{{{
 			CLASSES.NoTestingDay = function(data) {//{{{
 				this.newData = data || {};
@@ -1778,6 +1123,9 @@
 			CLASSES.NoTestingDay.method('toString', function() {//{{{
 				return this.Title;
 			});//}}}//}}}
+
+
+
 			//*******************DEFINE THE POSITION CLASS*******************//{{{
 			CLASSES.Position = function(data) {//{{{
 				this.newData = data || {};
@@ -1826,6 +1174,9 @@
 					);
 				}
 			});//}}}//}}}
+
+
+
 			//*******************DEFINE THE PROFESSOR CLASS******************//{{{
 			CLASSES.Professor = function(data) {//{{{
 				this.newData = data || {};
@@ -1859,6 +1210,9 @@
 			CLASSES.Professor.method('toString', function() {//{{{
 				return this.listName + ': ' + this.FirstName + ' ' + this.LastName;
 			});//}}}//}}}
+
+
+
 			//*******************DEFINE THE SCHEDULE CLASS*******************//{{{
 			CLASSES.Schedule = function(data) {//{{{
 				this.newData = data || {};
@@ -1916,6 +1270,9 @@
 					});
 				return deffered.promise;
 			});//}}}//}}}
+
+
+
 			//******************DEFINE THE SENTMESSAGE CLASS*****************//{{{
 			CLASSES.SentMessage = function(data) {//{{{
 				this.newData = data || {};
@@ -1963,6 +1320,9 @@
 					});
 				return deffered.promise;
 			});//}}}//}}}
+
+
+
 			//*******************DEFINE THE SEMESTER CLASS*******************//{{{
 			CLASSES.Semester = function(data) {//{{{
 				this.newData = data || {};
@@ -2006,6 +1366,9 @@
 				this.Active = false;
 				this.update();
 			});//}}}//}}}
+
+
+
 			//*********************DEFINE THE SHIFT CLASS********************//{{{
 			CLASSES.Shift = function(data) {//{{{
 				this.newData = data || {};
@@ -2094,6 +1457,9 @@
 				this.Current = false;
 				this.update();
 			});//}}}//}}}
+
+
+
 			//******************DEFINE THE SHIFTGROUP CLASS******************//{{{
 			CLASSES.ShiftGroup = function(data) {//{{{
 				this.newData = data || {};
@@ -2114,6 +1480,9 @@
 			CLASSES.ShiftGroup.method('toString', function() {//{{{
 				return 'The ' + this.Description + ' semester type';
 			});//}}}//}}}
+
+
+
 			//*******************DEFINE THE SUBSHIFT CLASS*******************//{{{
 			CLASSES.SubShift = function(data) {//{{{
 				this.newData = data || {};
@@ -2217,6 +1586,9 @@
 					});
 				return deffered.promise;
 			});//}}}//}}}
+
+
+
 			//*********************DEFINE THE TRACK CLASS********************//{{{
 			CLASSES.Track = function(data) {//{{{
 				this.newData = data || {};
@@ -2237,6 +1609,9 @@
 			CLASSES.Track.method('toString', function() {//{{{
 				return 'The ' + this.Description + ' track';
 			});//}}}//}}}
+
+
+
 			//*********************DEFINE THE WEEK CLASS*********************//{{{
 			CLASSES.Week = function(title, firstDay) {//{{{
 				this.days = [];
@@ -2279,6 +1654,9 @@
 			CLASSES.Week.method('toString', function() {//{{{
 				return this.title;
 			});//}}}//}}}
+
+
+
 			//**********************DEFINE THE DAY CLASS*********************//{{{
 			CLASSES.Day = function(date) {//{{{
 				this.active = true;
@@ -2637,6 +2015,9 @@
 				}
 				return this;
 			});//}}}//}}}//}}}
+
+
+
 			service.initializeData = function() {//{{{
 				var deffered = $q.defer();
 				cfpLoadingBar.start();
@@ -2655,6 +2036,9 @@
 					});
 				return deffered.promise;
 			};//}}}
+
+
+
 			function init() {//{{{
 				$http.defaults.headers.post = {
 					'Accept': 'application/json;odata=verbose',
@@ -2665,6 +2049,9 @@
 				};
 				REFRESH.securityValidation();
 			}//}}}
+
+
+
 			init();
 			return service;
 		}
