@@ -27,7 +27,7 @@
 				availability = $scope.availability;
 				availability.Day = (day) ? day.title : 'Sunday';
 				availability.EmployeeId = PROPERTIES.currentUser.Id;
-				availability.SemesterId = PROPERTIES.currentSemester.Id;
+				availability.SemesterId = PROPERTIES[$scope.semester].Id;
 				availability.StartTime = Date.parse('8:00 AM');
 				availability.EndTime = Date.parse('5:00 PM');
 			} else {
