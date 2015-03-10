@@ -16,6 +16,7 @@
 			// Set aliases to the data //
 			/////////////////////////////
 			var PROPERTIES = generalService.properties,
+				DATA = generalService.data,
 				CLASSES = dataService.classes,
 				SET = dataService.set,
 				GET = dataService.get;
@@ -57,6 +58,19 @@
 			ctrl.requestSubOfSub = function() {
 				subShift.newRequest()
 					.then(refreshData());
+			};
+			ctrl.dropShift = function() {
+				var schedule = _.find(DATA.schedules, function(schedule) {
+					return (
+						schedule.Active &&
+						schedule.ShiftId === shift.Id &&
+						schedule.EmployeeId === PROPERTIES.currentUser.Id
+					);
+				});
+				schedule.deactivate()
+					.then(function() {
+						dataService.refresh.data();
+					});
 			};
 
 			function refreshData() {
