@@ -75,11 +75,12 @@
 			 * creates a schedule to link an employee to the shift
 			 */
 			ctrl.takeShift = function() {
+				var semester = (shift.ShiftGroupId === PROPERTIES.currentSemester.ShiftGroupId) ? 'currentSemester' : 'nextSemester';
 				if (_.find(DATA.schedules, function(schedule) {
 						return (
 							schedule.ShiftId === shift.Id &&
 							schedule.EmployeeId === PROPERTIES.currentUser.Id &&
-							schedule.SemesterId === PROPERTIES.currentSemester.Id &&
+							schedule.SemesterId === PROPERTIES[semester].Id &&
 							schedule.Active
 						);
 					}) === undefined) {
@@ -97,7 +98,7 @@
 								var schedule = new CLASSES.Schedule();
 								schedule.ShiftId = shift.Id;
 								schedule.EmployeeId = PROPERTIES.currentUser.Id;
-								schedule.SemesterId = PROPERTIES.currentSemester.Id;
+								schedule.SemesterId = PROPERTIES[semester].Id;
 								schedule.add()
 									.then(function() {
 										REFRESH.availableShifts();
