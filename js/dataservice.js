@@ -606,7 +606,8 @@
 			 *                   	   ARRAY SETTERS                            *
 			 ********************************************************************/
 			SET.arrayNoAvailabilityEmployees = function() {//{{{
-				ARRAYS.noAvailabilityEmployees = [];
+				ARRAYS.noAvailabilityEmployees.currentSemester = [];
+				ARRAYS.noAvailabilityEmployees.nextSemester = [];
 				_.each(DATA.employees, function(employee) {
 					var submittedAvailabilities = _.find(DATA.availabilitys, function(availability) {
 						return (
@@ -618,7 +619,19 @@
 						employee.Position.Description !== 'FTE' &&
 						employee.Position.Description !== 'Applicant' &&
 						employee.Active) {
-						ARRAYS.noAvailabilityEmployees.push(employee);
+						ARRAYS.noAvailabilityEmployees.currentSemester.push(employee);
+					}
+					var submittedAvailabilities = _.find(DATA.availabilitys, function(availability) {
+						return (
+							availability.Employee.Id === employee.Id &&
+							availability.Semester.Id === PROPERTIES.nextSemester.Id
+						);
+					});
+					if (submittedAvailabilities === undefined &&
+						employee.Position.Description !== 'FTE' &&
+						employee.Position.Description !== 'Applicant' &&
+						employee.Active) {
+						ARRAYS.noAvailabilityEmployees.nextSemester.push(employee);
 					}
 				});
 			};//}}}
