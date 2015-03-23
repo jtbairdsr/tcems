@@ -51,7 +51,10 @@
 			days: [],
 			directoryEmployees: [],
 			employees: [],
-			noAvailabilityEmployees: [], // This is the list used by the availability view to determine who hasn't submitted their availability
+			noAvailabilityEmployees: {
+				currentSemester: [], // This is the list used by the availability view to determine who hasn't submitted their availability for the current semester
+				nextSemester: [] // This is the list used by the availability view to determine who hasn't submitted their availability for next semester
+			},
 			positions: [],
 			professors: [],
 			shiftGroups: [],
