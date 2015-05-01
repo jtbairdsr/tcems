@@ -26,7 +26,7 @@ module.exports = function(config) {
 			'public/src/lib/angular-img-fallback/angular.dcb-img-fallback.js',
 			'public/src/lib/angular-animate/angular-animate.js',
 			'public/src/lib/datejs/build/production/date.min.js',
-			'public/src/lib/filesaverjs/filesaver.js',
+			'public/src/lib/file-saver.js/FileSaver.js',
 			'public/src/lib/underscore/underscore.js',
 			'public/src/lib/Autolinker.js/dist/Autolinker.js',
 			'public/src/lib/angular-loading-bar/build/loading-bar.js',
@@ -48,40 +48,61 @@ module.exports = function(config) {
 			'public/src/modules/employees/factories/*.js',
 			'public/src/modules/employees/controllers/*.js',
 
-			// Facutly
-			// 'public/src/modules/faculty/config/*.js',
-			// 'public/src/modules/faculty/services/*.js',
-			// 'public/src/modules/faculty/factories/**/*.js',
-			// 'public/src/modules/faculty/directives/*.js',
-			// 'public/src/modules/faculty/controllers/*.js',
+			// Messages
+			'public/src/modules/messages/*.js',
+			'public/src/modules/messages/config/*.js',
+			'public/src/modules/messages/services/*.js',
+			'public/src/modules/messages/factories/**/*.js',
+			'public/src/modules/messages/directives/*.js',
+			'public/src/modules/messages/controllers/*.js',
 
-			// Facutly
-			// 'public/src/modules/message/config/*.js',
-			// 'public/src/modules/message/services/*.js',
-			// 'public/src/modules/message/factories/**/*.js',
-			// 'public/src/modules/message/directives/*.js',
-			// 'public/src/modules/message/controllers/*.js',
+			// Professors
+			'public/src/modules/professors/*.js',
+			'public/src/modules/professors/config/*.js',
+			'public/src/modules/professors/services/*.js',
+			'public/src/modules/professors/factories/**/*.js',
+			'public/src/modules/professors/directives/*.js',
+			'public/src/modules/professors/controllers/*.js',
 
-			// Facutly
+			// Saras
+			// 'public/src/modules/saras/*.js',
 			// 'public/src/modules/saras/config/*.js',
 			// 'public/src/modules/saras/services/*.js',
 			// 'public/src/modules/saras/factories/**/*.js',
 			// 'public/src/modules/saras/directives/*.js',
 			// 'public/src/modules/saras/controllers/*.js',
 
-			// Facutly
-			// 'public/src/modules/schedule/config/*.js',
-			// 'public/src/modules/schedule/services/*.js',
-			// 'public/src/modules/schedule/factories/**/*.js',
-			// 'public/src/modules/schedule/directives/*.js',
-			// 'public/src/modules/schedule/controllers/*.js',
+			// Semesters
+			'public/src/modules/semesters/*.js',
+			'public/src/modules/semesters/config/*.js',
+			'public/src/modules/semesters/services/*.js',
+			'public/src/modules/semesters/factories/**/*.js',
+			'public/src/modules/semesters/directives/*.js',
+			'public/src/modules/semesters/controllers/*.js',
 
-			// Facutly
-			// 'public/src/modules/utilities/config/*.js',
-			// 'public/src/modules/utilities/services/*.js',
-			// 'public/src/modules/utilities/factories/**/*.js',
-			// 'public/src/modules/utilities/directives/*.js',
-			// 'public/src/modules/utilities/controllers/*.js',
+			// Shifts
+			'public/src/modules/shifts/*.js',
+			'public/src/modules/shifts/config/*.js',
+			'public/src/modules/shifts/services/*.js',
+			'public/src/modules/shifts/factories/**/*.js',
+			'public/src/modules/shifts/directives/*.js',
+			'public/src/modules/shifts/controllers/*.js',
+
+			// User
+			'public/src/modules/user/*.js',
+			'public/src/modules/user/config/*.js',
+			'public/src/modules/user/services/*.js',
+			'public/src/modules/user/factories/**/*.js',
+			'public/src/modules/user/directives/*.js',
+			'public/src/modules/user/controllers/*.js',
+
+			// Utilities
+			'public/src/modules/utilities/*.js',
+			'public/src/modules/utilities/config/*.js',
+			'public/src/modules/utilities/services/*.js',
+			'public/src/modules/utilities/factories/**/*.js',
+			'public/src/modules/utilities/directives/*.js',
+			'public/src/modules/utilities/controllers/*.js',
 
 			// Tests
 			'test/unit/modules/core/**/*.js',

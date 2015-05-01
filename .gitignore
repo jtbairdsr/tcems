@@ -2,8 +2,7 @@
 .nodemonegnore
 npm-debug.log
 node_modules/
-test/
-public/lib/
+public/src/lib/
 public/dev/
 public/dist/
 .bower-*/
