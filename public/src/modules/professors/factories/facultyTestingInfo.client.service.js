@@ -1,81 +1,98 @@
-/* global angular, _ */
+/*
+ * @Author: Jonathan Baird
+ * @Date:   2015-05-01 09:04:26
+ * @Last Modified by:   Jonathan Baird
+ * @Last Modified time: 2015-05-01 15:06:35
+ */
 
-(function() {
-	'use strict';
+'use strict';
 
-	angular.module('professors')
-		.factory('FacultyTestingInfo', ['$q', '$alert', 'Data', 'facultyTestingInfos', 'professors',
-			function($q, $alert, Data, facultyTestingInfos, professors) {
+angular.module('professors').factory('FacultyTestingInfo', function(
+	$q, $alert, Data, facultyTestingInfos, professors
+) {
 
-				// variables attempt make code more readable
-				var $super = Data,
-					listName = 'FacultyTestingInfo',
-					list = facultyTestingInfos.list;
+	// Variables attempt make code more readable
+	var $super = Data,
+		listName = 'FacultyTestingInfo',
+		list = facultyTestingInfos.list;
 
-				// declare the new FacultyTestingInfo object{{{
-				function FacultyTestingInfo() {
-					var newData = arguments[0] || {};
-					$super.call(this, newData, list, listName);
-					this.parent = $super.prototype;
+	// Declare the new FacultyTestingInfo object
+	function FacultyTestingInfo() {
+		var newData = arguments[0] || {};
+		$super.call(this, newData, list, listName);
+		this.parent = $super.prototype;
 
-					// initialize the attributes of the new FacultyTestingInfo object
-					this.initAttributes();
-				}
+		// Initialize the attributes of the new FacultyTestingInfo object
+		this.initAttributes();
+	}
 
-				//}}}
+	// Set the prototype of the new FacultyTestingInfo object to match it's parent.
+	FacultyTestingInfo.prototype = Object.create($super.prototype);
 
-				// set the prototype of the new FacultyTestingInfo object to match it's parent.{{{
-				FacultyTestingInfo.prototype = Object.create($super.prototype);
+	// Assign FacultyTestingInfo as its own constructor
+	FacultyTestingInfo.prototype.constructor = FacultyTestingInfo;
 
-				//}}}
+	/**************************************************************************
+	 *                             INSTANCE METHODS                           *
+	 **************************************************************************/
 
-				// assign FacultyTestingInfo as its own constructor{{{
-				FacultyTestingInfo.prototype.constructor = FacultyTestingInfo;
+	// Override the initAttributes method from parent object
+	FacultyTestingInfo.prototype.initAttributes = function() {
+		var that = this;
+		this.parent.initAttributes.apply(this);
 
-				//}}}
+		/*********************Values stored on DB**********************/
+		this.ProfessorId = this.newData.ProfessorId || undefined;
+		this.Stipulation = this.newData.Stipulation || 'No stipulation.';
+		this.Other = this.newData.Other || undefined;
 
-				// override the initAttributes method from parent object{{{
-				FacultyTestingInfo.prototype.initAttributes = function() {
-					var facultyTestingInfo = this;
-					this.parent.initAttributes.apply(this);
+		/****************Values derived from other tables**************/
+		this.Professor = (this.newData.ProfessorId) ? _.find(professors.list, function(professor) {
+			return professor.Id === that.ProfessorId;
+		}) : undefined;
 
-					/*********************Values stored on DB**********************/
-					this.ProfessorId = this.newData.ProfessorId || undefined;
-					this.Stipulation = this.newData.Stipulation || 'No stipulation.';
-					this.Other = this.newData.Other || undefined;
+		/*******************Values that don't persist******************/
+		this.data = this.updateData();
+	};
 
-					/****************Values derived from other tables**************/
-					this.Professor = (this.newData.ProfessorId) ? _.find(professors.list, function(professor) {
-						return professor.Id === facultyTestingInfo.ProfessorId;
-					}) : undefined;
+	// Override the updateData method from parent object
+	FacultyTestingInfo.prototype.updateData = function() {
+		var returnData = this.parent.updateData.apply(this);
+		returnData.ProfessorId = this.ProfessorId;
+		returnData.Stipulation = this.Stipulation;
+		returnData.Other = this.Other;
+		return returnData;
+	};
 
-					/*******************Values that don't persist******************/
-					this.data = this.updateData();
-				}; //}}}
+	// Override the toString method from parent object
+	FacultyTestingInfo.prototype.toString = function() {
+		if (this.Professor) {
+			return this.Professor.toString() + '\'s testing information';
+		} else {
+			return 'New FacultyTestingInfo';
+		}
+	};
 
-				// override the updateData method from parent object{{{
-				FacultyTestingInfo.prototype.updateData = function() {
-					var returnData = this.parent.updateData.apply(this);
-					returnData.ProfessorId = this.ProfessorId;
-					returnData.Stipulation = this.Stipulation;
-					returnData.Other = this.Other;
-					return returnData;
-				}; //}}}
+	/**************************************************************************
+	 *                              CLASS METHODS                             *
+	 **************************************************************************/
 
-				// override the toString method from parent object{{{
-				FacultyTestingInfo.prototype.toString = function() {
-					if (this.Professor) {
-						return this.Professor.toString() + '\'s testing information';
-					} else {
-						return 'New FacultyTestingInfo';
-					}
-				}; //}}}
+	FacultyTestingInfo.query = function() {
+		var deffered = $q.defer();
+		$super.query.call(this, listName)
+			.then(function(data) {
+				list.splice(0, list.length);
+				_.each(data, function(datum) {
+					list.push(new FacultyTestingInfo(datum));
+				});
+				deffered.resolve();
+			});
+		return deffered.promise;
 
-				// return the newly defined FacultyTestingInfo object{{{
-				return FacultyTestingInfo; //}}}
+		// TODO: create the setIntent method test suite
+	};
 
-			}
-		]);
-})();
+	// Return the newly defined FacultyTestingInfo object
+	return FacultyTestingInfo;
 
-// vim:foldmethod=marker:foldlevel=0
+});

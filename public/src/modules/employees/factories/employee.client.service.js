@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 08:59:05
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 13:47:30
+ * @Last Modified time: 2015-05-01 15:21:16
  */
 
 'use strict';
@@ -272,12 +272,11 @@ angular.module('employees').factory('Employee', function(
 	};
 
 	Employee.query = function() {
-		var object = this;
-		$super.query.apply(this)
+		$super.query.call(this, listName)
 			.then(function(data) {
 				list.splice(0, list.length);
 				_.each(data, function(employee) {
-					object.list.push(new Employee(employee));
+					list.push(new Employee(employee));
 				});
 			});
 

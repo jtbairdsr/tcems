@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 08:21:38
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 11:42:11
+ * @Last Modified time: 2015-05-01 15:00:03
  */
 
 'use strict';
@@ -76,6 +76,10 @@ angular.module('core').factory('Person', function(Data, currentUser) {
 
 	Person.GET = function(paramListName, attribute, value) {
 		return $super.GET.call(this, paramListName, attribute, value);
+	};
+
+	Person.query = function(paramListName) {
+		return $super.query.call(this, paramListName);
 	};
 
 	// Return the newly defined Person object

@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 20:44:43
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-04-29 08:17:02
+ * @Last Modified time: 2015-05-01 15:32:04
  */
 
  /*globals _ */
@@ -145,46 +145,6 @@ app.filter('shiftFilter', function() {
 		});
 	};
 });
-app.filter('employeeFilter', ['generalService',
-	function(generalService) {
-		var DATA = generalService.data,
-			PROPERTIES = generalService.properties;
-		var positionFTE = _.find(DATA.positions, function(position) {
-			return position.Description === 'FTE';
-		});
-		return function(employees, params) {
-			params.inactive = params.inactive || false;
-			params.area = (PROPERTIES.currentUser.Area.Description === 'Director') ? false : params.area || false;
-			params.position = params.position || false;
-			params.retired = params.retired || false;
-			if (params.retired) {
-				employees = _.filter(employees, function(employee) {
-					return employee.Retired;
-				});
-			} else {
-				employees = _.filter(employees, function(employee) {
-					return !employee.Retired;
-				});
-				if (params.inactive) {
-					employees = _.filter(employees, function(employee) {
-						return employee.Active;
-					});
-				}
-			}
-			if (params.area) {
-				employees = _.filter(employees, function(employee) {
-					return employee.Area.Id === PROPERTIES.currentUser.Area.Id;
-				});
-			}
-			if (params.position) {
-				employees = _.filter(employees, function(employee) {
-					return employee.Position.Id !== positionFTE.Id;
-				});
-			}
-			return employees;
-		};
-	}
-]);
 app.filter('professorFilter', function() {
 	return function(professors, parameter) {
 		parameter = parameter || '^.';

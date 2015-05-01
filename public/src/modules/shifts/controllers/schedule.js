@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2015-05-01 13:16:39
+ * @Last Modified time: 2015-05-01 15:46:27
  */
 
 'use strict';
@@ -44,7 +44,6 @@ schedule.service('scheduleService', function($location, currentUser) {
 }).controller('BasicScheduleCtrl', function(
 	$location, $log, $scope, scheduleService
 ) {
-	console.log('inside BasicScheduleCtrl');
 	$scope.currentApp.title = 'Schedule';
 	scheduleService.scheduleService();
 	$scope.properties = {

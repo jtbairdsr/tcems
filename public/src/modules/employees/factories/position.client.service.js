@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 08:26:17
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 13:26:13
+ * @Last Modified time: 2015-05-01 15:05:26
  */
 
 'use strict';
@@ -103,7 +103,7 @@ angular.module('core').factory('Position', function($q, Data, positions, current
 		var deffered = $q.defer();
 		$super.query.call(this, listName)
 			.then(function(data) {
-				positions.list.splice(0, positions.list.length);
+				list.splice(0, list.length);
 				_.each(data, function(employee) {
 					list.push(new Position(employee));
 				});

@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 21:11:35
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 14:24:08
+ * @Last Modified time: 2015-05-01 15:38:10
  */
 
 'use strict';
@@ -14,32 +14,34 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/main/schedule/today');
 
 	// Now set up the states
-	$stateProvider
-		.state('inactiveEmployee', {
-			url: '/inactiveEmployee',
-			templateUrl: 'src/modules/core/views/inactive-employee.client.view.html'
-		})
-		.state('main', {
-			url: '/main',
-			abstract: false,
-			templateUrl: 'src/modules/core/views/main.client.view.html',
-			controller: 'CoreController',
-			resolve: {
-				scopeSetter: function($q, User, Position, cfpLoadingBar) {
-					var deffered = $q.defer();
-					User.GET()
-						.then(function(data) {
-							Position.query().then(function() {
-								deffered.resolve(data);
-								cfpLoadingBar.complete();
-							});
+	$stateProvider.state('inactiveEmployee', {
+		url: '/inactiveEmployee',
+		templateUrl: 'src/modules/core/views/inactive-employee.client.view.html'
+	}).state('main', {
+		url: '/main',
+		abstract: false,
+		templateUrl: 'src/modules/core/views/main.client.view.html',
+		controller: 'CoreController',
+		resolve: {
+			scopeSetter: function($q, User, Position, ShiftGroup, Employee, FacultyTestingInfo, cfpLoadingBar) {
+				var deffered = $q.defer();
+				User.GET()
+					.then(function(data) {
+						$q.all([
+							Position.query(),
+							Employee.query(),
+							ShiftGroup.query(),
+							FacultyTestingInfo.query()
+						]).then(function() {
+							deffered.resolve(data);
+							cfpLoadingBar.complete();
 						});
-					return deffered.promise;
-				}
+					});
+				return deffered.promise;
 			}
-		})
-		.state('main.home', {
-			url: '/home',
-			templateUrl: 'partials/home.html'
-		});
+		}
+	}).state('main.home', {
+		url: '/home',
+		templateUrl: 'partials/home.html'
+	});
 });

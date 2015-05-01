@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-02
- * @Last Modified time: 2015-05-01 10:01:21
+ * @Last Modified time: 2015-05-01 15:21:35
  */
 
 'use strict';
@@ -34,31 +34,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	// Now set up the states
 	$stateProvider
 
-	// /////////////// //
-	// Directory State //
-	// /////////////// //
-	.state('main.directory', {
-			url: '/directory',
-			templateUrl: 'partials/directory/directory.html',
-
-			// Temporary comment
-			// controller: 'DirectoryCtrl',
-			// controllerAs: 'ctrl',
-			abstract: true
-		})
-		.state('main.directory.listView', {
-			url: '/listView',
-			templateUrl: 'partials/directory/list-view.html'
-		})
-		.state('main.directory.gridView', {
-			url: '/gridView',
-			templateUrl: 'partials/directory/grid-view.html'
-		})
-
 	// //////////////////// //
 	// Faculty Portal State //
 	// //////////////////// //
-	.state('main.faculty', {
+		.state('main.faculty', {
 			url: '/faculty',
 			abstract: true,
 

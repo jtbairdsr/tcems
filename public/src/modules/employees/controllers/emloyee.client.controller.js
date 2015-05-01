@@ -2,40 +2,35 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-04-29 12:45:47
+ * @Last Modified time: 2015-05-01 15:43:21
  */
 
 'use strict';
 
 var directory = angular.module('employees');
 
-directory.controller('DirectoryCtrl', ['$scope', '$log', '$modal', 'dataService', 'generalService',
-	function($scope, $log, $modal, dataService, generalService) {
-		$scope.$log = $log;
-		$scope.properties.currentApp = 'Directory';
-		$scope.properties.predicate = 'PreferredName';
-		var REFRESH = dataService.refresh,
-			DATA = generalService.data,
-			PROPERTIES = generalService.properties;
-
-		$scope.area = {
-			Id: PROPERTIES.currentUser.Area.Id,
-			hideOthers: true
-		};
-		$scope.position = {
-			Id: _.find(DATA.positions, function(position) {
-				return position.Description === 'FTE';
-			}).Id,
-			hide: true
-		};
-		$scope.retired = false;
-		$scope.hideInactive = true;
-		var ctrl = this;
-		ctrl.refreshContent = function() {
-			REFRESH.directory();
-		};
-	}
-]);
+directory.controller('EmployeeController', function($scope, $modal, positions, currentUser) {
+	$scope.currentApp.title = 'Directory';
+	$scope.properties = {
+		predicate: 'PreferredName'
+	};
+	$scope.area = {
+		Id: currentUser.data.Area.Id,
+		hideOthers: true
+	};
+	$scope.position = {
+		Id: _.find(positions.list, function(position) {
+			return position.Description === 'FTE';
+		}).Id,
+		hide: true
+	};
+	$scope.retired = false;
+	$scope.hideInactive = true;
+	var ctrl = this;
+	ctrl.refreshContent = function() {
+		// REFRESH.directory();
+	};
+});
 
 directory.controller('EmployeeEdit', ['$scope', '$alert', 'dataService', 'generalService', '$timeout',
 	function($scope, $alert, dataService, generalService) {

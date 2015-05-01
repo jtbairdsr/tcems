@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-01 14:22:47
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 14:23:48
+ * @Last Modified time: 2015-05-01 15:48:34
  */
 
 'use strict';
@@ -19,7 +19,8 @@ angular.module('core').controller('CoreController', function(
 	$rootScope.areas = areas.list;
 	$rootScope.areaPositions = areaPositions.list;
 	$rootScope.availabilities = availabilities.list;
-	$rootScope.employees = employees.list;
+
+	// $rootScope.employees = employees.list;
 	$rootScope.employments = employments.list;
 	$rootScope.intents = intents.list;
 	$rootScope.teams = teams.list;
