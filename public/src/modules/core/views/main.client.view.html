@@ -1,0 +1,54 @@
+<header class="navbar navbar-fixed-top bs-docs-nav">
+	<div class="navbar-header">
+		<button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a href="/#!/" class="navbar-brand"><img src="src/modules/core/img/BYUI1.png" alt="BYU-Idaho" height="25"> Testing Center</a>
+	</div>
+	<nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
+		<ul class="nav navbar-nav">
+			<li data-ng-show="currentUser.Active">
+				<a data-ui-sref="main.schedule.today">
+					<span class="glyphicon glyphicon-calendar"></span>&#8199;Schedule</a>
+			</li>
+			<li data-ng-show="currentUser.Active">
+				<a data-ui-sref="main.directory.gridView">
+					<span class="glyphicon glyphicon-earphone"></span>&#8199;Directory</a>
+			</li>
+			<!-- <li data-ng-show="currentUser.Admin || currentUser.Position.Position === 'FTE' || properties.currentUser.Position.Position === 'HR'">
+						<a ui-sref="main.hr">HR</a>
+					</li> -->
+			<li data-ng-show="currentUser.Admin || currentUser.Area.Description === 'SARAS'">
+				<a data-ui-sref="main.saras">SARAS</a>
+			</li>
+			<!-- <li data-ng-show="currentUser.Admin || currentUser.Position === undefined">
+						<a ui-sref="main.saras">SARAS</a>
+					</li> -->
+			<li data-ng-show="currentUser.Admin">
+				<a data-ui-sref="main.faculty.info">Faculty Portal</a>
+			</li>
+			<li data-ng-show="currentUser.Admin">
+				<a data-ui-sref="main.utilities">
+					<span class="glyphicon glyphicon-cog"></span>&#8199;Utilities</a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li data-ng-show="currentUser.Active">
+				<a data-bs-aside="aside" data-template="src/modules/messages/messages.html" data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
+					<span class="glyphicon glyphicon-envelope"></span><span data-ng-show="unreadMessages > 0" class="badge badge-error">{{unreadMessages}}</span>
+				</a>
+			</li>
+			<li data-ng-show="currentUser.Active">
+				<a data-bs-aside="aside" data-template="src/modules/core/views/profile.client.view.html" data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
+					<span class="glyphicon glyphicon-user"></span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	<tcems-header-banner></tcems-header-banner>
+
+	<div data-ui-view class="row"></div>
+</header>

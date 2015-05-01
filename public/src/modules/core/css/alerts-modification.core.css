@@ -1,0 +1,31 @@
+/*
+ * @Author: Jonathan Baird
+ * @Date:   2015-04-30 15:29:07
+ * @Last Modified by:   Jonathan Baird
+ * @Last Modified time: 2015-04-30 15:31:23
+ */
+
+.alert.top-right:nth-child(3) {
+	top: 100px;
+}
+.alert.top-right:nth-child(4) {
+	top: 200px;
+}
+.alert.top-right:nth-child(0) {
+	top: 300px;
+}
+.alert.top-right:nth-child(6) {
+	top: 400px;
+}
+.alert.top-right:nth-child(7) {
+	top: 500px;
+}
+.alert.top-right:nth-child(8) {
+	top: 600px;
+}
+.alert.top-right:nth-child(9) {
+	top: 700px;
+}
+.alert.top-right:nth-child(10) {
+	top: 800px;
+}

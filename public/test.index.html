@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta name="version" content="2.0.6" />
+		<!-- <meta charset="utf-8" /> -->
+	</head>
+
+	<body data-ng-controller="BasicCtrl">
+		<button type="button" data-ng-click="testFunction()">Testing</button>
+
+		<script src="dist/lib/libraries-2.0.6.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/config.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/application.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/core/core.client.module.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/core/config/core.client.routes.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/core/config/core.client.filters.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/core/config/modules.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/core/config/core.client.values.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/core/services/dateService.client.service.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/employees/employees.client.module.js" type="text/javascript" charset="utf-8"></script>
+		<script src="src/modules/employees/services/employees.client.service.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			(function() {
+				'use strict';
+				var app = angular.module(ApplicationConfiguration.applicationModuleName);
+				app.controller('BasicCtrl', ['Employees', '$scope',
+					function(Employees, $scope) {
+						$scope.testFunction = function() {
+							console.log(Employees.query());
+						};
+					}
+				]);
+			})();
+		</script>
+	</body>
+
+</html>

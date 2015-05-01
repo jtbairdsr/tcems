@@ -1,0 +1,119 @@
+<div class="aside right am-fade-and-slide-right" tabindex="-1" role="dialog" ng-controller="EmployeeEdit as ctrl" style="display: block; width: 450px;">
+    <div class="aside-dialog">
+        <div class="aside-content">
+            <div class="aside-header">
+                <button type="button" class="close" ng-click="$hide()">×</button>
+                <img data-ng-src="{{properties.currentUser.Picture}}" fallback-src="media/missing.png" class="img-responsive img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+                <h4 class="aside-title">{{properties.currentUser.PreferredName}} {{properties.currentUser.LastName}}</h4>
+            </div>
+            <ul class="nav nav-pillsCustom nav-justified" bs-navbar>
+                <li data-ng-class="{ active: tab === 'profile' }">
+                    <a href="" data-ng-click="tab = 'profile'">Profile</a>
+                </li>
+                <li data-ng-class="{ active: tab === 2 }">
+                    <a href="" data-ng-click="tab = 2">Faculty Testing Info</a>
+                </li>
+            </ul>
+            <div data-ng-show="tab === 'profile'">
+                <div class="aside-body">
+                    <form role="form" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">First:</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" disabled="true" data-ng-model="properties.currentUser.FirstName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Preferred:</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" data-ng-model="properties.currentUser.PreferredName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Last:</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" data-ng-model="properties.currentUser.LastName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Phone:</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" data-ng-model="properties.currentUser.PhoneNumber" data-ui-mask="(999) 999-9999">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Position:</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" disabled="true" ng-model="properties.currentUser.Position.Position">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Area:</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" disabled="true" ng-model="properties.currentUser.Area.Area">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Track:</label>
+                            <div class="col-md-9">
+                                <select class="form-control" data-ng-options="track.Id as track.Description for track in data.tracks" ng-model="properties.currentUser.TrackId"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activeCheckbox" class="col-md-3 control-label">Active:</label>
+                            <div class="col-md-9">
+                                <input id="activeCheckbox" type="checkbox" disabled="true" ng-model="properties.currentUser.Active">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="readerCheckbox">Reader:</label>
+                            <div class="col-md-9">
+                                <input id="readerCheckbox" type="checkbox" ng-model="properties.currentUser.Reader">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="aside-footer">
+                    <button type="button" class="btn btn-default" ng-click="properties.currentUser.refresh(); $hide()">Cancel</button>
+                    <button type="button" class="btn btn-success" ng-click="ctrl.updateEmployee(); $hide()">Submit</button>
+                </div>
+            </div>
+            <div class="aside-body" data-ng-show="tab === 2">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </div>
+                    <input class="form-control" type="search" ng-model="professorSearch">
+                </div>
+                <div class="scrollable">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Stipulation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="facultyTestingInfo in data.facultyTestingInfos | professorFilter:professorSearch | orderBy: 'Professor.LastName'">
+                                <td>
+                                    <img data-ng-src="{{facultyTestingInfo.Professor.Picture}}" fallback-src="media/missing.png" class="pull-right img-circle" data-ng-style="{'max-width': '40px', 'max-height': '56.67px'}" data-template="partials/profile.professor-info.html" data-animation="am-flip-x" data-placement="right" bs-tooltip="tooltip">
+                                </td>
+                                <td>
+                                    {{facultyTestingInfo.Professor.FirstName}} {{facultyTestingInfo.Professor.LastName}}
+                                </td>
+                                <td>{{facultyTestingInfo.Stipulation}}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="4">If you haven't found your Professor's Instructions than they haven't contacted us yet.</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="aside-footer" data-ng-show="tab === 2">
+                <button type="button" class="btn btn-default" ng-click="$hide()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,202 @@
+<div class="modal" tabindex="-1" role="dialog" ng-controller="MessageCtrl as ctrl">
+	<div class="modal-dialog text-muted text-left">
+		<div class="modal-content">
+			<div class="modal-header" ng-show="title">
+				<button type="button" class="close" ng-click="$hide()">&times;</button>
+				<h4 class="modal-title" ng-bind="title">New Message</h4>
+			</div>
+			<div class="modal-body container-fluid">
+				<!-- TO -->
+				<div class="row-fluid">
+					<div class="form-group well" data-ng-show="properties.currentUser.Admin || properties.currentUser.Area.Description === 'Director'">
+						<label for="to">To:</label>
+						<ui-select multiple data-ng-model="ctrl.newMessage.Recipients" theme="bootstrap" close-on-select="false" title="Choose an Employee">
+							<ui-select-match placeholder="Select employee(s)...">{{$item.toString('name')}}</ui-select-match>
+							<ui-select-choices repeat="employee in ctrl.activeEmloyees | filter:$select.search">
+								<span data-ng-bind-html="employee.Label"></span>
+							</ui-select-choices>
+						</ui-select>
+						<buffer></buffer>
+						<div style="height: 2px; border-top: 1px solid #ccc; text-align: center">
+							<span style="background-color: #f2f2f2; position: relative; top: -0.75em;">&nbsp;&nbsp;OR&nbsp;&nbsp;</span>
+						</div>
+						<buffer></buffer>
+						<!-- Admin view -->
+						<div data-ng-show="properties.currentUser.Admin">
+							<div class="form-group">
+								<div class="btn-group-justified">
+									<div class="button-group">
+										<button type="button" class="btn btn-default form-control" data-ng-click="ctrl.newMessage.Recipients = ctrl.activeEmloyees">ALL</button>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="btn-group btn-group-justified">
+									<div class="btn-group" data-ng-repeat="area in data.areas | filter:ctrl.areaFilter">
+										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+											{{area.Description}}
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a data-ng-click="ctrl.areaEmployees(area.Id)">{{area.Description}}</a>
+											</li>
+											<li class="divider"></li>
+											<li data-ng-repeat="position in area.Positions | filter:ctrl.positionFilter">
+												<a data-ng-click="ctrl.positionEmployees(position.Id, area.Id)">
+													{{position.Description}}
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Director view -->
+						<div data-ng-show="properties.currentUser.Area.Description === 'Director'">
+							<div class="form-group">
+								<div class="btn-group-justified">
+									<div class="button-group">
+										<button type="button" class="btn btn-default form-control" data-ng-click="ctrl.newMessage.Recipients = ctrl.activeEmloyees">ALL</button>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="btn-group btn-group-justified">
+									<div class="btn-group" data-ng-repeat="area in data.areas | filter:ctrl.areaFilter">
+										<button type="button" class="btn btn-default" data-ng-click="ctrl.areaEmployees(area.Id)">{{area.Description}}</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group well" data-ng-hide="properties.currentUser.Admin || properties.currentUser.Area.Description === 'Director'">
+						<label for="to">To:</label>
+						<ui-select multiple data-ng-model="ctrl.newMessage.Recipients" theme="bootstrap" close-on-select="false" title="Choose an Employee">
+							<ui-select-match placeholder="Select employee(s)...">{{$item.toString('name')}}</ui-select-match>
+							<ui-select-choices repeat="employee in ctrl.activeEmloyees | filter:{AreaId: properties.currentUser.AreaId} | filter:$select.search">
+								<span data-ng-bind-html="employee.Label"></span>
+							</ui-select-choices>
+						</ui-select>
+						<buffer></buffer>
+						<div style="height: 2px; border-top: 1px solid #ccc; text-align: center">
+							<span style="background-color: #f2f2f2; position: relative; top: -0.75em;">&nbsp;&nbsp;OR&nbsp;&nbsp;</span>
+						</div>
+						<buffer></buffer>
+						<!-- FTE view -->
+						<div data-ng-show="properties.currentUser.Position.Id === ctrl.positionFTE.Id && !properties.currentUser.Admin">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.newMessage.Recipients = ctrl.activeEmloyees">ALL</button>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.newMessage.Recipients = ctrl.employees">Area</button>
+								</div>
+								<div class="btn-group" data-ng-repeat="position in properties.defaultArea.Positions | filter:ctrl.positionFilter">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.positionEmployees(position.Id)">{{position.Description}}</button>
+								</div>
+							</div>
+						</div>
+						<!-- Employee view -->
+						<div data-ng-hide="properties.currentUser.Position.Id === ctrl.positionFTE.Id || properties.currentUser.Admin">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.newMessage.Recipients = ctrl.employees">ALL</button>
+								</div>
+								<div class="btn-group" data-ng-repeat="position in properties.defaultArea.Positions | filter:ctrl.positionFilter">
+									<button type="button" class="btn btn-default" data-ng-click="ctrl.positionEmployees(position.Id)">{{position.Description}}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- FROM -->
+				<div class="row-fluid" data-ng-show="properties.currentUser.Position.Position === 'FTE' || properties.currentUser.Admin">
+					<div class="form-group">
+						<label for="from">From:</label>
+						<div class="btn-group-justified">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.FromId" data-ng-options="employee.Id as employee.toString('name') for employee in ctrl.FTEs" data-html="true" placeholder="Select employee..." bs-select data-placement="bottom">
+									Action
+									<span class="caret"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- SUBJECT -->
+				<div class="row-fluid">
+					<div class="form-group">
+						<label for="Day">Subject:</label>
+						<input type="text" data-ng-model="ctrl.newMessage.Subject" class="form-control">
+					</div>
+				</div>
+				<!-- BODY -->
+				<div class="row-fluid">
+					<div class="form-group">
+						<label for="Day">Body:</label>
+						<textarea data-ng-model="ctrl.newMessage.Body" class="form-control" rows="10"></textarea>
+					</div>
+				</div>
+				<!-- MISC -->
+				<div class="row-fluid" data-ng-show="currentUser.extendedPrivledges">
+					<div class="form-group">
+						<div class="form-group">
+							<div class="input-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+								<div class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>&nbsp;Expires:
+								</div>
+								<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="ctrl.newMessage.ExpDate">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>&nbsp;Due:
+								</div>
+								<input type="text" class="form-control" name="date" bs-datepicker data-ng-model="ctrl.newMessage.DueDate">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="btn-group btn-group-justified">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" ng-model="ctrl.newMessage.Policy" data-ng-click="ctrl.setPolicy()" bs-checkbox>{{(ctrl.newMessage.Policy) ? 'Policy' : 'Not policy'}}</button>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default" ng-model="ctrl.newMessage.Mandatory" data-ng-disabled="ctrl.newMessage.Policy" bs-checkbox>{{(ctrl.newMessage.Mandatory) ? 'Mandatory' : 'Not mandatory'}}</button>
+								</div>
+							</div>
+						</div>
+						<div class="well" data-ng-show="ctrl.newMessage.Policy && (properties.defaultArea.Description === 'Director' || properties.currentUser.Admin)">
+							<div class="form-group">
+								<div class="btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.AreaId" data-ng-options="area.Id as area.Description for area in data.areas" data-html="true" placeholder="Select area..." bs-select data-placement="bottom" data-ng-disabled="ctrl.newMessage.UniversalPolicy">
+											Action
+											<span class="caret"></span>
+										</button>
+									</div>
+								</div>
+							</div>
+							<buffer></buffer>
+							<div style="height: 2px; border-top: 1px solid #ccc; text-align: center">
+								<span style="background-color: #f2f2f2; position: relative; top: -0.75em;">&nbsp;&nbsp;OR&nbsp;&nbsp;</span>
+							</div>
+							<buffer></buffer>
+							<div class="form-group">
+								<div class="btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default" ng-model="ctrl.newMessage.UniversalPolicy" data-ng-click="ctrl.setUniversalPolicy()" bs-checkbox>Universal Policy</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+				<button type="button" class="btn btn-success" ng-click="ctrl.sendNewMessage();$hide()" data-ng-disabled="!(ctrl.newMessage.Recipients.length && ctrl.newMessage.Subject && ctrl.newMessage.Body)">Send</button>
+			</div>
+		</div>
+	</div>
+</div>

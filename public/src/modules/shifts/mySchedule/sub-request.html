@@ -1,0 +1,31 @@
+<div class="modal" data-tabindex="-1" role="dialog" data-ng-controller="MyScheduleCtrl as ctrl">
+	<div class="modal-dialog text-muted text-left">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-ng-click="$hide()">&times;</button>
+				<!--        This is the header if you are requesting a sub      -->
+				<h4 data-ng-hide="shift.subRequest" class="modal-title">Are you sure you want to request a sub for this shift?</h4>
+				<!--This is the header if you have already requested a sub-->
+				<h4 class="modal-title" data-ng-show="shift.subRequest">Are you sure you want to cancel this sub request?</h4>
+			</div>
+			<div class="modal-body text-center">
+				<div class="warning">
+					{{day.toString()}}
+					<br>{{shift.shift.Position.Description}}: {{shift.shift.StartTime | date:'h:mm'}} - {{shift.shift.EndTime | date:'h:mm'}}
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-ng-click="$hide()">No</button>
+				<!--The cancel request button (if a sub HAS been requested)-->
+				<button type="button" data-ng-show="shift.subRequest" class="btn btn-success" data-ng-click="ctrl.cancel();$hide()">Yes</button>
+				<!--This is the request button (if a sub has NOT been requested)-->
+				<div class="pull-right" data-ng-hide="shift.subRequest">
+					<!--This shows if it ISN'T a subShift (to request a sub)-->
+					<button type="button" data-ng-hide="shift.isSubShift" class="btn btn-success" data-ng-click="ctrl.requestSub(); $hide()">Yes</button>
+					<!--This shows if it IS a subShift (to request a sub of a sub)-->
+					<button data-ng-show="shift.isSubShift" type="button" class="btn btn-success" data-ng-click="ctrl.requestSubOfSub(); $hide()">Yes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

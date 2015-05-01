@@ -1,0 +1,84 @@
+<div class="modal" tabindex="-1" role="dialog" ng-controller="SubShiftCtrl as ctrl">
+    <div class="modal-dialog text-muted text-left">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$hide()">&times;</button>
+
+                <!-- --------If you are FTE, HR, or Admin you will see this title-------- -->
+
+                <h4 class="modal-title" data-ng-show="currentUser.extendedPrivledges">Shift Info</h4>
+
+                <!-- ------If you are NOT FTE, HR, or Admin you will see this title------ -->
+
+                <h4 class="modal-title" data-ng-hide="currentUser.extendedPrivledges">Are you sure you want to work this shift?</h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- ---------If there is NOT a Substitute you will see this view--------- -->
+
+                <div class="row text-center" data-ng-show="subShift.subShift.SubstituteId === undefined">
+                    <div class="row-fluid" data-ng-show="currentUser.extendedPrivledges">
+                        Requested: {{subShift.subShift.Created | date:'MMM d'}}
+                    </div>
+                    <buffer></buffer>
+                    {{day.date | date:'MMM d'}}
+                    <br>{{subShift.shift.StartTime | date:'hh:mm a'}} to {{subShift.shift.EndTime | date:'hh:mm a'}}
+                    <br>
+                    <img data-ng-src="{{subShift.originalEmployee.Picture}}" fallback-src="media/missing.png" class="img-circle center-block" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+                    <br>{{subShift.originalEmployee.PreferredName}} {{subShift.originalEmployee.LastName}}
+                </div>
+
+                <!-- -----------If there is a Substitute you will see this view----------- -->
+
+                <div data-ng-hide="subShift.subShift.SubstituteId === undefined">
+                    <div class="row-fluid" data-ng-show="currentUser.extendedPrivledges">
+                        Created: {{subShift.shift.Created | date:'MMM d'}}
+                    </div>
+                    <div class="row text-center">
+                        {{day.date | date:'MMM d'}}
+                        <br>{{subShift.shift.StartTime | date:'h:mm a'}} to {{subShift.shift.EndTime | date:'h:mm a'}}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img data-ng-src="{{subShift.responsibleEmployee.Picture}}" fallback-src="media/missing.png" class="img-circle center-block" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-5">
+                            <img data-ng-src="{{subShift.originalEmployee.Picture}}" fallback-src="media/missing.png" class="img-circle center-block" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-5">
+                            {{subShift.responsibleEmployee.PreferredName}} {{subShift.responsibleEmployee.LastName}}
+                        </div>
+                        <div class="col-md-2">
+                            for
+                        </div>
+                        <div class="col-md-5">
+                            {{subShift.originalEmployee.PreferredName}} {{subShift.originalEmployee.LastName}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <!-- --------If you are FTE, HR, or Admin you will see these buttons-------- -->
+
+                <div data-ng-show="currentUser.extendedPrivledges">
+                    <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+                    <button type="button" class="btn btn-danger" ng-click=" ctrl.removeSubShift()">Remove Sub Shift</button>
+                    <!-- You will only see these buttons if the shift has not yet been taken -->
+                    <button type="button" class="btn btn-success" data-ng-show="subShift.subShift.SubstituteId === undefined" ng-click="ctrl.takeSubShift();$hide()">Take Sub Shift</button>
+                </div>
+
+                <!-- ------If you are NOT FTE, HR, or Admin you will see these buttons------ -->
+
+                <div data-ng-hide="currentUser.extendedPrivledges">
+                    <button type="button" class="btn btn-danger" ng-click="$hide()">No</button>
+                    <button type="button" class="btn btn-success" ng-click="ctrl.takeSubShift();$hide()">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

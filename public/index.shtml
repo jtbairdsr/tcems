@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!-- Version information -->
+		<!--#set var="DEVELOP" value="true"-->
+		<meta name="version" content="2.0.6" />
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Testing Center EMS</title>
+
+		<!-- favicon -->
+		<link rel="shortcut icon" href="src/modules/core/img/favicon.png" type="image/x-icon" />
+		<link rel="icon" href="src/modules/core/img/favicon.png" type="image/x-icon" />
+
+		<!-- Third Party Library CSS Files -->
+		<link rel="stylesheet" type="text/css" href="dist/lib/libraries-2.0.6.min.css" />
+
+		<!-- Application CSS Files -->
+		<!--#if expr="v('DEVELOP') == 'true'" -->
+		<!--#include virtual="dev/dev.client.css.html" -->
+		<!--#else -->
+		<link rel="stylesheet" type="text/css" href="dist/application-2.0.6.min.css" />
+		<!--#endif -->
+
+		<base href="/index.html" />
+	</head>
+
+	<body class="ng-cloak">
+		<main class="content">
+			<section class="container-fluid" data-ui-view></section>
+		</main>
+		<footer class="navbar-fixed-bottom text-center">&#169; Brigham Young University Idaho</footer>
+
+		<!-- Third Party Library JavaScript Files -->
+		<script src="dist/lib/libraries-2.0.6.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<!-- Application JavaScript Files -->
+		<!--#if expr="v('DEVELOP') == 'true'" -->
+		<!--#include virtual="dev/dev.client.js.html" -->
+		<!--#else -->
+		<script src="dist/application-2.0.6.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--#endif -->
+
+		<!--#if expr="v('DEVELOP') == 'true'" -->
+		<!--#include virtual="dev/livereload.client.js.html" -->
+		<!--#endif -->
+	</body>
+
+</html>

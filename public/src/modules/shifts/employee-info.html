@@ -1,0 +1,15 @@
+<div class="popover">
+	<div class="arrow"></div>
+	<h4 class="popover-title">Employee Information:
+		<small data-ng-hide="employee.Info">{{employee.FirstName}} {{employee.LastName}}</small>
+		<small data-ng-show="employee.Info">{{employee.Info.PreferredName}} {{employee.Info.LastName}}</small>
+	</h4>
+	<div class="popover-content" data-ng-hide="employee.Info">
+		Phone:<br>{{employee.PhoneNumber | tel}}
+		<br>Email:<br>{{employee.EmailAddress}}
+	</div>
+	<div class="popover-content" data-ng-show="employee.Info">
+		Phone:<br>{{employee.Info.PhoneNumber | tel}}
+		<br>Email:<br>{{employee.Info.EmailAddress}}
+	</div>
+</div>

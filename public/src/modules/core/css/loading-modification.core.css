@@ -1,0 +1,44 @@
+/*
+ * @Author: Jonathan Baird
+ * @Date:   2015-04-30 15:32:00
+ * @Last Modified by:   Jonathan Baird
+ * @Last Modified time: 2015-04-30 15:33:28
+ */
+
+#loading-bar-spinner {
+	/*display: block;*/
+	/*position: fixed;*/
+
+	z-index: 10002;
+	min-height: 100%;
+	/* Fallback for browsers do NOT support vh unit */
+
+	min-height: 100vh;
+	/* These two lines are counted as one :-)       */
+
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+#loading-bar-spinner .spinner-icon {
+	width: 30px;
+	height: 30px;
+	border: solid 2px transparent;
+	border-top-color: #29d;
+	border-left-color: #29d;
+	border-radius: 15px;
+	margin: auto;
+	position: fixed;
+	z-index: 999;
+	overflow: visible;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	text-align: center;
+	-webkit-animation: loading-bar-spinner 400ms linear infinite;
+	-moz-animation: loading-bar-spinner 400ms linear infinite;
+	-ms-animation: loading-bar-spinner 400ms linear infinite;
+	-o-animation: loading-bar-spinner 400ms linear infinite;
+	animation: loading-bar-spinner 400ms linear infinite;
+}

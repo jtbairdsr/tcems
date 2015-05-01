@@ -1,0 +1,194 @@
+body {
+	position: relative;
+}
+.bs-docs-nav {
+	margin-bottom: 0;
+	background-color: #fff;
+	border-bottom: 1px;
+}
+.bs-docs-nav .navbar-brand, .bs-docs-nav .navbar-nav>li>a {
+	font-weight: 500;
+	color: #056cb6
+}
+.bs-docs-nav .navbar-header .navbar-toggle {
+	border-color: #fff
+}
+.bs-docs-nav .navbar-header .navbar-toggle:hover, .bs-docs-nav .navbar-header .navbar-toggle:focus {
+	background-color: #f9f9f9;
+	border-color: #f9f9f9
+}
+.bs-docs-header {
+	position: relative;
+	text-align: center;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .1);
+	/*background-image: url('/media/christmas.jpg');*/
+	/*background-repeat: no-repeat;
+	background-size: 100%;*/
+
+	background-color: #056cb6;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#0463a9), to(#056cb6));
+	background-image: -webkit-linear-gradient(top, #0463a9 0, #056cb6 100%);
+	background-image: -o-linear-gradient(top, #0463a9 0, #056cb6 100%);
+	background-image: linear-gradient(to bottom, #0463a9 0, #056cb6 100%);
+	/*filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#0463a9', endColorstr='#056cb6', GradientType=0);*/
+
+	font-size: 20px;
+}
+.bs-docs-header {
+	margin-top: 0;
+	color: #fff
+}
+@media (min-width: 768px) {
+	.bs-docs-header {
+		padding-top: 60px;
+		padding-bottom: 60px;
+		font-size: 24px;
+		text-align: left
+	}
+	.bs-docs-header {
+		font-size: 60px;
+		line-height: 1
+	}
+}
+/*@media (min-width: 992px) {
+	.bs-docs-header h1, .bs-docs-header p {
+		margin-right: 380px
+	}
+}*/
+
+.nav-pillsCustom > li.active > a, .nav-pillsCustom > li.active > a:hover, .nav-pillsCustom > li.active > a:focus {
+	color: #fff;
+	/*background-image: url('/media/christmas.jpg');*/
+
+	background-color: #056cb6;
+}
+.nav-pillsCustom > li > a {
+	border-radius: 0px;
+	border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+a > button {
+	background: transparent;
+	border: 0;
+	margin-right: 10px;
+}
+h1 > .student-header {
+	height: 120px;
+}
+td.my-schedule {
+	width: 14.29%;
+	padding: 0 !important;
+}
+div.my-schedule {
+	display: block;
+	width: 100%
+}
+button.my-schedule {
+	border-radius: 0 !important;
+	background-color: #a7d85a;
+	color: #FFFFFF;
+}
+button.my-schedule:hover {
+	background-color: #83a945;
+	color: #FFFFFF;
+}
+button.subRequested {
+	background-color: #f4211b;
+}
+button.subRequested:hover {
+	background-color: #c31814;
+	color: #FFFFFF
+}
+button.subRequested.week2 {
+	background-color: #fe9e37;
+}
+button.subRequested.week2:hover {
+	background-color: #c77b2a;
+	color: #FFFFFF
+}
+button.subRequested.week3:hover {
+	background-color: #c8bb5a;
+	color: #FFFFFF
+}
+button.subRequested.week3 {
+	background-color: #fae871;
+}
+button.subCovered {
+	background-color: #b6b6b6;
+}
+.badge:hover {
+	color: #ffffff;
+	text-decoration: none;
+	cursor: pointer;
+}
+.badge-primary {
+	background-color: #32CFCB !important;
+}
+.badge-error {
+	background-color: #b94a48 !important;
+}
+.badge-error:hover {
+	background-color: #953b39 !important;
+}
+.badge-warning {
+	background-color: #f89406;
+}
+.badge-warning:hover {
+	background-color: #c67605;
+}
+.badge-success {
+	background-color: #468847;
+}
+.badge-success:hover {
+	background-color: #356635;
+}
+.badge-info {
+	background-color: #3a87ad;
+}
+.badge-info:hover {
+	background-color: #2d6987;
+}
+.badge-inverse {
+	background-color: #333333;
+}
+.badge-inverse:hover {
+	background-color: #1a1a1a;
+}
+.list-group-item-info {
+	background-color: #d1e8f4;
+	color: #275c7d;
+	border: #275c7d;
+}
+.weekend {
+	background-color: #f2f2f2 !important;
+}
+div.scrollable {
+	overflow-y: auto;
+	max-height: 400px;
+}
+div.aside-header {
+	text-shadow: 0 1px 0 rgba(0, 0, 0, .1) !important;
+	background-color: #056cb6 !important;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#0463a9), to(#056cb6)) !important;
+	background-image: -webkit-linear-gradient(top, #0463a9 0, #056cb6 100%) !important;
+	background-image: -o-linear-gradient(top, #0463a9 0, #056cb6 100%) !important;
+	background-image: linear-gradient(to bottom, #0463a9 0, #056cb6 100%) !important;
+	border-bottom-width: 0 !important;
+}
+.list-item {
+	height: 50px;
+	width: 50px;
+}
+.top-buffer {
+	margin-top: 20px;
+}
+.vertical-center {
+	min-height: 100%;
+	/* Fallback for browsers do NOT support vh unit */
+
+	min-height: 100vh;
+	/* These two lines are counted as one :-)       */
+
+	display: flex;
+	align-items: center;
+}
