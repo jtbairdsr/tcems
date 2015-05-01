@@ -1,0 +1,3499 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ext",
+				"extendedPrivledges"
+			],
+			[
+				"defa",
+				"defaultPosition"
+			],
+			[
+				"sec",
+				"securityValidation"
+			],
+			[
+				"bottom",
+				"navbar-fixed-bottom	BootstrapClass"
+			],
+			[
+				"con",
+				"container-fluid	BootstrapClass"
+			],
+			[
+				"navbaf",
+				"navbar-fixed-top	BootstrapClass"
+			],
+			[
+				"ngi",
+				"ng-include	AngularJS"
+			],
+			[
+				"direc",
+				"directive"
+			],
+			[
+				"dire",
+				"directive"
+			],
+			[
+				"inde",
+				"indexViews"
+			],
+			[
+				"mo",
+				"modules"
+			],
+			[
+				"appl",
+				"application"
+			],
+			[
+				"regi",
+				"registerModule=function"
+			],
+			[
+				"shiftG",
+				"shiftGroup"
+			],
+			[
+				"sent",
+				"sentMessage"
+			],
+			[
+				"sem",
+				"semester"
+			],
+			[
+				"profe",
+				"professors"
+			],
+			[
+				"noTest",
+				"noTestingDays"
+			],
+			[
+				"employm",
+				"employment"
+			],
+			[
+				"emplo",
+				"employee"
+			],
+			[
+				"avai",
+				"availability"
+			],
+			[
+				"no",
+				"nonull"
+			],
+			[
+				"uti",
+				"utilities"
+			],
+			[
+				"fac",
+				"faculty"
+			],
+			[
+				"ser",
+				"services"
+			],
+			[
+				"apl",
+				"applicationModuleVendorDependencies"
+			],
+			[
+				"applicationMo",
+				"applicationModuleVendorDependencies"
+			],
+			[
+				"confi",
+				"configuration"
+			],
+			[
+				"App",
+				"ApplicationConfiguration"
+			],
+			[
+				"angul",
+				"angular"
+			],
+			[
+				"appli",
+				"applicationModuleName"
+			],
+			[
+				"modul",
+				"modules"
+			],
+			[
+				"img",
+				"img-responsive	BootstrapClass"
+			],
+			[
+				"text",
+				"text-center	BootstrapClass"
+			],
+			[
+				"panel",
+				"panel-default	BootstrapClass"
+			],
+			[
+				"a",
+				"a	<a>"
+			],
+			[
+				"grp",
+				"input-group	BootstrapClass"
+			],
+			[
+				"btn",
+				"btn-default	BootstrapClass"
+			],
+			[
+				"glys",
+				"glyphicon-search	BootstrapClass"
+			],
+			[
+				"ngcl",
+				"ng-click	AngularJS"
+			],
+			[
+				"but",
+				"button	<button>"
+			],
+			[
+				"tri",
+				"trim"
+			],
+			[
+				"pic",
+				"pictureUrl"
+			],
+			[
+				"im",
+				"img-responsive	BootstrapClass"
+			],
+			[
+				"pi",
+				"pictureUrl"
+			],
+			[
+				"Pro",
+				"Provider"
+			],
+			[
+				"pro",
+				"product"
+			],
+			[
+				"ch",
+				"checkbox	BootstrapClass"
+			],
+			[
+				"custo",
+				"cusotmers"
+			],
+			[
+				"categor",
+				"category"
+			],
+			[
+				"Ac",
+				"Active"
+			],
+			[
+				"cur",
+				"currentUser"
+			],
+			[
+				"cure",
+				"currentUser"
+			],
+			[
+				"current",
+				"currentUser"
+			],
+			[
+				"curr",
+				"currentUser"
+			],
+			[
+				"seme",
+				"semesters"
+			],
+			[
+				"Mess",
+				"MessageId"
+			],
+			[
+				"Emplo",
+				"EmployeeId"
+			],
+			[
+				"sentME",
+				"sentMessages"
+			],
+			[
+				"const",
+				"constructor"
+			],
+			[
+				"SentMe",
+				"SentMessage"
+			],
+			[
+				"SentMess",
+				"SentMessageSpy"
+			],
+			[
+				"SentM",
+				"SentMessage"
+			],
+			[
+				"Re",
+				"Recipients"
+			],
+			[
+				"decor",
+				"decorator	Angular.js"
+			],
+			[
+				"de",
+				"decorator	Angular.js"
+			],
+			[
+				"cons",
+				"constructor"
+			],
+			[
+				"E",
+				"Employee"
+			],
+			[
+				"Emp",
+				"Employee"
+			],
+			[
+				"Em",
+				"Employee"
+			],
+			[
+				"Empl",
+				"Employee"
+			],
+			[
+				"Sub",
+				"Subject"
+			],
+			[
+				"tb",
+				"tb	toBe"
+			],
+			[
+				"prof",
+				"professors"
+			],
+			[
+				"te",
+				"te	toEqual"
+			],
+			[
+				"facu",
+				"facultyTestingInfos"
+			],
+			[
+				"s",
+				"s	spyOn"
+			],
+			[
+				"act",
+				"andCallThrough"
+			],
+			[
+				"tempTest",
+				"tempTestObject"
+			],
+			[
+				"be",
+				"be	beforeEach"
+			],
+			[
+				"empl",
+				"employment"
+			],
+			[
+				"em",
+				"employments"
+			],
+			[
+				"emp",
+				"employees"
+			],
+			[
+				"New",
+				"NewRequestId"
+			],
+			[
+				"test",
+				"testAvailability"
+			],
+			[
+				"tes",
+				"testAvailability"
+			],
+			[
+				"Sems",
+				"SemesterId"
+			],
+			[
+				"testS",
+				"testSchedule"
+			],
+			[
+				"employ",
+				"employments"
+			],
+			[
+				"testSu",
+				"testSubShift1"
+			],
+			[
+				"po",
+				"position"
+			],
+			[
+				"bai",
+				"bai11006"
+			],
+			[
+				"Employ",
+				"Employment"
+			],
+			[
+				"prop",
+				"properties"
+			],
+			[
+				"Po",
+				"Position"
+			],
+			[
+				"proper",
+				"property"
+			],
+			[
+				"Posi",
+				"Position"
+			],
+			[
+				"De",
+				"DefaultPositionId"
+			],
+			[
+				"exp",
+				"expect"
+			],
+			[
+				"posi",
+				"positions"
+			],
+			[
+				"pos",
+				"positions"
+			],
+			[
+				"http",
+				"$httpBackend	AngularJS"
+			],
+			[
+				"index",
+				"indexOf"
+			],
+			[
+				"ava",
+				"availabilities"
+			],
+			[
+				"af",
+				"afterEach"
+			],
+			[
+				"serv",
+				"service"
+			],
+			[
+				"A",
+				"Availability"
+			],
+			[
+				"fet",
+				"fetchJson"
+			],
+			[
+				"dele",
+				"delete"
+			],
+			[
+				"pus",
+				"push	jsArray"
+			],
+			[
+				"ex",
+				"expect"
+			],
+			[
+				"ini",
+				"initAttributes"
+			],
+			[
+				"up",
+				"updateData"
+			],
+			[
+				"ref",
+				"refresh"
+			],
+			[
+				"upda",
+				"updateItem"
+			],
+			[
+				"re",
+				"resolve	.resolve()"
+			],
+			[
+				"get",
+				"get	Get Elements"
+			],
+			[
+				"injec",
+				"$injector	AngularJS"
+			],
+			[
+				"beforeEach",
+				"beforeEach"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"available",
+				"availableShifts"
+			],
+			[
+				"moda",
+				"modal-footer	BootstrapClass"
+			],
+			[
+				"ngbind",
+				"ng-bind	AngularJS"
+			],
+			[
+				"collg",
+				"col-lg-2	BootstrapClass"
+			],
+			[
+				"hi",
+				"hidden-xs	BootstrapClass"
+			],
+			[
+				"hid",
+				"hidden-xs	BootstrapClass"
+			],
+			[
+				"pull",
+				"pull-left	BootstrapClass"
+			],
+			[
+				"vis",
+				"visible"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "gruntfile.js",
+			"settings":
+			{
+				"buffer_size": 7805,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/modules/config.js",
+			"settings":
+			{
+				"buffer_size": 1022,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".jshintrc",
+			"settings":
+			{
+				"buffer_size": 444,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 755,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "/*\n * @Author: jonathan\n * @Date:   2015-03-26 08:02:20\n * @Last Modified by:   Jonathan Baird\n * @Last Modified time: 2015-04-24 10:00:01\n */\n\n'use strict';\n\nvar app = angular.module('core');\n\napp.constant('localUrl', 'http://testcenterems.byui.edu'); // the URL of the webserver\napp.constant('sharePointUrl', 'https://inet.byui.edu/sites/TestingServices/'); // the URL of the database server\n\n\n\n\n\n\n\"annotations\": {\n	\"@disable\": true,\n	\"args\": [],\n	\"errors\": [\n		\"FIXME\"\n	],\n	\"excludes\": [],\n	\"warnings\": [\n		\"TODO\",\n		\"README\"\n	]\n},\n\"csslint\": {\n	\"@disable\": false,\n	\"args\": [],\n	\"errors\": \"\",\n	\"excludes\": [],\n	\"ignore\": \"\",\n	\"warnings\": \"\"\n},\n\"htmltidy\": {\n	\"@disable\": false,\n	\"args\": [\n		\"drop-proprietary-attributes=yes\"\n	],\n	\"excludes\": []\n},\n\"jshint\": {\n	\"@disable\": false,\n	\"args\": [],\n	\"excludes\": []\n},\n\"json\": {\n	\"@disable\": false,\n	\"args\": [],\n	\"excludes\": [],\n	\"strict\": true\n}\n",
+			"file": "src/modules/core/config/core.client.values.js",
+			"file_size": 413,
+			"file_write_time": 130743648010000000,
+			"settings":
+			{
+				"buffer_size": 893,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/modules/message/config/messages.client.values.js",
+			"settings":
+			{
+				"buffer_size": 383,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/modules/shifts/config/shifts.client.values.js",
+			"settings":
+			{
+				"buffer_size": 356,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/modules/semesters/config/semesters.client.values.js",
+			"settings":
+			{
+				"buffer_size": 432,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/modules/employees/config/employees.client.values.js",
+			"settings":
+			{
+				"buffer_size": 554,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/modules/core/views/main.client.view.html",
+			"settings":
+			{
+				"buffer_size": 73,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.shtml",
+			"settings":
+			{
+				"buffer_size": 2087,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Package Control Messages\n========================\n\nSublimeLinter-jscs:\n------------------\n\n  SublimeLinter-jscs\n  -------------------------------\n  This linter plugin for SublimeLinter provides an interface to jscs.\n  \n  ** IMPORTANT! **\n  \n  Before this plugin will activate, you *must*\n  follow the installation instructions here:\n  \n  https://github.com/SublimeLinter/SublimeLinter-jscs\n  \n  ",
+			"settings":
+			{
+				"buffer_size": 395,
+				"line_ending": "Unix",
+				"name": "Package Control Messages",
+				"scratch": true
+			}
+		},
+		{
+			"contents": "{\n    \"folders\":\n    [\n        {\n            \"path\": \"public\",\n            \"follow_symlinks\": true\n        },\n        {\n            \"path\": \".git\",\n            \"name\": \"Git Repo\"\n        },\n        {\n            \"path\": \"node_modules\",\n            \"name\": \"Node Modules\"\n        },\n        {\n            \"path\": \"test\"\n        },\n        {\n            \"path\": \"test/unit\",\n            \"name\": \"Karma Tests\"\n        }\n    ],\n    \"settings\":\n    {\n        \"tab_size\": 4\n    }\n}",
+			"settings":
+			{
+				"buffer_size": 475,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/modules/core/directives/core.client.directives.js",
+			"settings":
+			{
+				"buffer_size": 1313,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dev/dev.client.css.html",
+			"settings":
+			{
+				"buffer_size": 683,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 291.0,
+		"last_filter": "json",
+		"selected_items":
+		[
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"swap",
+				"BracketHighlighter: Swap Quotes"
+			],
+			[
+				"toggle",
+				"SolarizedToggle: Toggle"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"alignment",
+				"Preferences: Alignment Key Bindings – User"
+			],
+			[
+				"ali",
+				"Preferences: Alignment File Settings – Syntax Specific – User"
+			],
+			[
+				"ren",
+				"File: Rename"
+			],
+			[
+				":",
+				":w - Save"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"jso",
+				"Set Syntax: JSON"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"fold",
+				"BracketHighlighter: Fold Bracket Content"
+			],
+			[
+				"syntax",
+				"SyntaxFold: Fold All Default"
+			],
+			[
+				"preferences: syn",
+				"Preferences: SyntaxFold Keybindings - Default"
+			],
+			[
+				"intsall",
+				"Package Control: Install Package"
+			],
+			[
+				"unf",
+				"Code Folding: Unfold All"
+			],
+			[
+				"unfold",
+				"Code Folding: Unfold All"
+			],
+			[
+				"lint",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"remvoe",
+				"Package Control: Remove Package"
+			],
+			[
+				"case",
+				"Convert Case: Upper Case"
+			],
+			[
+				"folding",
+				"Code Folding: Unfold All"
+			],
+			[
+				"html",
+				"Set Syntax: HTML5"
+			],
+			[
+				"gold",
+				"Golden Ratio: Toggle Auto Resize"
+			],
+			[
+				"gol",
+				"Golden Ratio: Toggle Auto Resize"
+			],
+			[
+				"golden",
+				"Golden Ratio: Toggle Auto Resize"
+			],
+			[
+				"JAva",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"javasc",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"javaS",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"swa",
+				"BracketHighlighter: Swap Quotes"
+			],
+			[
+				"sass",
+				"SassBeautify"
+			],
+			[
+				"packages",
+				"Preferences: Package Control Settings – User"
+			],
+			[
+				"upl",
+				"SFTP: Upload File"
+			],
+			[
+				"syntax jso",
+				"Set Syntax: JSON"
+			],
+			[
+				"git checkout",
+				"Git (SideBarGit): Checkout to…"
+			],
+			[
+				"revert",
+				"File: Revert"
+			],
+			[
+				"rebase",
+				"Git (SideBarGit): Branch: rebase current into master"
+			],
+			[
+				"branch",
+				"Git (SideBarGit): Branch: switch to master"
+			],
+			[
+				"title",
+				"Convert Case: Title Case"
+			],
+			[
+				"quote",
+				"BracketHighlighter: Swap Quotes"
+			],
+			[
+				"brack",
+				"BracketHighlighter: Remove Brackets"
+			],
+			[
+				"synta",
+				"Set Syntax: JSON"
+			],
+			[
+				"syntax json",
+				"Set Syntax: JSON"
+			],
+			[
+				"syntax js",
+				"Set Syntax: JSON"
+			],
+			[
+				"pret",
+				"HTMLPrettify: Set Prettify Preferences"
+			],
+			[
+				"sftp",
+				"SFTP: Upload File"
+			],
+			[
+				"align",
+				"Preferences: Alignment Key Bindings – User"
+			],
+			[
+				"alignment ",
+				"Preferences: Alignment Key Bindings – User"
+			],
+			[
+				"intsal",
+				"Package Control: Install Package"
+			],
+			[
+				"gutter",
+				"SublimeLinter: Choose Gutter Theme"
+			],
+			[
+				"intall",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 579.0
+	},
+	"console":
+	{
+		"height": 783.0,
+		"history":
+		[
+			"cd ~",
+			"ls",
+			"view.settings().get('theme')",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Library/WebServer/Documents",
+		"/Library/WebServer/Documents/public",
+		"/Library/WebServer/Documents/test"
+	],
+	"file_history":
+	[
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Settings/SideBarEnhancements.json",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/JSON.sublime-settings",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/README.md",
+		"/Library/WebServer/Documents/src/modules/utilities/utilities.js",
+		"/Library/WebServer/Documents/src/modules/user/services/user.client.service.js",
+		"/Library/WebServer/Documents/src/modules/shifts/schedule.js",
+		"/Library/WebServer/Documents/src/modules/shifts/subShifts/subShifts.js",
+		"/Library/WebServer/Documents/src/modules/shifts/availableShifts/availableShifts.js",
+		"/Library/WebServer/Documents/src/modules/message/messages.js",
+		"/Library/WebServer/Documents/src/modules/professors/faculty.js",
+		"/Library/WebServer/Documents/src/modules/employees/services/employees.client.service.js",
+		"/Library/WebServer/Documents/src/modules/employees/directory.js",
+		"/Library/WebServer/Documents/src/modules/core/services/dateService.client.service.js",
+		"/Library/WebServer/Documents/src/modules/core/services/dataService.client.service.js",
+		"/Library/WebServer/Documents/src/modules/core/factories/classes/track.js",
+		"/Library/WebServer/Documents/src/modules/core/factories/classes/subShift.js",
+		"/Library/WebServer/Documents/src/modules/core/factories/classes/shiftGroup.js",
+		"/Library/WebServer/Documents/src/modules/core/factories/classes/shift.js",
+		"/Library/WebServer/Documents/src/modules/core/factories/classes/message.js",
+		"/Library/WebServer/Documents/src/modules/core/factories/classes/day.js",
+		"/Library/WebServer/Documents/src/modules/core/config/core.client.routes.js",
+		"/Library/WebServer/Documents/src/modules/core/config/core.client.filters.js",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/SolarizedToggle.sublime-settings",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/HTML5/HTML.tmLanguage",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Solarized Color Scheme/Solarized (light).tmTheme",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Solarized Color Scheme/package-metadata.json",
+		"/Library/WebServer/Documents/.bowerrc",
+		"/Library/WebServer/Documents/test/karma.conf.js",
+		"/Library/WebServer/Documents/src/modules/core/directives/header-banner.client.directive.html",
+		"/Library/WebServer/Documents/dist/js/core.js",
+		"/Library/WebServer/Documents/dist/js/application.js",
+		"/Library/WebServer/Documents/dist/application.annotated.js",
+		"/Library/WebServer/Documents/dist/application-2.0.6.min.js",
+		"/Library/WebServer/Documents/dev/dev.client.js.html",
+		"/Library/WebServer/Documents/src/modules/core/views/header.client.view.html",
+		"/Library/WebServer/Documents/src/modules/shifts/schedule.html",
+		"/Library/WebServer/Documents/modules/user/config/user.client.values.js",
+		"/Library/WebServer/Documents/modules/user/config/user.client.config.js",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/JavaScript (DOM).sublime-settings",
+		"/Library/WebServer/Documents/modules/professors/config/professors.client.values.js",
+		"/Library/WebServer/Documents/modules/message/config/messages.client.values.js",
+		"/Library/WebServer/Documents/modules/core/views/home.client.view.html",
+		"/Library/WebServer/Documents/modules/core/config/core.client.filters.js",
+		"/Library/WebServer/Documents/modules/schedule/directives/schedule.client.directives.js",
+		"/Library/WebServer/Documents/modules/core/directives/header-banner.client.directive.html",
+		"/Library/WebServer/Documents/dev/dev.client.css.html",
+		"/Library/WebServer/Documents/node_modules/grunt-ng-annotate/package.json",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
+		"/Library/WebServer/Documents/dist/application-2.0.6.min.css",
+		"/Library/WebServer/Documents/modules/config.js",
+		"/Library/WebServer/Documents/package.json",
+		"/Library/WebServer/Documents/bower.json",
+		"/Library/WebServer/Documents/modules/core/services/values.js",
+		"/Library/WebServer/Documents/modules/core/services/dateService.js",
+		"/Library/WebServer/Documents/modules/core/factories/classes/sentMessge.js",
+		"/Library/WebServer/Documents/modules/core/core.client.module.js",
+		"/Library/WebServer/Documents/modules/application.js",
+		"/Library/WebServer/Documents/index.shtml",
+		"/Library/WebServer/Documents/app/index.html",
+		"/Users/jonathan/installed/newMac.sh",
+		"/Users/jonathan/git/ojgunshop/config.js",
+		"/Users/jonathan/git/ojgunshop/modules/products/views/create-product.client.view.html",
+		"/Users/jonathan/git/ojgunshop/app/models/user.server.model.js",
+		"/Users/jonathan/git/ojgunshop/modules/users/views/authentication/signin.client.view.html",
+		"/Users/jonathan/git/ojgunshop/modules/users/views/authentication/signup.client.view.html",
+		"/Users/jonathan/git/ojgunshop/modules/core/views/header.client.view.html",
+		"/Users/jonathan/git/ojgunshop/gruntfile.js",
+		"/var/folders/5g/1r4v_dld3vdccm84h3gg7gnr0000gn/T/com.apple.iChat/Messages/Transfers/IMG_20150406_214513.jpg",
+		"/Users/jonathan/git/ojgunshop/app/controllers/articles.server.controller.js",
+		"/Users/jonathan/git/ojgunshop/modules/articles/views/edit-article.client.view.html",
+		"/Users/jonathan/git/ojgunshop/modules/articles/tests/articles.client.controller.test.js",
+		"/Users/jonathan/git/ojgunshop/modules/articles/controllers/articles.client.controller.js",
+		"/Users/jonathan/git/ojgunshop/app/views/layout.server.view.html",
+		"/Users/jonathan/git/ojgunshop/config/express.js",
+		"/Users/jonathan/git/ojgunshop/config/env/production.js",
+		"/Users/jonathan/git/ojgunshop/modules/articles/services/articles.client.service.js",
+		"/Users/jonathan/git/ojgunshop/server.js",
+		"/Users/jonathan/git/ojgunshop/config/init.js",
+		"/Users/jonathan/Downloads/localhost.webarchive",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Solarized Toggle/SolarizedToggle.sublime-settings",
+		"/Library/WebServer/Documents/js/dataservice.js",
+		"/Library/WebServer/Documents/test/unit/factories/classes/noTestingDay.spec.js",
+		"/Library/WebServer/Documents/test/unit/factories/classes/message.spec.js",
+		"/Library/WebServer/Documents/test/unit/factories/classes/employee.spec.js",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Jasmine JS/Jasmine.sublime-settings",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Jasmine.sublime-settings",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Jasmine JS/Default (OSX).sublime-keymap",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Library/WebServer/Documents/test/unit/factory/classes/areaPositionSpec.js",
+		"/Library/WebServer/Documents/test/unit/factory/classes/availabilitySpec.js",
+		"/Library/WebServer/Documents/test/unit/factory/classes/areaSpec.js",
+		"/Library/WebServer/Documents/app/js/generalService.js",
+		"/Library/WebServer/Documents/app/js/factories/classes/area.js",
+		"/Library/WebServer/Documents/app/js/factories/classes/availability.js",
+		"/Library/WebServer/Documents/app/js/factories/classes/data.js",
+		"/Library/WebServer/Documents/app/js/dataservice.js",
+		"/Library/WebServer/Documents/app/js/temp.js",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/SyntaxFold/Default (OSX).sublime-keymap",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/syntax_fold.sublime-settings",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/SyntaxFold/README.md",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/SyntaxFold/syntax_fold.sublime-settings",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages\\User\\syntax_fold.sublime-settings",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Fold Comments/Default (OSX).sublime-keymap",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/foldcomments.sublime-settings",
+		"/Users/jonathan/Desktop/delete.me",
+		"/Library/WebServer/Documents/partials/schedule/availability/availability.html",
+		"/Library/WebServer/Documents/partials/message/messages.js",
+		"/Library/WebServer/Documents/partials/message/messages.html",
+		"/Library/WebServer/Documents/partials/directive-partials/messages.html",
+		"/Library/WebServer/Documents/js/directives.js",
+		"/Library/WebServer/Documents/partials/message/messagesAside.html",
+		"/Library/WebServer/Documents/js/modules.js",
+		"/Library/WebServer/Documents/partials/directive-partials/filter-positions.html",
+		"/Library/WebServer/Documents/partials/directive-partials/filter-days.html",
+		"/Library/WebServer/Documents/partials/schedule/schedule/schedule.html",
+		"/Library/WebServer/Documents/partials/schedule/schedule.html",
+		"/Library/WebServer/Documents/partials/main.html",
+		"/Library/WebServer/Documents/partials/faculty/info.html",
+		"/Library/WebServer/Documents/index.html",
+		"/Library/WebServer/Documents/bower_components/angular-ellipsis/src/angular-ellipsis.js",
+		"/Library/WebServer/Documents/partials/directory/directory.html",
+		"/Library/WebServer/Documents/partials/directive-partials/header-banner.html",
+		"/Library/WebServer/Documents/partials/schedule/today/today.html",
+		"/Library/WebServer/Documents/partials/directive-partials/filter-semesters.html",
+		"/Library/WebServer/Documents/partials/schedule/schedule.js"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 106.0,
+		"where_history":
+		[
+			"<open folders>, -lib/*, -node_modules/*, -dist/*,",
+			"<open folders>, -bower_components/*, -ChatProject/*, -node_modules/*",
+			"<open folders>, -bower_components/*, -ChatProject/*, -node_modules",
+			"<open folders>, -bower_components/*, -ChatProject/*",
+			"<open folders>, -bower_components/*, -ChatProject",
+			"<open folders>, -bower_components/*",
+			"<open folders> -bower_components/*",
+			"<open folders> !bower_components",
+			"<open folders>",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"==",
+			"this",
+			"generalService",
+			"object",
+			"oject",
+			"dataCalls",
+			"currentUser",
+			"DATA",
+			"CLASSES",
+			"\"",
+			"comments",
+			"comment",
+			"punctuation",
+			"#embedded-code",
+			"comment",
+			"lib",
+			"modules",
+			"UTILITIES",
+			"partials",
+			"generalService",
+			"dataService",
+			"area",
+			"ngap",
+			"=angular",
+			"angular",
+			"angular.module",
+			"angular.directive",
+			"APACHE_ENV",
+			"css",
+			"bower_components",
+			"each",
+			"description",
+			"live",
+			"fieldset",
+			"validate",
+			"match",
+			"required",
+			"always",
+			"Name",
+			"name",
+			"remot",
+			"authentication",
+			"passport",
+			"done",
+			"saveOAuthUserProfile",
+			"app",
+			"app.param",
+			"user",
+			"swig",
+			"json",
+			"user",
+			"process",
+			"d15e5ce2-243c-4903-945e-7ceb1d9ed056",
+			"3",
+			"NoTestingDay",
+			"Data",
+			"8fc974fe-4357-4376-900e-a71aabb9aae9",
+			"2",
+			"3468",
+			"d819bc0d-5989-4513-a574-9712e0a1ac4d",
+			"messages",
+			"Message",
+			"SentMessage",
+			"Professor",
+			"3afc995b-cdc2-49c3-a0c7-fc4759ab7e9f",
+			"86282081-9678-426e-8658-965fdc7a9afc",
+			"100",
+			"facultyTestingInfos",
+			"FacultyTestingInfo",
+			"Employee",
+			"employees",
+			"eecb473d-81d3-40a8-ad9a-d95f1f24d6b3",
+			"4859",
+			"Employment",
+			"inject",
+			"Employee",
+			"16",
+			"Employment",
+			"\"",
+			"'",
+			"this.testObject",
+			"Availability",
+			"Area",
+			"this.testObject",
+			"Area",
+			"\"",
+			"Availability",
+			"requestHandler",
+			"$http",
+			"$httpBackend",
+			"$q",
+			"employees",
+			"testObject",
+			"availabilities",
+			"resolve",
+			"resp",
+			"isSuccess",
+			"testObject",
+			"PROPERTIES",
+			"App",
+			"Services",
+			"kk",
+			"setPositions",
+			".setPositions",
+			".setPositions(",
+			"style",
+			"mobile",
+			"visible",
+			"src=\"/",
+			"updateEmploymentArea",
+			"new CLASSES.Employment",
+			"ctrl.editEmployment(ctrl.newEmployment)",
+			"employment",
+			"200px",
+			"150px",
+			"155px",
+			"160px",
+			"150px",
+			"picture",
+			"controller.$setViewValue(value);",
+			"ScheduleCtrl",
+			"col-lg-6",
+			"Employment",
+			"glyphicon-remove",
+			"glyphicon-save",
+			"glyphicon-floppy-disk",
+			"glyphicon-save",
+			"properties.defaultPosition"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"src/lib",
+			"src/modules",
+			"service",
+			"69041a1a-d23f-4132-b4dd-1b17d6048ac1",
+			"4",
+			"Position",
+			"b1b803e6-37cc-49a5-b9d7-e13f0a46cee0",
+			"1",
+			"3",
+			"d15e5ce2-243c-4903-945e-7ceb1d9ed056",
+			"noTestingDays",
+			"NoTestingDay",
+			"d819bc0d-5989-4513-a574-9712e0a1ac4d",
+			"8fc974fe-4357-4376-900e-a71aabb9aae9",
+			"3468",
+			"messages",
+			"Message",
+			"3afc995b-cdc2-49c3-a0c7-fc4759ab7e9f",
+			"100",
+			"FacultyTestingInfo",
+			"Employment",
+			"'",
+			"\"",
+			"testObject",
+			"Employee",
+			"Day",
+			"testObject",
+			"AreaPosition",
+			"'AreaPosition",
+			"'",
+			"Area",
+			"this.employees",
+			"this.testObject",
+			"Services",
+			"App",
+			"src=\"",
+			"updateArea",
+			"ctrl.addEmployment()",
+			"ctrl.newEmployment",
+			"190px",
+			"200px",
+			"150px",
+			"155px",
+			"160px",
+			"Picture",
+			"col-md-6",
+			"FacultyTestingInfo",
+			"glyphicon-trash",
+			"glyphicon-floppy-disk",
+			"glyphicon-floppy-saved",
+			"PROPERTIES.currentUser.Area.DefaultPosition",
+			"PROPERTIES.currentUser.Area",
+			" ",
+			"\n",
+			"data-ng-disabled=\"!message.Edit\"",
+			"message",
+			"data.sentMessages",
+			"Message.Mandatory",
+			"message",
+			"position.hide",
+			"area.hideOthers",
+			"hideInactive",
+			"ctrl",
+			"/label",
+			"</label>",
+			"label class=\"col-sm-3 control-label\"",
+			"col-md-9",
+			"col-sm-3 control-label",
+			"div",
+			"col-sm-3 control-label text-right",
+			"col-md-8",
+			"control-label col-sm-4",
+			"col-sm-3",
+			"col-md-8",
+			"col-md-4",
+			"ctrl",
+			"empAddCtrl",
+			"ctrl",
+			"partials/schedule/employee-info.html",
+			"date",
+			"availabilitys",
+			"subShift",
+			"0",
+			"setAvailableSlots",
+			"UTILITIES.updateItem",
+			"UTILITIES.addItem",
+			"UTILITIES.fetch",
+			"FETCH.",
+			"FETCH",
+			"UTILITIES",
+			"SET.propertyCurrentSemester",
+			"SET.propertyCurrentUser",
+			"GET.availabilities",
+			"GET.areas",
+			"SET.arrayWeeks",
+			"SET.currentSemester",
+			"initialData",
+			"SET.",
+			"SET.arrayNoAvailabilityEmployees",
+			"SET.ArrayNoAvailabilityEmployees",
+			"service.setCurrentSemester",
+			"service.setArrayShifts",
+			"service.setArrayWeeks",
+			"GET.",
+			"GET",
+			"REFRESH",
+			"shift",
+			"\n",
+			"''\n",
+			">\n",
+			"subShift",
+			"subShift.shift.EndTime",
+			"subShift.shift.StartTime",
+			"subShift",
+			"shift.SubShift.SubstituteId === undefined",
+			"col-md-3",
+			"CLASSES.Day",
+			"CLASSES.Week",
+			"CLASSES.Track",
+			"CLASSES.SubShift",
+			"CLASSES.ShiftGroup",
+			"CLASSES.Shift",
+			"CLASSES.Semester",
+			"CLASSES.SentMessage",
+			"CLASSES.Schedule",
+			"CLASSES.Professor",
+			"CLASSES.Position",
+			"CLASSES.NoTestingDay"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 12,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "gruntfile.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7805,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								882,
+								882
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								21,
+								9,
+								32,
+								21,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"open_with_edit": true,
+							"remote_loading": false,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/modules/config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1022,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								22,
+								19,
+								4,
+								29,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized JU (light) (SL).tmTheme",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": ".jshintrc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 444,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								442,
+								442
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								21,
+								9,
+								38,
+								30,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized JU (light) (SL).tmTheme",
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/JavaScript Ultimate/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 755,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								43,
+								43
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								27,
+								10,
+								46,
+								20,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/JavaScript Ultimate/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/modules/core/config/core.client.values.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 893,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								690,
+								690
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								22,
+								19,
+								34,
+								28,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/modules/message/config/messages.client.values.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 383,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								239,
+								239
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								24,
+								9,
+								42,
+								27,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"rulers":
+							[
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/modules/shifts/config/shifts.client.values.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 356,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								355,
+								355
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								24,
+								9,
+								40,
+								28,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"open_with_edit": true,
+							"remote_loading": false,
+							"rulers":
+							[
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "src/modules/semesters/config/semesters.client.values.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 432,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								427,
+								427
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								24,
+								9,
+								48,
+								27,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"open_with_edit": true,
+							"remote_loading": false,
+							"rulers":
+							[
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/modules/employees/config/employees.client.values.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 554,
+						"regions":
+						{
+							"bookmark_p":
+							{
+								"flags": 144,
+								"regions":
+								[
+									[
+										200,
+										203
+									]
+								]
+							}
+						},
+						"selection":
+						[
+							[
+								204,
+								204
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								24,
+								9,
+								46,
+								1,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"open_with_edit": true,
+							"remote_loading": false,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "src/modules/core/views/main.client.view.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 73,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								66,
+								66
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								14,
+								12,
+								1,
+								43,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"rulers":
+							[
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "index.shtml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2087,
+						"regions":
+						{
+							"bookmark_a":
+							{
+								"flags": 144,
+								"regions":
+								[
+									[
+										1749,
+										1749
+									]
+								]
+							}
+						},
+						"selection":
+						[
+							[
+								2087,
+								2087
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								21,
+								10,
+								21,
+								21,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/ASP/HTML-ASP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 395,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								395,
+								395
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_indent": false,
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"default_dir": "/Library/WebServer/Documents",
+							"rulers":
+							[
+								80,
+								120,
+								2.0,
+								2.1,
+								2.2,
+								2.3,
+								2.4,
+								2.5,
+								2.6,
+								2.7,
+								2.8,
+								2.9
+							],
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 475,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								328,
+								328
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"default_dir": "/Library/WebServer/Documents",
+							"rulers":
+							[
+								80,
+								120,
+								9.0,
+								9.1,
+								9.2,
+								9.3,
+								9.4,
+								9.5,
+								9.6,
+								9.7,
+								9.8,
+								9.9
+							],
+							"syntax": "Packages/JavaScript Ultimate/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "src/modules/core/directives/core.client.directives.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1313,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								164,
+								164
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								14,
+								12,
+								1,
+								43,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "dev/dev.client.css.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 683,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								54,
+								54
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								22,
+								19,
+								11,
+								58,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": false,
+	"output.exec":
+	{
+		"height": 258.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 681.0
+	},
+	"pinned_build_system": "",
+	"project": "tcems.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 196.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
