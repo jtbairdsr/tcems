@@ -22,7 +22,8 @@
 		"angular": true,
 		"ApplicationConfiguration": true,
 		"_": true,
-		"xdomain": true
+		"xdomain": true,
+		"Autolinker": true
 	},
 	"indent": 1,         // Specify indentation spacing
 	"devel": false,      // Allow development statements e.g. `console.log();`.
