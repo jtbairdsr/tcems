@@ -1,0 +1,294 @@
+<div class="modal" data-tabindex="-1" data-role="dialog" data-ng-controller="EmployeeEditController as eeCtrl">
+	<div class="modal-dialog text-muted text-left">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-ng-click="$hide()">&times;</button>
+				<h4 class="modal-title">Edit Employee Information:
+					<small>{{employee.FirstName}} {{employee.LastName}}</small>
+				</h4>
+			</div>
+			<div class="modal-body container-fluid">
+				<div class="row">
+					<img data-ng-src="{{employee.Picture}}" data-fallback-src="src/modules/core/img/missing.png" class="center-block img-circle employee-img" alt="employeePicture">
+				</div>
+				<tcems-buffer></tcems-buffer>
+				<div class="row">
+					<ul class="nav nav-tabs nav-justified">
+						<li data-role="presentation" data-ng-class="{active: tab === 'profile'}">
+							<a data-ng-click="tab = 'profile'">Profile</a>
+						</li>
+						<li data-role="presentation" data-ng-class="{active: tab === 'employment'}">
+							<a data-ng-click="tab = 'employment'">Employment</a>
+						</li>
+						<li data-role="presentation" data-ng-class="{active: tab === 'subShifts'}">
+							<a data-ng-click="tab = 'subShifts'">SubShifts</a>
+						</li>
+						<li data-role="presentation" data-ng-class="{active: tab === 'messages'}">
+							<a data-ng-click="tab = 'messages'">Messages</a>
+						</li>
+					</ul>
+				</div>
+				<tcems-buffer></tcems-buffer>
+				<!-- PROFILE -->
+				<div class="row form-horizontal" data-ng-show="tab === 'profile'">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">First:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" disabled="true" data-ng-model="employee.FirstName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Preferred:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" data-ng-model="employee.PreferredName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Last:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" data-ng-model="employee.LastName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Phone:</label>
+							<div class="col-md-9">
+								<input type="text" class="form-control" data-ng-model="employee.PhoneNumber" data-ui-mask="(999) 999-9999">
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Area:</label>
+							<div class="col-md-9">
+								<div class="btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default text-justify" data-ng-options="area.id as area.desc for area in eeCtrl.areas" data-ng-model="employee.AreaId" data-bs-select data-ng-disabled="!(currentUser.Area.Description === 'Director' || currentUser.Admin)" data-ng-change="eeCtrl.updateArea(employee)" placeholder="Select area..."></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Position:</label>
+							<div class="col-md-9">
+								<div class="btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default text-justify" data-ng-options="pos.id as pos.desc for pos in eeCtrl.positions.Employee" data-ng-model="employee.PositionId" placeholder="Select Position..." data-bs-select></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Track:</label>
+							<div class="col-md-9">
+								<div class="btn-group-justified text-justify">
+									<div class="btn-group text-justify">
+										<button type="button" class="btn btn-default text-justify" data-ng-options="track.id as track.desc for track in eeCtrl.tracks" data-ng-model="employee.TrackId" placeholder="Select a track..." data-bs-select></button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="readerCheckbox">Reader:</label>
+							<div class="col-md-9">
+								<div class="btn-group-justified">
+									<div class="btn-group">
+										<button type="button" class="btn btn-default" data-ng-click="employee.Reader = !employee.Reader">{{(employee.Reader) ? 'A ' : 'Not a '}}reader</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- EMPLOYMENT -->
+				<div class="row-fluid" data-ng-show="tab === 'employment'">
+					<div class="form-horizontal">
+						<!-- Existing Employments -->
+						<ul class="list-group" style="height: 200px; overflow: scroll">
+							<li class="list-group-item" data-ng-repeat="employment in employments | filter:{EmployeeId: employee.Id}">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Start:</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="date" data-bs-datepicker data-ng-model="employment.StartDate" data-autoclose="true" data-ng-disabled="!employment.Edit">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Area:</label>
+											<div class="col-md-9">
+												<div class="btn-group-justified">
+													<div class="btn-group">
+														<button type="button" class="btn btn-default text-justify" data-ng-options="area.id as area.desc for area in eeCtrl.areas" data-ng-model="employment.AreaId" data-bs-select data-ng-disabled="!employment.Edit" placeholder="Select area..." data-ng-change="eeCtrl.updateArea(employment)"></button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">End:</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="date" data-bs-datepicker data-ng-model="employment.EndDate" data-autoclose="true" data-ng-disabled="!employment.Edit">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Position:</label>
+											<div class="col-md-9">
+												<div class="btn-group-justified">
+													<div class="btn-group">
+														<button type="button" class="btn btn-default text-justify" data-ng-options="pos.id as pos.desc for pos in eeCtrl.positions.Employment" data-ng-model="employment.PositionId" data-bs-select data-ng-disabled="!employment.Edit" placeholder="Select Position..."></button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="pull-right">
+											<button type="button" class="btn btn-default" data-ng-click="eeCtrl.editEmployment(employment)" data-ng-hide="employment.Edit">
+												<span class="glyphicon glyphicon-edit"></span>
+											</button>
+											<div class="btn-group" data-ng-show="employment.Edit">
+												<button type="button" class="btn btn-default" data-ng-show="employment.Edit" data-ng-click="employment.Edit = false; employment.refresh()">
+													<span class="glyphicon glyphicon-remove"></span>
+												</button>
+												<button type="button" class="btn btn-success" data-ng-click="eeCtrl.editEmployment(employment)">
+													<span class="glyphicon glyphicon-floppy-disk"></span>
+												</button>
+												<button type="button" class="btn btn-danger" data-ng-click="employment.remove()" data-ng-show="currentUser.Admin">
+													<span class="glyphicon glyphicon-trash"></span>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<tcems-buffer></tcems-buffer>
+						<div style="border-bottom: 1px solid #ccc"></div>
+						<tcems-buffer></tcems-buffer>
+						<!-- New Employment -->
+						<ul class="list-group">
+							<li class="list-group-item">
+								<div class="row" data-ng-show="eeCtrl.newEmployment.Edit">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Start:</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="date" data-bs-datepicker data-ng-model="eeCtrl.newEmployment.StartDate" data-autoclose="true" data-ng-disabled="!eeCtrl.newEmployment.Edit">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Area:</label>
+											<div class="col-md-9">
+												<div class="btn-group-justified">
+													<div class="btn-group">
+														<button type="button" class="btn btn-default text-justify" data-ng-options="area.id as area.desc for area in eeCtrl.areas" data-ng-model="eeCtrl.newEmployment.AreaId" data-bs-select data-ng-disabled="!eeCtrl.newEmployment.Edit" placeholder="Select area..." data-ng-change="eeCtrl.updateArea(eeCtrl.newEmployment)"></button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">End:</label>
+											<div class="col-md-9">
+												<input type="text" class="form-control" name="date" data-bs-datepicker data-ng-model="eeCtrl.newEmployment.EndDate" data-autoclose="true" data-ng-disabled="!eeCtrl.newEmployment.Edit">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Position:</label>
+											<div class="col-md-9">
+												<div class="btn-group-justified">
+													<div class="btn-group">
+														<button type="button" class="btn btn-default text-justify" data-ng-options="position.Id as position.Description for position in eeCtrl.positions.Employment" data-ng-model="eeCtrl.newEmployment.PositionId" data-bs-select data-ng-disabled="!eeCtrl.newEmployment.Area.Id" placeholder="Select position..."></button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 text-center">
+										<button type="button" class="btn btn-default" data-ng-click="eeCtrl.newEmployment.Edit = true" data-ng-hide="eeCtrl.newEmployment.Edit">
+											<span class="glyphicon glyphicon-plus"></span> New Employment Record
+										</button>
+										<div class="pull-right">
+											<div class="btn-group" data-ng-show="eeCtrl.newEmployment.Edit">
+												<button type="button" class="btn btn-default" data-ng-show="eeCtrl.newEmployment.Edit" data-ng-click="eeCtrl.newEmployment.Edit = false">
+													<span class="glyphicon glyphicon-remove"></span>
+												</button>
+												<button type="button" class="btn btn-success" data-ng-click="eeCtrl.addEmployment()">
+													<span class="glyphicon glyphicon-floppy-disk"></span>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- SUBSHIFTS -->
+				<div class="row-fluid" data-ng-show="tab === 'subShifts'">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<ul class="list-group">
+								<li class="list-group-item" data-ng-class="{'list-group-item-danger': eeCtrl.isASub}">
+									<b>{{employee.toString('name')}} {{(eeCtrl.isASub) ? ' is only a Sub.' : ' works a regular shift.'}}</b>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<tcems-buffer></tcems-buffer>
+					<div class="row">
+						<div class="col-md-6" style="border-right: 1px solid #ccc">
+							<h4>{{eeCtrl.workedSubShifts.length}} Worked Shift(s)</h4>
+							<ul class="list-group" style="height: 190px; overflow: scroll" data-ng-hide="eeCtrl.workedSubShifts.length === 0">
+								<li class="list-group-item text-center" data-ng-repeat="subShift in eeCtrl.workedSubShifts | orderBy:'Date'">
+									{{subShift.Date.toString('dddd MMM. dS')}}
+									<br>{{subShift.Shift.StartTime.toString('h:mm')}} - {{subShift.Shift.EndTime.toString('h:mm')}}
+								</li>
+							</ul>
+							<ul class="list-group" style="height: 190px; overflow: scroll" data-ng-show="eeCtrl.workedSubShifts.length === 0">
+								<li class="list-group-item text-center">No worked shifts.</li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<h4>{{eeCtrl.requestedSubShifts.length}} Requested Shift(s)</h4>
+							<ul class="list-group" style="height: 190px; overflow: scroll" data-ng-hide="eeCtrl.requestedSubShifts.length === 0">
+								<li class="list-group-item text-center" data-ng-repeat="subShift in eeCtrl.requestedSubShifts | orderBy:'Date'" data-ng-class="{'list-group-item-danger': (subShift.SubstituteId === undefined)}">
+									{{subShift.Date.toString('dddd MMM. dS')}}
+									<br>{{subShift.Shift.StartTime.toString('h:mm')}} - {{subShift.Shift.EndTime.toString('h:mm')}}
+								</li>
+							</ul>
+							<ul class="list-group" style="height: 190px; overflow: scroll" data-ng-show="eeCtrl.requestedSubShifts.length === 0">
+								<li class="list-group-item text-center">No requested shifts.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- MESSAGES -->
+				<div class="row-fluid" data-ng-show="tab === 'messages'">
+					<h4>{{eeCtrl.unreadMessages.length}} Unread Mandatory Message(s)</h4>
+					<ul class="list-group" style="height: 190px; overflow: scroll">
+						<li class="list-group-item" data-ng-show="eeCtrl.unreadMessages.length === 0">No unread messages.</li>
+						<li class="list-group-item" data-ng-repeat="message in eeCtrl.unreadMessages | orderBy:'Created'" data-ng-class="{'list-group-item-danger': message.OverDue}" data-ng-bind-html="message.Message">
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-ng-click="employee.refresh();$hide()">Cancel</button>
+				<span data-ng-show="tab === 'profile'">
+					<button type="button" class="btn btn-success" data-ng-click="employee.activate()" data-ng-hide="employee.Active || employee.Retired">Activate Employee</button>
+					<button type="button" class="btn btn-danger" data-ng-click="employee.deactivate()" data-ng-show="employee.Active">Deactivate Employee</button>
+					<button type="button" class="btn btn-danger" data-ng-click="employee.retire()" data-ng-hide="employee.Active || employee.Retired">Retire</button>
+					<button type="button" class="btn btn-success" data-ng-click="eeCtrl.updateEmployee(); $hide()">Update</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

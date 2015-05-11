@@ -106,7 +106,15 @@ module.exports = function(config) {
 
 			// Tests
 			'test/unit/modules/core/**/*.js',
-			'test/unit/modules/employees/**/*.js'
+			'test/unit/modules/employees/**/*.js',
+			'test/unit/modules/messages/**/*.js',
+			'test/unit/modules/professors/**/*.js',
+
+			// 'test/unit/modules/saras/**/*.js',
+			'test/unit/modules/semesters/**/*.js',
+			'test/unit/modules/shifts/**/*.js',
+			'test/unit/modules/user/**/*.js',
+			'test/unit/modules/utilities/**/*.js'
 		],
 
 		// List of files to exclude

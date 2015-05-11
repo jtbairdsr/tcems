@@ -4,6 +4,106 @@
 		"selected_items":
 		[
 			[
+				"mod",
+				"modules"
+			],
+			[
+				"em",
+				"employees"
+			],
+			[
+				"modu",
+				"module"
+			],
+			[
+				"Fac",
+				"FacultyTestingInfo()	facultyTestingInfo.client.service.js"
+			],
+			[
+				"proto",
+				"prototype	jsProp"
+			],
+			[
+				"avai",
+				"availabilities"
+			],
+			[
+				"curr",
+				"currentApp"
+			],
+			[
+				"Emp",
+				"Employment"
+			],
+			[
+				"def",
+				"deffered"
+			],
+			[
+				"quer",
+				"queryByPosition"
+			],
+			[
+				"q",
+				"queryRetired"
+			],
+			[
+				"unde",
+				"undefined"
+			],
+			[
+				"contain",
+				"container-fluid	BootstrapClass"
+			],
+			[
+				"employ",
+				"employment"
+			],
+			[
+				"emp",
+				"employment"
+			],
+			[
+				"Appli",
+				"ApplicationConfiguration"
+			],
+			[
+				"sched",
+				"schedules"
+			],
+			[
+				"retu",
+				"returnArray"
+			],
+			[
+				"exe",
+				"execute(cache)	dataservice.js"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"p",
+				"promise"
+			],
+			[
+				"Emplo",
+				"Employee()	employees.client.service.js"
+			],
+			[
+				"sc",
+				"script	Tag"
+			],
+			[
+				"empl",
+				"employees.client.service.js"
+			],
+			[
+				"lib",
+				"libraries-2.0.6.min.js"
+			],
+			[
 				"ext",
 				"extendedPrivledges"
 			],
@@ -82,10 +182,6 @@
 			[
 				"emplo",
 				"employee"
-			],
-			[
-				"avai",
-				"availability"
 			],
 			[
 				"no",
@@ -220,20 +316,12 @@
 				"currentUser"
 			],
 			[
-				"curr",
-				"currentUser"
-			],
-			[
 				"seme",
 				"semesters"
 			],
 			[
 				"Mess",
 				"MessageId"
-			],
-			[
-				"Emplo",
-				"EmployeeId"
 			],
 			[
 				"sentME",
@@ -273,10 +361,6 @@
 			],
 			[
 				"E",
-				"Employee"
-			],
-			[
-				"Emp",
 				"Employee"
 			],
 			[
@@ -324,18 +408,6 @@
 				"be	beforeEach"
 			],
 			[
-				"empl",
-				"employment"
-			],
-			[
-				"em",
-				"employments"
-			],
-			[
-				"emp",
-				"employees"
-			],
-			[
 				"New",
 				"NewRequestId"
 			],
@@ -354,10 +426,6 @@
 			[
 				"testS",
 				"testSchedule"
-			],
-			[
-				"employ",
-				"employments"
 			],
 			[
 				"testSu",
@@ -446,201 +514,80 @@
 			[
 				"ex",
 				"expect"
-			],
-			[
-				"ini",
-				"initAttributes"
-			],
-			[
-				"up",
-				"updateData"
-			],
-			[
-				"ref",
-				"refresh"
-			],
-			[
-				"upda",
-				"updateItem"
-			],
-			[
-				"re",
-				"resolve	.resolve()"
-			],
-			[
-				"get",
-				"get	Get Elements"
-			],
-			[
-				"injec",
-				"$injector	AngularJS"
-			],
-			[
-				"beforeEach",
-				"beforeEach"
-			],
-			[
-				"proto",
-				"prototype"
-			],
-			[
-				"available",
-				"availableShifts"
-			],
-			[
-				"moda",
-				"modal-footer	BootstrapClass"
-			],
-			[
-				"ngbind",
-				"ng-bind	AngularJS"
-			],
-			[
-				"collg",
-				"col-lg-2	BootstrapClass"
-			],
-			[
-				"hi",
-				"hidden-xs	BootstrapClass"
-			],
-			[
-				"hid",
-				"hidden-xs	BootstrapClass"
-			],
-			[
-				"pull",
-				"pull-left	BootstrapClass"
-			],
-			[
-				"vis",
-				"visible"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "gruntfile.js",
+			"file": "public/src/modules/core/controllers/core.client.controller.js",
 			"settings":
 			{
-				"buffer_size": 7805,
+				"buffer_size": 1573,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/modules/config.js",
+			"file": "public/src/modules/core/config/modules.js",
 			"settings":
 			{
-				"buffer_size": 1022,
+				"buffer_size": 1475,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": ".jshintrc",
+			"file": "public/src/modules/employees/config/employees.client.routes.js",
 			"settings":
 			{
-				"buffer_size": 444,
+				"buffer_size": 721,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+			"file": "public/src/modules/employees/controllers/emloyee.client.controller.js",
 			"settings":
 			{
-				"buffer_size": 755,
+				"buffer_size": 5934,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "/*\n * @Author: jonathan\n * @Date:   2015-03-26 08:02:20\n * @Last Modified by:   Jonathan Baird\n * @Last Modified time: 2015-04-24 10:00:01\n */\n\n'use strict';\n\nvar app = angular.module('core');\n\napp.constant('localUrl', 'http://testcenterems.byui.edu'); // the URL of the webserver\napp.constant('sharePointUrl', 'https://inet.byui.edu/sites/TestingServices/'); // the URL of the database server\n\n\n\n\n\n\n\"annotations\": {\n	\"@disable\": true,\n	\"args\": [],\n	\"errors\": [\n		\"FIXME\"\n	],\n	\"excludes\": [],\n	\"warnings\": [\n		\"TODO\",\n		\"README\"\n	]\n},\n\"csslint\": {\n	\"@disable\": false,\n	\"args\": [],\n	\"errors\": \"\",\n	\"excludes\": [],\n	\"ignore\": \"\",\n	\"warnings\": \"\"\n},\n\"htmltidy\": {\n	\"@disable\": false,\n	\"args\": [\n		\"drop-proprietary-attributes=yes\"\n	],\n	\"excludes\": []\n},\n\"jshint\": {\n	\"@disable\": false,\n	\"args\": [],\n	\"excludes\": []\n},\n\"json\": {\n	\"@disable\": false,\n	\"args\": [],\n	\"excludes\": [],\n	\"strict\": true\n}\n",
-			"file": "src/modules/core/config/core.client.values.js",
-			"file_size": 413,
-			"file_write_time": 130743648010000000,
+			"file": "public/src/modules/shifts/controllers/schedule.js",
 			"settings":
 			{
-				"buffer_size": 893,
+				"buffer_size": 1988,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/modules/message/config/messages.client.values.js",
+			"file": "public/index.shtml",
 			"settings":
 			{
-				"buffer_size": 383,
+				"buffer_size": 1704,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/modules/shifts/config/shifts.client.values.js",
+			"file": "public/src/modules/employees/config/employees.client.filters.js",
 			"settings":
 			{
-				"buffer_size": 356,
+				"buffer_size": 1301,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/modules/semesters/config/semesters.client.values.js",
+			"file": "public/src/modules/employees/views/employees-grid.client.view.html",
 			"settings":
 			{
-				"buffer_size": 432,
+				"buffer_size": 1058,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/modules/employees/config/employees.client.values.js",
+			"file": "public/src/modules/employees/views/employees.client.view.html",
 			"settings":
 			{
-				"buffer_size": 554,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/modules/core/views/main.client.view.html",
-			"settings":
-			{
-				"buffer_size": 73,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "index.shtml",
-			"settings":
-			{
-				"buffer_size": 2087,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Package Control Messages\n========================\n\nSublimeLinter-jscs:\n------------------\n\n  SublimeLinter-jscs\n  -------------------------------\n  This linter plugin for SublimeLinter provides an interface to jscs.\n  \n  ** IMPORTANT! **\n  \n  Before this plugin will activate, you *must*\n  follow the installation instructions here:\n  \n  https://github.com/SublimeLinter/SublimeLinter-jscs\n  \n  ",
-			"settings":
-			{
-				"buffer_size": 395,
-				"line_ending": "Unix",
-				"name": "Package Control Messages",
-				"scratch": true
-			}
-		},
-		{
-			"contents": "{\n    \"folders\":\n    [\n        {\n            \"path\": \"public\",\n            \"follow_symlinks\": true\n        },\n        {\n            \"path\": \".git\",\n            \"name\": \"Git Repo\"\n        },\n        {\n            \"path\": \"node_modules\",\n            \"name\": \"Node Modules\"\n        },\n        {\n            \"path\": \"test\"\n        },\n        {\n            \"path\": \"test/unit\",\n            \"name\": \"Karma Tests\"\n        }\n    ],\n    \"settings\":\n    {\n        \"tab_size\": 4\n    }\n}",
-			"settings":
-			{
-				"buffer_size": 475,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/modules/core/directives/core.client.directives.js",
-			"settings":
-			{
-				"buffer_size": 1313,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "dev/dev.client.css.html",
-			"settings":
-			{
-				"buffer_size": 683,
+				"buffer_size": 2591,
 				"line_ending": "Unix"
 			}
 		}
@@ -652,10 +599,30 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 291.0,
-		"last_filter": "json",
+		"height": 247.0,
+		"last_filter": "move",
 		"selected_items":
 		[
+			[
+				"move",
+				"File: Move"
+			],
+			[
+				"wrao",
+				"Word Wrap: Toggle"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
 			[
 				"json",
 				"Set Syntax: JSON"
@@ -665,12 +632,32 @@
 				"Package Control: Install Package"
 			],
 			[
-				":w",
-				":w - Save"
+				"open",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"rename",
+				"File: Rename"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"remove ",
+				"Package Control: Remove Package"
+			],
+			[
+				"comment",
+				"DocBlockr: Decorate line comment"
 			],
 			[
 				"remove",
 				"Package Control: Remove Package"
+			],
+			[
+				"upgrade",
+				"Package Control: Upgrade Package"
 			],
 			[
 				"swap",
@@ -727,10 +714,6 @@
 			[
 				"jso",
 				"Set Syntax: JSON"
-			],
-			[
-				"java",
-				"Set Syntax: JavaScript"
 			],
 			[
 				"fold",
@@ -897,11 +880,11 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 579.0
+		"width": 651.0
 	},
 	"console":
 	{
-		"height": 783.0,
+		"height": 253.0,
 		"history":
 		[
 			"cd ~",
@@ -921,140 +904,137 @@
 	},
 	"expanded_folders":
 	[
-		"/Library/WebServer/Documents",
-		"/Library/WebServer/Documents/public",
-		"/Library/WebServer/Documents/test"
 	],
 	"file_history":
 	[
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Settings/SideBarEnhancements.json",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/JSON.sublime-settings",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/README.md",
-		"/Library/WebServer/Documents/src/modules/utilities/utilities.js",
-		"/Library/WebServer/Documents/src/modules/user/services/user.client.service.js",
-		"/Library/WebServer/Documents/src/modules/shifts/schedule.js",
-		"/Library/WebServer/Documents/src/modules/shifts/subShifts/subShifts.js",
-		"/Library/WebServer/Documents/src/modules/shifts/availableShifts/availableShifts.js",
-		"/Library/WebServer/Documents/src/modules/message/messages.js",
-		"/Library/WebServer/Documents/src/modules/professors/faculty.js",
-		"/Library/WebServer/Documents/src/modules/employees/services/employees.client.service.js",
-		"/Library/WebServer/Documents/src/modules/employees/directory.js",
-		"/Library/WebServer/Documents/src/modules/core/services/dateService.client.service.js",
-		"/Library/WebServer/Documents/src/modules/core/services/dataService.client.service.js",
-		"/Library/WebServer/Documents/src/modules/core/factories/classes/track.js",
-		"/Library/WebServer/Documents/src/modules/core/factories/classes/subShift.js",
-		"/Library/WebServer/Documents/src/modules/core/factories/classes/shiftGroup.js",
-		"/Library/WebServer/Documents/src/modules/core/factories/classes/shift.js",
-		"/Library/WebServer/Documents/src/modules/core/factories/classes/message.js",
-		"/Library/WebServer/Documents/src/modules/core/factories/classes/day.js",
-		"/Library/WebServer/Documents/src/modules/core/config/core.client.routes.js",
-		"/Library/WebServer/Documents/src/modules/core/config/core.client.filters.js",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/SolarizedToggle.sublime-settings",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/HTML5/HTML.tmLanguage",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Solarized Color Scheme/Solarized (light).tmTheme",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Solarized Color Scheme/package-metadata.json",
-		"/Library/WebServer/Documents/.bowerrc",
-		"/Library/WebServer/Documents/test/karma.conf.js",
-		"/Library/WebServer/Documents/src/modules/core/directives/header-banner.client.directive.html",
-		"/Library/WebServer/Documents/dist/js/core.js",
-		"/Library/WebServer/Documents/dist/js/application.js",
-		"/Library/WebServer/Documents/dist/application.annotated.js",
-		"/Library/WebServer/Documents/dist/application-2.0.6.min.js",
-		"/Library/WebServer/Documents/dev/dev.client.js.html",
-		"/Library/WebServer/Documents/src/modules/core/views/header.client.view.html",
-		"/Library/WebServer/Documents/src/modules/shifts/schedule.html",
-		"/Library/WebServer/Documents/modules/user/config/user.client.values.js",
-		"/Library/WebServer/Documents/modules/user/config/user.client.config.js",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/JavaScript (DOM).sublime-settings",
-		"/Library/WebServer/Documents/modules/professors/config/professors.client.values.js",
-		"/Library/WebServer/Documents/modules/message/config/messages.client.values.js",
-		"/Library/WebServer/Documents/modules/core/views/home.client.view.html",
-		"/Library/WebServer/Documents/modules/core/config/core.client.filters.js",
-		"/Library/WebServer/Documents/modules/schedule/directives/schedule.client.directives.js",
-		"/Library/WebServer/Documents/modules/core/directives/header-banner.client.directive.html",
-		"/Library/WebServer/Documents/dev/dev.client.css.html",
-		"/Library/WebServer/Documents/node_modules/grunt-ng-annotate/package.json",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
-		"/Library/WebServer/Documents/dist/application-2.0.6.min.css",
-		"/Library/WebServer/Documents/modules/config.js",
-		"/Library/WebServer/Documents/package.json",
-		"/Library/WebServer/Documents/bower.json",
-		"/Library/WebServer/Documents/modules/core/services/values.js",
-		"/Library/WebServer/Documents/modules/core/services/dateService.js",
-		"/Library/WebServer/Documents/modules/core/factories/classes/sentMessge.js",
-		"/Library/WebServer/Documents/modules/core/core.client.module.js",
-		"/Library/WebServer/Documents/modules/application.js",
-		"/Library/WebServer/Documents/index.shtml",
-		"/Library/WebServer/Documents/app/index.html",
-		"/Users/jonathan/installed/newMac.sh",
-		"/Users/jonathan/git/ojgunshop/config.js",
-		"/Users/jonathan/git/ojgunshop/modules/products/views/create-product.client.view.html",
-		"/Users/jonathan/git/ojgunshop/app/models/user.server.model.js",
-		"/Users/jonathan/git/ojgunshop/modules/users/views/authentication/signin.client.view.html",
-		"/Users/jonathan/git/ojgunshop/modules/users/views/authentication/signup.client.view.html",
-		"/Users/jonathan/git/ojgunshop/modules/core/views/header.client.view.html",
-		"/Users/jonathan/git/ojgunshop/gruntfile.js",
-		"/var/folders/5g/1r4v_dld3vdccm84h3gg7gnr0000gn/T/com.apple.iChat/Messages/Transfers/IMG_20150406_214513.jpg",
-		"/Users/jonathan/git/ojgunshop/app/controllers/articles.server.controller.js",
-		"/Users/jonathan/git/ojgunshop/modules/articles/views/edit-article.client.view.html",
-		"/Users/jonathan/git/ojgunshop/modules/articles/tests/articles.client.controller.test.js",
-		"/Users/jonathan/git/ojgunshop/modules/articles/controllers/articles.client.controller.js",
-		"/Users/jonathan/git/ojgunshop/app/views/layout.server.view.html",
-		"/Users/jonathan/git/ojgunshop/config/express.js",
-		"/Users/jonathan/git/ojgunshop/config/env/production.js",
-		"/Users/jonathan/git/ojgunshop/modules/articles/services/articles.client.service.js",
-		"/Users/jonathan/git/ojgunshop/server.js",
-		"/Users/jonathan/git/ojgunshop/config/init.js",
-		"/Users/jonathan/Downloads/localhost.webarchive",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Solarized Toggle/SolarizedToggle.sublime-settings",
-		"/Library/WebServer/Documents/js/dataservice.js",
-		"/Library/WebServer/Documents/test/unit/factories/classes/noTestingDay.spec.js",
-		"/Library/WebServer/Documents/test/unit/factories/classes/message.spec.js",
-		"/Library/WebServer/Documents/test/unit/factories/classes/employee.spec.js",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Jasmine JS/Jasmine.sublime-settings",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Jasmine.sublime-settings",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Jasmine JS/Default (OSX).sublime-keymap",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
-		"/Library/WebServer/Documents/test/unit/factory/classes/areaPositionSpec.js",
-		"/Library/WebServer/Documents/test/unit/factory/classes/availabilitySpec.js",
-		"/Library/WebServer/Documents/test/unit/factory/classes/areaSpec.js",
+		"/Library/WebServer/Documents/public/src/modules/core/config/core.client.filters.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/config/employees.client.routes.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/factories/employee.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/core/config/core.client.routes.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/person.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/professors/factories/facultyTestingInfo.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/shiftGroup.js",
+		"/Library/WebServer/Documents/public/src/modules/core/services/dataService.client.service.js",
+		"/Library/WebServer/Documents/karma.conf.js",
+		"/Library/WebServer/Documents/.gitignore",
+		"/Library/WebServer/Documents/FileSaver.min.js",
 		"/Library/WebServer/Documents/app/js/generalService.js",
-		"/Library/WebServer/Documents/app/js/factories/classes/area.js",
-		"/Library/WebServer/Documents/app/js/factories/classes/availability.js",
-		"/Library/WebServer/Documents/app/js/factories/classes/data.js",
-		"/Library/WebServer/Documents/app/js/dataservice.js",
-		"/Library/WebServer/Documents/app/js/temp.js",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/SyntaxFold/Default (OSX).sublime-keymap",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/syntax_fold.sublime-settings",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/SyntaxFold/README.md",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/SyntaxFold/syntax_fold.sublime-settings",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages\\User\\syntax_fold.sublime-settings",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Fold Comments/Default (OSX).sublime-keymap",
-		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/foldcomments.sublime-settings",
-		"/Users/jonathan/Desktop/delete.me",
-		"/Library/WebServer/Documents/partials/schedule/availability/availability.html",
-		"/Library/WebServer/Documents/partials/message/messages.js",
-		"/Library/WebServer/Documents/partials/message/messages.html",
-		"/Library/WebServer/Documents/partials/directive-partials/messages.html",
-		"/Library/WebServer/Documents/js/directives.js",
-		"/Library/WebServer/Documents/partials/message/messagesAside.html",
-		"/Library/WebServer/Documents/js/modules.js",
-		"/Library/WebServer/Documents/partials/directive-partials/filter-positions.html",
-		"/Library/WebServer/Documents/partials/directive-partials/filter-days.html",
-		"/Library/WebServer/Documents/partials/schedule/schedule/schedule.html",
-		"/Library/WebServer/Documents/partials/schedule/schedule.html",
-		"/Library/WebServer/Documents/partials/main.html",
-		"/Library/WebServer/Documents/partials/faculty/info.html",
-		"/Library/WebServer/Documents/index.html",
-		"/Library/WebServer/Documents/bower_components/angular-ellipsis/src/angular-ellipsis.js",
-		"/Library/WebServer/Documents/partials/directory/directory.html",
-		"/Library/WebServer/Documents/partials/directive-partials/header-banner.html",
-		"/Library/WebServer/Documents/partials/schedule/today/today.html",
-		"/Library/WebServer/Documents/partials/directive-partials/filter-semesters.html",
-		"/Library/WebServer/Documents/partials/schedule/schedule.js"
+		"/Library/WebServer/Documents/public/src/modules/shifts/controllers/schedule.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/config/shifts.client.routes.js",
+		"/Library/WebServer/Documents/public/src/modules/core/directives/header-banner.client.directive.html",
+		"/Library/WebServer/Documents/public/src/modules/employees/factories/position.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/directives/filter-positions.html",
+		"/Library/WebServer/Documents/public/src/modules/employees/factories/area.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/user/services/user.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/factories/areaPosition.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/schedule.html",
+		"/Library/WebServer/Documents/public/src/modules/employees/factories/track.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/factories/employment.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/factories/availability.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/availability/availability.html",
+		"/Library/WebServer/Documents/public/src/modules/shifts/availableShifts/available-shifts.html",
+		"/Library/WebServer/Documents/public/src/modules/shifts/availableShifts/shift-add.html",
+		"/Library/WebServer/Documents/public/src/modules/shifts/availableShifts/shift-edit.html",
+		"/Library/WebServer/Documents/public/src/modules/shifts/schedule/schedule.html",
+		"/Library/WebServer/Documents/public/src/modules/shifts/today/today.html",
+		"/Library/WebServer/Documents/public/src/modules/employees/grid-view.html",
+		"/Library/WebServer/Documents/public/src/modules/employees/views/employees.client.view.html",
+		"/Library/WebServer/Documents/public/src/modules/messages/messages.html",
+		"/Library/WebServer/Documents/public/src/modules/messages/new-message.html",
+		"/Library/WebServer/Documents/public/src/modules/shifts/subShifts/sub-shifts.html",
+		"/Library/WebServer/Documents/public/src/modules/shifts/subShifts/subShift-take.html",
+		"/Library/WebServer/Documents/public/src/modules/core/views/main.client.view.html",
+		"/Library/WebServer/Documents/public/index.shtml",
+		"/Library/WebServer/Documents/public/src/modules/core/views/header.client.view.html",
+		"/Library/WebServer/Documents/public/src/modules/user/config/user.client.values.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/data.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/directives/day-search.html",
+		"/Library/WebServer/Documents/public/src/modules/shifts/directives/shifts.client.directives.js",
+		"/Library/WebServer/Documents/public/src/modules/core/config/modules.js",
+		"/Library/WebServer/Documents/bower.json",
+		"/Library/WebServer/Documents/public/src/modules/messages/messages.client.module.js",
+		"/Library/WebServer/Documents/public/src/modules/professors/professors.client.module.js",
+		"/Library/WebServer/Documents/public/src/modules/professors/factories/professor.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/utilities/controllers/utilities.js",
+		"/Library/WebServer/Documents/public/src/modules/utilities/utilities.client.module.js",
+		"/Library/WebServer/Documents/public/src/modules/messages/config/messages.client.values.js",
+		"/Library/WebServer/Documents/public/src/modules/core/config/core.client.config.js",
+		"/Library/WebServer/Documents/public/src/modules/messages/messages.js",
+		"/Library/WebServer/Documents/public/src/modules/config.js",
+		"/Library/WebServer/Documents/public/src/modules/core/core.client.module.js",
+		"/Library/WebServer/Documents/public/src/modules/semesters/semesters.client.module.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/shifts.client.module.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/subShifts/subShifts.js",
+		"/Library/WebServer/Documents/public/src/modules/semesters/config/semesters.client.values.js",
+		"/Library/WebServer/Documents/public/src/modules/professors/faculty.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/availableShifts/availableShifts.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/directives/schedule.client.directives.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/mySchedule/mySchedule.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/myAvailability/myAvailability.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/schedule.js",
+		"/Library/WebServer/Documents/public/dev/dev.client.js.html",
+		"/Library/WebServer/Documents/public/src/modules/core/services/data.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/core/views/inactive-employee.client.view.html",
+		"/Library/WebServer/Documents/public/src/modules/core/views/home.client.view.html",
+		"/Library/WebServer/Documents/public/src/modules/core/directives/core.client.directives.js",
+		"/Library/WebServer/Documents/.jshintrc",
+		"/Library/WebServer/Documents/public/src/modules/user/user.client.module.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/services/position.client.service.js",
+		"/Library/WebServer/Documents/public/dev/dev.client.css.html",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Library/WebServer/Documents/public/dist/application-2.0.6.min.js",
+		"/Library/WebServer/Documents/public/dist/application.annotated.js",
+		"/Library/WebServer/Documents/public/dist/js/application.js",
+		"/Library/WebServer/Documents/public/dev/livereload.client.js.html",
+		"/Library/WebServer/Documents/public/src/modules/core/css/alerts-modification.core.css",
+		"/Library/WebServer/Documents/public/src/modules/core/css/core.css",
+		"/Library/WebServer/Documents/public/src/modules/core/css/loading-modification.core.css",
+		"/Library/WebServer/Documents/public/src/modules/employees/services/track.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/services/availability.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/services/area.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/services/areaPosition.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/services/employee.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/services/employment.client.service.js",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Jasmine.sublime-settings",
+		"/Library/WebServer/Documents/test/unit/modules/employees/services/employee.client.service.spec.js",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/Jasmine JS/Default (OSX).sublime-keymap",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Library/WebServer/Documents/public/src/modules/core/services/get-class.client.service.js",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/HTML-CSS-JS Prettify/.jsbeautifyrc",
+		"/Library/WebServer/Documents/public/src/modules/core/services/dateService.client.service.js",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/JSCS-Formatter.sublime-settings",
+		"/Library/WebServer/Documents/public/src/modules/application.js",
+		"/Library/WebServer/Documents/public/src/modules/core/services/person.client.service.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/controllers/emloyee.client.controller.js",
+		"/Library/WebServer/Documents/test/unit/modules/employees/services/area.client.service.spec.js",
+		"/Library/WebServer/Documents/public/src/modules/core/config/core.client.values.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/areaPosition.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/availability.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/day.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/employment.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/facultyTestingInfo.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/message.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/noTestingDay.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/position.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/professor.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/schedule.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/semester.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/sentMessge.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/shift.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/subShift.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/track.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/week.js",
+		"/Library/WebServer/Documents/.jscsrc",
+		"/Library/WebServer/Documents/public/src/modules/utilities/utilities.js",
+		"/Library/WebServer/Documents/public/src/modules/shifts/schedule/schedule.js",
+		"/Library/WebServer/Documents/public/src/modules/employees/directory.js",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/person.js",
+		"/Library/WebServer/Documents/package.json",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Library/WebServer/Documents/public/src/modules/core/factories/classes/data.js",
+		"/Library/WebServer/Documents/gruntfile.js",
+		"/Library/WebServer/Documents/public/test.index.html",
+		"/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings"
 	],
 	"find":
 	{
@@ -1065,6 +1045,14 @@
 		"height": 106.0,
 		"where_history":
 		[
+			"/Library/WebServer/Documents/public/src/modules",
+			"<open folders>",
+			"/Library/WebServer/Documents/public/src/modules/employees",
+			"/Library/WebServer/Documents/public/src/modules/core",
+			"/Library/WebServer/Documents/public/src/modules/core/factories/classes",
+			"<open folders>, -lib/*, -node_modules/*, -dist/*, -.git/*, -*.sublime*, -app/*",
+			"<open folders>, -lib/*, -node_modules/*, -dist/*, -.git/*, -*.sublime*",
+			"<open folders>, -lib/*, -node_modules/*, -dist/*, -.git/*,",
 			"<open folders>, -lib/*, -node_modules/*, -dist/*,",
 			"<open folders>, -bower_components/*, -ChatProject/*, -node_modules/*",
 			"<open folders>, -bower_components/*, -ChatProject/*, -node_modules",
@@ -1082,6 +1070,96 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"ctrl",
+			"Ctrl",
+			"datepicker.tpl.html",
+			"list",
+			"Position",
+			"facultyTestingInfo",
+			"//}}}",
+			" //}}}",
+			"{{{",
+			"// ",
+			"user",
+			"cfpLoadingBar",
+			"Refresh",
+			"Employments",
+			"currentUser",
+			"today",
+			"service",
+			"PROPERTIES",
+			"currentUser",
+			"Availability",
+			"Employment",
+			"arrays.positions",
+			"data.positions",
+			"properties.positions",
+			"extendedPrivledges",
+			"properties.extendedPrivledges",
+			"properties",
+			"bs",
+			"ui",
+			"currentUser",
+			"properties",
+			"angular-route",
+			"datpicker.tpl.html",
+			"datpicker\\.tpl\\.html",
+			"Position",
+			"item",
+			"???J",
+			"//",
+			"//}}}",
+			"$q",
+			"availability",
+			"//{{{",
+			" //}}}",
+			"//}}}",
+			"$q",
+			"employment",
+			"{{{",
+			" //}}}",
+			"//{{{",
+			"areaPosition",
+			" //}}}",
+			"{{{",
+			" //}}}",
+			"service",
+			"Directory",
+			" //}}}",
+			"{{{",
+			"/{{{",
+			"Services",
+			"area",
+			"//{{{",
+			" //}}}",
+			"/ ",
+			"employee",
+			" //}}}",
+			"//{{{",
+			" //}}}",
+			"{{{",
+			" //}}}",
+			"{{{",
+			" //}}}",
+			"{{{",
+			"//}}",
+			" //}}}",
+			"{{{",
+			"//}}}",
+			" //}}}",
+			"{{{",
+			" //}}}",
+			"//}}}",
+			"//{{{",
+			"Services",
+			"Service",
+			"Services",
+			"//",
+			"app",
+			"dist",
+			"/public/",
+			"public/",
+			"public",
 			"==",
 			"this",
 			"generalService",
@@ -1097,8 +1175,8 @@
 			"punctuation",
 			"#embedded-code",
 			"comment",
-			"lib",
-			"modules",
+			"public/lib",
+			"public/modules",
 			"UTILITIES",
 			"partials",
 			"generalService",
@@ -1119,106 +1197,20 @@
 			"validate",
 			"match",
 			"required",
-			"always",
-			"Name",
-			"name",
-			"remot",
-			"authentication",
-			"passport",
-			"done",
-			"saveOAuthUserProfile",
-			"app",
-			"app.param",
-			"user",
-			"swig",
-			"json",
-			"user",
-			"process",
-			"d15e5ce2-243c-4903-945e-7ceb1d9ed056",
-			"3",
-			"NoTestingDay",
-			"Data",
-			"8fc974fe-4357-4376-900e-a71aabb9aae9",
-			"2",
-			"3468",
-			"d819bc0d-5989-4513-a574-9712e0a1ac4d",
-			"messages",
-			"Message",
-			"SentMessage",
-			"Professor",
-			"3afc995b-cdc2-49c3-a0c7-fc4759ab7e9f",
-			"86282081-9678-426e-8658-965fdc7a9afc",
-			"100",
-			"facultyTestingInfos",
-			"FacultyTestingInfo",
-			"Employee",
-			"employees",
-			"eecb473d-81d3-40a8-ad9a-d95f1f24d6b3",
-			"4859",
-			"Employment",
-			"inject",
-			"Employee",
-			"16",
-			"Employment",
-			"\"",
-			"'",
-			"this.testObject",
-			"Availability",
-			"Area",
-			"this.testObject",
-			"Area",
-			"\"",
-			"Availability",
-			"requestHandler",
-			"$http",
-			"$httpBackend",
-			"$q",
-			"employees",
-			"testObject",
-			"availabilities",
-			"resolve",
-			"resp",
-			"isSuccess",
-			"testObject",
-			"PROPERTIES",
-			"App",
-			"Services",
-			"kk",
-			"setPositions",
-			".setPositions",
-			".setPositions(",
-			"style",
-			"mobile",
-			"visible",
-			"src=\"/",
-			"updateEmploymentArea",
-			"new CLASSES.Employment",
-			"ctrl.editEmployment(ctrl.newEmployment)",
-			"employment",
-			"200px",
-			"150px",
-			"155px",
-			"160px",
-			"150px",
-			"picture",
-			"controller.$setViewValue(value);",
-			"ScheduleCtrl",
-			"col-lg-6",
-			"Employment",
-			"glyphicon-remove",
-			"glyphicon-save",
-			"glyphicon-floppy-disk",
-			"glyphicon-save",
-			"properties.defaultPosition"
+			"always"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": true,
+		"regex": false,
 		"replace_history":
 		[
-			"src/lib",
-			"src/modules",
+			"positions",
+			"currentUser.extendedPrivledges",
+			"core",
+			"",
+			"public/src/lib",
+			"public/src/modules",
 			"service",
 			"69041a1a-d23f-4132-b4dd-1b17d6048ac1",
 			"4",
@@ -1340,11 +1332,7 @@
 			"CLASSES.ShiftGroup",
 			"CLASSES.Shift",
 			"CLASSES.Semester",
-			"CLASSES.SentMessage",
-			"CLASSES.Schedule",
-			"CLASSES.Professor",
-			"CLASSES.Position",
-			"CLASSES.NoTestingDay"
+			"CLASSES.SentMessage"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -1355,24 +1343,24 @@
 	"groups":
 	[
 		{
-			"selected": 12,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "gruntfile.js",
+					"file": "public/src/modules/core/controllers/core.client.controller.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7805,
+						"buffer_size": 1573,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								882,
-								882
+								729,
+								729
 							]
 						],
 						"settings":
@@ -1380,186 +1368,16 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								21,
-								9,
-								32,
-								21,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"open_with_edit": true,
-							"remote_loading": false,
-							"rulers":
-							[
-								80,
-								120
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/modules/config.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1022,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1,
-								1
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
@@ -1570,555 +1388,26 @@
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								22,
-								19,
-								4,
-								29,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized JU (light) (SL).tmTheme",
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"rulers":
-							[
-								80,
-								120
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": ".jshintrc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 444,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								442,
-								442
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
 								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
 								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								21,
-								9,
-								38,
-								30,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized JU (light) (SL).tmTheme",
-							"rulers":
-							[
-								80,
-								120
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"syntax": "Packages/JavaScript Ultimate/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/jonathan/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 755,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								43,
-								43
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								27,
-								10,
-								46,
-								20,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"rulers":
-							[
-								80,
-								120
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"syntax": "Packages/JavaScript Ultimate/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/modules/core/config/core.client.values.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 893,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								690,
-								690
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								22,
-								19,
-								34,
-								28,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"rulers":
-							[
-								80,
-								120
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "src/modules/message/config/messages.client.values.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 383,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								239,
-								239
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
@@ -2129,31 +1418,11 @@
 								"bh_tag_open",
 								"bh_tag_close",
 								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
+								"bh_default_content"
 							],
 							"c_time":
 							[
@@ -2184,597 +1453,11 @@
 								10,
 								7,
 								223,
-								4,
-								24,
-								9,
-								42,
-								27,
-								0,
-								0,
-								0,
-								113,
+								5,
 								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"rulers":
-							[
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "src/modules/shifts/config/shifts.client.values.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 356,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								355,
-								355
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								24,
-								9,
-								40,
-								28,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"open_with_edit": true,
-							"remote_loading": false,
-							"rulers":
-							[
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "src/modules/semesters/config/semesters.client.values.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 432,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								427,
-								427
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								24,
-								9,
-								48,
-								27,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"open_with_edit": true,
-							"remote_loading": false,
-							"rulers":
-							[
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "src/modules/employees/config/employees.client.values.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 554,
-						"regions":
-						{
-							"bookmark_p":
-							{
-								"flags": 144,
-								"regions":
-								[
-									[
-										200,
-										203
-									]
-								]
-							}
-						},
-						"selection":
-						[
-							[
-								204,
-								204
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								24,
-								9,
-								46,
-								1,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"open_with_edit": true,
-							"remote_loading": false,
-							"rulers":
-							[
-								80,
-								120
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "src/modules/core/views/main.client.view.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 73,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								66,
-								66
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
 								14,
-								12,
-								1,
-								43,
+								22,
+								47,
 								0,
 								0,
 								0,
@@ -2789,171 +1472,26 @@
 								46
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"rulers":
-							[
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "index.shtml",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2087,
-						"regions":
-						{
-							"bookmark_a":
-							{
-								"flags": 144,
-								"regions":
-								[
-									[
-										1749,
-										1749
-									]
-								]
-							}
-						},
-						"selection":
-						[
-							[
-								2087,
-								2087
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								21,
-								10,
-								21,
-								21,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"remote_loading": false,
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"open_with_edit": true,
 							"rulers":
 							[
 								80,
-								120
+								120,
+								17.0,
+								17.1,
+								17.2,
+								17.3,
+								17.4,
+								17.5,
+								17.6,
+								17.7,
+								17.8,
+								17.9
 							],
 							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/ASP/HTML-ASP.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -2963,11 +1501,156 @@
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 1,
+					"file": "public/src/modules/core/config/modules.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 395,
+						"buffer_size": 1475,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								849,
+								849
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								5,
+								1,
+								10,
+								1,
+								21,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/src/modules/employees/config/employees.client.routes.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 721,
 						"regions":
 						{
 						},
@@ -2981,26 +1664,122 @@
 						"settings":
 						{
 							"BracketHighlighterBusy": false,
-							"auto_indent": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								5,
+								1,
+								15,
+								20,
+								45,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"default_dir": "/Library/WebServer/Documents",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
 							"rulers":
 							[
 								80,
-								120,
-								2.0,
-								2.1,
-								2.2,
-								2.3,
-								2.4,
-								2.5,
-								2.6,
-								2.7,
-								2.8,
-								2.9
+								120
 							],
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"word_wrap": true
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -3010,19 +1789,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 3,
+					"file": "public/src/modules/employees/controllers/emloyee.client.controller.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 475,
+						"buffer_size": 5934,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								328,
-								328
+								734,
+								734
 							]
 						],
 						"settings":
@@ -3055,6 +1835,11 @@
 								"bh_angle_open",
 								"bh_angle_close",
 								"bh_angle_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
@@ -3075,37 +1860,224 @@
 								"bh_tag_open",
 								"bh_tag_close",
 								"bh_tag_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
 								"bh_unmatched_content"
 							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								4,
+								29,
+								12,
+								45,
+								47,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"default_dir": "/Library/WebServer/Documents",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "public/src/modules/shifts/controllers/schedule.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1988,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1246,
+								1246
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								5,
+								1,
+								13,
+								16,
+								39,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
 							"rulers":
 							[
 								80,
 								120,
-								9.0,
-								9.1,
-								9.2,
-								9.3,
-								9.4,
-								9.5,
-								9.6,
-								9.7,
-								9.8,
-								9.9
+								0.0,
+								0.1,
+								0.2,
+								0.3,
+								0.4,
+								0.5,
+								0.6,
+								0.7,
+								0.8,
+								0.9
 							],
-							"syntax": "Packages/JavaScript Ultimate/JSON.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -3115,20 +2087,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 13,
-					"file": "src/modules/core/directives/core.client.directives.js",
+					"buffer": 5,
+					"file": "public/index.shtml",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1313,
+						"buffer_size": 1704,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								164,
-								164
+								1616,
+								1616
 							]
 						],
 						"settings":
@@ -3136,61 +2108,61 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
 								"bh_curly_close",
 								"bh_curly_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
 								"bh_angle_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
 								"bh_round_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content"
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
 							],
 							"c_time":
 							[
@@ -3221,156 +2193,11 @@
 								10,
 								7,
 								223,
-								4,
-								14,
-								12,
+								5,
 								1,
-								43,
-								0,
-								0,
-								0,
-								113,
-								1,
-								133,
-								113,
-								2,
-								82,
-								113,
-								3,
-								46
-							],
-							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"rulers":
-							[
-								80,
-								120
-							],
-							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/JavaScript Ultimate/JavaScript (DOM).tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "dev/dev.client.css.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 683,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								54,
-								54
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content"
-							],
-							"c_time":
-							[
-								128,
-								3,
-								99,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								100,
-								97,
-								116,
-								101,
-								116,
-								105,
-								109,
-								101,
-								10,
-								113,
-								0,
-								67,
-								10,
-								7,
-								223,
-								4,
-								22,
-								19,
 								11,
-								58,
+								35,
+								0,
 								0,
 								0,
 								0,
@@ -3385,22 +2212,464 @@
 								46
 							],
 							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
-							"incomplete_sync": null,
-							"remote_loading": false,
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
 							"rulers":
 							[
 								80,
-								120
+								120,
+								12.0,
+								12.1,
+								12.2,
+								12.3,
+								12.4,
+								12.5,
+								12.6,
+								12.7,
+								12.8,
+								12.9
 							],
 							"side_bar_folders_auto_load_folder": 1,
-							"synced": false,
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "public/src/modules/employees/config/employees.client.filters.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1301,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1152,
+								1152
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								5,
+								1,
+								15,
+								29,
+								42,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"open_with_edit": true,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 41.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "public/src/modules/employees/views/employees-grid.client.view.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1058,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								965,
+								965
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								5,
+								1,
+								11,
+								39,
+								10,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "public/src/modules/employees/views/employees.client.view.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2591,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								964,
+								964
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"c_time":
+							[
+								128,
+								3,
+								99,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								100,
+								97,
+								116,
+								101,
+								116,
+								105,
+								109,
+								101,
+								10,
+								113,
+								0,
+								67,
+								10,
+								7,
+								223,
+								5,
+								1,
+								11,
+								39,
+								9,
+								0,
+								0,
+								0,
+								113,
+								1,
+								133,
+								113,
+								2,
+								82,
+								113,
+								3,
+								46
+							],
+							"color_scheme": "Packages/User/Color Highlighter/themes/Solarized (light).tmTheme",
+							"editorconfig": true,
+							"ensure_newline_at_eof_on_save": true,
+							"rulers":
+							[
+								80,
+								120
+							],
+							"side_bar_folders_auto_load_folder": 1,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -3449,6 +2718,10 @@
 	{
 		"height": 681.0
 	},
+	"output.test_runner":
+	{
+		"height": 0.0
+	},
 	"pinned_build_system": "",
 	"project": "tcems.sublime-project",
 	"replace":
@@ -3491,7 +2764,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 196.0,
+	"side_bar_width": 238.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

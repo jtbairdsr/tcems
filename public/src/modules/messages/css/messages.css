@@ -1,0 +1,20 @@
+/*
+* @Author: Jonathan Baird
+* @Date:   2015-05-06 10:05:54
+* @Last Modified by:   Jonathan Baird
+* @Last Modified time: 2015-05-06 11:59:34
+*/
+
+.emp-mess-img {
+	max-height: 70.8333px;
+	max-width: 50px;
+}
+.well-divider {
+	height: 2px;
+	border-top: 1px solid #ccc;
+}
+.well-divider-text {
+	background-color: #f2f2f2;
+	position: relative;
+	top: -0.75em;
+}

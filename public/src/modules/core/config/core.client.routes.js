@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 21:11:35
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 15:38:10
+ * @Last Modified time: 2015-05-04 17:36:33
  */
 
 'use strict';
@@ -23,20 +23,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		templateUrl: 'src/modules/core/views/main.client.view.html',
 		controller: 'CoreController',
 		resolve: {
-			scopeSetter: function($q, User, Position, ShiftGroup, Employee, FacultyTestingInfo, cfpLoadingBar) {
+			scopeSetter: function($q, coreService) {
 				var deffered = $q.defer();
-				User.GET()
-					.then(function(data) {
-						$q.all([
-							Position.query(),
-							Employee.query(),
-							ShiftGroup.query(),
-							FacultyTestingInfo.query()
-						]).then(function() {
-							deffered.resolve(data);
-							cfpLoadingBar.complete();
-						});
-					});
+				coreService.refresh(true).then(function() {
+					deffered.resolve();
+				});
 				return deffered.promise;
 			}
 		}

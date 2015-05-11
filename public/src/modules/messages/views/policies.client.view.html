@@ -1,0 +1,26 @@
+<div class="row-fluid">
+	<div class="panel-group" data-ng-model="userMessages.activePanel" data-bs-collapse>
+		<div class="panel panel-default" data-ng-repeat="message in policies">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					{{ message.Subject | truncate:20}}
+					<a class="pull-right" data-bs-collapse-toggle data-ng-click="toggle = !toggle">
+						<span class="glyphicon glyphicon-collapse-down" data-ng-hide="toggle"></span>
+						<span class="glyphicon glyphicon-collapse-up" data-ng-show="toggle"></span>
+					</a>
+					<span class="pull-right">
+						<small>{{message.From.toString('name')}}&nbsp;&nbsp;</small>
+					</span>
+				</h4>
+			</div>
+			<div class="panel-collapse" data-bs-collapse-target>
+				<div class="panel-body">
+					<b>Subject:</b>
+					<p>{{message.Subject}}</p>
+					<b>Body:</b>
+					<div data-ng-bind-html="message.FormattedBody"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

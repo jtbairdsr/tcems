@@ -2,10 +2,10 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 20:44:43
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 15:32:04
+ * @Last Modified time: 2015-05-04 23:28:39
  */
 
- /*globals _ */
+/*globals _ */
 
 'use strict';
 
@@ -93,14 +93,14 @@ app.filter('unique', function() {
 		}
 		if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(
 				items)) {
-			var newItems = [];
-			var extractValueToCompare = function(item) {
-				if (angular.isObject(item) && angular.isString(filterOn)) {
-					return item[filterOn];
-				} else {
-					return item;
-				}
-			};
+			var newItems = [],
+				extractValueToCompare = function(item) {
+					if (angular.isObject(item) && angular.isString(filterOn)) {
+						return item[filterOn];
+					} else {
+						return item;
+					}
+				};
 
 			angular.forEach(items, function(item) {
 				var isDuplicate = false;

@@ -9,32 +9,28 @@
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default" data-ng-click="employeeSearch = null">
 						<span class="glyphicon glyphicon-remove"></span>
-					</button>
+				</button>
 				</span>
 			</div>
 			<div class="btn-group" data-ng-show="currentUser.extendedPrivledges">
-				<button class="btn btn-default form-control" data-animation="am-fade-and-scale" data-template="src/modules/employees/views/employees-add.client.view.html" data-bs-modal="modal">
+				<button class="btn btn-default form-control" data-animation="am-fade-and-scale" data-template="src/modules/employees/views/employee-add.client.view.html" data-bs-modal="modal">
 					<span class="glyphicon glyphicon-plus"></span> Add Employee
 				</button>
 				<button type="button" class="btn btn-default form-control" data-ng-click="hideInactive = !hideInactive" data-ng-hide="retired">
 					<span data-ng-hide="hideInactive" class="glyphicon glyphicon-eye-close"></span>
-					<span data-ng-show="hideInactive" class="glyphicon glyphicon-eye-open"></span>
-					&nbsp;Inactive Employees
+					<span data-ng-show="hideInactive" class="glyphicon glyphicon-eye-open"></span> &nbsp;Inactive Employees
 				</button>
-				<button type="button" class="btn btn-default form-control" data-ng-click="retired = !retired" data-ng-show="properties.currentUser.Position.Position === 'FTE' || properties.currentUser.Admin">
+				<button type="button" class="btn btn-default form-control" data-ng-click="retired = !retired" data-ng-show="currentUser.Position.Position === 'FTE' || currentUser.Admin">
 					<span data-ng-show="retired" class="glyphicon glyphicon-eye-close"></span>
-					<span data-ng-hide="retired" class="glyphicon glyphicon-eye-open"></span>
-					&nbsp;Retired Employees
+					<span data-ng-hide="retired" class="glyphicon glyphicon-eye-open"></span> &nbsp;Retired Employees
 				</button>
-				<button type="button" class="btn btn-default form-control" data-ng-click="area.hideOthers = !area.hideOthers" data-ng-show="properties.currentUser.Position.Position === 'FTE' || properties.currentUser.Admin">
+				<button type="button" class="btn btn-default form-control" data-ng-click="area.hideOthers = !area.hideOthers" data-ng-show="currentUser.Position.Position === 'FTE' || currentUser.Admin">
 					<span data-ng-hide="area.hideOthers" class="glyphicon glyphicon-eye-close"></span>
-					<span data-ng-show="area.hideOthers" class="glyphicon glyphicon-eye-open"></span>
-					&nbsp;Other Areas
+					<span data-ng-show="area.hideOthers" class="glyphicon glyphicon-eye-open"></span> &nbsp;Other Areas
 				</button>
-				<button type="button" class="btn btn-default form-control" data-ng-click="position.hide = !position.hide" data-ng-show="properties.currentUser.Area.Description === 'Director' || properties.currentUser.Admin">
+				<button type="button" class="btn btn-default form-control" data-ng-click="position.hide = !position.hide" data-ng-show="currentUser.Area.Description === 'Director' || currentUser.Admin">
 					<span data-ng-hide="position.hide" class="glyphicon glyphicon-eye-close"></span>
-					<span data-ng-show="position.hide" class="glyphicon glyphicon-eye-open"></span>
-					&nbsp;FTEs
+					<span data-ng-show="position.hide" class="glyphicon glyphicon-eye-open"></span> &nbsp;FTEs
 				</button>
 			</div>
 			<tcems-refresh></tcems-refresh>

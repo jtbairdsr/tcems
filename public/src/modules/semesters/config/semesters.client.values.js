@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-24 09:40:28
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 08:56:55
+ * @Last Modified time: 2015-05-02 20:59:36
  */
 
 'use strict';
@@ -15,5 +15,7 @@ app.value('noTestingDays', {
 	list: []
 });
 app.value('semesters', {
-	list: []
+	list: [],
+	currentSemester: {},
+	nextSemester: {}
 });

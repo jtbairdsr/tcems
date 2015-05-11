@@ -18,12 +18,22 @@
 	"smarttabs": false,  // Suppresses warnings about mixed tabs and spaces
 	"laxbreak": true,    // Suppresses warnings about line breaks inside strings
 	"globals": {         // Globals variables.
-		"jasmine": true,
 		"angular": true,
 		"ApplicationConfiguration": true,
 		"_": true,
 		"xdomain": true,
-		"Autolinker": true
+		"Autolinker": true,
+		"saveAs": true,
+
+		// Jasmine syntax
+		"jasmine": true,
+		"describe": true,
+		"it": true,
+		"expect": true,
+		"beforeEach": true,
+		"afterEach": true,
+		"inject": true,
+		"spyOn": true
 	},
 	"indent": 1,         // Specify indentation spacing
 	"devel": false,      // Allow development statements e.g. `console.log();`.

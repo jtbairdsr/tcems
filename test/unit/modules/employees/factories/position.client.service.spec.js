@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 18:56:31
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 13:29:46
+ * @Last Modified time: 2015-05-02 09:44:28
  */
 
 'use strict';
@@ -123,6 +123,8 @@ describe('Position object', function() {
 			"ContentTypeId": "0x0100DA785C02DECF9E4788A8FEBD3686BF29",
 			"Title": "N8DGR8",
 			"Position": "Coordinator",
+			"PhoneNumber": "2084961758",
+			"Email": "borsellan@byui.edu",
 			"GroupId": 4,
 			"Description": "Coordinator",
 			"ID": 4,
@@ -168,6 +170,8 @@ describe('Position object', function() {
 		it('should populate the properties.', function() {
 			expect(testObject.Description).toBe('Coordinator');
 			expect(testObject.Position).toBe('Coordinator');
+			expect(testObject.PhoneNumber).toBe('2084961758');
+			expect(testObject.Email).toBe('borsellan@byui.edu');
 			expect(testObject.Active).toBeTruthy();
 			expect(testObject.Access).toBeTruthy();
 

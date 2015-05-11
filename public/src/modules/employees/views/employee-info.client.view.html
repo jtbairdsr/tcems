@@ -1,0 +1,33 @@
+<div class="popover">
+	<div class="arrow"></div>
+	<h4 class="popover-title">Employee Information:
+		<small data-ng-hide="employee.Info || employee.employeeLastName">{{employee.FirstName}} {{employee.LastName}}</small>
+		<small data-ng-show="employee.Info">{{employee.Info.PreferredName}} {{employee.Info.LastName}}</small>
+		<small data-ng-show="employee.employeeLastName">{{employee.employeePreferredName}} {{employee.employeeLastName}}</small>
+		<small data-ng-show="employee.substituteLastName">{{employee.substitutePreferredName}} {{employee.substituteLastName}}</small>
+	</h4>
+	<div class="popover-content" data-ng-hide="employee.Info || employee.employeeLastName">
+		Phone:
+		<br>{{employee.PhoneNumber | tel}}
+		<br>Email:
+		<br>{{employee.EmailAddress}}
+	</div>
+	<div class="popover-content" data-ng-show="employee.Info">
+		Phone:
+		<br>{{employee.Info.PhoneNumber | tel}}
+		<br>Email:
+		<br>{{employee.Info.EmailAddress}}
+	</div>
+	<div class="popover-content" data-ng-show="employee.employeeLastName">
+		Phone:
+		<br>{{employee.employeePhoneNumber | tel}}
+		<br>Email:
+		<br>{{employee.employeeEmailAddress}}
+	</div>
+	<div class="popover-content" data-ng-show="employee.substituteLastName">
+		Phone:
+		<br>{{employee.substitutePhoneNumber | tel}}
+		<br>Email:
+		<br>{{employee.substituteEmailAddress}}
+	</div>
+</div>

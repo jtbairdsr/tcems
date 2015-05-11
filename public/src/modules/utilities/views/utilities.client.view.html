@@ -1,0 +1,39 @@
+<tcems-buffer></tcems-buffer>
+<div data-ng-app="Utilities" class="container">
+	<div class="row">
+		<div class="col-md-6 col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">Semester Tools</h4>
+				</div>
+				<div class="panel-body">
+					<div class="col-md-6">
+						<button type="button" class="btn btn-default center-block" data-ng-click="">
+							Create Next Semester
+						</button>
+					</div>
+					<div class="col-md-6">
+						<button type="button" class="btn btn-default center-block" data-ng-disabled="currentSemester.NextSemesterId === undefined" data-ng-click="">
+							Roll to Next Semester
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">Misc. Tools</h4>
+				</div>
+				<div class="panel-body">
+					<button type="button" class="btn btn-default center-block" data-ng-click="ctrl.getPictures()">
+						<span class="glyphicon glyphicon-import"></span>Get Missing Pictures
+					</button>
+					<button type="button" data-ng-show="ctrl.test" class="btn btn-default center-block" data-ng-click="ctrl.testScript()">
+						Test
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

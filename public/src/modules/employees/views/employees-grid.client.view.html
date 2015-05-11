@@ -1,5 +1,5 @@
-<div data-ng-repeat="employee in employees.list | orderBy:properties.predicate | employeeFilter:{inactive:hideInactive, area: area.hideOthers, position: position.hide, retired: retired} | filter:employeeSearch" class="col-sm-4 col-md-2 text-center well" style="height: 300px">
-	<img data-ng-src="{{employee.Picture}}" fallback-src="media/missing.png" class="img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}">
+<div data-ng-repeat="employee in employees | orderBy:properties.predicate | employeeFilter:{inactive:hideInactive, area: area.hideOthers, position: position.hide, retired: retired}  | filter:employeeSearch" class="col-sm-4 col-md-2 text-center well employee-well">
+	<img data-ng-src="{{employee.Picture}}" data-fallback-src="src/modules/core/img/missing.png" class="img-circle employee-img" alt="employeePicture">
 	<div>
 		<b>{{employee.PreferredName}} {{employee.LastName}}</b>
 		<br>Position: {{employee.Position.Position}}
@@ -10,7 +10,7 @@
 		INumber: {{employee.INumber}}
 		<br>Track: {{employee.Track.Description}}
 	</div>
-	<button data-ng-show="currentUser.extendedPrivledges" class="btn btn-link" data-animation="am-fade-and-scale" data-template="src/modules/employees/views/employee-edit.client.view.html" bs-modal="modal">
+	<button data-ng-show="currentUser.extendedPrivledges" class="btn btn-link" data-animation="am-fade-and-scale" data-template="src/modules/employees/views/employee-edit.client.view.html" data-bs-modal="modal">
 		<span class="glyphicon glyphicon-edit"></span>
 	</button>
 </div>

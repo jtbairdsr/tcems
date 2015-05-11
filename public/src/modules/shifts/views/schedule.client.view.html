@@ -1,0 +1,37 @@
+<div class="container-fluid" data-ng-init="resetView()">
+    <tcems-buffer></tcems-buffer>
+    <div class="row-fluid">
+        <div class="col-md-2">
+            <tcems-refresh></tcems-refresh>
+            <tcems-buffer></tcems-buffer>
+            <tcems-filter-semesters></tcems-filter-semesters>
+            <tcems-filter-days></tcems-filter-days>
+            <tcems-filter-positions></tcems-filter-positions>
+        </div>
+        <div class="col-md-10">
+            <div class="row text-center panel panel-primary" data-ng-hide="!day.active || day.title === 'Sunday'" data-ng-repeat="day in weeks[0].days">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{day.title}}</h4>
+                </div>
+                <div data-ng-show="primaryPosition.Active" data-ng-repeat="primaryPosition in positions" class="panel panel-info">
+                    <div class="panel-heading">
+                        {{primaryPosition.Description}}
+                    </div>
+                    <div class="panel-body">
+                        <div class='list-group' data-ng-style="{'width': (100/filtered.length + '%'), 'float': 'left'}" data-ng-repeat="shift in filtered = (day.shifts[ctrl.semester] | filter:{PositionId: primaryPosition.Id}) | orderBy:'StartTime'">
+                            <a class="list-group-item list-group-item-info">
+                            {{shift.StartTime | date:'h:mm a'}} to {{shift.EndTime | date:'h:mm a'}}
+                        </a>
+                            <a class="list-group-item" data-ng-class="{'list-group-item-success': employee.Info.Id > 0, 'list-group-item-danger': employee.Info.Id < 0}" data-ng-repeat="employee in shift.Employees" data-animation="am-fade-and-scale" data-template="src/modules/shifts/views/change-employee-schedule.client.view.html" data-bs-modal="modal">
+                                <div>
+                                    <img data-ng-src="{{employee.Info.Picture}}" data-fallback-src="src/modules/core/img/missing.png" class="list-item img-circle" data-template="src/modules/employees/views/employee-info.client.view.html" data-animation="am-flip-x" data-bs-tooltip="tooltip" alt="employeePicture">
+                                </div>
+                                {{employee.Info.PreferredName}} {{employee.Info.LastName}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

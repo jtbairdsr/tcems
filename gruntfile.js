@@ -2,21 +2,35 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-21 09:32:21
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 10:35:43
+ * @Last Modified time: 2015-05-06 14:09:31
  */
 
 'use strict';
 module.exports = function(grunt) {
 	// Unified Watch Object
 	var watchFiles = {
-			indexViews: ['public/index.shtml'],
-			clientViews: ['public/src/modules/**/views/**/*.html', 'public/dev/*.html'],
+			clientViews: [
+				'public/index.shtml',
+				'public/src/modules/**/*.html',
+				'public/dev/*.html'
+			],
+			clientDirectives: [
+				'public/src/modules/**/*.client.directive.html',
+				'public/src/modules/**/*.client.directive.js'
+			],
 			clientImages: ['public/src/modules/**/img/*'],
 			clientJS: ['public/src/modules/**/*.js'],
 			clientCSS: ['public/src/modules/**/*.css']
 		},
 		LIVERELOAD_PORT = process.env.LIVERELOAD_PORT || 35729,
-		orderedJsFiles = [
+		cssLibFiles = [
+			'public/src/lib/bootstrap/dist/css/bootstrap.min.css',
+			'public/src/lib/angular-ui-select/dist/select.min.css',
+			'public/src/lib/angular-motion/dist/angular-motion.min.css',
+			'public/src/lib/bootstrap-additions/dist/bootstrap-additions.min.css',
+			'public/src/lib/angular-loading-bar/build/loading-bar.min.css'
+		],
+		orderedJsAppFiles = [
 			'public/src/modules/config.js',
 			'public/src/modules/application.js',
 			'public/src/modules/core/*.js',
@@ -73,6 +87,27 @@ module.exports = function(grunt) {
 			'public/src/modules/utilities/factories/**/*.js',
 			'public/src/modules/utilities/directives/*.js',
 			'public/src/modules/utilities/controllers/*.js'
+		],
+		orderedJsLibFiles = [
+			'public/src/lib/xdomain/dist/xdomain.min.js',
+			'public/src/lib/jquery/dist/jquery.min.js',
+			'public/src/lib/bootstrap/dist/js/bootstrap.min.js',
+			'public/src/lib/angular/angular.min.js',
+			'public/src/lib/angular-resource/angular-resource.min.js',
+			'public/src/lib/angular-route/angular-route.min.js',
+			'public/src/lib/angular-animate/angular-animate.min.js',
+			'public/src/lib/angular-sanitize/angular-sanitize.min.js',
+			'public/src/lib/angular-ui-router/release/angular-ui-router.min.js',
+			'public/src/lib/angular-strap/dist/angular-strap.min.js',
+			'public/src/lib/angular-strap/dist/angular-strap.min.tpl.js',
+			'public/src/lib/ui-utils/ui-utils.min.js',
+			'public/src/lib/angular-ui-select/dist/select.min.js',
+			'public/src/lib/angular-img-fallback/angular.dcb-img-fallback.min.js',
+			'public/src/lib/datejs/build/production/date.min.js',
+			'public/src/lib/file-saver.js/FileSaver.min.js',
+			'public/src/lib/underscore/underscore-min.js',
+			'public/src/lib/Autolinker.js/dist/Autolinker.min.js',
+			'public/src/lib/angular-loading-bar/build/loading-bar.min.js'
 		];
 
 	console.log('LIVERELOAD_PORT=' + LIVERELOAD_PORT);
@@ -94,7 +129,7 @@ module.exports = function(grunt) {
 			}
 		},
 		tags: {
-			css: {
+			css_app: {
 				options: {
 					linkTemplate: '<link rel="stylesheet" type="text/css" href="dev/{{ path }}" />',
 					openTag: '<!-- start template tags -->',
@@ -103,16 +138,34 @@ module.exports = function(grunt) {
 				src: [
 					'public/src/modules/**/*.css'
 				],
-				dest: 'public/dev/dev.client.css.html'
+				dest: 'public/dev/dev-app.client.css.html'
 			},
-			js: {
+			css_lib: {
+				options: {
+					linkTemplate: '<link rel="stylesheet" type="text/css" href="dev/{{ path }}" />',
+					openTag: '<!-- start template tags -->',
+					closeTag: '<!-- end template tags -->'
+				},
+				src: cssLibFiles,
+				dest: 'public/dev/dev-lib.client.css.html'
+			},
+			js_app: {
 				options: {
 					scriptTemplate: '<script src="dev/{{ path }}" type="text/javascript" charset="utf-8"></script>',
 					openTag: '<!-- start template tags -->',
 					closeTag: '<!-- end template tags -->'
 				},
-				src: orderedJsFiles,
-				dest: 'public/dev/dev.client.js.html'
+				src: orderedJsAppFiles,
+				dest: 'public/dev/dev-app.client.js.html'
+			},
+			js_lib: {
+				options: {
+					scriptTemplate: '<script src="dev/{{ path }}" type="text/javascript" charset="utf-8"></script>',
+					openTag: '<!-- start template tags -->',
+					closeTag: '<!-- end template tags -->'
+				},
+				src: orderedJsLibFiles,
+				dest: 'public/dev/dev-lib.client.js.html'
 			}
 		},
 		'string-replace': {
@@ -137,14 +190,6 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			indexViews: {
-				files: watchFiles.indexViews,
-				options: {
-					livereload: {
-						port: LIVERELOAD_PORT
-					}
-				}
-			},
 			clientImages: {
 				files: watchFiles.clientImages,
 				options: {
@@ -155,6 +200,14 @@ module.exports = function(grunt) {
 			},
 			clientViews: {
 				files: watchFiles.clientViews,
+				options: {
+					livereload: {
+						port: LIVERELOAD_PORT
+					}
+				}
+			},
+			clientDirectives: {
+				files: watchFiles.clientDirectives,
 				options: {
 					livereload: {
 						port: LIVERELOAD_PORT
@@ -209,7 +262,7 @@ module.exports = function(grunt) {
 				},
 				nonull: true,
 				files: {
-					'public/dist/js/application.js': orderedJsFiles
+					'public/dist/js/application.js': orderedJsAppFiles
 				}
 			},
 			lib: {
@@ -222,27 +275,7 @@ module.exports = function(grunt) {
 				},
 				nonull: true,
 				files: {
-					'public/dist/lib/libraries-<%= pkg.version %>.min.js': [
-						'public/src/lib/xdomain/dist/xdomain.min.js',
-						'public/src/lib/jquery/dist/jquery.min.js',
-						'public/src/lib/bootstrap/dist/js/bootstrap.min.js',
-						'public/src/lib/angular/angular.min.js',
-						'public/src/lib/angular-resource/angular-resource.min.js',
-						'public/src/lib/angular-route/angular-route.min.js',
-						'public/src/lib/angular-animate/angular-animate.min.js',
-						'public/src/lib/angular-sanitize/angular-sanitize.min.js',
-						'public/src/lib/angular-ui-router/release/angular-ui-router.min.js',
-						'public/src/lib/angular-strap/dist/angular-strap.min.js',
-						'public/src/lib/angular-strap/dist/angular-strap.min.tpl.js',
-						'public/src/lib/ui-utils/ui-utils.min.js',
-						'public/src/lib/angular-ui-select/dist/select.min.js',
-						'public/src/lib/angular-img-fallback/angular.dcb-img-fallback.min.js',
-						'public/src/lib/datejs/build/datejs.min.js',
-						'public/src/lib/file-saver.js/FileSaver.min.js',
-						'public/src/lib/underscore/underscore-min.js',
-						'public/src/lib/Autolinker.js/dist/Autolinker.min.js',
-						'public/src/lib/angular-loading-bar/build/loading-bar.min.js'
-					]
+					'public/dist/lib/libraries-<%= pkg.version %>.min.js': orderedJsLibFiles
 				}
 			}
 		},
@@ -266,13 +299,7 @@ module.exports = function(grunt) {
 			},
 			lib: {
 				files: {
-					'public/dist/lib/libraries-<%= pkg.version %>.min.css': [
-						'public/src/lib/bootstrap/dist/css/bootstrap.min.css',
-						'public/src/lib/angular-ui-select/dist/select.min.css',
-						'public/src/lib/angular-motion/dist/angular-motion.min.css',
-						'public/src/lib/bootstrap-additions/dist/bootstrap-additions.min.css',
-						'public/src/lib/angular-loading-bar/build/loading-bar.min.css'
-					]
+					'public/dist/lib/libraries-<%= pkg.version %>.min.css': cssLibFiles
 				}
 			}
 		},

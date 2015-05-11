@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 20:37:21
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 10:09:43
+ * @Last Modified time: 2015-05-04 15:16:34
  */
 
 'use strict';
@@ -13,7 +13,7 @@ app.directive('tcemsFilterDays', [
 	function() {
 		return {
 			restrict: 'E',
-			templateUrl: 'src/modules/shifts/directives/filter-days.html'
+			templateUrl: 'src/modules/shifts/directives/filter-days.client.directive.html'
 		};
 	}
 ]);
@@ -21,7 +21,7 @@ app.directive('tcemsFilterPositions', [
 	function() {
 		return {
 			restrict: 'E',
-			templateUrl: 'src/modules/shifts/directives/filter-positions.html'
+			templateUrl: 'src/modules/shifts/directives/filter-positions.client.directive.html'
 		};
 	}
 ]);
@@ -29,15 +29,7 @@ app.directive('tcemsFilterSemesters', [
 	function() {
 		return {
 			restrict: 'E',
-			templateUrl: 'src/modules/shifts/directives/filter-semesters.html'
-		};
-	}
-]);
-app.directive('tcemsDaySearch', [
-	function() {
-		return {
-			restrict: 'E',
-			templateUrl: 'src/modules/shifts/directives/day-search.html'
+			templateUrl: 'src/modules/shifts/directives/filter-semesters.client.directive.html'
 		};
 	}
 ]);

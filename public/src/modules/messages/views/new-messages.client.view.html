@@ -1,0 +1,35 @@
+<div class="row-fluid">
+	<div class="panel-group" data-ng-model="userMessages.activePanel" data-bs-collapse>
+		<div class="panel panel-default" data-ng-repeat="message in userMessages | filter:{Read: false}">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<span data-ng-show="message.Message.Mandatory && !message.Read" class="badge badge-error">
+						<span class="glyphicon glyphicon-exclamation-sign"></span>
+					</span>
+					{{ message.Message.Subject | truncate:20}}
+					<a class="pull-right" data-bs-collapse-toggle data-ng-click="toggle = !toggle">
+						<span class="glyphicon glyphicon-collapse-down" data-ng-hide="toggle"></span>
+						<span class="glyphicon glyphicon-collapse-up" data-ng-show="toggle"></span>
+					</a>
+					<span class="pull-right">
+						<small>{{message.Message.From.toString('name')}}&nbsp;&nbsp;</small>
+					</span>
+				</h4>
+			</div>
+			<div class="panel-collapse" data-bs-collapse-target>
+				<div class="panel-body">
+					<b>Subject:</b>
+					<p>{{message.Message.Subject}}</p>
+					<b>Body:</b>
+					<div data-ng-bind-html="message.Message.FormattedBody"></div>
+					<br>
+					<span data-ng-show="message.Message.Mandatory">Due: {{message.Message.DueDate | date:'d-MMM-yyyy'}}</span>
+					<br>
+					<br>
+					<button data-ng-show="message.Message.Mandatory" class="btn btn-success" data-ng-click="ctrl.readMessage(message)" data-ng-disabled="message.Disabled">Acknowledged</button>
+					<button data-ng-hide="message.Message.Mandatory && !message.Disabled" class="btn btn-default" data-ng-click="ctrl.readMessage(message)">Read</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

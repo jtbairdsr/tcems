@@ -35,7 +35,7 @@ body {
 	font-size: 20px;
 }
 .bs-docs-header {
-	margin-top: 0;
+	margin-top: 50px;
 	color: #fff
 }
 @media (min-width: 768px) {
@@ -191,4 +191,11 @@ div.aside-header {
 
 	display: flex;
 	align-items: center;
+}
+.banner {
+	font-size: 60px;
+}
+.hr-no-margins {
+	margin-top: 0;
+	margin-bottom: 0;
 }
