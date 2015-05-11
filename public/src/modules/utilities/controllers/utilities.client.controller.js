@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-05-11 09:19:39
+ * @Last Modified time: 2015-05-11 09:24:31
  */
 
 'use strict';
@@ -66,7 +66,6 @@ angular.module('utilities').controller('UtilitiesController', function(
 					+ emp.LastName + ','
 					+ emp.EmailAddress + ','
 					+ emp.LastName.toLowerCase() + emp.Id + ','
-
 					+ ((emp.Active) ? 'Yes,' : 'No,')
 					+ ',\n'
 				);
