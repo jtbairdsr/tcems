@@ -2,13 +2,13 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-05-11 09:24:31
+ * @Last Modified time: 2015-05-11 14:58:55
  */
 
 'use strict';
 
 angular.module('utilities').controller('UtilitiesController', function(
-	$q, $scope, $alert, sentMessages, employees, professors
+	$q, $scope, $alert, sentMessages, employees, professors, professorService
 ) {
 	var that = this,
 		moduleDirectoryPath = '\\\\testcenterems\\C$\\inetpub\\wwwroot\\public\\src\\modules';
@@ -81,6 +81,7 @@ angular.module('utilities').controller('UtilitiesController', function(
 	that.getPictures = function() {
 		// Initialize lists
 		var batFileContents = [],
+			professorCall = professorService.refresh(),
 			FTEList = [];
 
 		batFileContents.push(
@@ -113,17 +114,23 @@ angular.module('utilities').controller('UtilitiesController', function(
 		);
 
 		// Add each professor to the batchfile
-		_.each(professors.list, function(professor) {
-			batFileContents.push(professor.Picture.split('src/modules/professors/img/')[1].replace(/\//g, '\\') + ' ');
+		professorCall.then(function() {
+			_.each(professors.list, function(professor) {
+				if (professor.Picture.indexOf('professors') > 0) {
+					batFileContents.push(professor.Picture.split('src/modules/professors/img/')[1].replace(/\//g, '\\') + ' ');
+				} else {
+					batFileContents.push(professor.Picture.split('src/modules/employees/img/')[1].replace(/\//g, '\\') + ' ');
+				}
+			});
+
+			// Add the end options and commands to the batchfile
+			batFileContents.push('/XC /XN /XO\ndel /f "%~f0%"');
+
+			// Convert the batchfile to a blob then convert the blob to a text file
+			// titled updatePictures.bat and save it to the client
+			saveAs(new Blob(batFileContents, {
+				type: 'text/plain;charset=utf-8'
+			}), 'updatePictures.bat');
 		});
-
-		// Add the end options and commands to the batchfile
-		batFileContents.push('/XC /XN /XO\ndel /f "%~f0%"');
-
-		// Convert the batchfile to a blob then convert the blob to a text file
-		// titled updatePictures.bat and save it to the client
-		saveAs(new Blob(batFileContents, {
-			type: 'text/plain;charset=utf-8'
-		}), 'updatePictures.bat');
 	};
 });
