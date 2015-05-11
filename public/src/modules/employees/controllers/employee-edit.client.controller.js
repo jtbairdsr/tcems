@@ -2,21 +2,25 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-04 15:44:43
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-11 11:05:12
+ * @Last Modified time: 2015-05-11 17:36:57
  */
 
 'use strict';
 
 angular.module('employees').controller('EmployeeEditController', function(
-	$scope, $alert, Employee, Employment, currentUser, currentSemester,
+	$scope, $alert, Employee, Employment, currentUser, currentSemester, employees,
 	schedules, subShifts, sentMessages, areas, shiftGroups, tracks, professorService
 ) {
 	$scope.tab = 'profile';
 	$scope.userViews = 'src/modules/user/views/';
 
 	var that = this,
-		employee = $scope.employee || currentUser.data,
+		employee = _.find(employees, function(emp) {
+			return emp.Id === $scope.emp.id;
+		}) || currentUser.data,
 		initialPhoneNumber = employee.PhoneNumber;
+
+	$scope.employee = employee;
 
 	that.positions = {
 		Employee: [],

@@ -1,25 +1,25 @@
-<div data-ng-repeat="employee in employees | orderBy:properties.predicate | employeeFilter:{inactive:hideInactive, area: area.hideOthers, position: position.hide, retired: retired}  | filter:employeeSearch" class="col-sm-4 col-md-2 text-center well employee-well" data-ng-class="{'employee-well-emp': !currentUser.extendedPrivledges, 'employee-well-ext': currentUser.extendedPrivledges}">
-	<img data-ng-src="{{employee.Picture}}" data-fallback-src="src/modules/core/img/missing.png" class="img-circle employee-img" alt="employeePicture">
-	<h4>{{employee.PreferredName}} {{employee.LastName}}</h4>
+<div data-ng-repeat="emp in ctrl.employees | orderBy:properties.predicate | employeeFilter:{inactive:hideInactive, area: area.hideOthers, position: position.hide, retired: retired}  | filter:employeeSearch" class="col-sm-4 col-md-2 text-center well employee-well" data-ng-class="{'employee-well-emp': !currentUser.extendedPrivledges, 'employee-well-ext': currentUser.extendedPrivledges}">
+	<img data-ng-src="{{emp.img}}" data-fallback-src="src/modules/core/img/missing.png" class="img-circle employee-img" alt="employeePicture">
+	<h4>{{emp.pName}} {{emp.lName}}</h4>
 	<table class="table table-condensed">
 
 		<tr>
-			<td><span class="pull-left"><b>Position:</b></span><span class="pull-right">{{employee.Position.Position}}</span></td>
+			<td><span class="pull-left"><b>Position:</b></span><span class="pull-right">{{emp.pos}}</span></td>
 		</tr>
 		<tr>
-			<td><span class="pull-left"><b>Phone:</b></span><span class="pull-right">{{employee.PhoneNumber | tel}}</span></td>
+			<td><span class="pull-left"><b>Phone:</b></span><span class="pull-right">{{emp.phone | tel}}</span></td>
 		</tr>
 		<tr>
-			<td><span class="pull-left"><b>Email:</b></span><span class="pull-right">{{employee.EmailAddress}}</span></td>
+			<td><span class="pull-left"><b>Email:</b></span><span class="pull-right">{{emp.email}}</span></td>
 		</tr>
 		<tr data-ng-show="currentUser.hrPrivledges">
-			<td><span class="pull-left"><b>Id Number:</b></span><span class="pull-right">{{employee.Id}}</span></td>
+			<td><span class="pull-left"><b>Id Number:</b></span><span class="pull-right">{{emp.id}}</span></td>
 		</tr>
 		<tr data-ng-show="currentUser.hrPrivledges">
-			<td><span class="pull-left"><b>Track:</b></span><span class="pull-right">{{employee.Track.Description}}</span></td>
+			<td><span class="pull-left"><b>Track:</b></span><span class="pull-right">{{emp.track}}</span></td>
 		</tr>
 		<tr data-ng-show="currentUser.Position.Description === 'FTE'">
-			<td><span class="pull-left"><b>INumber:</b></span><span class="pull-right">{{employee.INumber}}</span></td>
+			<td><span class="pull-left"><b>INumber:</b></span><span class="pull-right">{{emp.iNum}}</span></td>
 		</tr>
 		<tr data-ng-show="currentUser.hrPrivledges">
 			<td colspan="2">
