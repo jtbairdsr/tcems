@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-04 17:21:51
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-07 14:18:31
+ * @Last Modified time: 2015-05-11 15:50:57
  */
 
 'use strict';
@@ -10,7 +10,7 @@
 angular.module('core').service('coreService', function(
 	$q, User, ShiftGroup, Professor, Employee, Semester,
 	FacultyTestingInfo, Message, SentMessage, currentUser, currentSemester,
-	nextSemester, semesters, messageService, positions
+	nextSemester, semesters, messageService, positions, AreaPosition
 ) {
 	var that = this;
 
@@ -39,7 +39,7 @@ angular.module('core').service('coreService', function(
 			});
 
 			ShiftGroup.query().then(function() {
-				$q.all([Employee.queryAll(), Semester.query()]).then(function() {
+				$q.all([Employee.queryAll(), Semester.query(), AreaPosition.query()]).then(function() {
 					initSemesters(promise);
 				});
 			});
