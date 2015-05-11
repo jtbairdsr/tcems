@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 12:23:23
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 13:16:20
+ * @Last Modified time: 2015-05-11 11:06:44
  */
 
 'use strict';
@@ -318,7 +318,6 @@ angular.module('shifts').factory('Day', function(
 			});
 			_.each(pSubShifts, function(subShift) {
 				if (subShift.NewRequestId) {
-					console.log(subShift.Id);
 					if (!subShift.NewRequest.SubstituteId) {
 						returnData.push(new ShiftObject({
 							shift: subShift.Shift,

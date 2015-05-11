@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-04 15:44:43
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-07 15:01:40
+ * @Last Modified time: 2015-05-11 11:05:12
  */
 
 'use strict';
@@ -46,7 +46,6 @@ angular.module('employees').controller('EmployeeEditController', function(
 			desc: track.Description
 		});
 	});
-	console.log(tracks);
 	that.isASub = (_.find(schedules.list, function(schedule) {
 		return (
 			schedule.EmployeeId === employee.Id &&

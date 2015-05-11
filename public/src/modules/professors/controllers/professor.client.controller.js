@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-02-02 10:54:46
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-07 14:26:28
+ * @Last Modified time: 2015-05-11 11:06:17
  */
 
 'use strict';
@@ -17,7 +17,6 @@ angular.module('professors').controller('ProfessorController', function(
 		professorInfo.data = _.find(professors.list, function(professor) {
 			return professor.EmailAddress === currentUser.data.EmailAddress;
 		});
-		console.log(professorInfo);
 		if (professorInfo.data === undefined) {
 			professorInfo.data = new Professor({
 				FirstName: currentUser.data.FirstName,
