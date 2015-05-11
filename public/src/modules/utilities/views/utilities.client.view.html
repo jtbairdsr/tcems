@@ -26,12 +26,21 @@
 					<h4 class="panel-title">Misc. Tools</h4>
 				</div>
 				<div class="panel-body">
-					<button type="button" class="btn btn-default center-block" data-ng-click="ctrl.getPictures()">
-						<span class="glyphicon glyphicon-import"></span>Get Missing Pictures
-					</button>
-					<button type="button" data-ng-show="ctrl.test" class="btn btn-default center-block" data-ng-click="ctrl.testScript()">
-						Test
-					</button>
+					<div class="col-md-6">
+						<button type="button" class="btn btn-default center-block" data-ng-click="ctrl.getPictures()">
+							<span class="glyphicon glyphicon-import"></span>Get Missing Pictures
+						</button>
+					</div>
+					<div class="col-md-6">
+						<button type="button" class="btn btn-default center-block" data-ng-click="ctrl.getSarasInfo()">
+							<span class="glyphicon glyphicon-import"></span>Get Saras Employees
+						</button>
+					</div>
+					<div class="col-md-6">
+						<button type="button" data-ng-show="ctrl.test" class="btn btn-default center-block" data-ng-click="ctrl.testScript()">
+							Test
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

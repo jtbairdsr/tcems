@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-05-06 15:26:37
+ * @Last Modified time: 2015-05-11 09:19:39
  */
 
 'use strict';
@@ -13,7 +13,7 @@ angular.module('utilities').controller('UtilitiesController', function(
 	var that = this,
 		moduleDirectoryPath = '\\\\testcenterems\\C$\\inetpub\\wwwroot\\public\\src\\modules';
 	$scope.currentApp.title = 'Utilities';
-	that.test = true;
+	that.test = false;
 	that.testScript = function() {
 		var sMessageCounter = 0,
 			finishedAlert = {
@@ -52,6 +52,32 @@ angular.module('utilities').controller('UtilitiesController', function(
 			console.log(modSentMessages.length);
 			$alert(finishedAlert);
 		}
+	};
+	that.getSarasInfo = function() {
+		// Initialize lists
+		var csvFileContents = [];
+
+		// Get all employees
+		_.each(employees.list, function(emp) {
+			if (!emp.Retired) {
+				csvFileContents.push(
+					'tstproctor' + emp.Id + ','
+					+ emp.FirstName + ','
+					+ emp.LastName + ','
+					+ emp.EmailAddress + ','
+					+ emp.LastName.toLowerCase() + emp.Id + ','
+
+					+ ((emp.Active) ? 'Yes,' : 'No,')
+					+ ',\n'
+				);
+			}
+		});
+
+		// Convert the csvfile to a blob then convert the blob to a text file
+		// titled saras-employees.csv and save it to the client
+		saveAs(new Blob(csvFileContents, {
+			type: 'text/plain;charset=utf-8'
+		}), 'saras-employees.csv');
 	};
 	that.getPictures = function() {
 		// Initialize lists
