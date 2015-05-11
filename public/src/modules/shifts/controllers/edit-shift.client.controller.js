@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:28:03
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 08:41:18
+ * @Last Modified time: 2015-05-11 08:49:06
  */
 
 'use strict';
@@ -43,6 +43,7 @@ angular.module('shifts').controller('EditShiftController', function(
 	if ($scope.shift === undefined) {
 		that.add = true;
 		$scope.shift = new Shift({
+			Slots: 1,
 			PositionId: currentUser.data.Area.DefaultPosition.Id,
 			ShiftGroupId: currentSemester.data.ShiftGroupId
 		});
