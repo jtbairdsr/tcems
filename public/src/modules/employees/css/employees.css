@@ -2,13 +2,16 @@
 * @Author: Jonathan Baird
 * @Date:   2015-05-04 10:27:08
 * @Last Modified by:   Jonathan Baird
-* @Last Modified time: 2015-05-04 10:30:54
+* @Last Modified time: 2015-05-11 10:25:46
 */
 
 .employee-img {
 	max-width: 120px;
 	max-height: 170px;
 }
-.employee-well {
-	height: 350px;
+.employee-well-ext {
+	height: 520px;
+}
+.employee-well-emp {
+	height: 340px;
 }

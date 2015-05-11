@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-24 09:28:20
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-05 00:26:33
+ * @Last Modified time: 2015-05-11 10:24:32
  */
 
 'use strict';
@@ -36,11 +36,11 @@ angular.module('user').factory('User', function(
 
 		/*******************Values that don't persist******************/
 		var positionTest = /FTE|HR/;
-		this.extendedPrivledges = (this.Position) ? (
+		this.hrPrivledges = (this.Position) ? (
 			positionTest.test(this.Position.Description) || this.Admin
 		) : false;
-		this.hrPrivledges = (this.Position !== undefined && this.Admin) ? (
-			positionTest.test(this.Position.Description) || this.Admin
+		this.extendedPrivledges = (this.Position) ? (
+			this.hrPrivledges || this.Position.Description === 'Coordinator'
 		) : false;
 		this.defaultPosition = (this.Area) ? (this.Area.DefaultPosition) : undefined;
 		this.data = this.updateData();
