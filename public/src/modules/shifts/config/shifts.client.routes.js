@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 21:11:35
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 14:51:28
+ * @Last Modified time: 2015-05-11 17:49:41
  */
 
 'use strict';
@@ -20,6 +20,7 @@ app.config(function($stateProvider) {
 			requiredData: function($q, scheduleService, cfpLoadingBar, scopeSetter) {
 				var deffered = $q.defer();
 
+				cfpLoadingBar.start();
 				scheduleService.refresh(true).then(function(data) {
 					deffered.resolve(data);
 					cfpLoadingBar.complete();

@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:11
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-05-11 17:43:41
+ * @Last Modified time: 2015-05-11 17:52:01
  */
 
 'use strict';
@@ -45,7 +45,6 @@ angular.module('employees').controller('EmployeeController', function(
 			aId: emp.AreaId
 		});
 	});
-	console.log(that.employees);
 	that.refreshContent = function() {
 		employeeService.refresh();
 	};
