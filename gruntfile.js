@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-21 09:32:21
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-06 14:09:31
+ * @Last Modified time: 2015-05-11 16:22:17
  */
 
 'use strict';
@@ -121,7 +121,7 @@ module.exports = function(grunt) {
 				updateConfigs: ['pkg'],
 				commit: false,
 				commitMessage: 'Release v%VERSION%',
-				commitFiles: ['package.json', 'bower.json'],
+				commitFiles: ['package.json', 'bower.json', 'public/index.shtml'],
 				createTag: false,
 				push: false,
 				globalReplace: false,
