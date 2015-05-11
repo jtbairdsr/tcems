@@ -1,0 +1,32 @@
+<div class="modal" data-ng-controller="ScheduleChangeController as sctrl">
+	<div class="modal-dialog text-muted text-left">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-ng-click="$hide()">&times;</button>
+				<h4 class="modal-title" data-ng-hide="employee.Info.Id < 0">Are you sure you want to remove this employee from this shift?</h4>
+				<h4 class="modal-title" data-ng-show="employee.Info.Id < 0">Who would you like to assign to this shift?</h4>
+			</div>
+			<div class="modal-body text-center">
+				<div data-ng-hide="employee.Info.Id < 0">
+					<div class="row">
+						<h3 data-ng-bind-html="employee.Shift.toString().replace(ctrl.breakRegex, '<br />')"></h3>
+					</div>
+					<div class="row">
+						<img data-ng-src="{{employee.Info.Picture}}" data-fallback-src="src/modules/core/img/missing.png" class="img-circle employee-img" data-template="src/modules/employees/views/employee-info.client.view.html" data-animation="am-flip-x" data-bs-tooltip="tooltip" data-ng-click="$log.log(shift)" alt="employeePicture">
+					</div>
+					<div class="row">
+						<h3>{{employee.Info.FirstName}} {{employee.Info.LastName}}</h3>
+					</div>
+				</div>
+				<div data-ng-show="employee.Info.Id < 0">
+					<input type="text" class="form-control" data-ng-model="employee.Schedule.EmployeeId" data-ng-options="selectableEmployee.Id as selectableEmployee.Label for selectableEmployee in sctrl.employees" placeholder="Enter employee..." data-html="1" data-bs-typeahead>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-ng-click="$hide()">No</button>
+				<button type="button" class="btn btn-success" data-ng-hide="employee.Info.Id < 0" data-ng-click="sctrl.removeEmployee();$hide()">Yes</button>
+				<button type="button" class="btn btn-success" data-ng-show="employee.Info.Id < 0" data-ng-disabled="!employee.Schedule.EmployeeId" data-ng-click="sctrl.addEmployee(); $hide()">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>

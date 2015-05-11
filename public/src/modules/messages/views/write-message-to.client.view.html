@@ -1,0 +1,62 @@
+<div class="form-group well">
+	<label class="form-group">To:</label>
+	<ng-include src="ctrl.messViews + 'write-message-to-individuals.client.view.html'"></ng-include>
+	<!-- Admin view -->
+	<div data-ng-show="currentUser.Admin">
+		<div class="form-group" data-ng-include="ctrl.messViews + 'write-message-to-all.client.view.html'"></div>
+		<div class="form-group">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group" data-ng-repeat="area in areas | filter:ctrl.areaFilter">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-aria-expanded="false">
+						{{area.Description | truncate:6}}
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a data-ng-click="ctrl.areaEmployees(area.Id)">{{area.Description}}</a>
+						</li>
+						<li class="divider"></li>
+						<li data-ng-repeat="position in area.Positions | filter:ctrl.positionFilter">
+							<a data-ng-click="ctrl.positionEmployees(position.Id, area.Id)">
+									{{position.Description}}
+								</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Director view -->
+	<div data-ng-show="currentUser.Area.Description === 'Director'">
+		<div class="form-group" data-ng-include="ctrl.messViews + 'write-message-to-all.client.view.html'"></div>
+		<div class="form-group">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group" data-ng-repeat="area in areas | filter:ctrl.areaFilter">
+					<button type="button" class="btn btn-default" data-ng-click="ctrl.areaEmployees(area.Id)">{{area.Description}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- FTE view -->
+	<div data-ng-show="currentUser.Position.Id === ctrl.positionFTE.Id && !currentUser.Admin">
+		<div class="form-group btn-group-justified" data-ng-include="ctrl.messViews + 'write-message-to-all.client.view.html'"></div>
+		<div class="form-group btn-group btn-group-justified">
+			<div class="btn-group" data-ng-include="ctrl.messViews + 'write-message-to-area.client.view.html'"></div>
+			<div class="btn-group" data-ng-repeat="position in currentUser.Area.Positions | filter:ctrl.positionFilter">
+				<button type="button" class="btn btn-default form-control" data-ng-click="ctrl.positionEmployees(position.Id)">{{position.Description}}</button>
+			</div>
+		</div>
+	</div>
+	<!-- Employee view -->
+	<div data-ng-hide="currentUser.Position.Id === ctrl.positionFTE.Id || currentUser.Admin">
+		<div class="form-group btn-group-justified">
+			<div class="btn-group" data-ng-include="ctrl.messViews + 'write-message-to-area.client.view.html'"></div>
+		</div>
+		<div class="form-group btn-group-justified">
+			<div class="btn-group" data-ng-repeat="pos in currentUser.Area.Positions | filter:ctrl.positionFilter">
+				<button type="button" class="btn btn-default" data-ng-click="ctrl.positionEmployees(pos.Id)">{{pos.Description}}</button>
+			</div>
+		</div>
+	</div>
+	<!-- RECIPIENTS -->
+	<ng-include src="ctrl.messViews + 'write-message-to-recipients.client.view.html'"></ng-include>
+</div>

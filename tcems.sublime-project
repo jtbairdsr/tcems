@@ -1,0 +1,21 @@
+{
+	"folders": [{
+		"path": ".",
+		"name": "tcems"
+	}, {
+		"path": ".git",
+		"name": "tcems Git Repo"
+	}, {
+		"path": "node_modules",
+		"name": "tcems Node Modules"
+	}, {
+		"path": "test/unit",
+		"name": "tcems Karma Tests"
+	}, {
+		"path": "public",
+		"name": "tcems Public",
+	}],
+	"settings": {
+		"tab_size": 4
+	}
+}

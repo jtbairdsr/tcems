@@ -1,0 +1,49 @@
+<div class="aside right am-fade-and-slide-right" data-tabindex="-1" data-role="dialog" style="display: block; width: 450px;" data-ng-controller="MessageController as ctrl">
+	<div class="aside-dialog">
+		<div class="aside-content">
+			<div class="aside-header">
+				<a type="button" class="close" data-ng-click="ctrl.refreshContent()">
+					<span class="glyphicon glyphicon-refresh"></span>
+				</a>
+				<h4 class="aside-title">Messages</h4>
+			</div>
+			<ul class="nav nav-pillsCustom nav-justified" data-bs-navbar>
+				<li data-ng-class="{active: tab === 'new'}">
+					<a data-ng-click="tab = 'new'">Unread<span data-ng-show="unreadMessages.count > 0" class="badge badge-error">{{unreadMessages.count}}</span></a>
+				</li>
+				<li data-ng-class="{active: tab === 'read'}">
+					<a data-ng-click="tab = 'read'">Read</a>
+				</li>
+				<li data-ng-class="{active: tab ==='policy'}">
+					<a data-ng-click="tab = 'policy'">Policy</a>
+				</li>
+				<li data-ng-class="{active: tab ==='sent'}">
+					<a data-ng-click="tab = 'sent'">Sent</a>
+				</li>
+			</ul>
+			<div class="aside-body">
+				<!-- READ MESSAGES -->
+				<div data-ng-hide="newMessage">
+					<!-- NEW -->
+					<div data-ng-show="tab === 'new'" data-ng-include="'src/modules/messages/views/new-messages.client.view.html'"></div>
+					<!-- READ -->
+					<div data-ng-show="tab === 'read'" data-ng-include="'src/modules/messages/views/read-messages.client.view.html'"></div>
+					<!-- POLICY -->
+					<div data-ng-show="tab === 'policy'" data-ng-include="'src/modules/messages/views/policies.client.view.html'"></div>
+					<!-- SENT -->
+					<div data-ng-show="tab === 'sent'" data-ng-include="'src/modules/messages/views/sent-messages.client.view.html'"></div>
+				</div>
+				<!-- WRITE MESSAGES -->
+				<div data-ng-show="newMessage" data-ng-include="'src/modules/messages/views/write-message.client.view.html'"></div>
+			</div>
+			<div class="aside-footer">
+				<button type="button" class="btn btn-default" data-ng-click="$hide()" data-ng-hide="newMessage">Close</button>
+				<div data-ng-show="newMessage">
+					<button type="button" class="btn btn-default" data-ng-click="newMessage = false">Close</button>
+					<button type="button" class="btn btn-default" data-ng-click="ctrl.clearMessage()">Clear</button>
+					<button type="button" class="btn btn-success" data-ng-click="ctrl.sendNewMessage();newMessage = false" data-ng-disabled="!(ctrl.recipients.length && ctrl.newMessage.Subject && ctrl.newMessage.Body)">Send</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

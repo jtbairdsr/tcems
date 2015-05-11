@@ -1,0 +1,40 @@
+<div data-ng-app="Scheduler">
+	<div class="container-fluid">
+		<div class="row">
+			<ul class="nav nav-pillsCustom nav-justified" data-bs-navbar>
+				<li data-match-route="/main/schedule/today" data-ng-show="currentUser.extendedPrivledges || currentUser.Position.Description === 'Coordinator'">
+					<a data-ui-sref="main.schedule.today">Today</a>
+				</li>
+				<li data-match-route="/main/schedule/schedule" data-ng-show="currentUser.extendedPrivledges">
+					<a data-ui-sref="main.schedule.schedule">Schedule</a>
+				</li>
+				<li data-match-route="/main/schedule/availability">
+					<a data-ui-sref="main.schedule.availability">Availability</a>
+				</li>
+				<li data-match-route="/main/schedule/subShifts">
+					<a data-ui-sref="main.schedule.subShifts">Sub Shifts
+						<button type="button" class="btn-xs pull-right hidden-sm" data-ng-show="scheduleProperties.showAddSubShift" data-animation="am-fade-and-scale" data-bs-modal="modal" data-template="src/modules/shifts/views/add-extras-shifts.client.view.html">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</a>
+				</li>
+				<li data-match-route="/main/schedule/availableShifts">
+					<a data-ui-sref="main.schedule.availableShifts">Available Shifts
+						<button type="button" class="btn-xs pull-right hidden-sm" data-ng-show="scheduleProperties.showAddShift" data-animation="am-fade-and-scale" data-bs-modal="modal" data-template="src/modules/shifts/views/add-shift.client.view.html">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</a>
+				</li>
+				<li data-match-route="/main/schedule/mySchedule" data-ng-hide="currentUser.Position.Description === 'FTE'">
+					<a data-ui-sref="main.schedule.mySchedule">My Schedule</a>
+				</li>
+				<li data-match-route="/main/schedule/myAvailability" data-ng-hide="currentUser.Position.Description === 'FTE'">
+					<a data-ui-sref="main.schedule.myAvailability">My Availability</a>
+				</li>
+			</ul>
+		</div>
+		<div class="row">
+			<div data-ui-view></div>
+		</div>
+	</div>
+</div>

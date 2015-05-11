@@ -1,0 +1,26 @@
+<div class="aside right am-fade-and-slide-right" data-tabindex="-1" data-role="dialog" data-ng-controller="EmployeeEditController as ctrl" style="display: block; width: 450px;">
+    <div class="aside-dialog">
+        <div class="aside-content">
+            <div class="aside-header">
+                <button type="button" class="close" data-ng-click="$hide()">×</button>
+                <img data-ng-src="{{currentUser.Picture}}" data-fallback-src="media/missing.png" class="img-responsive img-circle" data-ng-style="{'max-width': '120px', 'max-height': '170px'}" alt="profilePicture">
+                <h4 class="aside-title">{{currentUser.PreferredName}} {{currentUser.LastName}}</h4>
+            </div>
+            <ul class="nav nav-pillsCustom nav-justified" data-bs-navbar>
+                <li data-ng-class="{ active: tab === 'profile' }">
+                    <a data-ng-click="tab = 'profile'">Profile</a>
+                </li>
+                <li data-ng-class="{ active: tab === 'fti' }">
+                    <a data-ng-click="tab = 'fti'; ctrl.refreshFTI()">Faculty Testing Info</a>
+                </li>
+            </ul>
+            <div class="aside-body" data-ng-show="tab === 'profile'" data-ng-include="userViews + 'profile.client.view.html'"></div>
+            <div class="aside-body" data-ng-show="tab === 'fti'" data-ng-include="userViews + 'user-professor.client.view.html'"></div>
+            <div class="aside-footer">
+                <button type="button" class="btn btn-default" data-ng-hide="tab === 'fti'" data-ng-click="currentUser.refresh(); $hide()">Cancel</button>
+                <button type="button" class="btn btn-success" data-ng-hide="tab === 'fti'" data-ng-click="ctrl.updateEmployee(); $hide()">Submit</button>
+                <button type="button" data-ng-show="tab === 'fti'" class="btn btn-default" data-ng-click="$hide()">Done</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="panel panel-info ">
+	<div class="panel-heading">Positions</div>
+	<div class="panel-body">
+		<div data-ng-repeat="position in positions | filter:{Access: true}" class="form-group">
+			<label for="{{position.Position}}">
+				<input id="{{position.Position}}" name="{{position.Position}}" type="checkbox" data-ng-model="position.Active">&#8199;{{position.Position}}
+			</label>
+		</div>
+	</div>
+</div>

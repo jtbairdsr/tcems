@@ -1,0 +1,111 @@
+<div class="modal" data-tabindex="-1" data-role="dialog" data-ng-controller="EmployeeEditController as eeCtrl">
+	<div class="modal-dialog text-muted text-left">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-ng-click="$hide()">&times;</button>
+				<h4 class="modal-title">New Employee</h4>
+			</div>
+			<div class="modal-body container-fluid">
+				<h4>Employee Information</h4>
+				<div class="row-fluid form-horizontal">
+					<div class="well col-md-12">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">First:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" data-ng-model="eeCtrl.newEmployee.FirstName" placeholder="Enter first name...">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Phone:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" data-ng-model="eeCtrl.newEmployee.PhoneNumber" data-ui-mask="(999) 999-9999">
+									</div>
+								</div>
+							</div>
+						</div>
+						<tcems-buffer></tcems-buffer>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Preferred:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" data-ng-model="eeCtrl.newEmployee.PreferredName" placeholder="Enter preferred name...">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Email:</label>
+									<div class="col-md-9">
+										<div class="input-group">
+											<input type="text" class="form-control" data-ng-model="eeCtrl.newEmployee.EmailAddress" placeholder="Email...">
+											<span class="input-group-addon">@byui.edu</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<tcems-buffer></tcems-buffer>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Last:</label>
+									<div class="col-md-9">
+										<input type="text" class="form-control" data-ng-model="eeCtrl.newEmployee.LastName" placeholder="Enter last name...">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">I-#:</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" data-ng-model="eeCtrl.newEmployee.INumber" placeholder="Enter i-number...">
+									</div>
+								</div>
+							</div>
+						</div>
+						<tcems-buffer></tcems-buffer>
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="btn-group-justified">
+										<div class="btn-group">
+											<button type="button" class="btn btn-default" data-ng-options="tr.id as tr.desc for tr in eeCtrl.tracks" data-ng-model="eeCtrl.newEmployee.TrackId" placeholder="Select a track..." data-bs-select></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+					</div>
+				</div>
+				<tcems-buffer></tcems-buffer>
+				<h4>Position Information</h4>
+				<div class="row-fluid form-horizontal">
+					<div class="well col-md-12">
+						<div class="btn-group btn-group-justified">
+							<div class="btn-group" data-role="group" data-ng-show="currentUser.Admin || currentUser.Area.Description === 'Director'">
+								<button type="button" class="btn btn-default" data-ng-options="area.id as area.desc for area in eeCtrl.areas" data-ng-model="eeCtrl.newEmployee.AreaId" data-ng-change="eeCtrl.updateArea(eeCtrl.newEmployee)" placeholder="Select area..." data-bs-select></button>
+							</div>
+							<div class="btn-group" data-role="group">
+								<button type="button" class="btn btn-default" data-ng-options="pos.id as pos.desc for pos in eeCtrl.positions.Employee" data-ng-disabled="!eeCtrl.newEmployee.Area.Id" data-ng-model="eeCtrl.newEmployee.PositionId" placeholder="Select position..." data-bs-select></button>
+							</div>
+							<div class="btn-group" data-role="group">
+								<button type="button" class="btn btn-default" data-ng-model="eeCtrl.newEmployee.Reader" data-bs-checkbox>{{(eeCtrl.newEmployee.Reader) ? 'A ' : 'Not a '}}reader</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-ng-click="$hide()">Cancel</button>
+					<button type="button" class="btn btn-success" data-ng-click="eeCtrl.addEmployee();$hide()">Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
