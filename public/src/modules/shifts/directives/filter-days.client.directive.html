@@ -1,0 +1,10 @@
+<div class="panel panel-info ">
+	<div class="panel-heading">Days</div>
+	<div class="panel-body">
+		<div data-ng-repeat="day in weeks[0].days" data-ng-hide="day.title === 'Sunday'"class="form-group">
+			<label for="{{day.day}}">
+				<input id="{{day.day}}" name="{{day.day}}" type="checkbox" data-ng-model="day.active">&#8199;{{day.title}}
+			</label>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,15 @@
+/*
+* @Author: Jonathan Baird
+* @Date:   2015-05-07 14:40:45
+* @Last Modified by:   Jonathan Baird
+* @Last Modified time: 2015-05-07 14:49:47
+*/
+
+.no-well-divider {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	border-bottom: 1px solid #ccc;
+	height: 2px;
+}

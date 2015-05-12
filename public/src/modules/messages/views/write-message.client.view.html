@@ -1,0 +1,85 @@
+<!-- TO -->
+<div class="row-fluid" data-ng-include="'src/modules/messages/views/write-message-to.client.view.html'"></div>
+<!-- FROM -->
+<div class="row-fluid" data-ng-show="currentUser.Position.Position === 'FTE' || currentUser.Admin">
+	<div class="form-group">
+		<label for="from">From:</label>
+		<div class="btn-group-justified">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.FromId" data-ng-options="emp.id as emp.desc for emp in ctrl.admins" data-html="true" placeholder="Select employee..." data-bs-select data-placement="bottom">
+					Action
+					<span class="caret"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- SUBJECT -->
+<div class="row-fluid">
+	<div class="form-group">
+		<label for="Day">Subject:</label>
+		<input type="text" data-ng-model="ctrl.newMessage.Subject" class="form-control">
+	</div>
+</div>
+<!-- BODY -->
+<div class="row-fluid">
+	<div class="form-group">
+		<label for="Day">Body:</label>
+		<textarea data-ng-model="ctrl.newMessage.Body" class="form-control" rows="10"></textarea>
+	</div>
+</div>
+<!-- MISC -->
+<div class="row-fluid" data-ng-show="currentUser.extendedPrivledges">
+	<div class="form-group">
+		<div class="form-group">
+			<div class="input-group" data-ng-class="{'has-error': datepickerForm.date.$invalid}">
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-calendar"></span>&nbsp;Expires:
+				</div>
+				<input type="text" class="form-control" name="date" data-bs-datepicker data-ng-model="ctrl.newMessage.ExpDate">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<div class="input-group-addon">
+					<span class="glyphicon glyphicon-calendar"></span>&nbsp;Due:
+				</div>
+				<input type="text" class="form-control" name="date" data-bs-datepicker data-ng-model="ctrl.newMessage.DueDate">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.Policy" data-ng-click="ctrl.setPolicy()" data-bs-checkbox>{{(ctrl.newMessage.Policy) ? 'Policy' : 'Not policy'}}</button>
+				</div>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.Mandatory" data-ng-disabled="ctrl.newMessage.Policy" data-bs-checkbox>{{(ctrl.newMessage.Mandatory) ? 'Mandatory' : 'Not mandatory'}}</button>
+				</div>
+			</div>
+		</div>
+		<div class="well" data-ng-show="ctrl.newMessage.Policy && (defaultArea.Description === 'Director' || currentUser.Admin)">
+			<div class="form-group">
+				<div class="btn-group-justified">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.AreaId" data-ng-options="area.id as area.desc for area in ctrl.areas" data-html="true" placeholder="Select area..." data-bs-select data-placement="bottom" data-ng-disabled="ctrl.newMessage.UniversalPolicy">
+							Action
+							<span class="caret"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<tcems-buffer></tcems-buffer>
+			<div style="height: 2px; border-top: 1px solid #ccc; text-align: center">
+				<span style="background-color: #f2f2f2; position: relative; top: -0.75em;">&nbsp;&nbsp;OR&nbsp;&nbsp;</span>
+			</div>
+			<tcems-buffer></tcems-buffer>
+			<div class="form-group">
+				<div class="btn-group-justified">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" data-ng-model="ctrl.newMessage.UniversalPolicy" data-ng-click="ctrl.setUniversalPolicy()" data-bs-checkbox>Universal Policy</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

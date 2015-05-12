@@ -1,0 +1,77 @@
+<div class="container-fluid">
+	<tcems-buffer></tcems-buffer>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="panel-title">Employee Testing Restrictions</h4>
+				</div>
+				<div class="panel-body">
+					<div class="row-fluid">
+						<label>Stipulation:</label>
+						<div class="btn-group btn-group-justified">
+							<div class="btn-group">
+								<label class="btn btn-default" data-ng-class="{active:professorInfo.FacultyTestingInfo.Stipulation === 'No stipulation.'}" data-ng-click="professorInfo.FacultyTestingInfo.Stipulation = 'No stipulation.'">No stipulation.</label>
+							</div>
+							<div class="btn-group">
+								<label class="btn btn-default" data-ng-class="{active:professorInfo.FacultyTestingInfo.Stipulation === 'Take before you work.'}" data-ng-click="professorInfo.FacultyTestingInfo.Stipulation = 'Take before you work.'">Take before you work.</label>
+							</div>
+							<div class="btn-group">
+								<label class="btn btn-default" data-ng-class="{active:professorInfo.FacultyTestingInfo.Stipulation === 'Take before it opens.'}" data-ng-click="professorInfo.FacultyTestingInfo.Stipulation = 'Take before it opens.'">Take before it opens.</label>
+							</div>
+							<div class="btn-group">
+								<label class="btn btn-default" data-ng-class="{active:professorInfo.FacultyTestingInfo.Stipulation === 'Talk to the Professor.'}" data-ng-click="professorInfo.FacultyTestingInfo.Stipulation = 'Talk to the Professor.'">Talk to the Professor.</label>
+							</div>
+						</div>
+					</div>
+					<tcems-buffer></tcems-buffer>
+					<div class="row-fluid">
+						<label>Other Instructions:</label>
+						<textarea class="form-control" rows="2" data-ng-model="professorInfo.FacultyTestingInfo.Other"></textarea>
+					</div>
+					<tcems-buffer></tcems-buffer>
+					<div class="row-fluid">
+						<button type="button" data-ng-show="professorInfo.FacultyTestingInfo.Id" data-ng-click="ctrl.updateFacultyTestingInfo()" class="btn btn-success pull-right">Update</button>
+						<button type="button" data-ng-hide="professorInfo.FacultyTestingInfo.Id" data-ng-click="ctrl.addFacultyTestingInfo()" class="btn btn-success pull-right">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h4 class="panel-title">Personal Information</h4>
+				</div>
+				<div class="panel-body">
+					<div class="col-md-12 form-horizontal">
+						<div class="form-group">
+							<label class="control-label">First Name:</label>
+							<input type="text" class="form-control" data-ng-model="professorInfo.FirstName" disabled>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Last Name:</label>
+							<input type="text" class="form-control" data-ng-model="professorInfo.LastName">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Email Address:</label>
+							<input type="text" class="form-control" data-ng-model="professorInfo.EmailAddress" disabled>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Office Number:</label>
+							<input type="text" class="form-control" data-ng-model="professorInfo.OfficeAddress">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Office Extension:</label>
+							<input type="text" class="form-control" data-ng-model="professorInfo.OfficePhone">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Other Phone:</label>
+							<input type="text" class="form-control" data-ng-model="professorInfo.OtherPhone" data-ui-mask="(999) 999-9999">
+						</div>
+					</div>
+					<button type="button" data-ng-click="ctrl.updateProfessor()" class="btn btn-success pull-right">Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

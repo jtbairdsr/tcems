@@ -1,0 +1,64 @@
+<div class="container-fluid" data-ng-init="resetView()">
+    <tcems-buffer></tcems-buffer>
+    <div class="row-fluid">
+        <div class="col-md-2">
+            <tcems-refresh></tcems-refresh>
+            <tcems-buffer></tcems-buffer>
+            <div class="panel panel-info">
+                <div class="panel-heading">Day Search</div>
+                <div class="panel-body">
+                    <div class="input-group" data-ng-class="{'has-error': datepickerForm.date.$invalid}">
+                        <label for="dateQuery" class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </label>
+                        <input id="dateQuery" type="text" class="form-control" data-ng-model="ctrl.queryDate" data-autoclose="true" data-ng-change="ctrl.getDay()" data-bs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <tcems-filter-positions></tcems-filter-positions>
+        </div>
+        <div class="col-md-10">
+            <div class="panel panel-primary text-center" data-ng-show="primaryPosition.Active" data-ng-repeat="primaryPosition in positions">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{primaryPosition.Description}}</h4>
+                </div>
+                <div class='panel panel-info' data-ng-repeat="shift in ctrl.today.shifts | filter:{PositionId: primaryPosition.Id} | orderBy:'StartTime'">
+                    <div class="panel-heading">
+                        {{shift.StartTime | date:'hh:mm a'}} to {{shift.EndTime | date:'hh:mm a'}}
+                    </div>
+                    <ul class="list-group">
+                        <li class="panel-body list-group-item" data-ng-class="{'list-group-item-success': !employee.needsASub, 'list-group-item-danger': employee.needsASub}" data-ng-repeat="employee in shift.Employees track by $index">
+                            <div data-ng-show="employee.substitutePreferredName !== ''">
+                                <div class="col-md-5">
+                                    <div class="pull-right">
+                                        <div>
+                                            <img data-ng-src="{{employee.substitutePicture}}" data-fallback-src="src/modules/core/img/missing.png" class="list-item img-circle" data-template="src/modules/employees/views/employee-info.client.view.html" data-animation="am-flip-x" data-bs-tooltip="tooltip" alt="substitutePicture">
+                                        </div>
+                                        {{employee.substitutePreferredName}} {{employee.substituteLastName}}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    for
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="pull-left">
+                                        <div>
+                                            <img data-ng-src="{{employee.employeePicture}}" data-fallback-src="src/modules/core/img/missing.png" class="list-item img-circle" data-template="src/modules/employees/views/employee-info.client.view.html" data-animation="am-flip-x" data-bs-tooltip="tooltip" alt="employeePicture">
+                                        </div>
+                                        {{employee.employeePreferredName}} {{employee.employeeLastName}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-ng-hide="employee.substitutePreferredName !== ''">
+                                <div>
+                                    <img data-ng-src="{{employee.employeePicture}}" data-fallback-src="src/modules/core/img/missing.png" class="list-item img-circle employee-img" data-template="src/modules/employees/views/employee-info.client.view.html" data-animation="am-flip-x" data-bs-tooltip="tooltip" alt="employeePicture">
+                                </div>
+                                {{employee.employeePreferredName}} {{employee.employeeLastName}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

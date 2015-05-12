@@ -1,0 +1,80 @@
+<div class="container-fluid" data-ng-init="resetView()">
+    <tcems-buffer></tcems-buffer>
+    <div class="row-fluid">
+        <div class="col-md-2">
+            <tcems-refresh></tcems-refresh>
+            <tcems-buffer></tcems-buffer>
+            <tcems-filter-semesters></tcems-filter-semesters>
+            <tcems-filter-positions></tcems-filter-positions>
+        </div>
+        <div class="col-md-10">
+            <div data-ng-repeat="primaryPosition in positions" data-ng-show="primaryPosition.Active" class="panel panel-primary">
+                <div class="panel-heading">
+                    {{primaryPosition.Position}}
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">
+                                <a data-ng-click="predicate = 'Day'">Day</a>
+                                <a data-ng-show="predicate === 'Day' || predicate === '-Day'" data-ng-click="predicate = (predicate === 'Day') ? '-Day' : 'Day'">
+                                    <span class="glyphicon glyphicon-sort"></span>
+                                </a>
+                            </th>
+                            <th class="text-center">
+                                <a data-ng-click="predicate = 'StartTime.Hour'">Start Time</a>
+                                <a data-ng-show="predicate === 'StartTime.Hour' || predicate === '-StartTime.Hour'" data-ng-click="predicate = (predicate === 'StartTime.Hour') ? '-StartTime.Hour' : 'StartTime.Hour'">
+                                    <span class="glyphicon glyphicon-sort"></span>
+                                </a>
+                            </th>
+                            <th class="text-center">
+                                <a data-ng-click="predicate = 'EndTime.Hour'">End Time</a>
+                                <a data-ng-show="predicate === 'EndTime.Hour' || predicate === '-EndTime.Hour'" data-ng-click="predicate = (predicate === 'EndTime.Hour') ? '-EndTime.Hour' : 'EndTime.Hour'">
+                                    <span class="glyphicon glyphicon-sort"></span>
+                                </a>
+                            </th>
+                            <th colspan="2" class="text-center">
+                                <a data-ng-click="predicate = 'Slots'">Slots</a>
+                                <a data-ng-show="predicate === 'Slots' || predicate === '-Slots'" data-ng-click="predicate = (predicate === 'Slots') ? '-Slots' : 'Slots'">
+                                    <span class="glyphicon glyphicon-sort"></span>
+                                </a>
+                            </th>
+                            <th data-ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'" class="text-center">
+                                <a>Add</a>
+                            </th>
+                            <th data-ng-show="currentUser.extendedPrivledges" class="text-center">
+                                <a>Edit</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="" data-ng-repeat="shift in shifts | filter:{PositionId: primaryPosition.Id, ShiftGroupId: semesters[ctrl.semester].ShiftGroupId, Active: true}:true">
+                            <td class="text-center">{{shift.Day}}</td>
+                            <td class="text-center">{{shift.StartTime | date:'hh:mm'}}</td>
+                            <td class="text-center">{{shift.EndTime | date:'hh:mm'}}</td>
+                            <td class="text-right">{{shift.setAvailableSlots();shift.AvailableSlots}} /</td>
+                            <td>{{shift.Slots}}</td>
+                            <td data-ng-hide="properties.currentUser.employeeInfo.Position.Position === 'FTE'" class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-default" data-animation="am-fade-and-scale" data-template="src/modules/shifts/views/take-shift.client.view.html" data-bs-modal="modal" data-ng-hide="shift.AvailableSlots === 0">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                </div>
+                            </td>
+                            <td data-ng-show="currentUser.extendedPrivledges" class="text-center">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-default" data-animation="am-fade-and-scale" data-template="src/modules/shifts/views/add-shift.client.view.html" data-bs-modal="modal">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                    <button class="btn btn-danger" data-animation="am-fade-and-scale" data-template="src/modules/shifts/views/delete-shift.client.view.html" data-bs-modal="modal">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

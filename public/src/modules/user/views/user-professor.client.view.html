@@ -1,0 +1,36 @@
+<div class="input-group">
+	<div class="input-group-addon">
+		<span class="glyphicon glyphicon-search"></span>
+	</div>
+	<input class="form-control" type="text" data-ng-model="professorSearch">
+</div>
+<div class="scrollable" data-ng-show="facultyTestingInfos.length > 0">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Name</th>
+				<th>Stipulation</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat="facultyTestingInfo in facultyTestingInfos | professorFilter:professorSearch | orderBy: 'Professor.LastName'">
+				<td>
+					<img data-ng-src="{{facultyTestingInfo.Professor.Picture}}" data-fallback-src="src/modules/core/img/missing.png" class="pull-right img-circle" data-ng-style="{'max-width': '40px', 'max-height': '56.67px'}" data-template="src/modules/professors/views/professor-info-tooltip.client.view.html" data-animation="am-flip-x" data-placement="right" data-bs-tooltip="tooltip" alt="professorPicture">
+				</td>
+				<td>
+					{{facultyTestingInfo.Professor.FirstName}} {{facultyTestingInfo.Professor.LastName}}
+				</td>
+				<td>{{facultyTestingInfo.Stipulation}}</td>
+			</tr>
+			<tr>
+				<th colspan="4">If you haven't found your Professor's Instructions than they haven't contacted us yet.</th>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div data-ng-hide="facultyTestingInfos.length > 0" class="text-center">
+	<tcems-buffer></tcems-buffer>
+	<img class="img-circle employee-img" src="src/modules/core/img/loader.gif" alt="loadingDataImage">
+	<tcems-buffer></tcems-buffer>
+</div>

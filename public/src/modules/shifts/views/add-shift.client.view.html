@@ -1,0 +1,64 @@
+<div class="modal" data-ng-controller="EditShiftController as shiftCtrl">
+	<div class="modal-dialog text-muted text-left">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-ng-click="$hide()">&times;</button>
+				<h4 class="modal-title">{{shift.toString()}}</h4>
+			</div>
+			<div class="modal-body container-fluid">
+				<h5>Day &amp; Slots:</h5>
+				<div class="row">
+					<div class="col-md-6">
+						<button type="button" class="btn btn-default form-control" data-ng-model="shiftCtrl.temp" data-multiple="true" data-ng-options="day.day as day.title for day in shiftCtrl.days" data-bs-select data-placeholder="Choose day(s)...">
+							Choose day(s)... <span class="caret"></span>
+						</button>
+					</div>
+					<div class="col-md-6">
+						<input id="slots" name="slots" type="text" class="form-control text-center" data-ng-model="shift.Slots" placeholder="How many slots...">
+					</div>
+				</div>
+				<hr>
+				<h5>Start &amp; End Times:</h5>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="input-group">
+							<label for="StartTime" class="input-group-addon">
+								<span class="glyphicon glyphicon-time"></span>
+							</label>
+							<input id="StartTime" type="text" class="form-control text-center" data-ng-model="shift.StartTime" name="StartTime" data-bs-timepicker>
+							<!-- <label class="input-group-addon">
+								&#8199;-&#8199;
+							</label> -->
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="input-group">
+							<label class="input-group-addon" for="EndTime"><span class="glyphicon glyphicon-time"></span></label>
+							<input id="EndTime" name="EndTime" type="text" class="form-control text-center" data-ng-model="shift.EndTime" data-bs-timepicker>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<h5>Position &amp; Semester:</h5>
+				<div class="row">
+					<div class="col-md-6">
+						<button type="button" class="btn btn-default form-control" data-ng-model="shift.PositionId" data-ng-options="position.Id as position.Description for position in shiftCtrl.positions" data-bs-select>
+							Choose Position... <span class="caret"></span>
+						</button>
+					</div>
+					<div class="col-md-6">
+						<button type="button" class="btn btn-default form-control" data-ng-model="shift.ShiftGroupId" data-html="1" data-ng-options="group.Id as group.Description for group in shiftCtrl.groups" data-bs-select>
+							Choose Semester... <span class="caret"></span>
+						</button>
+					</div>
+				</div>
+				<tcems-buffer></tcems-buffer>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-ng-click="$hide()">Cancel</button>
+				<button type="button" class="btn btn-success" data-ng-show="shiftCtrl.add" data-ng-click="shiftCtrl.addShift(); $hide()">Add</button>
+				<button type="button" class="btn btn-success" data-ng-hide="shiftCtrl.add" data-ng-click="shiftCtrl.updateShift();$hide()">Edit</button>
+			</div>
+		</div>
+	</div>
+</div>

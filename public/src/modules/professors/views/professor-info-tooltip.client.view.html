@@ -1,0 +1,17 @@
+<div class="popover">
+	<div class="arrow"></div>
+	<h4 class="popover-title">Professor Information:
+		<small>{{facultyTestingInfo.Professor.FirstName}} {{facultyTestingInfo.Professor.LastName}}</small>
+	</h4>
+	<div class="popover-content">
+		Office Phone: {{facultyTestingInfo.Professor.OfficePhone | tel}}
+		<br>Office Number: {{facultyTestingInfo.Professor.OfficeAddress}}
+		<br>Email: {{facultyTestingInfo.Professor.EmailAddress}}
+		<span data-ng-hide="facultyTestingInfo.Professor.OtherPhone === undefined"><br>Other Phone: {{facultyTestingInfo.Professor.OtherPhone}}</span>
+		<div data-ng-hide="facultyTestingInfo.Other === undefined">
+			<div class="no-well-divider"></div>
+			<b>Other Instructions:</b>
+			<br>{{facultyTestingInfo.Other}}
+		</div>
+	</div>
+</div>

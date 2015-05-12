@@ -1,0 +1,77 @@
+{
+	"disallowEmptyBlocks": true,                                                   // Disallows empty blocks (except for catch blocks).
+	"disallowKeywordsOnNewLine": ["else"],                                         // Disallows placing keywords on a new line.
+	"disallowMixedSpacesAndTabs": "smart",                                         // Requires lines to not contain both spaces and tabs consecutively, or spaces after tabs only for alignment if "smart"
+	"disallowMultipleLineBreaks": true,                                            // Disallows multiple blank lines in a row.
+	"disallowMultipleLineStrings": true,                                           // Disallows strings that span multiple lines without using concatenation.
+	"disallowMultipleSpaces": true,                                                // Disallows multiple spaces between identifiers, keywords, and any other token
+	"disallowNewlineBeforeBlockStatements": true,                                  // Disallows newline before opening curly brace of all block statements.
+	"disallowOperatorBeforeLineBreak": ["+", "."],                                 // Requires putting certain operators on the next line rather than on the current line before a line break.
+	"disallowSpaceAfterObjectKeys": true,                                          // Disallows space after object keys.
+	"disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "~", "!"],    // Requires sticking unary operators to the right.
+	"disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],                      // Requires sticking unary operators to the left.
+	"disallowSpacesInCallExpression": true,                                        // Disallows space before () in call expressions.
+	"disallowSpacesInsideArrayBrackets": "all",                                    // Disallows space after opening array square bracket and before closing.
+	"disallowSpacesInsideObjectBrackets": true,                                    // Disallows space after opening object curly brace and before closing.
+	"disallowSpacesInsideParentheses": true,                                       // Disallows space after opening round bracket and before closing.
+	"disallowTrailingComma": true,                                                 // Disallows an extra comma following the final element of an array or object literal.
+	"disallowTrailingWhitespace": true,                                            // Requires all lines to end on a non-whitespace character
+	"disallowYodaConditions": true,                                                // Requires the variable to be the left hand operator when doing a boolean comparison
+	"maximumLineLength": 120,                                                      // Requires all lines to be at most the number of characters specified
+	"requireBlocksOnNewline": true,                                                // Requires blocks to begin and end with a newline if they are longer than one line
+	"requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",                  // Requires identifiers to be camelCased or UPPERCASE_WITH_UNDERSCORES
+	"requireCapitalizedComments": {"allExcept": ["jshint", "exported"]},           // Requires the first alphabetical character of a comment to be uppercase, unless it is part of a multi-line textblock.
+	"requireCapitalizedConstructors": {"allExcept": ["this"]},                     // Requires constructors to be capitalized (except for this)
+	"requireCommaBeforeLineBreak": true,                                           // Requires commas as last token on a line in lists.
+	"requireLineBreakAfterVariableAssignment": true,                               // Requires placing line feed after assigning a variable.
+	"requireMultipleVarDecl": true,                                                // Requires multiple var declaration
+	"requirePaddingNewLinesBeforeLineComments": { "allExcept": "firstAfterCurly" },// Requires newline before line comments except first line of a new block
+	"requireParenthesesAroundIIFE": true,                                          // Requires parentheses around immediately invoked function expressions.
+	"requireSemicolons": true,                                                     // Requires semicolon after: expression statement, return, throw, break, continue, do-while
+	"requireSpaceAfterBinaryOperators": true,                                      // Disallows sticking binary operators to the right.
+	"requireSpaceBeforeBinaryOperators": true,                                     // Disallows sticking binary operators to the left.
+	"requireSpaceAfterLineComment": {"allExcept": ["#", "=", "/", "*"]},           // Requires that a line comment (//) be followed by a space.
+	"requireSpaceBeforeBlockStatements": true,                                     // Requires space before block statements {} (for loops, control structures).
+	"requireSpaceBeforeObjectValues": true,                                        // Requires space after object key and semicolon
+	"requireSpaceBetweenArguments": true,                                          // Ensure there are spaces after argument separators in call expressions.
+	"requireSpacesInConditionalExpression": true,                                  // Requires space before and/or after ? or : in conditional expressions.
+	"requireSpacesInForStatement": true,                                           // Requires spaces inbetween for statement
+	"safeContextKeyword": ["that", "object"],                                      // Option to check var that = this expressions
+	"validateIndentation": "\t",                                                   // Validates indentation for switch statements and block statements
+	"validateQuoteMarks": "'",                                                     // Requires all quote marks to be either the supplied value, or consistent if true
+	"requireSpaceBeforeKeywords": [                                                // Requires space before keyword.
+		"do",
+    	"for",
+    	"if",
+    	"else",
+    	"switch",
+    	"case",
+    	"try",
+    	"catch",
+    	"void",
+    	"while",
+    	"with",
+    	"return"
+    ],
+	"requireSpaceAfterKeywords": [                                                 // Requires space after keyword.
+		"do",
+    	"for",
+    	"if",
+    	"else",
+    	"switch",
+    	"case",
+    	"try",
+    	"catch",
+    	"void",
+    	"while",
+    	"with",
+    	"return",
+    	"typeof"
+    ],
+	"requireSpacesInFunction": {                                                   // Requires space before () or {} in function expressions (both named and anonymous) and function declarations.
+		"beforeOpeningCurlyBrace": true
+	},
+	"disallowSpacesInFunction": {                                                  // Disallows space before () or {} in function expressions (both named and anonymous) and function declarations.
+		"beforeOpeningRoundBrace": true
+	}
+}
