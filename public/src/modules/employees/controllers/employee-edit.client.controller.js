@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-04 15:44:43
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-11 17:36:57
+ * @Last Modified time: 2015-05-11 18:05:11
  */
 
 'use strict';
@@ -15,9 +15,9 @@ angular.module('employees').controller('EmployeeEditController', function(
 	$scope.userViews = 'src/modules/user/views/';
 
 	var that = this,
-		employee = _.find(employees, function(emp) {
+		employee = ($scope.emp) ? _.find(employees.list, function(emp) {
 			return emp.Id === $scope.emp.id;
-		}) || currentUser.data,
+		}) : currentUser.data,
 		initialPhoneNumber = employee.PhoneNumber;
 
 	$scope.employee = employee;
