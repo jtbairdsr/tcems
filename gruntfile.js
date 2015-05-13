@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-21 09:32:21
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-11 16:22:17
+ * @Last Modified time: 2015-05-13 14:54:57
  */
 
 'use strict';
@@ -22,7 +22,6 @@ module.exports = function(grunt) {
 			clientJS: ['public/src/modules/**/*.js'],
 			clientCSS: ['public/src/modules/**/*.css']
 		},
-		LIVERELOAD_PORT = process.env.LIVERELOAD_PORT || 35729,
 		cssLibFiles = [
 			'public/src/lib/bootstrap/dist/css/bootstrap.min.css',
 			'public/src/lib/angular-ui-select/dist/select.min.css',
@@ -108,7 +107,8 @@ module.exports = function(grunt) {
 			'public/src/lib/underscore/underscore-min.js',
 			'public/src/lib/Autolinker.js/dist/Autolinker.min.js',
 			'public/src/lib/angular-loading-bar/build/loading-bar.min.js'
-		];
+		],
+		LIVERELOAD_PORT = process.env.LIVERELOAD_PORT || 35729;
 
 	console.log('LIVERELOAD_PORT=' + LIVERELOAD_PORT);
 
@@ -119,11 +119,14 @@ module.exports = function(grunt) {
 			options: {
 				files: ['package.json', 'bower.json'],
 				updateConfigs: ['pkg'],
-				commit: false,
+				commit: true,
 				commitMessage: 'Release v%VERSION%',
 				commitFiles: ['package.json', 'bower.json', 'public/index.shtml'],
-				createTag: false,
+				createTag: true,
+				tagName: 'v%VERSION%',
+				tagMessage: 'Version %VERSION%',
 				push: false,
+				gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
 				globalReplace: false,
 				prereleaseName: 'dev'
 			}
