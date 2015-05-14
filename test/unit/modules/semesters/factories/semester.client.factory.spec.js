@@ -2,12 +2,12 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-14 12:24:34
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-14 13:10:00
+ * @Last Modified time: 2015-05-14 16:24:36
  */
 
 'use strict';
 
-ddescribe('Semester factory', function() {
+describe('Semester factory', function() {
 
 	/**************************************************************************
 	 *                                  PREP                                  *
