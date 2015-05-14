@@ -11,9 +11,9 @@
 </div>
 <br>
 <div class="scrollable" data-ng-show="recips">
-	<button type="button" class="btn btn-danger" data-ng-click="ctrl.recipients = []; recips = !recips" data-ng-show="ctrl.recipients.length > 0">Clear</button>
+	<button type="button" class="btn btn-danger" data-ng-click="ctrl.clearRecips()" data-ng-show="ctrl.recipients.length > 0">Clear</button>
 	<tcems-buffer></tcems-buffer>
-	<div class="btn btn-default col-md-3 col-sm-3" data-ng-repeat="emp in ctrl.recipients" data-ng-model="emp.add" data-ng-click="ctrl.toggleRecipient(emp)" data-bs-checkbox>
+	<div class="btn btn-default col-md-3 col-sm-3 emp-select-btn" data-ng-repeat="emp in ctrl.recipients" data-ng-model="!emp.add" data-ng-click="ctrl.toggleRecipient(emp)" data-bs-checkbox>
 		<img class="emp-mess-img img-circle" data-ng-src="{{emp.img}}" data-fallback-src="src/modules/core/img/missing.png" alt="empImg">
 		<br>{{emp.pName}}
 	</div>

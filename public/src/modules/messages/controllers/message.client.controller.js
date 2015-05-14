@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:10
  * @Last Modified 2014-11-18
- * @Last Modified time: 2015-05-07 13:08:05
+ * @Last Modified time: 2015-05-14 15:58:52
  */
 
 'use strict';
@@ -82,6 +82,7 @@ angular.module('messages').controller('MessageController', function(
 			return recip.id === emp.id;
 		});
 		if (temp) {
+			emp.add = false;
 			that.recipients = _.without(that.recipients, emp);
 		} else {
 			that.recipients.push(emp);
@@ -96,6 +97,13 @@ angular.module('messages').controller('MessageController', function(
 				.addWeeks(1),
 			AreaId: currentUser.data.Area.Id
 		});
+	};
+	that.clearRecips = function() {
+		_.each(that.recipients, function(r) {
+			r.add = false;
+		});
+		that.recipients = [];
+		$scope.recips = !$scope.recips;
 	};
 	that.setUniversalPolicy = function() {
 		if (that.newMessage.UniversalPolicy) {
@@ -140,29 +148,44 @@ angular.module('messages').controller('MessageController', function(
 	};
 	that.positionEmployees = function(pId, aId) {
 		aId = aId || currentUser.data.Area.Id;
+		that.recipients.splice(0, that.recipients.length);
 		if (pId === that.positionFTE.Id) {
-			that.recipients = _.filter(that.FTEs, function(emp) {
-				return emp.pId === pId && emp.aId === aId;
+			_.each(that.FTEs, function(emp) {
+				if (emp.pId === pId && emp.aId === aId) {
+					emp.add = true;
+					that.recipients.push(emp);
+				}
 			});
 		} else {
-			that.recipients = _.filter(that.emps, function(emp) {
-				return emp.pId === pId && emp.aId === aId;
+			_.each(that.emps, function(emp) {
+				if (emp.pId === pId && emp.aId === aId) {
+					emp.add = true;
+					that.recipients.push(emp);
+				}
 			});
 		}
 	};
 	that.areaEmployees = function(id) {
 		id = id || currentUser.data.Area.Id;
-		that.recipients = _.filter(that.emps, function(emp) {
-			return emp.aId === id;
+		that.recipients.splice(0, that.recipients.length);
+		_.each(that.emps, function(emp) {
+			if (emp.aId === id) {
+				emp.add = true;
+				that.recipients.push(emp);
+			}
 		});
 		_.each(that.FTEs, function(emp) {
 			if (emp.aId === id) {
+				emp.add = true;
 				that.recipients.push(emp);
 			}
 		});
 	};
 	that.allEmployees = function() {
 		that.recipients = _.union(that.emps, that.FTEs);
+		_.each(that.recipients, function(r) {
+			r.add = true;
+		});
 	};
 	that.sendNewMessage = function() {
 		if (that.newMessage.Policy) {
