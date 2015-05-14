@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 08:31:34
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-02 07:40:11
+ * @Last Modified time: 2015-05-14 13:10:25
  */
 
 'use strict';
@@ -41,7 +41,6 @@ angular.module('semesters').factory('Semester', function($q, Data, semesters, sh
 
 		/*********************Values stored on DB**********************/
 		this.Active = this.newData.Active || false;
-		this.Description = this.newData.Description || undefined;
 		this.FirstDay = (this.newData.FirstDay) ? Date.parse(this.newData.FirstDay) : undefined;
 		this.LastDay = (this.newData.LastDay) ? Date.parse(this.newData.LastDay) : undefined;
 		this.NextSemesterId = this.newData.NextSemesterId || undefined;
@@ -83,8 +82,12 @@ angular.module('semesters').factory('Semester', function($q, Data, semesters, sh
 
 	// Override the deactivate method from parent object
 	Semester.prototype.deactivate = function() {
+		var deffered = $q.defer();
 		this.Active = false;
-		this.update();
+		this.update().then(function() {
+			deffered.resolve();
+		});
+		return deffered.promise;
 	};
 
 	/**************************************************************************
@@ -95,6 +98,7 @@ angular.module('semesters').factory('Semester', function($q, Data, semesters, sh
 		var deffered = $q.defer();
 		$super.query.call(this, listName)
 			.then(function(data) {
+				data.reverse();
 				list.splice(0, list.length);
 				_.each(data, function(datum) {
 					list.push(new Semester(datum));
