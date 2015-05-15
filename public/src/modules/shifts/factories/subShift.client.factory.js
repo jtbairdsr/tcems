@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 12:22:38
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 13:23:34
+ * @Last Modified time: 2015-05-13 16:42:03
  */
 
 'use strict';
@@ -53,7 +53,7 @@ angular.module('core').factory('SubShift', function(
 		/****************Values derived from other tables**************/
 		this.NewRequest = (this.newData.NewRequestId) ? _.find(subShifts.list, function(newRequest) {
 			return newRequest.Id === that.NewRequestId;
-		}) : {};
+		}) : undefined;
 		this.Requester = (this.newData.RequesterId) ? _.find(employees.list, function(employee) {
 			return employee.Id === that.RequesterId;
 		}) : {};
@@ -86,13 +86,15 @@ angular.module('core').factory('SubShift', function(
 
 	// Override the toString method from parent object
 	SubShift.prototype.toString = function() {
-		if (this.SubstituteId) {
-			return this.Substitute.toString().split(': ')[1] + ' subbing for '
-			+ this.Requester.toString().split(': ')[1] + '\n' + this.Date
-				.toString('dddd MMM dS') + ' from ' + this.Shift.toString().split('\n')[1];
-		} else if (this.RequesterId) {
-			return this.Requester.toString() + '\'s sub request for:\n'
-			+ this.Date.toString('dddd') + ' ' + this.Shift.toString().split('\n')[1];
+		if (this.RequesterId) {
+			if (this.SubstituteId) {
+				return this.Substitute.toString() + ' subbing for '
+				+ this.Requester.toString() + '\n' + this.Date.toString('dddd MMM dS')
+				+ ' from ' + this.Shift.toString().split('\n')[1];
+			} else {
+				return this.Requester.toString() + '\'s sub request for:\n'
+				+ this.Date.toString('dddd MMM dS') + ' ' + this.Shift.toString().split('\n')[1];
+			}
 		} else {
 			return 'New SubShift';
 		}
@@ -102,10 +104,9 @@ angular.module('core').factory('SubShift', function(
 	SubShift.prototype.add = function() {
 		var deffered = $q.defer();
 		this.Active = true;
-		this.parent.add.apply(this)
-			.then(function() {
-				deffered.resolve();
-			});
+		this.parent.add.apply(this).then(function() {
+			deffered.resolve();
+		});
 		return deffered.promise;
 	};
 
@@ -114,10 +115,9 @@ angular.module('core').factory('SubShift', function(
 		var deffered = $q.defer();
 		hideAlert = hideAlert || false;
 		this.Active = false;
-		this.update(hideAlert)
-			.then(function() {
-				deffered.resolve();
-			});
+		this.update(hideAlert).then(function() {
+			deffered.resolve();
+		});
 		return deffered.promise;
 	};
 
@@ -131,15 +131,12 @@ angular.module('core').factory('SubShift', function(
 				ShiftId: that.ShiftId,
 				SemesterId: that.SemesterId
 			});
-
-		newRequest.add()
-			.then(function() {
-				that.NewRequestId = newRequest.Id;
-				that.update(true)
-					.then(function() {
-						deffered.resolve();
-					});
+		newRequest.add().then(function() {
+			that.NewRequestId = newRequest.Id;
+			that.update(true).then(function() {
+				deffered.resolve();
 			});
+		});
 		return deffered.promise;
 	};
 
@@ -148,10 +145,9 @@ angular.module('core').factory('SubShift', function(
 		var deffered = $q.defer();
 		if (currentUser.data.Id === this.Requester.Id &&
 			this.SubstituteId === undefined) {
-			this.deactivate()
-				.then(function() {
-					deffered.resolve();
-				});
+			this.deactivate().then(function() {
+				deffered.resolve();
+			});
 		} else {
 			$alert({
 				show: true,
@@ -160,7 +156,7 @@ angular.module('core').factory('SubShift', function(
 				animation: 'am-fade-and-slide-top',
 				duration: '3',
 				type: 'success',
-				template: 'partials/alerts/danger-alert.html'
+				template: 'src/modules/core/views/alert/error-alert.client.view.html'
 			});
 			deffered.resolve();
 		}
@@ -173,14 +169,14 @@ angular.module('core').factory('SubShift', function(
 
 	SubShift.query = function() {
 		var deffered = $q.defer();
-		$super.query.call(this, listName)
-			.then(function(data) {
-				list.splice(0, list.length);
-				_.each(data, function(datum) {
-					list.push(new SubShift(datum));
-				});
-				deffered.resolve();
+		$super.query.call(this, listName).then(function(data) {
+			data.reverse();
+			list.splice(0, list.length);
+			_.each(data, function(datum) {
+				list.push(new SubShift(datum));
 			});
+			deffered.resolve();
+		});
 		return deffered.promise;
 
 		// TODO: create the setIntent method test suite

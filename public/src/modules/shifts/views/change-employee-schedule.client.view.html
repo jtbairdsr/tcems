@@ -19,13 +19,21 @@
 					</div>
 				</div>
 				<div data-ng-show="employee.Info.Id < 0">
-					<input type="text" class="form-control" data-ng-model="employee.Schedule.EmployeeId" data-ng-options="selectableEmployee.Id as selectableEmployee.Label for selectableEmployee in sctrl.employees" placeholder="Enter employee..." data-html="1" data-bs-typeahead>
+					<input id="empSearch" class="form-control" type="text" data-ng-model="empSearch" placeholder="Which employee...">
+					<br>
+					<div class="scrollable" data-ng-model="employee.Schedule.EmployeeId" data-bs-radio-group>
+						<label class="btn btn-default col-md-3 col-sm-3 emp-select-btn" data-ng-repeat="emp in sctrl.employees | filter:empSearch | orderBy:'pName'" data-ng-click="sctrl.log(emp.id)">
+							<input type="radio" class="btn btn-default" value="emp.id">
+							<img class="emp-mess-img img-circle" data-ng-src="{{emp.img}}" data-fallback-src="src/modules/core/img/missing.png" alt="empImg">
+							<br>{{emp.pName}}
+						</label>
+					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-ng-click="$hide()">No</button>
-				<button type="button" class="btn btn-success" data-ng-hide="employee.Info.Id < 0" data-ng-click="sctrl.removeEmployee();$hide()">Yes</button>
-				<button type="button" class="btn btn-success" data-ng-show="employee.Info.Id < 0" data-ng-disabled="!employee.Schedule.EmployeeId" data-ng-click="sctrl.addEmployee(); $hide()">Yes</button>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-ng-click="$hide()">No</button>
+					<button type="button" class="btn btn-success" data-ng-hide="employee.Info.Id < 0" data-ng-click="sctrl.removeEmployee();$hide()">Yes</button>
+					<button type="button" class="btn btn-success" data-ng-show="employee.Info.Id < 0" data-ng-disabled="!employee.Schedule.EmployeeId" data-ng-click="sctrl.addEmployee(); $hide()">Yes</button>
+				</div>
 			</div>
 		</div>
 	</div>
