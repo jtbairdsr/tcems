@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 08:36:11
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-07 13:14:36
+ * @Last Modified time: 2015-05-15 15:37:02
  */
 'use strict';
 
@@ -14,7 +14,7 @@ angular.module('core').factory('Data',
 
 		// Declare the new Data object
 		function Data(newData, list, listName) {
-			this.newData = newData;
+			this.newData = newData || {};
 			this.list = list;
 			this.listName = listName;
 		}
