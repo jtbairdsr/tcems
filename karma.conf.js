@@ -43,6 +43,13 @@ module.exports = function(config) {
 			'public/src/modules/core/directives/*.js',
 
 			// Employees
+			'public/src/modules/applications/*.js',
+			'public/src/modules/applications/config/*.js',
+			'public/src/modules/applications/factories/*.js',
+			'public/src/modules/applications/controllers/*.js',
+			'public/src/modules/applications/directives/*.js',
+
+			// Employees
 			'public/src/modules/employees/*.js',
 			'public/src/modules/employees/config/*.js',
 			'public/src/modules/employees/factories/*.js',
@@ -105,16 +112,7 @@ module.exports = function(config) {
 			'public/src/modules/utilities/controllers/*.js',
 
 			// Tests
-			'test/unit/modules/core/**/*.js',
-			'test/unit/modules/employees/**/*.js',
-			'test/unit/modules/messages/**/*.js',
-			'test/unit/modules/professors/**/*.js',
-
-			// 'test/unit/modules/saras/**/*.js',
-			'test/unit/modules/semesters/**/*.js',
-			'test/unit/modules/shifts/**/*.js',
-			'test/unit/modules/user/**/*.js',
-			'test/unit/modules/utilities/**/*.js'
+			'test/unit/modules/**/*.js'
 		],
 
 		// List of files to exclude
