@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 08:31:34
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-14 13:10:25
+ * @Last Modified time: 2015-05-15 15:55:25
  */
 
 'use strict';
@@ -106,8 +106,6 @@ angular.module('semesters').factory('Semester', function($q, Data, semesters, sh
 				deffered.resolve();
 			});
 		return deffered.promise;
-
-		// TODO: create the setIntent method test suite
 	};
 
 	// Return the newly defined Semester object
