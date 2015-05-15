@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-01 15:16:17
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 15:38:01
+ * @Last Modified time: 2015-05-11 18:09:04
  */
 
 'use strict';
@@ -16,9 +16,10 @@ angular.module('employees').config(function($stateProvider) {
 		abstract: true,
 		resolve: {
 			// jshint unused:false
-			requiredData: function($q, employeeService, cfpLoadingBar, scopeSetter) {
+			requiredData: function($q, employeeService, cfpLoadingBar, scopeSetter, scheduleService) {
 				var deffered = $q.defer();
-				employeeService.refresh().then(function(data) {
+				cfpLoadingBar.start();
+				$q.all([employeeService.refresh(), scheduleService.refresh()]).then(function(data) {
 					deffered.resolve(data);
 					cfpLoadingBar.complete();
 				});

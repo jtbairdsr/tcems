@@ -18,7 +18,7 @@
 			<span class="pull-right glyphicon glyphicon-collapse-up" data-ng-show="staff"></span>
 		</div>
 		<div class="panel-body" data-ng-show="staff">
-			<div class="btn btn-default col-md-3 col-sm-3" data-ng-repeat="emp in ctrl.FTEs | filter:{pos: 'FTE'} | orderBy:'pos'" data-ng-model="emp.add" data-ng-click="ctrl.toggleRecipient(emp)" data-bs-checkbox>
+			<div class="btn btn-default col-md-3 col-sm-3 emp-select-btn" data-ng-repeat="emp in ctrl.FTEs | filter:{pos: 'FTE'} | orderBy:'pos'" data-ng-model="emp.add" data-ng-click="ctrl.toggleRecipient(emp)" data-bs-checkbox data-ng-hide="emp.add">
 				<img class="emp-mess-img img-circle" data-ng-src="{{emp.img}}" data-fallback-src="src/modules/core/img/missing.png" alt="empImg">
 				<br>{{emp.lName}}
 			</div>
@@ -34,7 +34,7 @@
 			<input id="empSearch" class="form-control" type="text" data-ng-model="empSearch" placeholder="Which employee(s)...">
 			<br>
 			<div class="scrollable">
-				<div class="btn btn-default col-md-3 col-sm-3" data-ng-repeat="emp in ctrl.emps | filter:empSearch | orderBy:'pName'" data-ng-model="emp.add" data-ng-click="ctrl.toggleRecipient(emp)" data-bs-checkbox>
+				<div class="btn btn-default col-md-3 col-sm-3 emp-select-btn" data-ng-repeat="emp in ctrl.emps | filter:empSearch | orderBy:'pName'" data-ng-model="emp.add" data-ng-click="ctrl.toggleRecipient(emp)" data-bs-checkbox data-ng-hide="emp.add">
 					<img class="emp-mess-img img-circle" data-ng-src="{{emp.img}}" data-fallback-src="src/modules/core/img/missing.png" alt="empImg">
 					<br>{{emp.pName}}
 				</div>

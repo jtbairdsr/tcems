@@ -2,27 +2,32 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-04 15:44:43
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-11 11:05:12
+ * @Last Modified time: 2015-05-14 14:26:46
  */
 
 'use strict';
 
 angular.module('employees').controller('EmployeeEditController', function(
-	$scope, $alert, Employee, Employment, currentUser, currentSemester,
+	$scope, $alert, Employee, Employment, currentUser, currentSemester, employees,
 	schedules, subShifts, sentMessages, areas, shiftGroups, tracks, professorService
 ) {
 	$scope.tab = 'profile';
 	$scope.userViews = 'src/modules/user/views/';
 
 	var that = this,
-		employee = $scope.employee || currentUser.data,
+		employee = ($scope.emp) ? _.find(employees.list, function(emp) {
+			return emp.Id === $scope.emp.id;
+		}) : currentUser.data,
 		initialPhoneNumber = employee.PhoneNumber;
+
+	$scope.employee = employee;
 
 	that.positions = {
 		Employee: [],
 		Employment: []
 	};
 	that.setPositions = function(area, list) {
+		list.splice(0, list.length);
 		_.each(area.Positions, function(pos) {
 			list.push({
 				id: pos.Id,
@@ -93,6 +98,9 @@ angular.module('employees').controller('EmployeeEditController', function(
 		}
 	});
 	that.updateArea = function(item) {
+		item.Area = _.find(areas.list, function(a) {
+			return a.Id === item.AreaId;
+		});
 		that.setPositions(item.Area, that.positions[item.listName]);
 	};
 	that.editEmployment = function(employment) {
@@ -166,7 +174,9 @@ angular.module('employees').controller('EmployeeEditController', function(
 	};
 	that.updateEmployee = function() {
 		employee.PhoneNumber = (checkPhoneNumber(employee.PhoneNumber)) ? employee.PhoneNumber : initialPhoneNumber;
-		employee.update();
+		employee.update().then(function() {
+			$scope.ctrl.refreshContent();
+		});
 	};
 	that.refreshFTI = function() {
 		professorService.refresh();
