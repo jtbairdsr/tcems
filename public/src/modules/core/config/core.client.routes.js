@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 21:11:35
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 17:36:33
+ * @Last Modified time: 2015-05-18 10:47:52
  */
 
 'use strict';
@@ -33,6 +33,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		}
 	}).state('main.home', {
 		url: '/home',
-		templateUrl: 'partials/home.html'
+		templateUrl: 'src/modules/core/views/home.html'
 	});
 });

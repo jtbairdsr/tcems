@@ -2,23 +2,23 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-04 15:44:43
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-14 14:26:46
+ * @Last Modified time: 2015-05-18 10:49:32
  */
 
 'use strict';
 
 angular.module('employees').controller('EmployeeEditController', function(
-	$scope, $alert, Employee, Employment, currentUser, currentSemester, employees,
-	schedules, subShifts, sentMessages, areas, shiftGroups, tracks, professorService
+    $scope, $alert, Employee, Employment, currentUser, currentSemester, employees,
+    schedules, subShifts, sentMessages, areas, shiftGroups, tracks, professorService
 ) {
 	$scope.tab = 'profile';
 	$scope.userViews = 'src/modules/user/views/';
 
 	var that = this,
-		employee = ($scope.emp) ? _.find(employees.list, function(emp) {
-			return emp.Id === $scope.emp.id;
-		}) : currentUser.data,
-		initialPhoneNumber = employee.PhoneNumber;
+        employee = ($scope.emp) ? _.find(employees.list, function(emp) {
+	return emp.Id === $scope.emp.id;
+        }) : currentUser.data,
+        initialPhoneNumber = employee.PhoneNumber;
 
 	$scope.employee = employee;
 
@@ -53,9 +53,9 @@ angular.module('employees').controller('EmployeeEditController', function(
 	});
 	that.isASub = (_.find(schedules.list, function(schedule) {
 		return (
-			schedule.EmployeeId === employee.Id &&
-			schedule.SemesterId === currentSemester.data.Id &&
-			schedule.Active
+		schedule.EmployeeId === employee.Id &&
+		schedule.SemesterId === currentSemester.data.Id &&
+		schedule.Active
 		);
 	}) === undefined);
 	that.newEmployee = new Employee({
@@ -71,7 +71,7 @@ angular.module('employees').controller('EmployeeEditController', function(
 	that.requestedSubShifts = [];
 	_.each(subShifts.list, function(subShift) {
 		if (subShift.Active &&
-			subShift.SemesterId === currentSemester.data.Id) {
+		subShift.SemesterId === currentSemester.data.Id) {
 			if (subShift.RequesterId === employee.Id) {
 				that.requestedSubShifts.push(subShift);
 			} else if (subShift.SubstituteId === employee.Id) {
@@ -88,9 +88,9 @@ angular.module('employees').controller('EmployeeEditController', function(
 	that.unreadMessages = [];
 	_.each(sentMessages.list, function(message) {
 		if (message.EmployeeId === employee.Id &&
-			(message.Message.Mandatory && message.AckDate === undefined) &&
-			message.Message.Active &&
-			message.Message.SemesterId === currentSemester.data.Id) {
+		(message.Message.Mandatory && message.AckDate === undefined) &&
+		message.Message.Active &&
+		message.Message.SemesterId === currentSemester.data.Id) {
 			that.unreadMessages.push({
 				Message: message.Message.toString().replace(/\n\r?/g, '<br />'),
 				OverDue: (message.Message.DueDate < new Date())
@@ -146,7 +146,7 @@ angular.module('employees').controller('EmployeeEditController', function(
 						animation: 'am-fade-and-slide-top',
 						duration: '3',
 						type: 'danger',
-						template: 'partials/alerts/error-alert.html'
+						template: 'src/modules/core/views/alerts/error-alert.client.view.html'
 					});
 				}
 			} else {
@@ -157,7 +157,7 @@ angular.module('employees').controller('EmployeeEditController', function(
 					animation: 'am-fade-and-slide-top',
 					duration: '3',
 					type: 'danger',
-					template: 'partials/alerts/error-alert.html'
+					template: 'src/modul/core/views/alerts/error-alert.client.view.html'
 				});
 			}
 		} else {
@@ -168,7 +168,7 @@ angular.module('employees').controller('EmployeeEditController', function(
 				animation: 'am-fade-and-slide-top',
 				duration: '3',
 				type: 'danger',
-				template: 'partials/alerts/error-alert.html'
+				template: 'src/modul/core/views/alerts/error-alert.client.view.html'
 			});
 		}
 	};
