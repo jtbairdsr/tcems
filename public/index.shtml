@@ -4,7 +4,7 @@
 	<head>
 		<!-- Version information -->
 		<!--#set var="DEVELOP" value="true"-->
-		<meta name="version" content="3.0.1" />
+		<meta name="version" content="3.0.2" />
 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,14 +20,14 @@
 		<!--#if expr="v('DEVELOP') == 'true'" -->
 		<!--#include virtual="dev/dev-lib.client.css.html" -->
 		<!--#else -->
-		<link rel="stylesheet" type="text/css" href="dist/lib/libraries-3.0.1.min.css" />
+		<link rel="stylesheet" type="text/css" href="dist/lib/libraries-3.0.2.min.css" />
 		<!--#endif -->
 
 		<!-- Application CSS Files -->
 		<!--#if expr="v('DEVELOP') == 'true'" -->
 		<!--#include virtual="dev/dev-app.client.css.html" -->
 		<!--#else -->
-		<link rel="stylesheet" type="text/css" href="dist/application-3.0.1.min.css" />
+		<link rel="stylesheet" type="text/css" href="dist/application-3.0.2.min.css" />
 		<!--#endif -->
 
 		<base href="/index.html" />
@@ -44,14 +44,14 @@
 		<!--#if expr="v('DEVELOP') == 'true'" -->
 		<!--#include virtual="dev/dev-lib.client.js.html" -->
 		<!--#else -->
-		<script src="dist/lib/libraries-3.0.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/lib/libraries-3.0.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<!--#endif -->
 
 		<!-- Application JavaScript Files -->
 		<!--#if expr="v('DEVELOP') == 'true'" -->
 		<!--#include virtual="dev/dev-app.client.js.html" -->
 		<!--#else -->
-		<script src="dist/application-3.0.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="dist/application-3.0.2.min.js" type="text/javascript" charset="utf-8"></script>
 		<!--#endif -->
 
 		<!--#if expr="v('DEVELOP') == 'true'" -->

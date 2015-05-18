@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:26:25
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 10:05:13
+ * @Last Modified time: 2015-05-18 10:52:33
  */
 
 'use strict';
@@ -85,7 +85,7 @@ angular.module('shifts').controller('SubShiftController', function(
 							animation: 'am-fade-and-slide-top',
 							duration: '3',
 							type: 'success',
-							template: 'partials/alerts/success-alert.html'
+							template: 'src/modules/core/views/alerts/success-alert.client.view.html'
 						});
 					});
 			});
@@ -108,7 +108,7 @@ angular.module('shifts').controller('SubShiftController', function(
 				animation: 'am-fade-and-slide-top',
 				duration: '3',
 				type: 'danger',
-				template: 'partials/alerts/error-alert.html'
+				template: 'src/modules/core/views/alerts/error-alert.client.view.html'
 			},
 			proceed = (_.find(schedules.list, function(schedule) {
 				return (
