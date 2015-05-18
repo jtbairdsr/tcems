@@ -2,13 +2,13 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-15 15:33:08
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-15 16:16:31
+ * @Last Modified time: 2015-05-18 09:49:34
  */
 
 'use strict';
 
 angular.module('applications').factory('Question', function(
-	$q, Data, Response, questions, questionChoices
+	$q, Data, Response, Choice, questions, questionChoices, choices
 ) {
 
 	// Variables attempt to make the code more readable
@@ -75,6 +75,33 @@ angular.module('applications').factory('Question', function(
 		return deffered.promise;
 	};
 
+	// Create the addChoices method
+	Question.prototype.addChoices = function(newChoices, mc) {
+		mc = mc || false;
+		var deffered = $q.defer(),
+			choicesC = 0;
+
+		function addChoices(choice) {
+			new Choice({
+				Content: choice
+			}).add().then(function() {
+				if (++choicesC >= newChoices.length) {
+					deffered.resolve();
+				} else {
+					addChoices(newChoices[choicesC]);
+				}
+			});
+		}
+
+		_.each(choices.list, function(choice) {
+			newChoices = _.without(newChoices, choice);
+		});
+		if (newChoices.length > 0) {
+			addChoices(newChoices[choicesC]);
+		}
+		return deffered.promise;
+	};
+
 	// Create the getChoices method
 	Question.prototype.getChoices = function() {
 		var returnArray = [],
@@ -109,3 +136,4 @@ angular.module('applications').factory('Question', function(
 	// Return the newly defined Question object
 	return Question;
 });
+
