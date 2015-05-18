@@ -2,19 +2,20 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-15 15:33:08
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-18 09:49:34
+ * @Last Modified time: 2015-05-18 16:17:08
  */
 
 'use strict';
 
 angular.module('applications').factory('Question', function(
-	$q, Data, Response, Choice, questions, questionChoices, choices
+	$q, Data, Response, questions
 ) {
 
 	// Variables attempt to make the code more readable
 	var $super = Data,
 		listName = 'Question',
-		list = questions.list;
+		list = questions.list,
+		typeTest = /Choice|MultipleChoice/;
 
 	// Declare the new Question object
 	function Question(newData) {
@@ -42,10 +43,10 @@ angular.module('applications').factory('Question', function(
 		/*********************Values stored on DB**********************/
 		this.type = this.newData.Type || undefined;
 		this.content = this.newData.Content || undefined;
+		this.choices = (typeTest.test(this.type)) ? this.newData.Choices.split(', ') : undefined;
 
 		/*******************Values that don't persist******************/
-		this.typeTest = /Choice|MultipleChoice/;
-		this.choices = (this.typeTest.test(this.type)) ? this.getChoices() : undefined;
+		this.typeTest = typeTest;
 		this.data = this.updateData();
 	};
 
@@ -75,47 +76,6 @@ angular.module('applications').factory('Question', function(
 		return deffered.promise;
 	};
 
-	// Create the addChoices method
-	Question.prototype.addChoices = function(newChoices, mc) {
-		mc = mc || false;
-		var deffered = $q.defer(),
-			choicesC = 0;
-
-		function addChoices(choice) {
-			new Choice({
-				Content: choice
-			}).add().then(function() {
-				if (++choicesC >= newChoices.length) {
-					deffered.resolve();
-				} else {
-					addChoices(newChoices[choicesC]);
-				}
-			});
-		}
-
-		_.each(choices.list, function(choice) {
-			newChoices = _.without(newChoices, choice);
-		});
-		if (newChoices.length > 0) {
-			addChoices(newChoices[choicesC]);
-		}
-		return deffered.promise;
-	};
-
-	// Create the getChoices method
-	Question.prototype.getChoices = function() {
-		var returnArray = [],
-			that = this;
-		if (this.typeTest.test(this.type)) {
-			_.each(questionChoices.list, function(qc) {
-				if (qc.questionId === that.id) {
-					returnArray.push(qc.question);
-				}
-			});
-		}
-		return returnArray;
-	};
-
 	/**************************************************************************
 	 *                              CLASS METHODS                             *
 	 **************************************************************************/
@@ -136,4 +96,3 @@ angular.module('applications').factory('Question', function(
 	// Return the newly defined Question object
 	return Question;
 });
-

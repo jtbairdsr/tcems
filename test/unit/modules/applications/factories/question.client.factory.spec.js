@@ -2,7 +2,7 @@
  * @Author: jonathan
  * @Date:   2015-05-15 14:21:20
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-18 09:40:15
+ * @Last Modified time: 2015-05-18 16:21:56
  */
 
 'use strict';
@@ -19,10 +19,10 @@ ddescribe('Question factory', function() {
 		$q, $timeout,
 
 		// Values
-		questionChoices, questions, choices,
+		questions,
 
 		// Objects
-		QuestionChoice, Choice, Question, Response, Data;
+		Question, Response, Data;
 
 	beforeEach(function() {
 		// Define the module
@@ -68,24 +68,6 @@ ddescribe('Question factory', function() {
 				};
 				return Response;
 			});
-			$provide.factory('QuestionChoice', function($q) {
-				function QuestionChoice() {}
-				QuestionChoice.prototype.add = function() {
-					var deffered = $q.defer();
-					deffered.resolve();
-					return deffered.promise;
-				};
-				return QuestionChoice;
-			});
-			$provide.factory('Choice', function($q) {
-				function Choice() {}
-				Choice.prototype.add = function() {
-					var deffered = $q.defer();
-					deffered.resolve();
-					return deffered.promise;
-				};
-				return Choice;
-			});
 		});
 
 		// Assign injections of the services/values/objects to local variables
@@ -95,13 +77,9 @@ ddescribe('Question factory', function() {
 			$timeout = $injector.get('$timeout');
 
 			// Values
-			questionChoices = $injector.get('questionChoices');
 			questions = $injector.get('questions');
-			choices = $injector.get('choices');
 
 			// Data
-			QuestionChoice = $injector.get('QuestionChoice');
-			Choice = $injector.get('Choice');
 			Question = $injector.get('Question');
 			Response = $injector.get('Response');
 			Data = $injector.get('Data');
@@ -114,11 +92,7 @@ ddescribe('Question factory', function() {
 		spyOn(Data.prototype, 'add').andCallThrough();
 		spyOn(Data.prototype, 'update').andCallThrough();
 		spyOn(Question.prototype, 'updateData').andCallThrough();
-		spyOn(Question.prototype, 'getChoices').andCallThrough();
-		spyOn(Question.prototype, 'addChoices').andCallThrough();
 		spyOn(Response.prototype, 'add').andCallThrough();
-		spyOn(Choice.prototype, 'add').andCallThrough();
-		spyOn(QuestionChoice.prototype, 'add').andCallThrough();
 
 		// Define the test data
 		testDQuestion = new Question({
@@ -134,42 +108,23 @@ ddescribe('Question factory', function() {
 		testCQuestion = new Question({
 			'Id': 3,
 			'Type': 'Choice',
-			'Content': 'On a scale of one to ten how chipper are you?'
+			'Content': 'On a scale of one to ten how chipper are you?',
+			'Choices': '1, 2, 3, 4, 5, 6, 7, 8, 9, 10'
 		});
 		testMCQuestion = new Question({
 			'Id': 4,
 			'Type': 'MultipleChoice',
-			'Content': 'Choose all appropriate responses to a beard.'
+			'Content': 'Choose all appropriate responses to a beard.',
+			'Choices': 'Send him home., '
+				+ 'Remind him of the honor code., '
+				+ 'Let him test., '
+				+ 'Take him to a Full Time Staff member., '
+				+ 'Ask him to go shave.'
 		});
 		testBQuestion = new Question({
 			'Id': 5,
 			'Type': 'Boolean',
 			'Content': 'Will you follow the Testing Center Dress and grooming standards?'
-		});
-		choices.list.splice(0, choices.list.length);
-		questionChoices.list.splice(0, questionChoices.list.length);
-		for (var i = 0; i < 5; i++) {
-			var temp = i + 1;
-			choices.list.push('' + temp);
-		}
-		for (i = 0; i < 3; i++) {
-			questionChoices.list.push({
-				questionId: 4
-			});
-		}
-		for (i = 0; i < 2; i++) {
-			questionChoices.list.push({
-				questionId: 3
-			});
-		}
-		questionChoices.list.push({
-			questionId: 1
-		});
-		questionChoices.list.push({
-			questionId: 2
-		});
-		questionChoices.list.push({
-			questionId: 5
 		});
 	});
 
@@ -194,13 +149,6 @@ ddescribe('Question factory', function() {
 		});
 	});
 	describe('initAttributes() method', function() {
-		it('should populate the id property.', function() {
-			expect(testDQuestion.id).toBe(1);
-			expect(testFFQuestion.id).toBe(2);
-			expect(testCQuestion.id).toBe(3);
-			expect(testMCQuestion.id).toBe(4);
-			expect(testBQuestion.id).toBe(5);
-		});
 		it('should populate the type property.', function() {
 			expect(testDQuestion.type).toBe('Date');
 			expect(testFFQuestion.type).toBe('FreeForm');
@@ -215,8 +163,18 @@ ddescribe('Question factory', function() {
 			expect(testMCQuestion.content).toBe('Choose all appropriate responses to a beard.');
 			expect(testBQuestion.content).toBe('Will you follow the Testing Center Dress and grooming standards?');
 		});
-		it('should call the getChoices() method if it is a "Choice || MultipleChoice" question.', function() {
-			expect(Question.prototype.getChoices.callCount).toBe(2);
+		it('should populate the choices property if it is either a "Choice || MultipleChoice" question.', function() {
+			expect(testDQuestion.choices).toBeUndefined();
+			expect(testFFQuestion.choices).toBeUndefined();
+			expect(testCQuestion.choices).toEqual(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']);
+			expect(testMCQuestion.choices).toEqual([
+				'Send him home.',
+				'Remind him of the honor code.',
+				'Let him test.',
+				'Take him to a Full Time Staff member.',
+				'Ask him to go shave.'
+			]);
+			expect(testBQuestion.choices).toBeUndefined();
 		});
 		it('should call the updateData() method.', function() {
 			expect(Question.prototype.updateData.callCount).toBe(5);
@@ -260,30 +218,6 @@ ddescribe('Question factory', function() {
 			expect(Response.prototype.add).toHaveBeenCalled();
 		});
 	});
-	describe('getChoices() method', function() {
-		it('should populate the choices property only if it is a "Choice || MultipleChoice" question.', function() {
-			expect(testDQuestion.getChoices().length).toBe(0);
-			expect(testBQuestion.getChoices().length).toBe(0);
-			expect(testFFQuestion.getChoices().length).toBe(0);
-			expect(testMCQuestion.getChoices().length).toBe(3);
-			expect(testCQuestion.getChoices().length).toBe(2);
-		});
-
-	});
-	describe('addChoices() method', function() {
-		beforeEach(function() {
-			this.choiceArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-			testCQuestion.addChoices(this.choiceArray);
-		});
-		it('should call the QuestionChoice.prototype.add() method as many times as the length of the array passed.',
-			function() {
-				expect(Question.prototype.addChoices).toHaveBeenCalledWith(this.choiceArray);
-				expect(QuestionChoice.prototype.add.callCount).toBe(this.choiceArray.length);
-			});
-		it('should call the Choice.prototype.add() method for each novel choice.', function() {
-			expect(Choice.prototype.add.callCount).toBe(5);
-		});
-	});
 	describe('query() method', function() {
 		it('should call the Data.query() method.', function() {
 			Question.query();
@@ -292,4 +226,3 @@ ddescribe('Question factory', function() {
 		});
 	});
 });
-
