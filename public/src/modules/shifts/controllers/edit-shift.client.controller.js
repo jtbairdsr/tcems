@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:28:03
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-11 08:49:06
+ * @Last Modified time: 2015-05-18 10:51:25
  */
 
 'use strict';
@@ -121,7 +121,7 @@ angular.module('shifts').controller('EditShiftController', function(
 				animation: 'am-fade-and-slide-top',
 				duration: '3',
 				type: 'danger',
-				template: 'partials/alerts/error-alert.html'
+				template: 'src/modules/core/views/alerts/error-alert.client.view.html'
 			});
 		}
 	};
