@@ -9,13 +9,17 @@
 		"path": "node_modules",
 		"name": "tcems Node Modules"
 	}, {
+		"path": "public",
+		"name": "tcems Public",
+	}, {
 		"path": "test/unit",
 		"name": "tcems Karma Tests"
 	}, {
-		"path": "public",
-		"name": "tcems Public",
+		"path": "public/src",
+		"name": "tcems Public Source"
 	}],
 	"settings": {
 		"tab_size": 4
 	}
 }
+
