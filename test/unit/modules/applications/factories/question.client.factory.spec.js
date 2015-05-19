@@ -2,7 +2,7 @@
  * @Author: jonathan
  * @Date:   2015-05-15 14:21:20
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-19 06:30:12
+ * @Last Modified time: 2015-05-19 07:41:59
  */
 
 'use strict';
@@ -42,7 +42,7 @@ describe('Question factory', function() {
 					return deffered.promise;
 				};
 				Data.prototype.initAttributes = function() {
-					this.id = this.newData.Id || undefined;
+					this.Id = this.newData.Id || undefined;
 				};
 				Data.prototype.updateData = function() {
 					return {};
@@ -206,11 +206,11 @@ describe('Question factory', function() {
 		});
 	});
 	describe('toString() method', function() {
-		it('should return "New Question" if there isn\'t an id defined.', function() {
-			testDQuestion.id = undefined;
+		it('should return "New Question" if there isn\'t an Id defined.', function() {
+			testDQuestion.Id = undefined;
 			expect(testDQuestion.toString()).toBe('New Question');
 		});
-		it('should return "<content>" if there is an id defined.', function() {
+		it('should return "<content>" if there is an Id defined.', function() {
 			expect(testFFQuestion.toString()).toBe(testFFQuestion.content);
 		});
 	});

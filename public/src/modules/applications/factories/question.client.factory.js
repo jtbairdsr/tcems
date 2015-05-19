@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-15 15:33:08
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-18 17:46:09
+ * @Last Modified time: 2015-05-19 07:41:37
  */
 
 'use strict';
@@ -63,7 +63,7 @@ angular.module('applications').factory('Question', function(
 
 	// Override the toString method from the parent object
 	Question.prototype.toString = function() {
-		if (this.id) {
+		if (this.Id) {
 			return this.content;
 		} else {
 			return 'New Question';
