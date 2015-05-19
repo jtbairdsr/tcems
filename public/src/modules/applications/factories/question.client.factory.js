@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-15 15:33:08
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-18 16:17:08
+ * @Last Modified time: 2015-05-18 17:46:09
  */
 
 'use strict';
@@ -43,7 +43,7 @@ angular.module('applications').factory('Question', function(
 		/*********************Values stored on DB**********************/
 		this.type = this.newData.Type || undefined;
 		this.content = this.newData.Content || undefined;
-		this.choices = (typeTest.test(this.type)) ? this.newData.Choices.split(', ') : undefined;
+		this.choices = (typeTest.test(this.type)) ? this.newData.Choices.split(',') : undefined;
 
 		/*******************Values that don't persist******************/
 		this.typeTest = typeTest;
@@ -54,6 +54,10 @@ angular.module('applications').factory('Question', function(
 	Question.prototype.updateData = function() {
 		var returnData = this.parent.updateData.apply(this);
 		returnData.Content = this.content;
+		returnData.Type = this.type;
+		if (typeTest.test(this.type)) {
+			returnData.Choices = this.choices.toString();
+		}
 		return returnData;
 	};
 
@@ -96,3 +100,4 @@ angular.module('applications').factory('Question', function(
 	// Return the newly defined Question object
 	return Question;
 });
+

@@ -2,12 +2,12 @@
  * @Author: jonathan
  * @Date:   2015-05-15 14:21:20
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-18 16:21:56
+ * @Last Modified time: 2015-05-19 06:30:12
  */
 
 'use strict';
 
-ddescribe('Question factory', function() {
+describe('Question factory', function() {
 
 	/**************************************************************************
 	 *                                  PREP                                  *
@@ -109,17 +109,13 @@ ddescribe('Question factory', function() {
 			'Id': 3,
 			'Type': 'Choice',
 			'Content': 'On a scale of one to ten how chipper are you?',
-			'Choices': '1, 2, 3, 4, 5, 6, 7, 8, 9, 10'
+			'Choices': '1,2,3,4,5,6,7,8,9,10'
 		});
 		testMCQuestion = new Question({
 			'Id': 4,
 			'Type': 'MultipleChoice',
 			'Content': 'Choose all appropriate responses to a beard.',
-			'Choices': 'Send him home., '
-				+ 'Remind him of the honor code., '
-				+ 'Let him test., '
-				+ 'Take him to a Full Time Staff member., '
-				+ 'Ask him to go shave.'
+			'Choices': 'Send him home.,' + 'Remind him of the honor code.,' + 'Let him test.,' + 'Take him to a Full Time Staff member.,' + 'Ask him to go shave.'
 		});
 		testBQuestion = new Question({
 			'Id': 5,
@@ -183,19 +179,26 @@ ddescribe('Question factory', function() {
 	describe('updateData() method', function() {
 		it('should populate the data property.', function() {
 			expect(testDQuestion.data).toEqual({
-				Content: 'When will you be available to start working?'
+				Content: 'When will you be available to start working?',
+				Type: 'Date'
 			});
 			expect(testFFQuestion.data).toEqual({
-				Content: 'What is your favorite book?'
+				Content: 'What is your favorite book?',
+				Type: 'FreeForm'
 			});
 			expect(testCQuestion.data).toEqual({
-				Content: 'On a scale of one to ten how chipper are you?'
+				Content: 'On a scale of one to ten how chipper are you?',
+				Type: 'Choice',
+				Choices: testCQuestion.choices.toString()
 			});
 			expect(testMCQuestion.data).toEqual({
-				Content: 'Choose all appropriate responses to a beard.'
+				Content: 'Choose all appropriate responses to a beard.',
+				Type: 'MultipleChoice',
+				Choices: testMCQuestion.choices.toString()
 			});
 			expect(testBQuestion.data).toEqual({
-				Content: 'Will you follow the Testing Center Dress and grooming standards?'
+				Content: 'Will you follow the Testing Center Dress and grooming standards?',
+				Type: 'Boolean'
 			});
 		});
 		it('should call the Data.prototype.updateData() method.', function() {
@@ -226,3 +229,4 @@ ddescribe('Question factory', function() {
 		});
 	});
 });
+
