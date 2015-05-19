@@ -37,79 +37,43 @@ module.exports = function(config) {
 
 			// Core
 			'public/src/modules/core/*.js',
-			'public/src/modules/core/config/*.js',
-			'public/src/modules/core/services/*.js',
-			'public/src/modules/core/factories/**/*.js',
-			'public/src/modules/core/directives/*.js',
+			'public/src/modules/core/**/*.js',
 
-			// Employees
+			// Applications
 			'public/src/modules/applications/*.js',
-			'public/src/modules/applications/config/*.js',
-			'public/src/modules/applications/factories/*.js',
-			'public/src/modules/applications/controllers/*.js',
-			'public/src/modules/applications/directives/*.js',
+			'public/src/modules/applications/**/*.js',
 
 			// Employees
 			'public/src/modules/employees/*.js',
-			'public/src/modules/employees/config/*.js',
-			'public/src/modules/employees/factories/*.js',
-			'public/src/modules/employees/controllers/*.js',
+			'public/src/modules/employees/**/*.js',
 
 			// Messages
 			'public/src/modules/messages/*.js',
-			'public/src/modules/messages/config/*.js',
-			'public/src/modules/messages/services/*.js',
-			'public/src/modules/messages/factories/**/*.js',
-			'public/src/modules/messages/directives/*.js',
-			'public/src/modules/messages/controllers/*.js',
+			'public/src/modules/messages/**/*.js',
 
 			// Professors
 			'public/src/modules/professors/*.js',
-			'public/src/modules/professors/config/*.js',
-			'public/src/modules/professors/services/*.js',
-			'public/src/modules/professors/factories/**/*.js',
-			'public/src/modules/professors/directives/*.js',
-			'public/src/modules/professors/controllers/*.js',
+			'public/src/modules/professors/**/*.js',
 
 			// Saras
 			// 'public/src/modules/saras/*.js',
-			// 'public/src/modules/saras/config/*.js',
-			// 'public/src/modules/saras/services/*.js',
-			// 'public/src/modules/saras/factories/**/*.js',
-			// 'public/src/modules/saras/directives/*.js',
-			// 'public/src/modules/saras/controllers/*.js',
+			// 'public/src/modules/saras/**/*.js',
 
 			// Semesters
 			'public/src/modules/semesters/*.js',
-			'public/src/modules/semesters/config/*.js',
-			'public/src/modules/semesters/services/*.js',
-			'public/src/modules/semesters/factories/**/*.js',
-			'public/src/modules/semesters/directives/*.js',
-			'public/src/modules/semesters/controllers/*.js',
+			'public/src/modules/semesters/**/*.js',
 
 			// Shifts
 			'public/src/modules/shifts/*.js',
-			'public/src/modules/shifts/config/*.js',
-			'public/src/modules/shifts/services/*.js',
-			'public/src/modules/shifts/factories/**/*.js',
-			'public/src/modules/shifts/directives/*.js',
-			'public/src/modules/shifts/controllers/*.js',
+			'public/src/modules/shifts/**/*.js',
 
 			// User
 			'public/src/modules/user/*.js',
-			'public/src/modules/user/config/*.js',
-			'public/src/modules/user/services/*.js',
-			'public/src/modules/user/factories/**/*.js',
-			'public/src/modules/user/directives/*.js',
-			'public/src/modules/user/controllers/*.js',
+			'public/src/modules/user/**/*.js',
 
 			// Utilities
 			'public/src/modules/utilities/*.js',
-			'public/src/modules/utilities/config/*.js',
-			'public/src/modules/utilities/services/*.js',
-			'public/src/modules/utilities/factories/**/*.js',
-			'public/src/modules/utilities/directives/*.js',
-			'public/src/modules/utilities/controllers/*.js',
+			'public/src/modules/utilities/**/*.js',
 
 			// Tests
 			'test/unit/modules/**/*.js'
@@ -163,3 +127,4 @@ module.exports = function(config) {
 		]
 	});
 };
+
