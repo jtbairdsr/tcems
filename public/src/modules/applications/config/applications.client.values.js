@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-15 15:48:24
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-19 08:20:27
+ * @Last Modified time: 2015-05-19 08:39:13
  */
 
 'use strict';
@@ -14,6 +14,8 @@ angular.module('applications').value('questions', {
 }).value('aApps', {
 	list: []
 }).value('aPApps', {
+	list: []
+}).value('pApps', {
 	list: []
 });
 
