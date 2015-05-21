@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-21 09:32:21
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-21 15:53:34
+ * @Last Modified time: 2015-05-21 17:44:09
  */
 
 'use strict';
@@ -32,26 +32,48 @@ module.exports = function(grunt) {
 		orderedJsAppFiles = [
 			'public/src/modules/config.js',
 			'public/src/modules/application.js',
+
+			// Applications
 			'public/src/modules/applications/*.js',
 			'public/src/modules/applications/**/*.js',
+
+			// Core
 			'public/src/modules/core/*.js',
 			'public/src/modules/core/**/*.js',
+
+			// Employees
 			'public/src/modules/employees/*.js',
 			'public/src/modules/employees/**/*.js',
+
+			// HR
 			'public/src/modules/hr/*.js',
 			'public/src/modules/hr/**/*.js',
+
+			// Messages
 			'public/src/modules/messages/*.js',
 			'public/src/modules/messages/**/*.js',
+
+			// Professors
 			'public/src/modules/professors/*.js',
 			'public/src/modules/professors/**/*.js',
-			'public/src/modules/saras/*.js',
-			'public/src/modules/saras/**/*.js',
+
+			// Saras
+			// 'public/src/modules/saras/*.js',
+			// 'public/src/modules/saras/**/*.js',
+
+			// Semesters
 			'public/src/modules/semesters/*.js',
 			'public/src/modules/semesters/**/*.js',
+
+			// Shifts
 			'public/src/modules/shifts/*.js',
 			'public/src/modules/shifts/**/*.js',
+
+			// User
 			'public/src/modules/user/*.js',
 			'public/src/modules/user/**/*.js',
+
+			// Utilities
 			'public/src/modules/utilities/*.js',
 			'public/src/modules/utilities/**/*.js'
 		],
@@ -76,13 +98,19 @@ module.exports = function(grunt) {
 			'public/src/lib/Autolinker.js/dist/Autolinker.min.js',
 			'public/src/lib/angular-loading-bar/build/loading-bar.min.js'
 		],
-		LIVERELOAD_PORT = process.env.LIVERELOAD_PORT || 35729;
+		LIVERELOAD_PORT = process.env.LIVERELOAD_PORT || 35729,
+		commitMessage = grunt.option('cm') || 'A lazy man should be flogged';
 
 	console.log('LIVERELOAD_PORT=' + LIVERELOAD_PORT);
 
 	// Project Configuration
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		shell: {
+			commit: {
+				command: 'git commit -m \'' + commitMessage + '\''
+			}
+		},
 		bump: {
 			options: {
 				files: ['package.json', 'bower.json'],
@@ -151,12 +179,27 @@ module.exports = function(grunt) {
 					}]
 				}
 			},
-			css: {
+			testFiles: {
 				files: {
-					'public/dev/dev.client.css.html': 'public/index.shtml'
+					'karma.conf.js': 'karma.conf.js'
 				},
 				options: {
-					replacements: []
+					replacements: [{
+						pattern: /orderedJsFiles\s=\s\[(.*\n)*\]/,
+						replacement: function() {
+							var returnString = 'orderedJsFiles = [\n';
+							for (var i = 0; i < orderedJsLibFiles.length; i++) {
+								returnString += '\t\'' + orderedJsLibFiles[i] + '\',\n';
+							}
+							returnString += '\t\'public/src/lib/angular-mocks/angular-mocks.js\',\n';
+							for (i = 0; i < orderedJsAppFiles.length; i++) {
+								returnString += '\t\'' + orderedJsAppFiles[i] + '\',\n';
+							}
+							returnString += '\t\'test/unit/modules/**/*.js\'\n]';
+							console.log(returnString);
+							return returnString;
+						}
+					}]
 				}
 			}
 		},
@@ -322,30 +365,46 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', ['lint', 'concat', 'ngAnnotate', 'uglify', 'cssmin']);
 
 	// Test task.
-	grunt.registerTask('test', ['karma:unit']);
+	grunt.registerTask('test', ['string-replace:testFiles', 'karma:unit']);
 
 	/**************
 	 * Bump task. *
 	 **************/
 
 	// Prerelease
-	grunt.registerTask('bump-pr', ['bump-only:prerelease', 'concat:lib', 'cssmin:lib', 'string-replace', 'bump-commit']);
+	grunt.registerTask('bump-pr', [
+		'bump-only:prerelease', 'concat:lib', 'cssmin:lib', 'string-replace:index', 'bump-commit'
+	]);
 
 	// Patch
-	grunt.registerTask('bump-p', ['bump-only:patch', 'concat:lib', 'cssmin:lib', 'string-replace', 'bump-commit']);
+	grunt.registerTask('bump-p', [
+		'bump-only:patch', 'concat:lib', 'cssmin:lib', 'string-replace:index', 'bump-commit'
+	]);
 
 	// Minor
-	grunt.registerTask('bump-m', ['bump-only:minor', 'concat:lib', 'cssmin:lib', 'string-replace', 'bump-commit']);
+	grunt.registerTask('bump-m', [
+		'bump-only:minor', 'concat:lib', 'cssmin:lib', 'string-replace:index', 'bump-commit'
+	]);
 
 	// Major
-	grunt.registerTask('bump-M', ['bump-only:major', 'concat:lib', 'cssmin:lib', 'string-replace', 'bump-commit']);
+	grunt.registerTask('bump-M', [
+		'bump-only:major', 'concat:lib', 'cssmin:lib', 'string-replace:index', 'bump-commit'
+	]);
 
 	// Prepatch
-	grunt.registerTask('bump-pp', ['bump-only:prepatch', 'concat:lib', 'cssmin:lib', 'string-replace', 'bump-commit']);
+	grunt.registerTask('bump-pp', [
+		'bump-only:prepatch', 'concat:lib', 'cssmin:lib', 'string-replace:index', 'bump-commit'
+	]);
 
 	// Preminor
-	grunt.registerTask('bump-pm', ['bump-only:preminor', 'concat:lib', 'cssmin:lib', 'string-replace', 'bump-commit']);
+	grunt.registerTask('bump-pm', [
+		'bump-only:preminor', 'concat:lib', 'cssmin:lib', 'string-replace:index', 'bump-commit'
+	]);
 
 	// Premajor
-	grunt.registerTask('bump-pM', ['bump-only:premajor', 'concat:lib', 'cssmin:lib', 'string-replace', 'bump-commit']);
+	grunt.registerTask('bump-pM', [
+		'bump-only:premajor', 'concat:lib', 'cssmin:lib', 'string-replace:index', 'bump-commit'
+	]);
+
+	grunt.registerTask('commit', ['shell:commit', 'bump-pr']);
 };

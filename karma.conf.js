@@ -1,87 +1,58 @@
 'use strict';
+
+// List of files / patterns to load in the browser
+var orderedJsFiles = [
+	'public/src/lib/xdomain/dist/xdomain.min.js',
+	'public/src/lib/jquery/dist/jquery.min.js',
+	'public/src/lib/bootstrap/dist/js/bootstrap.min.js',
+	'public/src/lib/angular/angular.min.js',
+	'public/src/lib/angular-resource/angular-resource.min.js',
+	'public/src/lib/angular-route/angular-route.min.js',
+	'public/src/lib/angular-animate/angular-animate.min.js',
+	'public/src/lib/angular-sanitize/angular-sanitize.min.js',
+	'public/src/lib/angular-ui-router/release/angular-ui-router.min.js',
+	'public/src/lib/angular-strap/dist/angular-strap.min.js',
+	'public/src/lib/angular-strap/dist/angular-strap.min.tpl.js',
+	'public/src/lib/ui-utils/ui-utils.min.js',
+	'public/src/lib/angular-ui-select/dist/select.min.js',
+	'public/src/lib/angular-img-fallback/angular.dcb-img-fallback.min.js',
+	'public/src/lib/datejs/build/production/date.min.js',
+	'public/src/lib/file-saver.js/FileSaver.min.js',
+	'public/src/lib/underscore/underscore-min.js',
+	'public/src/lib/Autolinker.js/dist/Autolinker.min.js',
+	'public/src/lib/angular-loading-bar/build/loading-bar.min.js',
+	'public/src/lib/angular-mocks/angular-mocks.js',
+	'public/src/modules/config.js',
+	'public/src/modules/application.js',
+	'public/src/modules/applications/*.js',
+	'public/src/modules/applications/**/*.js',
+	'public/src/modules/core/*.js',
+	'public/src/modules/core/**/*.js',
+	'public/src/modules/employees/*.js',
+	'public/src/modules/employees/**/*.js',
+	'public/src/modules/hr/*.js',
+	'public/src/modules/hr/**/*.js',
+	'public/src/modules/messages/*.js',
+	'public/src/modules/messages/**/*.js',
+	'public/src/modules/professors/*.js',
+	'public/src/modules/professors/**/*.js',
+	'public/src/modules/semesters/*.js',
+	'public/src/modules/semesters/**/*.js',
+	'public/src/modules/shifts/*.js',
+	'public/src/modules/shifts/**/*.js',
+	'public/src/modules/user/*.js',
+	'public/src/modules/user/**/*.js',
+	'public/src/modules/utilities/*.js',
+	'public/src/modules/utilities/**/*.js',
+	'test/unit/modules/**/*.js'
+];
+
 module.exports = function(config) {
 	config.set({
 		// Base path, that will be used to resolve files and exclude
 		basePath: './',
-
 		frameworks: ['jasmine'],
-
-		// List of files / patterns to load in the browser
-		files: [
-
-			// Libraries
-			'public/src/lib/xdomain/dist/xdomain.js',
-			'public/src/lib/angular/angular.js',
-			'public/src/lib/angular-mocks/angular-mocks.js',
-			'public/src/lib/angular-route/angular-route.js',
-			'public/src/lib/jquery/dist/jquery.js',
-			'public/src/lib/bootstrap/dist/js/bootstrap.js',
-			'public/src/lib/angular-resource/angular-resource.js',
-			'public/src/lib/angular-sanitize/angular-sanitize.js',
-			'public/src/lib/angular-ui-router/release/angular-ui-router.js',
-			'public/src/lib/angular-strap/dist/angular-strap.js',
-			'public/src/lib/angular-strap/dist/angular-strap.tpl.js',
-			'public/src/lib/ui-utils/ui-utils.js',
-			'public/src/lib/angular-ui-select/dist/select.js',
-			'public/src/lib/angular-img-fallback/angular.dcb-img-fallback.js',
-			'public/src/lib/angular-animate/angular-animate.js',
-			'public/src/lib/datejs/build/production/date.min.js',
-			'public/src/lib/file-saver.js/FileSaver.js',
-			'public/src/lib/underscore/underscore.js',
-			'public/src/lib/Autolinker.js/dist/Autolinker.js',
-			'public/src/lib/angular-loading-bar/build/loading-bar.js',
-
-			// Modules
-			'public/src/modules/config.js',
-			'public/src/modules/application.js',
-
-			// Applications
-			'public/src/modules/applications/*.js',
-			'public/src/modules/applications/**/*.js',
-
-			// Core
-			'public/src/modules/core/*.js',
-			'public/src/modules/core/**/*.js',
-
-			// Employees
-			'public/src/modules/employees/*.js',
-			'public/src/modules/employees/**/*.js',
-
-			// HR
-			'public/src/modules/hr/*.js',
-			'public/src/modules/hr/**/*.js',
-
-			// Messages
-			'public/src/modules/messages/*.js',
-			'public/src/modules/messages/**/*.js',
-
-			// Professors
-			'public/src/modules/professors/*.js',
-			'public/src/modules/professors/**/*.js',
-
-			// Saras
-			// 'public/src/modules/saras/*.js',
-			// 'public/src/modules/saras/**/*.js',
-
-			// Semesters
-			'public/src/modules/semesters/*.js',
-			'public/src/modules/semesters/**/*.js',
-
-			// Shifts
-			'public/src/modules/shifts/*.js',
-			'public/src/modules/shifts/**/*.js',
-
-			// User
-			'public/src/modules/user/*.js',
-			'public/src/modules/user/**/*.js',
-
-			// Utilities
-			'public/src/modules/utilities/*.js',
-			'public/src/modules/utilities/**/*.js',
-
-			// Tests
-			'test/unit/modules/**/*.js'
-		],
+		files: orderedJsFiles,
 
 		// List of files to exclude
 		exclude: [],
@@ -118,14 +89,13 @@ module.exports = function(config) {
 		browsers: [
 
 			// 'Firefox',
-			// 'Safari'
+			// 'Safari',
 			'Chrome'
 		],
-
 		plugins: [
 
 			// 'karma-firefox-launcher',
-			// 'karma-safari-launcher'
+			// 'karma-safari-launcher',
 			'karma-jasmine',
 			'karma-chrome-launcher'
 		]
