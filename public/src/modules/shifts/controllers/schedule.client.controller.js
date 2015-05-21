@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2014-10-28 15:04:12
  * @Last Modified 2014-12-08
- * @Last Modified time: 2015-05-11 15:22:37
+ * @Last Modified time: 2015-05-21 11:43:05
  */
 
 'use strict';
@@ -19,7 +19,6 @@ angular.module('shifts').controller('ScheduleController', function(
 
 	that.refreshContent = function() {
 		var pathTester = /main\/schedule\/(availability|myAvailability)/;
-		console.log($location.path());
 		if (pathTester.test($location.path())) {
 			scheduleService.refresh(true).then(function(data) {
 				$scope.noAvailabilityEmployees = data;
