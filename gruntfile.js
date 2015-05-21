@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-21 09:32:21
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-20 18:52:39
+ * @Last Modified time: 2015-05-21 15:53:34
  */
 
 'use strict';
@@ -32,16 +32,18 @@ module.exports = function(grunt) {
 		orderedJsAppFiles = [
 			'public/src/modules/config.js',
 			'public/src/modules/application.js',
-			'public/src/modules/core/*.js',
-			'public/src/modules/core/**/*.js',
 			'public/src/modules/applications/*.js',
 			'public/src/modules/applications/**/*.js',
+			'public/src/modules/core/*.js',
+			'public/src/modules/core/**/*.js',
 			'public/src/modules/employees/*.js',
 			'public/src/modules/employees/**/*.js',
-			'public/src/modules/professors/*.js',
-			'public/src/modules/professors/**/*.js',
+			'public/src/modules/hr/*.js',
+			'public/src/modules/hr/**/*.js',
 			'public/src/modules/messages/*.js',
 			'public/src/modules/messages/**/*.js',
+			'public/src/modules/professors/*.js',
+			'public/src/modules/professors/**/*.js',
 			'public/src/modules/saras/*.js',
 			'public/src/modules/saras/**/*.js',
 			'public/src/modules/semesters/*.js',
@@ -347,4 +349,3 @@ module.exports = function(grunt) {
 	// Premajor
 	grunt.registerTask('bump-pM', ['bump-only:premajor', 'concat:lib', 'cssmin:lib', 'string-replace', 'bump-commit']);
 };
-

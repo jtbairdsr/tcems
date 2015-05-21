@@ -35,17 +35,21 @@ module.exports = function(config) {
 			'public/src/modules/config.js',
 			'public/src/modules/application.js',
 
-			// Core
-			'public/src/modules/core/*.js',
-			'public/src/modules/core/**/*.js',
-
 			// Applications
 			'public/src/modules/applications/*.js',
 			'public/src/modules/applications/**/*.js',
 
+			// Core
+			'public/src/modules/core/*.js',
+			'public/src/modules/core/**/*.js',
+
 			// Employees
 			'public/src/modules/employees/*.js',
 			'public/src/modules/employees/**/*.js',
+
+			// HR
+			'public/src/modules/hr/*.js',
+			'public/src/modules/hr/**/*.js',
 
 			// Messages
 			'public/src/modules/messages/*.js',
@@ -127,4 +131,3 @@ module.exports = function(config) {
 		]
 	});
 };
-
