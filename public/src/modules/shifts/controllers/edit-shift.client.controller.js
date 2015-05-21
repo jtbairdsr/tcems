@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-01-25 09:28:03
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-18 10:51:25
+ * @Last Modified time: 2015-05-21 12:50:31
  */
 
 'use strict';
@@ -78,8 +78,9 @@ angular.module('shifts').controller('EditShiftController', function(
 
 	// Deactivates a shift in the database;
 	that.deactivateShift = function() {
-		shift.deactivate();
-		Shift.query();
+		shift.deactivate().then(function() {
+			$scope.ctrl.refreshContent();
+		});
 	};
 
 	// Creates a schedule to link an employee to the shift
