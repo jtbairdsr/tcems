@@ -32,19 +32,22 @@
 	<div class="form-group">
 		<label class="col-md-3 control-label">Position:</label>
 		<div class="col-md-9">
-			<input class="form-control" type="text" disabled="true" data-ng-model="currentUser.Position.Position">
+			<button class="btn btn-default form-control" data-bs-select data-ng-options="pos.id as pos.desc for pos in ctrl.positions.Employee"
+			data-ng-model="currentUser.PositionId" disabled="true"></button>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-3 control-label">Area:</label>
 		<div class="col-md-9">
-			<input class="form-control" type="text" disabled="true" data-ng-model="currentUser.Area.Area">
+			<button class="btn btn-default form-control" data-bs-select data-ng-options="area.id as area.desc for area in ctrl.areas"
+			data-ng-model="currentUser.AreaId" disabled="true"></button>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-3 control-label">Track:</label>
 		<div class="col-md-9">
-			<select class="form-control" data-ng-options="track.id as track.desc for track in ctrl.tracks" data-ng-model="currentUser.TrackId"></select>
+			<button class="btn btn-default form-control" data-bs-select data-ng-options="track.id as track.desc for track in ctrl.tracks"
+			data-ng-model="currentUser.TrackId"></button>
 		</div>
 	</div>
 	<div class="form-group">
@@ -60,3 +63,4 @@
 		</div>
 	</div>
 </div>
+

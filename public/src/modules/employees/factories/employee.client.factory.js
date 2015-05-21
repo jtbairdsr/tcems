@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 08:59:05
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 21:57:07
+ * @Last Modified time: 2015-05-20 06:49:31
  */
 
 'use strict';
@@ -281,42 +281,45 @@ angular.module('employees').factory('Employee', function(
 
 	Employee.GET = function(attribute, value) {
 		var deffered = $q.defer();
-		$super.GET.call(this, listName, attribute, value)
-			.then(function(data) {
-				deffered.resolve(new Employee(data));
-			});
+		$super.GET.call(this, listName, attribute, value).then(function(data) {
+			deffered.resolve(new Employee(data));
+		});
 		return deffered.promise;
+
+		// TODO: create the query method test suite
 	};
 
 	Employee.query = function() {
 		var deffered = $q.defer(),
 			filter = ['Id', 'gt', 0];
-		Data.queryFilter.call(this, listName, filter, Employee.prototype.expand, Employee.prototype.propertyList)
-			.then(function(data) {
-				list.splice(0, list.length);
-				_.each(data, function(datum) {
-					list.push(new Employee(datum));
-				});
-				deffered.resolve();
+		Data.queryFilter.call(
+			this, listName, filter,
+			Employee.prototype.expand,
+			Employee.prototype.propertyList
+		).then(function(data) {
+			list.splice(0, list.length);
+			_.each(data, function(datum) {
+				list.push(new Employee(datum));
 			});
+			deffered.resolve();
+		});
 		return deffered.promise;
 
-		// TODO: create the setIntent method test suite
+		// TODO: create the query method test suite
 	};
 
 	Employee.queryAll = function() {
 		var deffered = $q.defer();
-		Data.query.call(this, listName)
-			.then(function(data) {
-				list.splice(0, list.length);
-				_.each(data, function(datum) {
-					list.push(new Employee(datum));
-				});
-				deffered.resolve();
+		Data.query.call(this, listName).then(function(data) {
+			list.splice(0, list.length);
+			_.each(data, function(datum) {
+				list.push(new Employee(datum));
 			});
+			deffered.resolve();
+		});
 		return deffered.promise;
 
-		// TODO: create the setIntent method test suite
+		// TODO: create the queryAll method test suite
 	};
 
 	/**
@@ -328,16 +331,21 @@ angular.module('employees').factory('Employee', function(
 		returnArray = returnArray || list;
 		var deffered = $q.defer(),
 			filter = ['Active', 'eq', 1];
-		Data.queryFilter.call(this, listName, filter, Employee.prototype.expand, Employee.prototype.propertyList)
-			.then(function(data) {
-				_.each(data, function(employee) {
-					returnArray.push(new Employee(employee));
-				});
-				deffered.resolve();
+		Data.queryFilter.call(
+			this,
+			listName,
+			filter,
+			Employee.prototype.expand,
+			Employee.prototype.propertyList
+		).then(function(data) {
+			_.each(data, function(employee) {
+				returnArray.push(new Employee(employee));
 			});
+			deffered.resolve();
+		});
 		return deffered.promise;
 
-		// TODO: create the setIntent method test suite
+		// TODO: create the queryActive method test suite
 	};
 
 	/**
@@ -356,7 +364,7 @@ angular.module('employees').factory('Employee', function(
 			});
 		return returnArray;
 
-		// TODO: create the setIntent method test suite
+		// TODO: create the queryInactive method test suite
 	};
 
 	/**
@@ -375,7 +383,7 @@ angular.module('employees').factory('Employee', function(
 			});
 		return returnArray;
 
-		// TODO: create the setIntent method test suite
+		// TODO: create the queryRetired method test suite
 	};
 
 	/**
@@ -400,9 +408,10 @@ angular.module('employees').factory('Employee', function(
 		}
 		return returnArray;
 
-		// TODO: create the setIntent method test suite
+		// TODO: create the queryByPosition method test suite
 	};
 
 	// Return the newly defined Employee object
 	return Employee;
 });
+

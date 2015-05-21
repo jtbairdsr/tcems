@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-04 17:21:51
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-11 15:50:57
+ * @Last Modified time: 2015-05-20 13:51:24
  */
 
 'use strict';
@@ -29,7 +29,7 @@ angular.module('core').service('coreService', function(
 				}
 				semesters.nextSemester = nextSemester.data;
 				messageService.refresh().then(function() {
-					promise.resolve();
+					promise.resolve(true);
 				});
 			}
 
@@ -58,3 +58,4 @@ angular.module('core').service('coreService', function(
 
 	return this;
 });
+

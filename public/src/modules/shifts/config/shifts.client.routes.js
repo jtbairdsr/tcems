@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 21:11:35
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-11 17:49:41
+ * @Last Modified time: 2015-05-20 16:58:06
  */
 
 'use strict';
@@ -11,6 +11,7 @@ var app = angular.module('core');
 
 app.config(function($stateProvider) {
 	$stateProvider.state('main.schedule', {
+		abstract: true,
 		url: '/schedule',
 		templateUrl: 'src/modules/shifts/views/schedule-tabs.client.view.html',
 		controller: 'ScheduleController',
@@ -54,3 +55,4 @@ app.config(function($stateProvider) {
 		templateUrl: 'src/modules/shifts/views/today.client.view.html'
 	});
 });
+
