@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-01 08:11:28
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-21 18:05:21
+ * @Last Modified time: 2015-05-21 18:07:23
  */
 
 'use strict';
@@ -22,6 +22,14 @@ angular.module('core').run(function($rootScope) {
 	angular.extend($datepickerProvider.defaults, {
 		dateFormat: 'd - MMM - yyyy',
 		startWeek: 0,
+		placement: 'auto bottom-center'
+	});
+}).config(function($selectProvider) {
+	angular.extend($selectProvider.defaults, {
+		placement: 'auto bottom-center'
+	});
+}).config(function($typeaheadProvider) {
+	angular.extend($typeaheadProvider.defaults, {
 		placement: 'auto bottom-center'
 	});
 });
