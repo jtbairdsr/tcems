@@ -1,0 +1,18 @@
+/*
+ * @Author: Jonathan Baird
+ * @Date:   2015-05-21 19:43:17
+ * @Last Modified by:   Jonathan Baird
+ * @Last Modified time: 2015-05-21 20:48:40
+ */
+
+.row.app-build-pane {
+	border-bottom: solid 1px #ddd;
+	border-left: solid 1px #ddd;
+	border-right: solid 1px #ddd;
+	border-radius: 0 0 4px 4px;
+}
+
+.avail-ques-panel {
+	height: 650px;
+	overflow: scroll;
+}

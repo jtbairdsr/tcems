@@ -30,6 +30,8 @@ var orderedJsFiles = [
 	'public/src/modules/core/**/*.js',
 	'public/src/modules/employees/*.js',
 	'public/src/modules/employees/**/*.js',
+	'public/src/modules/fte-tools/*.js',
+	'public/src/modules/fte-tools/**/*.js',
 	'public/src/modules/hr/*.js',
 	'public/src/modules/hr/**/*.js',
 	'public/src/modules/messages/*.js',

@@ -1,0 +1,129 @@
+<div class="row">
+	<ul class="nav nav-tabs">
+		<li data-ng-repeat="ap in aps" data-ng-class="{active: ap.active}">
+			<a data-ng-click="activateAP(ap.id)">{{ap.pos.Description}}</a>
+		</li>
+	</ul>
+</div>
+<div class="row app-build-pane" data-ng-repeat="ap in aps" data-ng-show="ap.active">
+	<tcems-buffer></tcems-buffer>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title">Position Settings</div>
+			</div>
+			<div class="panel-body form form-horizontal">
+				<div class="col-md-12 well">
+					<div class="h4">Miscellaneous</div>
+					<tcems-buffer></tcems-buffer>
+					<div class="form-group col-md-12">
+						<label class="col-md-10">Can See Applications:</label>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-default" data-ng-click="ap.cSApps = !ap.cSApps">
+								<span data-ng-show="ap.cSApps">Yes</span>
+								<span data-ng-hide="ap.cSApps">No</span>
+							</button>
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="col-md-10">Hiring:</label>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-default" data-ng-click="ap.hiring = !ap.hiring">
+								<span data-ng-show="ap.hiring">Yes</span>
+								<span data-ng-hide="ap.hiring">No</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 well">
+					<div class="h4">Resume</div>
+					<tcems-buffer></tcems-buffer>
+					<div class="form-group col-md-12">
+						<label class="col-md-10">Accept:</label>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-default" data-ng-disabled="ap.rr" data-ng-click="ap.ar = !ap.ar">
+								<span data-ng-show="ap.ar">Yes</span>
+								<span data-ng-hide="ap.ar">No</span>
+							</button>
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="col-md-10">Required:</label>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-default" data-ng-disabled="!ap.ar" data-ng-click="ap.rr = !ap.rr">
+								<span data-ng-show="ap.rr">Yes</span>
+								<span data-ng-hide="ap.rr">No</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 well">
+					<div class="h4">Cover Letter</div>
+					<tcems-buffer></tcems-buffer>
+					<div class="form-group col-md-12">
+						<label class="col-md-10">Accept:</label>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-default" data-ng-disabled="ap.rcl" data-ng-click="ap.acl = !ap.acl">
+								<span data-ng-show="ap.acl">Yes</span>
+								<span data-ng-hide="ap.acl">No</span>
+							</button>
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="col-md-10">Required:</label>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-default" data-ng-disabled="!ap.acl" data-ng-click="ap.rcl = !ap.rcl ">
+								<span data-ng-show="ap.rcl">Yes</span>
+								<span data-ng-hide="ap.rcl">No</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title">Available Questions</div>
+			</div>
+			<div class="panel-body avail-ques-panel">
+				<table class="table table-hover">
+					<tr>
+						<th>Question</th>
+						<th>Used</th>
+					</tr>
+					<tr data-ng-repeat="q in questions">
+						<td>
+							{{q.content}}
+						</td>
+						<td>
+							<button type="button" class="btn btn-default" data-ng-click="addToApp(q.Id, 'pos', pos.id)">
+								<span data-ng-show="ap.cSApps">Yes</span>
+								<span data-ng-hide="ap.cSApps">No</span>
+							</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input class="form-control" type="text" placeholder="New question..." data-ng-model="content">
+						</td>
+						<td>
+							<button type="button" class="btn btn-default" data-ng-click="addQuestion(content)">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<tcems-buffer></tcems-buffer>
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title">Application Preview</div>
+			</div>
+		</div>
+	</div>
+</div>

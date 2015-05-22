@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-21 09:32:21
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-21 18:00:45
+ * @Last Modified time: 2015-05-21 19:01:25
  */
 
 'use strict';
@@ -44,6 +44,10 @@ module.exports = function(grunt) {
 			// Employees
 			'public/src/modules/employees/*.js',
 			'public/src/modules/employees/**/*.js',
+
+			// FTE-Tools
+			'public/src/modules/fte-tools/*.js',
+			'public/src/modules/fte-tools/**/*.js',
 
 			// HR
 			'public/src/modules/hr/*.js',
