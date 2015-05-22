@@ -12,7 +12,7 @@ var orderedJsFiles = [
 	'public/src/lib/angular-sanitize/angular-sanitize.min.js',
 	'public/src/lib/angular-ui-router/release/angular-ui-router.min.js',
 	'public/src/lib/angular-strap/dist/angular-strap.min.js',
-	'public/src/lib/angular-strap/dist/angular-strap.min.tpl.js',
+	'public/src/lib/angular-strap/dist/angular-strap.tpl.min.js',
 	'public/src/lib/ui-utils/ui-utils.min.js',
 	'public/src/lib/angular-ui-select/dist/select.min.js',
 	'public/src/lib/angular-img-fallback/angular.dcb-img-fallback.min.js',

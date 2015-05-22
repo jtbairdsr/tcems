@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-21 09:32:21
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-21 17:44:09
+ * @Last Modified time: 2015-05-21 18:00:45
  */
 
 'use strict';
@@ -88,7 +88,7 @@ module.exports = function(grunt) {
 			'public/src/lib/angular-sanitize/angular-sanitize.min.js',
 			'public/src/lib/angular-ui-router/release/angular-ui-router.min.js',
 			'public/src/lib/angular-strap/dist/angular-strap.min.js',
-			'public/src/lib/angular-strap/dist/angular-strap.min.tpl.js',
+			'public/src/lib/angular-strap/dist/angular-strap.tpl.min.js',
 			'public/src/lib/ui-utils/ui-utils.min.js',
 			'public/src/lib/angular-ui-select/dist/select.min.js',
 			'public/src/lib/angular-img-fallback/angular.dcb-img-fallback.min.js',
@@ -196,7 +196,6 @@ module.exports = function(grunt) {
 								returnString += '\t\'' + orderedJsAppFiles[i] + '\',\n';
 							}
 							returnString += '\t\'test/unit/modules/**/*.js\'\n]';
-							console.log(returnString);
 							return returnString;
 						}
 					}]
