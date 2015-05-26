@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 12:23:23
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-11 11:06:44
+ * @Last Modified time: 2015-05-26 14:36:49
  */
 
 'use strict';
@@ -273,7 +273,7 @@ angular.module('shifts').factory('Day', function(
 					subCovered: that.past
 				};
 				this.isSubShift = params.subShift !== undefined;
-				this.subShift = undefined;
+				this.subShift = params.subShift;
 				this.shift = params.shift;
 				this.subRequest = params.subRequest;
 				this.disabled = (that.date.set({
