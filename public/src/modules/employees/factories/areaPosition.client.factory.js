@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 12:23:32
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-19 09:23:56
+ * @Last Modified time: 2015-05-27 13:02:24
  */
 
 'use strict';
@@ -40,8 +40,12 @@ angular.module('core').factory('AreaPosition', function(
 		/*********************Values stored on DB**********************/
 		this.AreaId = this.newData.AreaId || undefined;
 		this.PositionId = this.newData.PositionId || undefined;
-		this.hiring = this.newData.Hiring || false;
-		this.cSApps = this.newData.CanSeeApps || false;
+		this.cSApps = this.newData.CanSeeApps || this.newData.cSApps || false;
+		this.entry = this.newData.Entry || this.newData.entry || false;
+		this.hiring = this.newData.Hiring || this.newData.hiring || Date.parse('January 1, 2015');
+		this.open = this.newData.Open || this.newData.open || false;
+		this.referal = this.newData.Referal || this.newData.referal || false;
+		this.review = this.newData.Review || this.newData.review || false;
 
 		/****************Values derived from other tables**************/
 		this.Area = (this.AreaId) ? _.find(areas.list, function(a) {
@@ -80,6 +84,38 @@ angular.module('core').factory('AreaPosition', function(
 		}
 	};
 
+	AreaPosition.prototype.toggleOpen = function() {
+		if (this.open) {
+			this.open = false;
+		} else {
+			this.hiring = Date.today();
+			this.open = true;
+			this.referal = true;
+		}
+	};
+	AreaPosition.prototype.toggleReferal = function() {
+		if (this.referal) {
+			this.referal = false;
+		} else {
+			this.hiring = Date.today();
+			this.referal = true;
+		}
+	};
+	AreaPosition.prototype.toggleReview = function() {
+		if (this.review) {
+			this.review = false;
+		} else {
+			this.review = true;
+			this.open = false;
+			this.referal = false;
+		}
+	};
+	AreaPosition.prototype.closeHiring = function() {
+		this.open = false;
+		this.review = false;
+		this.referal = false;
+	};
+
 	/**************************************************************************
 	 *                              CLASS METHODS                             *
 	 **************************************************************************/
@@ -101,4 +137,3 @@ angular.module('core').factory('AreaPosition', function(
 	return AreaPosition;
 
 });
-

@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-18 16:30:55
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-19 08:40:05
+ * @Last Modified time: 2015-05-22 18:47:19
  */
 
 'use strict';
@@ -19,7 +19,7 @@ describe('PApp factory', function() {
 		$q, $timeout,
 
 		// Values
-		questions, positions,
+		questions, areaPositions,
 
 		// Objects
 		PApp, Question, Data;
@@ -70,7 +70,7 @@ describe('PApp factory', function() {
 
 			// Values
 			questions = $injector.get('questions');
-			positions = $injector.get('positions');
+			areaPositions = $injector.get('areaPositions');
 
 			// Data
 			PApp = $injector.get('PApp');
@@ -103,12 +103,14 @@ describe('PApp factory', function() {
 		questions.list.push(testQuestion);
 		testPosition = {
 			Id: 1,
-			toString: function() {
-				return 'Proctor';
+			Position: {
+				toString: function() {
+					return 'Proctor';
+				}
 			}
 		};
-		positions.list.splice(0, positions.list.length);
-		positions.list.push(testPosition);
+		areaPositions.list.splice(0, areaPositions.list.length);
+		areaPositions.list.push(testPosition);
 	});
 
 	/**************************************************************************
@@ -174,4 +176,3 @@ describe('PApp factory', function() {
 		});
 	});
 });
-

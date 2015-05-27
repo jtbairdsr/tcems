@@ -1,11 +1,45 @@
 <div class="row">
 	<ul class="nav nav-tabs">
-		<li data-ng-repeat="ap in aps" data-ng-class="{active: ap.active}">
+		<li data-ng-class="{active: data.area.active}">
+			<a data-ng-click="switchToArea()">{{data.area.desc}} Area</a>
+		</li>
+		<li data-ng-repeat="ap in data.aps | notFTE" data-ng-class="{active: ap.active}">
 			<a data-ng-click="activateAP(ap.id)">{{ap.pos.Description}}</a>
 		</li>
 	</ul>
 </div>
-<div class="row app-build-pane" data-ng-repeat="ap in aps" data-ng-show="ap.active">
+<div class="row app-build-pane" data-ng-show="data.area.active">
+	<tcems-buffer></tcems-buffer>
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title">Area Settings</div>
+			</div>
+			<div class="panel-body form form-horizontal">
+				<div data-ng-include="fteViews + 'resume-settings.client.view.html'"></div>
+				<div data-ng-include="fteViews + 'cover-letter-settings.client.view.html'"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div data-ng-include="fteViews + 'available-questions.client.view.html'"></div>
+	</div>
+	<tcems-buffer></tcems-buffer>
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="panel-title">Application Preview</div>
+			</div>
+			<div class="panel-body">
+				<div data-ng-include="fteViews + 'cover-letter-resume-upload.client.view.html'"></div>
+				<div data-ng-repeat="q in aApps | filter:{aId: data.area.id}">
+					<div data-ng-include="appViews + 'app.client.view.html'"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row app-build-pane" data-ng-repeat="ap in data.aps" data-ng-show="ap.active">
 	<tcems-buffer></tcems-buffer>
 	<div class="col-md-6">
 		<div class="panel panel-default">
@@ -16,113 +50,86 @@
 				<div class="col-md-12 well">
 					<div class="h4">Miscellaneous</div>
 					<tcems-buffer></tcems-buffer>
-					<div class="form-group col-md-12">
-						<label class="col-md-10">Can See Applications:</label>
-						<div class="col-md-2">
-							<button type="button" class="btn btn-default" data-ng-click="ap.cSApps = !ap.cSApps">
-								<span data-ng-show="ap.cSApps">Yes</span>
-								<span data-ng-hide="ap.cSApps">No</span>
-							</button>
-						</div>
+					<div class="well-divider text-center">
+						<span class="well-divider-text">&nbsp;&nbsp;Position&nbsp;&nbsp;</span>
 					</div>
-					<div class="form-group col-md-12">
-						<label class="col-md-10">Hiring:</label>
-						<div class="col-md-2">
-							<button type="button" class="btn btn-default" data-ng-click="ap.hiring = !ap.hiring">
-								<span data-ng-show="ap.hiring">Yes</span>
-								<span data-ng-hide="ap.hiring">No</span>
-							</button>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-12 well">
-					<div class="h4">Resume</div>
 					<tcems-buffer></tcems-buffer>
-					<div class="form-group col-md-12">
-						<label class="col-md-10">Accept:</label>
-						<div class="col-md-2">
-							<button type="button" class="btn btn-default" data-ng-disabled="ap.rr" data-ng-click="ap.ar = !ap.ar">
-								<span data-ng-show="ap.ar">Yes</span>
-								<span data-ng-hide="ap.ar">No</span>
-							</button>
+					<div class="form-group">
+						<label class="col-md-8">Can See Applications:</label>
+						<div class="btn-group col-md-4">
+							<a class="btn btn-default" data-ng-class="{active: ap.cSApps}" data-ng-click="ap.cSApps = true">Yes</a>
+							<a class="btn btn-default" data-ng-class="{active: !ap.cSApps}" data-ng-click="ap.cSApps = false">No</a>
 						</div>
 					</div>
-					<div class="form-group col-md-12">
-						<label class="col-md-10">Required:</label>
-						<div class="col-md-2">
-							<button type="button" class="btn btn-default" data-ng-disabled="!ap.ar" data-ng-click="ap.rr = !ap.rr">
-								<span data-ng-show="ap.rr">Yes</span>
-								<span data-ng-hide="ap.rr">No</span>
-							</button>
+					<div class="form-group">
+						<label class="col-md-8">Entry Positions:</label>
+						<div class="btn-group col-md-4">
+							<a class="btn btn-default" data-ng-class="{active: ap.entry}" data-ng-click="ap.entry = true">Yes</a>
+							<a class="btn btn-default" data-ng-class="{active: !ap.entry}" data-ng-click="ap.entry = false">No</a>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-12 well">
-					<div class="h4">Cover Letter</div>
+					<div class="well-divider text-center">
+						<span class="well-divider-text">&nbsp;&nbsp;Hiring&nbsp;&nbsp;</span>
+					</div>
 					<tcems-buffer></tcems-buffer>
-					<div class="form-group col-md-12">
-						<label class="col-md-10">Accept:</label>
-						<div class="col-md-2">
-							<button type="button" class="btn btn-default" data-ng-disabled="ap.rcl" data-ng-click="ap.acl = !ap.acl">
-								<span data-ng-show="ap.acl">Yes</span>
-								<span data-ng-hide="ap.acl">No</span>
-							</button>
+					<p class="text-center">
+						&nbsp;
+						<span data-ng-show="ap.object.open || ap.object.referal || ap.object.review">Since {{ap.object.hiring | date:'MMM d, yyyy'}}</span>nbs
+					</p>
+					<tcems-buffer></tcems-buffer>
+					<div class="form-group">
+						<label class="col-md-8">Open:</label>
+						<div class="btn-group col-md-4">
+							<a class="btn btn-default" data-ng-class="{active: ap.object.open}" data-ng-click="ap.object.toggleOpen()">Yes</a>
+							<a class="btn btn-default" data-ng-class="{active: !ap.object.open}" data-ng-click="ap.object.toggleOpen()">No</a>
 						</div>
 					</div>
-					<div class="form-group col-md-12">
-						<label class="col-md-10">Required:</label>
-						<div class="col-md-2">
-							<button type="button" class="btn btn-default" data-ng-disabled="!ap.acl" data-ng-click="ap.rcl = !ap.rcl ">
-								<span data-ng-show="ap.rcl">Yes</span>
-								<span data-ng-hide="ap.rcl">No</span>
-							</button>
+					<div class="form-group">
+						<label class="col-md-8">Referals:</label>
+						<div class="btn-group col-md-4">
+							<a class="btn btn-default" data-ng-class="{active: ap.object.referal}" data-ng-click="ap.object.toggleReferal()">Yes</a>
+							<a class="btn btn-default" data-ng-class="{active: !ap.object.referal}" data-ng-click="ap.object.toggleReferal()">No</a>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-8">Reviewing:</label>
+						<div class="btn-group col-md-4">
+							<a class="btn btn-default" data-ng-class="{active: ap.object.review}" data-ng-click="ap.object.toggleReview()">Yes</a>
+							<a class="btn btn-default" data-ng-class="{active: !ap.object.review}" data-ng-click="ap.object.toggleReview()">No</a>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-8">Close Hiring:</label>
+						<div class="col-md-4">
+							<div class="btn-group-justified">
+								<a class="btn btn-danger" data-ng-show="ap.object.open || ap.object.review || ap.object.referal" data-ng-click="ap.object.closeHiring()">Yes</a>
+								<a class="btn btn-default" data-ng-hide="ap.object.open || ap.object.review || ap.object.referal" data-ng-click="ap.object.closeHiring()" disabled="true">Closed</a>
+							</div>
 						</div>
 					</div>
 				</div>
+				<div data-ng-include="fteViews + 'resume-settings.client.view.html'"></div>
+				<div data-ng-include="fteViews + 'cover-letter-settings.client.view.html'"></div>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<div class="panel-title">Available Questions</div>
-			</div>
-			<div class="panel-body avail-ques-panel">
-				<table class="table table-hover">
-					<tr>
-						<th>Question</th>
-						<th>Used</th>
-					</tr>
-					<tr data-ng-repeat="q in questions">
-						<td>
-							{{q.content}}
-						</td>
-						<td>
-							<button type="button" class="btn btn-default" data-ng-click="addToApp(q.Id, 'pos', pos.id)">
-								<span data-ng-show="ap.cSApps">Yes</span>
-								<span data-ng-hide="ap.cSApps">No</span>
-							</button>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input class="form-control" type="text" placeholder="New question..." data-ng-model="content">
-						</td>
-						<td>
-							<button type="button" class="btn btn-default" data-ng-click="addQuestion(content)">
-								<span class="glyphicon glyphicon-plus"></span>
-							</button>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
+		<div data-ng-include="fteViews + 'available-questions.client.view.html'"></div>
 	</div>
 	<tcems-buffer></tcems-buffer>
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="panel-title">Application Preview</div>
+			</div>
+			<div class="panel-body">
+				<div data-ng-include="fteViews + 'cover-letter-resume-upload.client.view.html'"></div>
+				<div data-ng-repeat="q in pApps | filter:{pId: ap.id}">
+					<div data-ng-include="appViews + 'app.client.view.html'"></div>
+				</div>
+			</div>
+			<div class="panel-footer text-right">
+				<span class="glyphicon glyphicon-asterisk text-danger"></span> = required
 			</div>
 		</div>
 	</div>

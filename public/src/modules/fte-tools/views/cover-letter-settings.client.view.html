@@ -1,0 +1,32 @@
+<div class="col-md-12 well">
+	<div class="h4">Cover Letter</div>
+	<tcems-buffer></tcems-buffer>
+	<div class="form-group">
+		<label class="col-md-8">Accept:</label>
+		<div class="col-md-4 btn-group" data-ng-hide="aclSet">
+			<a class="btn btn-default" data-ng-class="{active: application.acl}" data-ng-disabled="application.rcl" data-ng-click="application.toggle('acl')">
+				<span>Yes</span>
+			</a>
+			<a class="btn btn-default" data-ng-class="{active: !application.acl}" data-ng-disabled="application.rcl" data-ng-click="application.toggle('acl')">
+				<span>No</span>
+			</a>
+		</div>
+		<div data-ng-show="aclSet">
+			<strong>Area settings.</strong>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-8">Required:</label>
+		<div class="col-md-4 btn-group" data-ng-hide="rclSet">
+			<a class="btn btn-default" data-ng-class="{active: application.rcl}" data-ng-disabled="!application.acl" data-ng-click="application.toggle('rcl')">
+				<span>Yes</span>
+			</a>
+			<a class="btn btn-default" data-ng-class="{active: !application.rcl}" data-ng-disabled="!application.acl" data-ng-click="application.toggle('rcl')">
+				<span>No</span>
+			</a>
+		</div>
+		<div data-ng-show="rclSet">
+			<strong>Area settings.</strong>
+		</div>
+	</div>
+</div>

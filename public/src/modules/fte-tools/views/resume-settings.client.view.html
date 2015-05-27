@@ -1,0 +1,32 @@
+<div class="col-md-12 well">
+	<div class="h4">Resume</div>
+	<tcems-buffer></tcems-buffer>
+	<div class="form-group">
+		<label class="col-md-8">Accept:</label>
+		<div class="col-md-4 btn-group" data-ng-hide="arSet">
+			<a class="btn btn-default" data-ng-class="{active: application.ar}" data-ng-disabled="application.rr" data-ng-click="application.toggle('ar')">
+				<span>Yes</span>
+			</a>
+			<a class="btn btn-default" data-ng-class="{active: !application.ar}" data-ng-disabled="application.rr" data-ng-click="application.toggle('ar')">
+				<span>No</span>
+			</a>
+		</div>
+		<div class="col-md-4" data-ng-show="arSet">
+			<strong>Area settings.</strong>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-md-8">Required:</label>
+		<div class="col-md-4 btn-group" data-ng-hide="rrSet">
+			<a class="btn btn-default" data-ng-class="{active: application.rr}" data-ng-disabled="!(application.ar || arSet)" data-ng-click="application.toggle('rr')">
+				<span>Yes</span>
+			</a>
+			<a class="btn btn-default" data-ng-class="{active: !application.rr}" data-ng-disabled="!(application.ar || arSet)" data-ng-click="application.toggle('rr')">
+				<span>No</span>
+			</a>
+		</div>
+		<div class="col-md-4" data-ng-show="rrSet">
+			<strong>Area settings.</strong>
+		</div>
+	</div>
+</div>

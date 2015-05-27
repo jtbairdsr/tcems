@@ -2,7 +2,7 @@
  * @Author: jonathan
  * @Date:   2015-05-15 14:21:20
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-19 07:41:59
+ * @Last Modified time: 2015-05-22 18:49:47
  */
 
 'use strict';
@@ -97,29 +97,29 @@ describe('Question factory', function() {
 		// Define the test data
 		testDQuestion = new Question({
 			'Id': 1,
-			'Type': 'Date',
+			'AnswerType': 'Date',
 			'Content': 'When will you be available to start working?'
 		});
 		testFFQuestion = new Question({
 			'Id': 2,
-			'Type': 'FreeForm',
+			'AnswerType': 'FreeForm',
 			'Content': 'What is your favorite book?'
 		});
 		testCQuestion = new Question({
 			'Id': 3,
-			'Type': 'Choice',
+			'AnswerType': 'Choice',
 			'Content': 'On a scale of one to ten how chipper are you?',
 			'Choices': '1,2,3,4,5,6,7,8,9,10'
 		});
 		testMCQuestion = new Question({
 			'Id': 4,
-			'Type': 'MultipleChoice',
+			'AnswerType': 'MultipleChoice',
 			'Content': 'Choose all appropriate responses to a beard.',
 			'Choices': 'Send him home.,' + 'Remind him of the honor code.,' + 'Let him test.,' + 'Take him to a Full Time Staff member.,' + 'Ask him to go shave.'
 		});
 		testBQuestion = new Question({
 			'Id': 5,
-			'Type': 'Boolean',
+			'AnswerType': 'Boolean',
 			'Content': 'Will you follow the Testing Center Dress and grooming standards?'
 		});
 	});
@@ -180,25 +180,25 @@ describe('Question factory', function() {
 		it('should populate the data property.', function() {
 			expect(testDQuestion.data).toEqual({
 				Content: 'When will you be available to start working?',
-				Type: 'Date'
+				AnswerType: 'Date'
 			});
 			expect(testFFQuestion.data).toEqual({
 				Content: 'What is your favorite book?',
-				Type: 'FreeForm'
+				AnswerType: 'FreeForm'
 			});
 			expect(testCQuestion.data).toEqual({
 				Content: 'On a scale of one to ten how chipper are you?',
-				Type: 'Choice',
+				AnswerType: 'Choice',
 				Choices: testCQuestion.choices.toString()
 			});
 			expect(testMCQuestion.data).toEqual({
 				Content: 'Choose all appropriate responses to a beard.',
-				Type: 'MultipleChoice',
+				AnswerType: 'MultipleChoice',
 				Choices: testMCQuestion.choices.toString()
 			});
 			expect(testBQuestion.data).toEqual({
 				Content: 'Will you follow the Testing Center Dress and grooming standards?',
-				Type: 'Boolean'
+				AnswerType: 'Boolean'
 			});
 		});
 		it('should call the Data.prototype.updateData() method.', function() {
@@ -229,4 +229,3 @@ describe('Question factory', function() {
 		});
 	});
 });
-

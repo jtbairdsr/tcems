@@ -1,0 +1,35 @@
+<div class="modal">
+	<div class="modal-dialog text-muted text-left">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-ng-click="$hide()">&times;</button>
+				<h4 class="modal-title">{{q.content}}</h4>
+			</div>
+			<div class="modal-body container-fluid text-center">
+				<div data-ng-hide="q.type.indexOf('Choice') >= 0">
+					<p>
+						<label class="control-label">Type:</label>
+					</p>
+					<p data-ng-if="q.type.indexOf('B') === 0">Yes or No</p>
+					<p data-ng-if="q.type.indexOf('F') === 0">Free Form</p>
+					<p data-ng-if="q.type.indexOf('D') === 0">Date</p>
+				</div>
+				<div data-ng-show="q.type.indexOf('Choice') >= 0">
+					<p>
+						<label class="control-label">Type:</label>
+					</p>
+					<p data-ng-if="q.type.indexOf('M') === 0">Multiple Answer</p>
+					<p data-ng-if="q.type.indexOf('C') === 0">Multiple Choice</p>
+					<hr>
+					<p>
+						<label class="control-label">Choices:</label>
+					</p>
+					<p data-ng-repeat="c in q.choices">{{c}}</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-ng-click="$hide()">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

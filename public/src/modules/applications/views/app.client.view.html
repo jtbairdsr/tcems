@@ -1,0 +1,44 @@
+<div class="col-md-6">
+	<span data-ng-if="((application.acl && application.ar) || (!application.acl && !application.ar)) ? $index%2 === 0 : $index%2">
+		&nbsp;
+	</span>
+	<div class="form-group ques-well">
+		<label class="control-label">{{q.ques.content}}
+			<span class="text-danger glyphicon glyphicon-asterisk"></span>
+			{{$index%2}}
+		</label>
+		<!-- FreeForm -->
+		<div data-ng-if="q.ques.type === 'FreeForm'">
+			<textarea class="form-control" placeholder="Answer..." data-ng-model="q.ques.response"></textarea>
+			<span class="pull-right" data-ng-show="q.ques.response.length">Response length: {{q.ques.response.length}}</span>
+		</div>
+		<!-- Boolean -->
+		<div class="btn-group" data-ng-if="q.ques.type === 'Boolean'">
+			<a class="btn btn-default" data-ng-click="q.ques.response = true" data-ng-class="{active: q.ques.response}">Yes</a>
+			<a class="btn btn-default" data-ng-click="q.ques.response = false" data-ng-class="{active: !q.ques.response}">No</a>
+		</div>
+		<!-- Date -->
+		<div data-ng-if="q.ques.type === 'Date'">
+			<div class="input-group">
+				<input class="form-control" type="text" data-autoclose="true" data-ng-model="q.ques.response" data-bs-datepicker>
+				<label class="input-group-addon">
+					<span class="glyphicon glyphicon-calendar"></span>
+				</label>
+			</div>
+		</div>
+		<!-- Choice -->
+		<div data-ng-if="q.ques.type === 'Choice'">
+			<button class="btn btn-default form-control" data-ng-options="choice as choice for choice in q.ques.choices" data-bs-select data-ng-model="q.ques.response"></button>
+		</div>
+		<!-- MultipleChoice -->
+		<div data-ng-if="q.ques.type === 'MultipleChoice'">
+			<button class="btn btn-default form-control" data-ng-options="choice as choice for choice in q.ques.choices" data-bs-select data-multiple="1" data-ng-model="q.ques.response" data-placement="auto"></button>
+		</div>
+	</div>
+</div>
+&nbsp;
+<span data-ng-if="((application.acl && application.ar) || (!application.acl && !application.ar)) ? $index%2 : $index%2 === 0">
+	<div class="row-fluid">
+		<hr>
+	</div>
+</span>

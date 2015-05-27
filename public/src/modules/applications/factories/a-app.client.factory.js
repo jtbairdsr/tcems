@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-19 07:58:35
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-19 08:13:28
+ * @Last Modified time: 2015-05-22 18:21:58
  */
 
 'use strict';
@@ -40,8 +40,8 @@ angular.module('applications').factory('AApp', function(
 		this.parent.initAttributes.apply(this);
 
 		/*********************Values stored on DB**********************/
-		this.aId = this.newData.AreaId || undefined;
-		this.qId = this.newData.QuestionId || undefined;
+		this.aId = this.newData.AreaId || this.newData.aId || undefined;
+		this.qId = this.newData.QuestionId || this.newData.qId || undefined;
 
 		/****************Values derived from other tables**************/
 		this.area = (this.aId) ? _.find(areas.list, function(area) {
@@ -65,7 +65,7 @@ angular.module('applications').factory('AApp', function(
 
 	// Override the toString method from the parent object
 	AApp.prototype.toString = function() {
-		if (this.Id) {
+		if (this.Id && this.area) {
 			return this.area.toString() + '\'s application link to:\n' + this.ques.toString();
 		} else {
 			return 'New area application question';
@@ -92,4 +92,3 @@ angular.module('applications').factory('AApp', function(
 	// Return the newly defined AApp object
 	return AApp;
 });
-

@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<tcems-buffer></tcems-buffer>
 	<div class="row">
+		<!-- Menu Panel -->
 		<div class="col-md-2">
 			<ul class="nav nav-pills nav-stacked" data-bs-navbar>
 				<li data-match-route="/main/hr/fte-tools/application-builder">
@@ -10,15 +11,22 @@
 					<a>Option {{item}}</a>
 				</li>
 			</ul>
-		</div>
-		<div class="col-md-10" data-ui-view>
-			<div class="panel panel-default">
+			<div class="panel panel-default" data-ng-show="currentUser.Admin">
 				<div class="panel-heading">
-					<h4 class="panel-title">Data Panel</h4>
+					<div class="panel-title">Area Switcher</div>
 				</div>
 				<div class="panel-body">
+					<ul class="nav nav-pills nav-stacked">
+						<li data-ng-repeat="a in areas | notDirector" data-ng-class="{active: data.aId === a.Id}">
+							<a data-ng-click="changeArea(a.Id)">
+								{{a.Description}}
+							</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
+		<!-- Data Panel -->
+		<div class="col-md-10" data-ui-view></div>
 	</div>
 </div>

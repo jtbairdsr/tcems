@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-21 19:43:17
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-21 20:48:40
+ * @Last Modified time: 2015-05-27 14:54:59
  */
 
 .row.app-build-pane {
@@ -13,6 +13,19 @@
 }
 
 .avail-ques-panel {
-	height: 650px;
+	height: 913px;
 	overflow: scroll;
+}
+
+.a-avail-ques-panel {
+	height: 444px;
+	overflow: scroll;
+}
+
+tr.new-question {
+	height: 90px;
+}
+
+.ques-well {
+	min-height: 110px;
 }

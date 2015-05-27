@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="panel-title">Available Questions</div>
+	</div>
+	<div class="panel-body" data-ng-class="{'a-avail-ques-panel': application.listName === 'Area', 'avail-ques-panel': application.listName !== 'Area'}">
+		<table class="table table-hover">
+			<tr>
+				<th colspan="2">Question</th>
+				<th>Use</th>
+			</tr>
+			<tr data-ng-repeat="q in questions" data-ng-class="{active: isInApp(q.Id, application)}">
+				<td>
+					<a type="button" class="btn btn-link" data-bs-modal="modal" data-template="src/modules/fte-tools/views/question-details.client.view.html">
+						<span class="glyphicon glyphicon-info-sign"></span>
+					</a>
+				</td>
+				<td>
+					{{q.content}}
+				</td>
+				<td>
+					<div class="btn-group-vertical col-md-12">
+						<a class="btn btn-default" data-ng-class="{active: isInApp(q.Id, application)}" data-ng-click="addToApp(q.Id, application)">
+							<span class="glyphicon glyphicon-ok-circle"></span>
+						</a>
+						<a class="btn btn-default" data-ng-class="{active: !isInApp(q.Id, application)}" data-ng-click="removeFromApp(q.Id, application)">
+							<span class="glyphicon glyphicon-remove-circle"></span>
+						</a>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<textarea class="form-control" placeholder="New question..." data-ng-model="data.newQuestion.content"></textarea>
+				</td>
+				<td>
+					<div class="btn-group col-md-12">
+						<a class="btn btn-default" data-bs-modal="modal" data-template="src/modules/fte-tools/views/new-question.client.view.html" data-ng-disabled="!data.newQuestion.content">
+							<span class="glyphicon glyphicon-plus"></span>
+						</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

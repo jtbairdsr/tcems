@@ -2,13 +2,13 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-19 07:58:35
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-19 08:40:31
+ * @Last Modified time: 2015-05-22 17:40:43
  */
 
 'use strict';
 
 angular.module('applications').factory('PApp', function(
-	$q, Data, pApps, questions, positions
+	$q, Data, pApps, questions, areaPositions
 ) {
 	// Variables attempt to make the code more readable
 	var $super = Data,
@@ -40,11 +40,11 @@ angular.module('applications').factory('PApp', function(
 		this.parent.initAttributes.apply(this);
 
 		/*********************Values stored on DB**********************/
-		this.pId = this.newData.PositionId || undefined;
-		this.qId = this.newData.QuestionId || undefined;
+		this.pId = this.newData.PositionId || this.newData.pId || undefined;
+		this.qId = this.newData.QuestionId || this.newData.qId || undefined;
 
 		/****************Values derived from other tables**************/
-		this.pos = (this.pId) ? _.find(positions.list, function(pos) {
+		this.pos = (this.pId) ? _.find(areaPositions.list, function(pos) {
 			return pos.Id === that.pId;
 		}) : undefined;
 		this.ques = (this.qId) ? _.find(questions.list, function(ques) {
@@ -65,8 +65,8 @@ angular.module('applications').factory('PApp', function(
 
 	// Override the toString method from the parent object
 	PApp.prototype.toString = function() {
-		if (this.Id) {
-			return this.pos.toString() + '\'s application link to:\n' + this.ques.toString();
+		if (this.Id && this.pos) {
+			return this.pos.Position.toString() + '\'s application link to:\n' + this.ques.toString();
 		} else {
 			return 'New position application question';
 		}
@@ -92,4 +92,3 @@ angular.module('applications').factory('PApp', function(
 	// Return the newly defined PApp object
 	return PApp;
 });
-
