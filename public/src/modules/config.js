@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 09:08:35
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 09:06:03
+ * @Last Modified time: 2015-05-27 16:11:14
  */
 
 /* exported ApplicationConfiguration */
@@ -27,7 +27,8 @@ var ApplicationConfiguration = (function() {
 			'mgcrea.ngStrap',
 			'ui.router',
 			'ui.select',
-			'ui.utils'
+			'ui.utils',
+			'flow'
 		],
 		/**
 		 * Adds a new module to the app

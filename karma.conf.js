@@ -21,6 +21,7 @@ var orderedJsFiles = [
 	'public/src/lib/underscore/underscore-min.js',
 	'public/src/lib/Autolinker.js/dist/Autolinker.min.js',
 	'public/src/lib/angular-loading-bar/build/loading-bar.min.js',
+	'public/src/lib/ng-flow/dist/ng-flow-standalone.min.js',
 	'public/src/lib/angular-mocks/angular-mocks.js',
 	'public/src/modules/config.js',
 	'public/src/modules/application.js',

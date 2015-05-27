@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-21 09:32:21
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-21 19:01:25
+ * @Last Modified time: 2015-05-27 16:11:01
  */
 
 'use strict';
@@ -100,7 +100,8 @@ module.exports = function(grunt) {
 			'public/src/lib/file-saver.js/FileSaver.min.js',
 			'public/src/lib/underscore/underscore-min.js',
 			'public/src/lib/Autolinker.js/dist/Autolinker.min.js',
-			'public/src/lib/angular-loading-bar/build/loading-bar.min.js'
+			'public/src/lib/angular-loading-bar/build/loading-bar.min.js',
+			'public/src/lib/ng-flow/dist/ng-flow-standalone.min.js'
 		],
 		LIVERELOAD_PORT = process.env.LIVERELOAD_PORT || 35729,
 		commitMessage = grunt.option('cm') || 'A lazy man should be flogged';

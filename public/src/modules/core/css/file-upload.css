@@ -1,0 +1,19 @@
+/*
+* @Author: Jonathan Baird
+* @Date:   2015-05-27 15:53:41
+* @Last Modified by:   Jonathan Baird
+* @Last Modified time: 2015-05-27 15:54:15
+*
+* File updload styles
+-------------------------------------------------- */
+
+.drop {
+	padding: 15px;
+	border: 2px #f1f1f1 dashed;
+	border-radius: 5px;
+	line-height: 34px;
+}
+.drop.drag-over {
+	background: #5CB85C;
+	color: #fff
+}
