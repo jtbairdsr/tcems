@@ -21,8 +21,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-4" for="pName">Preferred Name:</label>
 						<div class="col-md-8">
-							<input class="form-control" id="pName" type="text" placeholder="Preferred Name..."
-							data-ng-model="currentUser.emp.PreferredName">
+							<input class="form-control" id="pName" type="text" placeholder="Preferred Name..." data-ng-model="currentUser.emp.PreferredName">
 						</div>
 					</div>
 					<div class="form-group">
@@ -36,8 +35,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-4" for="phone">Phone Number:</label>
 						<div class="col-md-8">
-							<input class="form-control" id="phone" type="text" placeholder="Phone Number..."
-							data-ng-model="currentUser.emp.PhoneNumber">
+							<input class="form-control" id="phone" type="text" placeholder="Phone Number..." data-ng-model="currentUser.emp.PhoneNumber">
 						</div>
 					</div>
 					<div class="form-group">
@@ -50,8 +48,7 @@
 						<label class="control-label col-md-4" for="aDate">Availability Date:</label>
 						<div class="col-md-8">
 							<div class="input-group">
-								<input class="form-control" id="aDate" type="text" data-autoclose="true" data-ng-model="currentUser.emp.AvailableDate"
-								data-bs-datepicker>
+								<input class="form-control" id="aDate" type="text" data-autoclose="true" data-ng-model="currentUser.emp.AvailableDate" data-bs-datepicker>
 								<label class="input-group-addon" for="aDate">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</label>
@@ -78,40 +75,21 @@
 			<div class="row" data-ng-repeat="a in as" data-ng-show="a.active">
 				<div class="col-md-2">
 					<ul class="nav nav-pills nav-stacked">
-						<li data-ng-repeat="aP in aPs | filter:{aId: a.id}" data-ng-class="{'active': aP.active}">
-							<a data-ng-click="activateAP(aP.id)">{{aP.desc}}</a>
+						<li data-ng-repeat="p in aPs | filter:{aId: a.id}" data-ng-class="{'active': p.active}">
+							<a data-ng-click="activateAP(p.id)">{{p.desc}}</a>
 						</li>
 					</ul>
 				</div>
 				<div class="col-md-10">
-					<div class="form" data-ng-repeat="aP in aPs" data-ng-show="aP.active">
+					<div class="form" data-ng-repeat="p in aPs" data-ng-show="p.active">
 						<!-- aApps -->
 						<div class="form-group" data-ng-repeat="q in aApps | filter:{aId: a.Id}">
-							<label class="control-label">{{q.ques.content}}</label>
-							<textarea placeholder="Answer..." data-ng-model="q.ques.response" data-ng-show="q.ques.type === 'FreeForm'"></textarea>
-							<div data-ng-model="q.ques.response" data-bs-radio-group>
-								<label class="btn btn-default">
-									<input type="radio" class="btn btn-default" value="true">Yes
-								</label>
-								<label class="btn btn-default">
-									<input type="radio" class="btn btn-default" value="false">No
-								</label>
-							</div>
-							<div class="input-group" data-ng-show="q.ques.type === 'Date'">
-								<input class="form-control" type="text" data-autoclose="true" data-ng-model="q.ques.response"
-								data-bs-datepicker>
-								<label class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar"></span>
-								</label>
-							</div>
-							<button class="btn btn-default form-control" data-ng-options="choice as choice for choice in q.ques.choices"
-							data-ng-show="q.ques.type === 'Choice'" data-bs-select data-ng-model="q.ques.response"></button>
-							<button class="btn btn-default form-control" data-ng-options="choice as choice for choice in q.ques.choices"
-							data-ng-show="q.ques.type === 'MultipleChoice'" data-bs-select data-multiple="1"
-							data-ng-model="q.ques.response"></button>
+							<div data-ng-include="appViews + 'a-app.client.view.html'"></div>
 						</div>
-						<!-- aPApps -->
 						<!-- pApps -->
+						<div class="form-group" data-ng-repeat="q in pApps | filter:{pId: p.Id, aId: a.Id}">
+							<div data-ng-include="appViews + 'a-app.client.view.html'"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -119,4 +97,3 @@
 	</div>
 </div>
 <!-- </div> -->
-

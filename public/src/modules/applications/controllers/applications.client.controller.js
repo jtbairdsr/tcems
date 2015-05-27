@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-20 18:42:05
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-20 20:21:26
+ * @Last Modified time: 2015-05-22 07:31:53
  */
 
 'use strict';
@@ -12,6 +12,7 @@ angular.module('applications').controller('ApplicationsController', function(
 ) {
 	$scope.as = [];
 	$scope.aPs = [];
+	$scope.appViews = 'src/modules/applications/views/';
 
 	var as = $scope.as,
 		aPs = $scope.aPs;
@@ -67,4 +68,3 @@ angular.module('applications').controller('ApplicationsController', function(
 		}
 	};
 });
-

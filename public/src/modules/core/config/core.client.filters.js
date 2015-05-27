@@ -2,42 +2,36 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-22 20:44:43
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 23:28:39
+ * @Last Modified time: 2015-05-22 08:09:26
  */
-
-/*globals _ */
 
 'use strict';
 
-var app = angular.module('core');
-
-app.filter('numberFixedLen', function() {
+angular.module('core').filter('numberFixedLen', function() {
 	return function(a, b) {
 		return (1e4 + a + '')
 			.slice(-b);
 	};
-});
-app.filter('partition', function() {
-	var cache = {};
-	var filter = function(arr, size) {
-		if (!arr) {
-			return;
-		}
-		var newArr = [];
-		for (var i = 0; i < arr.length; i += size) {
-			newArr.push(arr.slice(i, i + size));
-		}
-		var arrString = JSON.stringify(arr);
-		var fromCache = cache[arrString + size];
-		if (JSON.stringify(fromCache) === JSON.stringify(newArr)) {
-			return fromCache;
-		}
-		cache[arrString + size] = newArr;
-		return newArr;
-	};
+}).filter('partition', function() {
+	var cache = {},
+		filter = function(arr, size) {
+			if (!arr) {
+				return;
+			}
+			var newArr = [];
+			for (var i = 0; i < arr.length; i += size) {
+				newArr.push(arr.slice(i, i + size));
+			}
+			var arrString = JSON.stringify(arr),
+				fromCache = cache[arrString + size];
+			if (JSON.stringify(fromCache) === JSON.stringify(newArr)) {
+				return fromCache;
+			}
+			cache[arrString + size] = newArr;
+			return newArr;
+		};
 	return filter;
-});
-app.filter('tel', function() {
+}).filter('tel', function() {
 	return function(tel) {
 		if (!tel) {
 			return '';
@@ -85,8 +79,7 @@ app.filter('tel', function() {
 		return (country + ' (' + city + ') ' + number)
 			.trim();
 	};
-});
-app.filter('unique', function() {
+}).filter('unique', function() {
 	return function(items, filterOn) {
 		if (filterOn === false) {
 			return items;
@@ -119,8 +112,7 @@ app.filter('unique', function() {
 		}
 		return items;
 	};
-});
-app.filter('truncate', function() {
+}).filter('truncate', function() {
 	return function(text, length, end) {
 		if (isNaN(length))
 			length = 10;
@@ -135,8 +127,7 @@ app.filter('truncate', function() {
 		}
 
 	};
-});
-app.filter('shiftFilter', function() {
+}).filter('shiftFilter', function() {
 	return function(shifts, date) {
 		return _.filter(shifts, function(shift) {
 			return (
@@ -144,8 +135,7 @@ app.filter('shiftFilter', function() {
 			);
 		});
 	};
-});
-app.filter('professorFilter', function() {
+}).filter('professorFilter', function() {
 	return function(professors, parameter) {
 		parameter = parameter || '^.';
 		parameter = new RegExp(parameter, 'i');
@@ -156,5 +146,35 @@ app.filter('professorFilter', function() {
 			);
 		});
 		return professors;
+	};
+}).filter('notDirector', function() {
+	return function(input) {
+		var test = /Director/;
+		return _.filter(input, function(i) {
+			var isDirector = false;
+			if (i.Position) {
+				isDirector = (!test.test(i.Area.Description) && !test.test(i.Area.desc));
+			} else if (i.pos) {
+				isDirector = (!test.test(i.a.Description) && !test.test(i.a.desc));
+			} else {
+				isDirector = (!test.test(i.Description) && !test.test(i.desc));
+			}
+			return isDirector;
+		});
+	};
+}).filter('notFTE', function() {
+	return function(input) {
+		var test = /FTE/;
+		return _.filter(input, function(i) {
+			var isFTE = false;
+			if (i.Position) {
+				isFTE = (!test.test(i.Position.Description) && !test.test(i.Position.desc));
+			} else if (i.pos) {
+				isFTE = (!test.test(i.pos.Description) && !test.test(i.pos.desc));
+			} else {
+				isFTE = (!test.test(i.Description) && !test.test(i.desc));
+			}
+			return isFTE;
+		});
 	};
 });

@@ -18,9 +18,9 @@
 				<a data-ui-sref="main.directory.gridView">
 					<span class="glyphicon glyphicon-earphone"></span>&#8199;Directory</a>
 			</li>
-			<!-- <li data-ng-show="currentUser.Admin || currentUser.Position.Position === 'FTE' || properties.currentUser.Position.Position === 'HR'">
-				<a data-ui-sref="main.hr">HR</a>
-			</li> -->
+			<li data-ng-show="currentUser.hrPrivledges">
+				<a data-ui-sref="main.hr.fte-tools.application-builder">HR</a>
+			</li>
 			<!-- <li data-ng-show="currentUser.Admin || currentUser.Area.Description === 'SARAS'">
 				<a data-ui-sref="main.saras">SARAS</a>
 			</li> -->
@@ -37,15 +37,13 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li data-ng-show="currentUser.Position.Description !== 'Applicant'">
-				<a data-bs-aside="aside" data-template="src/modules/messages/views/messages.client.view.html"
-				data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
+				<a data-bs-aside="aside" data-template="src/modules/messages/views/messages.client.view.html" data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
 					<span class="glyphicon glyphicon-envelope"></span>
 					<span data-ng-show="unreadMessages.count > 0" class="badge badge-error">{{unreadMessages.count}}</span>
 				</a>
 			</li>
 			<li data-ng-show="currentUser.Position.Description !== 'Applicant'">
-				<a data-bs-aside="aside" data-template="src/modules/user/views/user.client.view.html"
-				data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
+				<a data-bs-aside="aside" data-template="src/modules/user/views/user.client.view.html" data-placement="right" data-animation="am-fade-and-slide-right" data-container="body">
 					<span class="glyphicon glyphicon-user"></span>
 				</a>
 			</li>
@@ -53,4 +51,3 @@
 	</nav>
 </header>
 <tcems-header-banner></tcems-header-banner>
-

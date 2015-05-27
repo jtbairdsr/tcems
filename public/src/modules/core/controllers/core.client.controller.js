@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-01 14:22:47
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-20 17:00:48
+ * @Last Modified time: 2015-05-22 17:17:01
  */
 
 'use strict';
@@ -19,7 +19,8 @@ angular.module('core').controller('CoreController', function(
 	areas, areaPositions, availabilities, employees, employments, intents,
 	positions, tracks, messages, sentMessages, unreadMessages, weeks, subShifts,
 	facultyTestingInfos, professors, noTestingDays, semesters, schedules, teams,
-	shiftGroups, userMessages, userSentMessages, shifts, policies
+	shiftGroups, userMessages, userSentMessages, shifts, policies, questions,
+	pApps, aApps
 
 ) {
 	if (/inactiveEmployee|application/.test($location.path())) {
@@ -62,6 +63,9 @@ angular.module('core').controller('CoreController', function(
 	$rootScope.userMessages = userMessages.list;
 	$rootScope.userSentMessages = userSentMessages.list;
 	$rootScope.policies = policies.list;
+	$rootScope.questions = questions.list;
+	$rootScope.pApps = pApps.list;
+	$rootScope.aApps = aApps.list;
 
 	// Data
 	$rootScope.semesters = semesters;
@@ -71,4 +75,3 @@ angular.module('core').controller('CoreController', function(
 	$rootScope.unreadMessages = unreadMessages;
 
 });
-
