@@ -1,15 +1,30 @@
-<footer class="navbar-fixed-bottom bs-docs-nav text-center">
-	<hr class="hr-no-margins">
-	<div class="col-md-3 col-sm-3 hidden-xs">
-		<strong>Phone contact:</strong> {{currentUser.defaultPosition.PhoneNumber | tel}}
+<div class="container-fluid">
+	<tcems-buffer></tcems-buffer>
+	<div class="row-fluid hidden-xs">
+		<div class="col-md-4 col-sm-4">
+			<p><a href="http://glyphicons.com">Icons by Glyphicons!</a></p>
+		</div>
+		<div class="col-md-4 col-sm-4 text-center">
+			<p><a href="http://www.byui.edu/">Brigham Young University Idaho</a></p>
+		</div>
+		<div class="col-md-4 col-sm-4 text-right">
+			<p><a href="http://www.byui.edu/testingservices">Testing Services</a></p>
+		</div>
 	</div>
-	<div class="col-md-3 col-sm-3">
-		&#169; Brigham Young University Idaho
+	<div class="row visible-xs text-center">
+		<p><a href="http://www.byui.edu/">Brigham Young University Idaho</a></p>
+		<p><a href="http://glyphicons.com">Icons by Glyphicons!</a></p>
+		<p><a href="http://www.byui.edu//copyright/policy/terms-of-use/?cid=fli:190">Copyright &#169;2013</a></p>
 	</div>
-	<div class="col-md-3 col-sm-3">
-		Icons by <a href="http://glyphicons.com">Glyphicons</a>!
+	<div class="row-fluid hidden-xs">
+		<div class="col-md-4 col-sm-4">
+			<p data-ng-show="currentUser && currentUser.emp.Position.Description !== 'Applicant'"><strong>Phone:</strong> {{currentUser.defaultPosition.PhoneNumber | tel}}</p>
+		</div>
+		<div class="col-md-4 col-sm-4 text-center">
+			<p><a href="http://www.byui.edu//copyright/policy/terms-of-use/?cid=fli:190">Copyright &#169;2013</a></p>
+		</div>
+		<div class="col-md-4 col-sm-4 text-right">
+			<p data-ng-show="currentUser && currentUser.emp.Position.Description !== 'Applicant'"><strong>Email:</strong> {{currentUser.defaultPosition.Email}}</p>
+		</div>
 	</div>
-	<div class="col-md-3 col-sm-3 hidden-xs">
-		<strong>FTE supervisor:</strong> {{currentUser.defaultPosition.Email}}
-	</div>
-</footer>
+</div>

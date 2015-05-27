@@ -33,12 +33,14 @@
 		<base href="/index.html" />
 	</head>
 
-	<body class="ng-cloak">
+	<body data-flow-prevent-drop flow-drag-enter="dropClass='drag-over'" data-flow-drag-leave="dropClass=''">
+		<div class="wrap">
+			<main class="content">
+				<section data-ui-view></section>
+			</main>
 
-		<main class="content">
-			<section data-ui-view></section>
-		</main>
-		<section data-ng-include="'src/modules/core/views/footer.client.view.html'"></section>
+			<footer data-ng-include="'src/modules/core/views/footer.client.view.html'" class="footer"></footer>
+		</div>
 
 		<!-- Third Party Library JavaScript Files -->
 		<!--#if expr="v('DEVELOP') == 'true'" -->
