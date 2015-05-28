@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 16:36:13
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-19 09:24:14
+ * @Last Modified time: 2015-05-27 17:40:21
  */
 
 'use strict';
@@ -102,8 +102,16 @@ describe('AreaPosition object', function() {
 			'Id': 2,
 			'AreaId': 1,
 			'PositionId': 4,
-			'Hiring': true,
-			'CanSeeApps': true
+			'Hiring': 'January 1, 2015',
+			'Entry': true,
+			'CanSeeApps': true,
+			'Open': true,
+			'Referal': true,
+			'Review': true,
+			'AResume': true,
+			'RResume': true,
+			'ACoverLetter': true,
+			'RCoverLetter': true
 		});
 		testNewAreaPosition = new AreaPosition();
 	});
@@ -126,12 +134,44 @@ describe('AreaPosition object', function() {
 			expect(testNewAreaPosition.PositionId).toBeUndefined();
 		});
 		it('should populate the hiring property.', function() {
-			expect(testAreaPosition.hiring).toBeTruthy();
-			expect(testNewAreaPosition.hiring).toBeFalsy();
+			expect(testAreaPosition.hiring).toEqual(Date.parse('January 1, 2015'));
+			expect(testNewAreaPosition.hiring).toBeUndefined();
 		});
 		it('should populate the cSApps property.', function() {
 			expect(testAreaPosition.cSApps).toBeTruthy();
 			expect(testNewAreaPosition.cSApps).toBeFalsy();
+		});
+		it('should populate the entry property.', function() {
+			expect(testAreaPosition.entry).toBeTruthy();
+			expect(testNewAreaPosition.entry).toBeFalsy();
+		});
+		it('should populate the open property.', function() {
+			expect(testAreaPosition.open).toBeTruthy();
+			expect(testNewAreaPosition.open).toBeFalsy();
+		});
+		it('should populate the referal property.', function() {
+			expect(testAreaPosition.referal).toBeTruthy();
+			expect(testNewAreaPosition.referal).toBeFalsy();
+		});
+		it('should populate the review property.', function() {
+			expect(testAreaPosition.review).toBeTruthy();
+			expect(testNewAreaPosition.review).toBeFalsy();
+		});
+		it('should populate the ar property.', function() {
+			expect(testAreaPosition.ar).toBeTruthy();
+			expect(testNewAreaPosition.ar).toBeFalsy();
+		});
+		it('should populate the rr property.', function() {
+			expect(testAreaPosition.rr).toBeTruthy();
+			expect(testNewAreaPosition.rr).toBeFalsy();
+		});
+		it('should populate the acl property.', function() {
+			expect(testAreaPosition.acl).toBeTruthy();
+			expect(testNewAreaPosition.acl).toBeFalsy();
+		});
+		it('should populate the rcl property.', function() {
+			expect(testAreaPosition.rcl).toBeTruthy();
+			expect(testNewAreaPosition.rcl).toBeFalsy();
 		});
 		it('should populate the Area property.', function() {
 			expect(testAreaPosition.Area).toEqual(testArea);
@@ -155,7 +195,17 @@ describe('AreaPosition object', function() {
 		it('should set the data property.', function() {
 			expect(testAreaPosition.data).toEqual({
 				AreaId: 1,
-				PositionId: 4
+				PositionId: 4,
+				CanSeeApps: true,
+				Entry: true,
+				Hiring: Date.parse('January 1, 2015'),
+				Open: true,
+				Referal: true,
+				Review: true,
+				AResume: true,
+				RResume: true,
+				ACoverLetter: true,
+				RCoverLetter: true
 			});
 		});
 		it('should call the Data.prototype.updateData() method.', function() {
@@ -178,4 +228,3 @@ describe('AreaPosition object', function() {
 		});
 	});
 });
-

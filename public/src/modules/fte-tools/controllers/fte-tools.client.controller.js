@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-22 07:04:06
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-27 16:17:58
+ * @Last Modified time: 2015-05-27 19:05:25
  */
 
 'use strict';
@@ -15,9 +15,8 @@ angular.module('fte-tools').controller('FTEToolsController', function(
 
 	function toggle(prop) {
 		this[prop] = !this[prop];
-		this.object[prop] = !this[prop];
-
-		// this.object.update();
+		this.object[prop] = !this.object[prop];
+		this.object.update();
 	}
 
 	function createApsList(id) {
@@ -39,6 +38,11 @@ angular.module('fte-tools').controller('FTEToolsController', function(
 			active: true,
 			toggle: toggle
 		};
+		$scope.application = $scope.data.area;
+		$scope.data.arSet = false;
+		$scope.data.rrSet = false;
+		$scope.data.aclSet = false;
+		$scope.data.rclSet = false;
 		aps.splice(0, aps.length);
 		_.each(areaPositions.list, function(ap) {
 			if (ap.AreaId === id) {
@@ -46,6 +50,7 @@ angular.module('fte-tools').controller('FTEToolsController', function(
 					id: ap.Id,
 					pos: ap.Position,
 					a: ap.Area,
+					entry: ap.entry,
 					cSApps: ap.cSApps,
 					hiring: ap.hiring,
 					active: false,

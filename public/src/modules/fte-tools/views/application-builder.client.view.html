@@ -36,6 +36,9 @@
 					<div data-ng-include="appViews + 'app.client.view.html'"></div>
 				</div>
 			</div>
+			<div class="panel-footer text-right">
+				<span class="glyphicon glyphicon-asterisk text-danger"></span> = required
+			</div>
 		</div>
 	</div>
 </div>
@@ -74,7 +77,7 @@
 					<tcems-buffer></tcems-buffer>
 					<p class="text-center">
 						&nbsp;
-						<span data-ng-show="ap.object.open || ap.object.referal || ap.object.review">Since {{ap.object.hiring | date:'MMM d, yyyy'}}</span>nbs
+						<span data-ng-show="ap.object.open || ap.object.referal || ap.object.review">Since {{ap.object.hiring | date:'MMM d, yyyy'}}</span>
 					</p>
 					<tcems-buffer></tcems-buffer>
 					<div class="form-group">

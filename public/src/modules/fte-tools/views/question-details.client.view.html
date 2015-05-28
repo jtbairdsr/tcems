@@ -6,13 +6,24 @@
 				<h4 class="modal-title">{{q.content}}</h4>
 			</div>
 			<div class="modal-body container-fluid text-center">
-				<div data-ng-hide="q.type.indexOf('Choice') >= 0">
+				<div data-ng-hide="q.type.indexOf('Choice') >= 0 || q.type === 'FreeForm'">
 					<p>
 						<label class="control-label">Type:</label>
 					</p>
 					<p data-ng-if="q.type.indexOf('B') === 0">Yes or No</p>
-					<p data-ng-if="q.type.indexOf('F') === 0">Free Form</p>
 					<p data-ng-if="q.type.indexOf('D') === 0">Date</p>
+				</div>
+				<div data-ng-show="q.type === 'FreeForm'">
+					<p>
+						<label class="control-label">Type:</label>
+					</p>
+					<p>Free Form</p>
+					<hr>
+					<p>
+						<label class="control-label">Character Length:</label>
+					</p>
+					<p data-ng-if="!q.charLength">No Restriction</p>
+					<p data-ng-if="q.charLength">{{q.charLength}} characters</p>
 				</div>
 				<div data-ng-show="q.type.indexOf('Choice') >= 0">
 					<p>

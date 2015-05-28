@@ -3,7 +3,7 @@
 	<tcems-buffer></tcems-buffer>
 	<div class="form-group">
 		<label class="col-md-8">Accept:</label>
-		<div class="col-md-4 btn-group" data-ng-hide="arSet">
+		<div class="col-md-4 btn-group" data-ng-hide="data.arSet">
 			<a class="btn btn-default" data-ng-class="{active: application.ar}" data-ng-disabled="application.rr" data-ng-click="application.toggle('ar')">
 				<span>Yes</span>
 			</a>
@@ -11,21 +11,21 @@
 				<span>No</span>
 			</a>
 		</div>
-		<div class="col-md-4" data-ng-show="arSet">
+		<div class="col-md-4" data-ng-show="data.arSet">
 			<strong>Area settings.</strong>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-md-8">Required:</label>
-		<div class="col-md-4 btn-group" data-ng-hide="rrSet">
-			<a class="btn btn-default" data-ng-class="{active: application.rr}" data-ng-disabled="!(application.ar || arSet)" data-ng-click="application.toggle('rr')">
+		<div class="col-md-4 btn-group" data-ng-hide="data.rrSet">
+			<a class="btn btn-default" data-ng-class="{active: application.rr}" data-ng-disabled="!application.ar" data-ng-click="application.toggle('rr')">
 				<span>Yes</span>
 			</a>
-			<a class="btn btn-default" data-ng-class="{active: !application.rr}" data-ng-disabled="!(application.ar || arSet)" data-ng-click="application.toggle('rr')">
+			<a class="btn btn-default" data-ng-class="{active: !application.rr}" data-ng-disabled="!application.ar" data-ng-click="application.toggle('rr')">
 				<span>No</span>
 			</a>
 		</div>
-		<div class="col-md-4" data-ng-show="rrSet">
+		<div class="col-md-4" data-ng-show="data.rrSet">
 			<strong>Area settings.</strong>
 		</div>
 	</div>

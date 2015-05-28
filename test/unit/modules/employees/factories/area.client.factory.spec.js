@@ -2,226 +2,174 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 16:42:33
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 13:51:08
+ * @Last Modified time: 2015-05-27 18:36:33
  */
 
 'use strict';
 
-/* jasmine specs for the availability factory */
 describe('Area object', function() {
-	var dataService, Data, Area, $httpBackend, positions, Position;
 
-	beforeEach(module(ApplicationConfiguration.applicationModuleName));
+	/**************************************************************************
+	 *                                  PREP                                  *
+	 **************************************************************************/
 
-	// setup for the execution of each test
+	var testArea, testNewArea, testPosition,
+
+		// Services
+		$q, $timeout,
+
+		// Values
+		positions,
+
+		// Objects
+		Data, Area;
+
 	beforeEach(function() {
-		var thisPrep = this;
+		// Define the module
+		module(ApplicationConfiguration.applicationModuleName);
 
-		// assign local variable to injections of services.
+		// Mock the dependencies
+		module(function($provide) {
+			$provide.factory('Data', function($q) {
+				function Data(newData, list, listName) {
+					newData = newData || {};
+					this.newData = newData;
+					this.list = list;
+					this.listName = listName;
+				}
+				Data.query = function() {
+					var deffered = $q.defer();
+					deffered.resolve([1, 2, 3]);
+					return deffered.promise;
+				};
+				Data.prototype.initAttributes = function() {
+					this.Id = this.newData.Id || undefined;
+				};
+				Data.prototype.updateData = function() {
+					return {};
+				};
+				Data.prototype.add = function() {
+					var deffered = $q.defer();
+					deffered.resolve();
+					return deffered.promise;
+				};
+				Data.prototype.update = function() {
+					var deffered = $q.defer();
+					deffered.resolve();
+					return deffered.promise;
+				};
+				return Data;
+			});
+		});
+
+		// Assign injections of the services/values/objects to local variables
 		inject(function($injector) {
+			// Services
+			$q = $injector.get('$q');
+			$timeout = $injector.get('$timeout');
+
+			// Values
+			positions = $injector.get('positions');
+
+			// Objects
 			Data = $injector.get('Data');
 			Area = $injector.get('Area');
-			dataService = $injector.get('dataService');
-			$httpBackend = $injector.get('$httpBackend');
-			positions = $injector.get('positions');
-			Position = $injector.get('Position');
 		});
 
-		// $httpBackend Config
-		$httpBackend.whenGET(
-			'https://inet.byui.edu/sites/TestingServices/_api/lists/getbytitle(\'Area\')/items(\'2\')'
-		).respond({
-			d: {}
-		});
-		$httpBackend.whenPOST(
-			'https://inet.byui.edu/sites/TestingServices/_api/lists/getbytitle(\'Area\')/items(2)'
-		).respond([]);
-		$httpBackend.whenPOST(
-			'https://inet.byui.edu/sites/TestingServices/_api/contextinfo'
-		).respond({
-			d: {
-				GetContextWebInformation: {
-					FormDigestTimeoutSeconds: 30,
-					FormDigestValue: ''
-				}
-			}
-		});
-		$httpBackend.whenPOST(
-			'https://inet.byui.edu/sites/TestingServices/_api/lists/getbytitle(\'Area\')/items'
-		).respond({
-			d: {}
-		});
+		// Define spies
+		spyOn(Data, 'query').andCallThrough();
+		spyOn(Data.prototype, 'initAttributes').andCallThrough();
+		spyOn(Data.prototype, 'updateData').andCallThrough();
+		spyOn(Area.prototype, 'updateData').andCallThrough();
 
-		$httpBackend.flush();
-
-		// array and object initialization
-		positions.list[0] = new Position({
+		// Define the test data
+		positions.list.splice(0, positions.list.length);
+		testPosition = {
 			Id: 6
+		};
+		positions.list.push(testPosition);
+		testNewArea = new Area();
+		testArea = new Area({
+			'Area': 'Saras',
+			'Description': 'Saras',
+			'DefaultPositionId': 6,
+			'AResume': true,
+			'RResume': true,
+			'ACoverLetter': true,
+			'RCoverLetter': true
 		});
-		this.testObject = new Area({
-			"__metadata": {
-				"id": "Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)",
-				"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)",
-				"etag": "\"4\"",
-				"type": "SP.Data.AreaListItem"
-			},
-			"FirstUniqueAncestorSecurableObject": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/FirstUniqueAncestorSecurableObject"
-				}
-			},
-			"RoleAssignments": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/RoleAssignments"
-				}
-			},
-			"AttachmentFiles": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/AttachmentFiles"
-				}
-			},
-			"ContentType": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/ContentType"
-				}
-			},
-			"FieldValuesAsHtml": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/FieldValuesAsHtml"
-				}
-			},
-			"FieldValuesAsText": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/FieldValuesAsText"
-				}
-			},
-			"FieldValuesForEdit": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/FieldValuesForEdit"
-				}
-			},
-			"File": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/File"
-				}
-			},
-			"Folder": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/Folder"
-				}
-			},
-			"ParentList": {
-				"__deferred": {
-					"uri": "https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid'73f1aaaf-8a88-47e7-b02b-5c6e6b353978')/Items(2)/ParentList"
-				}
-			},
-			"FileSystemObjectType": 0,
-			"Id": 2,
-			"ContentTypeId": "0x010053F9BEB474E12346B2A4830AC39B9482",
-			"Title": null,
-			"Area": "Saras",
-			"Description": "Saras",
-			"DefaultPositionId": 6,
-			"ID": 2,
-			"Modified": "2015-01-28T16:09:58Z",
-			"Created": "2014-08-05T15:22:07Z",
-			"AuthorId": 11,
-			"EditorId": 11,
-			"OData__UIVersionString": "1.0",
-			"Attachments": false,
-			"GUID": "9da28bfd-7fcc-4c3e-8446-5752679691ab"
-		});
-
-		// Spies
-		spyOn(dataService, 'addItem').andCallThrough();
-		spyOn(dataService, 'updateItem').andCallThrough();
-		spyOn(dataService, 'fetchItem').andCallThrough();
-		spyOn(dataService, 'deleteItem').andCallThrough();
-		spyOn(this.testObject, 'updateData').andCallThrough();
 	});
 
-	// verify that we have cleaned up all of our $httpBackend usage.
-	afterEach(function() {
-		$httpBackend.verifyNoOutstandingExpectation();
-		$httpBackend.verifyNoOutstandingRequest();
-	})
-
 	it('should be able to be instantiated', function() {
-		expect(this.testObject).not.toBe(null);
+		expect(testArea).not.toBe(null);
 	});
 	describe('"listname" property', function() {
 		it('should be "Area"', function() {
-			expect(this.testObject.listName).toBe('Area');
+			expect(testArea.listName).toBe('Area');
 		});
 	});
 	describe('"initAttributes" method', function() {
-		beforeEach(function() {
-			this.testObject.initAttributes();
+		it('should populate the ar property.', function() {
+			expect(testArea.ar).toBeTruthy();
+			expect(testNewArea.ar).toBeFalsy();
 		});
-		it('should populate the properties.', function() {
-			expect(this.testObject.Id).toBe(2);
-			expect(this.testObject.Description).toBe('Saras');
-			expect(this.testObject.DefaultPositionId).toBe(6);
-			expect(this.testObject.Modified).toEqual(new Date('2015-01-28T16:09:58Z'));
-			expect(this.testObject.Created).toEqual(new Date('2014-08-05T15:22:07Z'));
-			expect(this.testObject.__metadata).toEqual({
-				'id': 'Web/Lists(guid\'73f1aaaf-8a88-47e7-b02b-5c6e6b353978\')/Items(2)',
-				'uri': 'https://inet.byui.edu/sites/TestingServices/_api/Web/Lists(guid\'73f1aaaf-8a88-47e7-b02b-5c6e6b353978\')/Items(2)',
-				'etag': '"4"',
-				'type': 'SP.Data.AreaListItem'
-			});
-			expect(this.testObject.DefaultPosition).toEqual(positions.list[0]);
-			expect(this.testObject.Positions).toEqual([]);
+		it('should populate the rr property.', function() {
+			expect(testArea.rr).toBeTruthy();
+			expect(testNewArea.rr).toBeFalsy();
 		});
-		it('should call the "updateData()" method.', function() {
-			expect(this.testObject.updateData).toHaveBeenCalled();
+		it('should populate the acl property.', function() {
+			expect(testArea.acl).toBeTruthy();
+			expect(testNewArea.acl).toBeFalsy();
+		});
+		it('should populate the rcl property.', function() {
+			expect(testArea.rcl).toBeTruthy();
+			expect(testNewArea.rcl).toBeFalsy();
+		});
+		it('should populate the Area property.', function() {
+			expect(testArea.Area).toBe('Saras');
+			expect(testNewArea.Area).toBeUndefined();
+		});
+		it('should populate the Description property.', function() {
+			expect(testArea.Description).toBe('Saras');
+			expect(testNewArea.Description).toBeUndefined();
+		});
+		it('should populate the DefaultPositionId property.', function() {
+			expect(testArea.DefaultPositionId).toEqual(6);
+			expect(testNewArea.DefaultPositionId).toBeUndefined();
+		});
+		it('should call the Data.prototype.initAttributes() method.', function() {
+			expect(Data.prototype.initAttributes.callCount).toBe(2);
+		});
+		it('should call the updateData() method.', function() {
+			expect(Area.prototype.updateData.callCount).toBe(2);
 		});
 	});
 	describe('"updateData" method', function() {
 		it('should the data property.', function() {
-			expect(this.testObject.data).toEqual({
-				Area: this.testObject.Area,
-				Description: this.testObject.Description,
-				DefaultPositionId: this.testObject.DefaultPositionId,
-				__metadata: this.testObject.__metadata
+			expect(testArea.data).toEqual({
+				Area: 'Saras',
+				Description: 'Saras',
+				DefaultPositionId: 6,
+				AResume: true,
+				RResume: true,
+				ACoverLetter: true,
+				RCoverLetter: true
 			});
 		});
 	});
 	describe('"toString" method', function() {
 		it('should return "New Area if the Description property is undefined.', function() {
-			expect(new Area().toString()).toEqual('New Area');
+			expect(testNewArea.toString()).toEqual('New Area');
 		});
 		it('should return "Saras Area" if the Description property is defined.', function() {
-			expect(this.testObject.toString()).toEqual('Saras Area');
+			expect(testArea.toString()).toEqual('Saras Area');
 		});
 	});
-	describe('"add" method', function() {
-		beforeEach(function() {
-			this.tempTestObject = new Area({
-				Id: 16
-			});
-			this.tempTestObject.add(true);
-			$httpBackend.flush();
+	describe('query() method', function() {
+		it('should call the Data.query() method.', function() {
+			Area.query();
+			$timeout.flush();
+			expect(Data.query).toHaveBeenCalled();
 		});
-		it('should call the "dataService.addItem()" method.', function() {
-			expect(dataService.addItem).toHaveBeenCalled();
-		});
-	});
-	describe('"refresh" method', function() {
-		it('should call the "dataService.fetchItem()" method.', function() {
-			this.testObject.refresh(true);
-			$httpBackend.flush();
-			expect(dataService.fetchItem).toHaveBeenCalled();
-		});
-	});
-	describe('"remove" method', function() {
-		beforeEach(function() {
-			this.testObject.remove(true);
-			$httpBackend.flush();
-		});
-		it('should call the "dataService.deleteItem()" method.', function() {
-			expect(dataService.deleteItem).toHaveBeenCalled();
-		});
-		xit('should remove the item from the availabilities list.', function() {});
 	});
 });

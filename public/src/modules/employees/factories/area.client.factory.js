@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-27 20:10:59
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-01 12:41:00
+ * @Last Modified time: 2015-05-27 18:35:01
  */
 
 'use strict';
@@ -41,6 +41,10 @@ angular.module('employees').factory('Area', function(Data, areas, positions) {
 		this.Area = this.newData.Area || undefined;
 		this.Description = this.newData.Description || undefined;
 		this.DefaultPositionId = this.newData.DefaultPositionId || undefined;
+		this.ar = this.newData.AResume || this.newData.ar || false;
+		this.rr = this.newData.RResume || this.newData.rr || false;
+		this.acl = this.newData.ACoverLetter || this.newData.acl || false;
+		this.rcl = this.newData.RCoverLetter || this.newData.rcl || false;
 
 		/****************Values derived from other tables**************/
 		this.DefaultPosition = (this.newData.DefaultPositionId) ? _.find(positions.list, function(position) {
@@ -58,6 +62,10 @@ angular.module('employees').factory('Area', function(Data, areas, positions) {
 		returnData.Area = this.Area;
 		returnData.Description = this.Description;
 		returnData.DefaultPositionId = this.DefaultPositionId;
+		returnData.AResume = this.ar;
+		returnData.RResume = this.rr;
+		returnData.ACoverLetter = this.acl;
+		returnData.RCoverLetter = this.rcl;
 		return returnData;
 	};
 

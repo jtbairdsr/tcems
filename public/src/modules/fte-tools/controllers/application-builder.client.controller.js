@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-05-21 19:29:15
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-27 13:02:18
+ * @Last Modified time: 2015-05-27 19:06:07
  */
 
 'use strict';
@@ -19,29 +19,28 @@ angular.module('fte-tools').controller('ApplicationBuilderController', function(
 	});
 
 	$scope.data.newQuestion = newQuestion;
-	$scope.application = $scope.data.area;
 	$scope.resumeSet = false;
 	$scope.clSet = false;
 	$scope.activateAP = function(id) {
 		$scope.data.area.active = false;
-		$scope.arSet = $scope.data.area.ar;
-		$scope.rrSet = $scope.data.area.rr;
-		$scope.aclSet = $scope.data.area.acl;
-		$scope.rclSet = $scope.data.area.rcl;
+		$scope.data.arSet = $scope.data.area.ar;
+		$scope.data.rrSet = $scope.data.area.rr;
+		$scope.data.aclSet = $scope.data.area.acl;
+		$scope.data.rclSet = $scope.data.area.rcl;
 		_.each(aps, function(ap) {
 			if (ap.id === id) {
 				$scope.application = ap;
-				ap.active = (ap.id === id);
 			}
+			ap.active = (ap.id === id);
 		});
 	};
 	$scope.switchToArea = function() {
 		$scope.data.area.active = true;
 		$scope.application = $scope.data.area;
-		$scope.arSet = false;
-		$scope.rrSet = false;
-		$scope.aclSet = false;
-		$scope.rclSet = false;
+		$scope.data.arSet = false;
+		$scope.data.rrSet = false;
+		$scope.data.aclSet = false;
+		$scope.data.rclSet = false;
 		_.each(aps, function(ap) {
 			ap.active = false;
 		});

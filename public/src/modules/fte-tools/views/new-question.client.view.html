@@ -23,7 +23,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group" data-ng-show="data.newQuestion.type === 'MultipleChoice' || data.newQuestion.type === 'Choice'">
+				<div class="form-group" data-ng-show="data.newQuestion.type === 'FreeForm'">
+					<hr>
+					<label class="control-label">Length:</label>
+					<input class="form-control" data-ng-model="data.newQuestion.charLength" type="text" placeholder="Number of accepted characters...">
+					<small class="text-danger pull-right">If left blank there will be no restriction.</small>
+				</div>
+				<div class="form-group" data-ng-show="data.newQuestion.type.indexOf('Choice') >= 0">
 					<hr>
 					<label class="control-label">Choices:</label>
 					<textarea class="form-control" data-ng-model="data.newQuestion.choices" placeholder="Enter choices seperated by (,)..."></textarea>
