@@ -30,7 +30,6 @@
 		<link rel="stylesheet" type="text/css" href="dist/application-3.0.4-dev.0.min.css" />
 		<!--#endif -->
 
-		<base href="/index.html" />
 	</head>
 
 	<body class="ng-cloak">

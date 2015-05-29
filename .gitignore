@@ -9,6 +9,9 @@ public/src/templates/
 .bower-*/
 .idea/
 *.swp
+logs/**
+testcenterems.bairdbunch.com.conf
+haven.c.byui.edu.conf
 
 assets/
 aspnet_client/
