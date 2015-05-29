@@ -2,7 +2,7 @@
  * @Author: Jonathan Baird
  * @Date:   2015-04-29 12:22:47
  * @Last Modified by:   Jonathan Baird
- * @Last Modified time: 2015-05-04 07:47:57
+ * @Last Modified time: 2015-05-21 11:53:37
  */
 'use strict';
 
@@ -116,8 +116,9 @@ angular.module('shifts').factory('Shift', function($q, Data, shifts, schedules, 
 			.then(function() {
 				that.Active = false;
 				that.Current = false;
-				that.update(hideAlert);
-				deffered.resolve();
+				that.update(hideAlert).then(function() {
+					deffered.resolve();
+				});
 			});
 		return deffered.promise;
 	};

@@ -22,15 +22,15 @@ angular.module('core').run(function($rootScope) {
 	angular.extend($datepickerProvider.defaults, {
 		dateFormat: 'd - MMM - yyyy',
 		startWeek: 0,
-		placement: 'auto bottom-center'
+		placement: 'bottom-center'
 	});
 }).config(function($selectProvider) {
 	angular.extend($selectProvider.defaults, {
-		placement: 'auto bottom-center'
+		placement: 'bottom-center'
 	});
 }).config(function($typeaheadProvider) {
 	angular.extend($typeaheadProvider.defaults, {
-		placement: 'auto bottom-center'
+		placement: 'bottom-center'
 	});
 }).config(function($modalProvider) {
 	angular.extend($modalProvider.defaults, {
